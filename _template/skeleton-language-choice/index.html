@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Which Language Should a Skeleton Speak? Language Choices in Multilingual Reasoning</title>
+  <meta name="description" content="The Language-Aware Skeleton Exploration Framework (LASEF) studies which language a reasoning skeleton should be written in for multilingual mathematical reasoning with LLMs: English skeletons give a small average gain (+2.38 points over 19 low-resource MGSM languages with Qwen2.5-7B) but are not universally optimal. Findings of EMNLP 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="skeleton-based reasoning, skeleton language, multilingual reasoning, multilingual mathematical reasoning, chain-of-thought, CoT, structured reasoning prompting, English-pivot reasoning, cross-lingual transfer, low-resource languages, training-free prompting, LASEF, MGSM, MATH-500, PolyMath, Qwen2.5, Findings of EMNLP 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/skeleton-language-choice/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Which Language Should a Skeleton Speak? Language Choices in Multilingual Reasoning">
+  <meta property="og:description" content="Which language should a reasoning skeleton be written in? English skeletons help on average (+2.38 points on 19 low-resource MGSM languages) but are not universally optimal. Findings of EMNLP 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/skeleton-language-choice/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/skeleton-language-choice/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="795">
+  <meta property="og:image:alt" content="Overview of the Language-Aware Skeleton Exploration Framework: an input query, skeleton generation in a chosen skeleton language, skeleton-guided reasoning in the answer language, language configurations, and benchmark-conditioned analysis.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Which Language Should a Skeleton Speak? Language Choices in Multilingual Reasoning">
+  <meta name="twitter:description" content="Skeleton-language choice in multilingual mathematical reasoning with LLMs. Findings of EMNLP 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/skeleton-language-choice/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Which Language Should a Skeleton Speak? Language Choices in Multilingual Reasoning">
+  <meta name="citation_author" content="Lim, HyeonSeok">
+  <meta name="citation_author_institution" content="ETRI">
+  <meta name="citation_author" content="Song, SeungWoo">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Won, Inho">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Song, Hoyun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author_institution" content="Department of Artificial Intelligence, Dankook University">
+  <meta name="citation_author" content="Kim, Jihyo">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/10">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: EMNLP 2026">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="31933">
+  <meta name="citation_lastpage" content="31957">
+  <meta name="citation_doi" content="10.18653/2026.findings-emnlp.1500">
+  <meta name="citation_isbn" content="979-8-89176-462-0">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2026.findings-emnlp.1500.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/skeleton-language-choice/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/skeleton-language-choice/#article",
+    "headline": "Which Language Should a Skeleton Speak? Language Choices in Multilingual Reasoning",
+    "name": "Which Language Should a Skeleton Speak? Language Choices in Multilingual Reasoning",
+    "url": "https://kaist-mlplab.github.io/skeleton-language-choice/",
+    "datePublished": "2026-10",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/skeleton-language-choice/static/images/teaser.png",
+    "abstract": "Skeleton-based reasoning prompting is a promising training-free approach for structuring LLM reasoning, but prior work largely assumes an English-centric setting. We propose the Language-Aware Skeleton Exploration Framework (LASEF) to study skeleton-language choice in multilingual mathematical reasoning. Across math benchmarks, model scales, and languages, we show that English skeletons yield a small positive tendency on average, most visible for smaller models and low-resource languages. However, few language-level gains remain significant after correction, and English is not universally optimal. Combining greedy decoding, multi-rollout evaluation, translation ablation, and cross-benchmark validation, we further find three patterns of skeleton-language effects: directionally consistent, evaluation- and benchmark-dependent, and asymmetric negative. These effects cannot be fully explained by generation quality alone. Overall, skeleton language is a context-dependent design variable that requires multi-level exploration. All resources are released.",
+    "keywords": ["skeleton-based reasoning", "skeleton language", "multilingual reasoning", "multilingual mathematical reasoning", "chain-of-thought", "English-pivot reasoning", "cross-lingual transfer", "low-resource languages", "training-free prompting", "LASEF", "MGSM"],
+    "about": [
+      {"@type": "Thing", "name": "Multilingual reasoning"},
+      {"@type": "Thing", "name": "Skeleton-based reasoning prompting"},
+      {"@type": "Thing", "name": "Mathematical reasoning in large language models"}
+    ],
+    "author": [
+      {"@type": "Person", "name": "HyeonSeok Lim", "affiliation": {"@type": "Organization", "name": "ETRI"}},
+      {"@type": "Person", "name": "SeungWoo Song", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Inho Won", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Hoyun Song", "affiliation": [{"@type": "Organization", "name": "KAIST"}, {"@type": "Organization", "name": "Department of Artificial Intelligence, Dankook University"}]},
+      {"@type": "Person", "name": "Jihyo Kim", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "KyungTae Lim", "affiliation": {"@type": "Organization", "name": "KAIST"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "isPartOf": {"@type": "Periodical", "name": "Findings of the Association for Computational Linguistics: EMNLP 2026", "publisher": {"@type": "Organization", "name": "Association for Computational Linguistics"}},
+    "sameAs": ["https://aclanthology.org/2026.findings-emnlp.1500/", "https://doi.org/10.18653/2026.findings-emnlp.1500", "https://github.com/lhsstn/LASEF"],
+    "pagination": "31933-31957",
+    "workExample": {"@type": "SoftwareSourceCode", "name": "LASEF (code and resources)", "codeRepository": "https://github.com/lhsstn/LASEF"},
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.18653/2026.findings-emnlp.1500"},
+      {"@type": "PropertyValue", "propertyID": "ISBN", "value": "979-8-89176-462-0"}
+    ],
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://aclanthology.org/2026.findings-emnlp.1500.pdf"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Which Language Should a Skeleton Speak? Language Choices in Multilingual Reasoning</h1>
+      <p class="subtitle is-5 publication-subtitle">How the language of a reasoning skeleton affects multilingual mathematical reasoning in LLMs</p>
+      <p><span class="tag is-link is-medium venue-badge">Findings of EMNLP 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">HyeonSeok Lim<sup>1</sup>,</span>
+        <span class="author-block">SeungWoo Song<sup>2</sup>,</span>
+        <span class="author-block">Inho Won<sup>2</sup>,</span>
+        <span class="author-block">Hoyun Song<sup>2,3</sup>,</span>
+        <span class="author-block">Jihyo Kim<sup>2</sup>,</span>
+        <span class="author-block"><a href="https://sites.google.com/view/aailab/about-us/professor">KyungTae Lim</a><sup>2,†</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>ETRI</span>
+        <span class="author-block"><sup>2</sup>KAIST</span>
+        <span class="author-block"><sup>3</sup>Department of Artificial Intelligence, Dankook University</span>
+      </p>
+      <p class="publication-notes"><sup>†</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-emnlp.1500/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-emnlp.1500.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://github.com/lhsstn/LASEF">Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="795"
+           alt="Five-part pipeline diagram. (A) A user gives a Swahili math query about Jimmy and Ethel's money. (B) An LLM generates a short skeleton listing the problem structure and key concepts, in a chosen skeleton language. (C) The LLM generates reasoning and the final answer in the answer language, conditioned on the query and the skeleton. (D) Language configurations (query, skeleton, answer language) such as CoT in the target language, with or without an English skeleton, and CoT on an English-translated query, with or without an English skeleton. (E) Configurations are evaluated on a benchmark without any parameter updates.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Overview of the Language-Aware Skeleton Exploration Framework (LASEF). (A) An input query
+        <em>q</em> is given in the query language &ell;<sub>q</sub>. (B) A skeleton <em>s</em> that abstracts the problem logic is
+        generated in the skeleton language &ell;<sub>s</sub>, with a fixed format. (C) The reasoning and final answer are generated in
+        the answer language &ell;<sub>a</sub>, conditioned on the query and the skeleton. (D) The language configuration space is
+        (&ell;<sub>q</sub>, &ell;<sub>s</sub>, &ell;<sub>a</sub>); four primary strategies are compared: standard CoT and
+        skeleton-guided reasoning, applied with the query in the target language &ell;<sub>t</sub> or translated into English.
+        (E) Effective configurations are identified per benchmark, training-free. The example shows an English skeleton for a
+        Swahili query.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Skeleton-based reasoning prompting is a promising training-free approach for structuring LLM reasoning, but prior work
+        largely assumes an English-centric setting. We propose the Language-Aware Skeleton Exploration Framework (LASEF) to study
+        skeleton-language choice in multilingual mathematical reasoning. Across math benchmarks, model scales, and languages, we show
+        that English skeletons yield a small positive tendency on average, most visible for smaller models and low-resource languages.
+        However, few language-level gains remain significant after correction, and English is not universally optimal. Combining
+        greedy decoding, multi-rollout evaluation, translation ablation, and cross-benchmark validation, we further find three patterns
+        of skeleton-language effects: directionally consistent, evaluation- and benchmark-dependent, and asymmetric negative. These
+        effects cannot be fully explained by generation quality alone. Overall, skeleton language is a context-dependent design
+        variable that requires multi-level exploration. All resources are released at
+        <a href="https://github.com/lhsstn/LASEF">github.com/lhsstn/LASEF</a>.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Skeleton-based reasoning</span>
+      <span class="tag">Multilingual reasoning</span>
+      <span class="tag">Multilingual math reasoning</span>
+      <span class="tag">Chain-of-Thought (CoT)</span>
+      <span class="tag">English-pivot reasoning</span>
+      <span class="tag">Cross-lingual transfer</span>
+      <span class="tag">Low-resource languages</span>
+      <span class="tag">Training-free prompting</span>
+      <span class="tag">LASEF</span>
+      <span class="tag">MGSM</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        A <em>skeleton</em> is a short, abstract description of a problem's structure (what is known, what is unknown, which concepts
+        or tools apply) that guides the model's reasoning without giving solution steps or the answer. In a multilingual setting,
+        skeleton-based reasoning involves three language choices: the query language <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mi>q</mi></msub></mrow><annotation encoding="application/x-tex">\ell_q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>, the skeleton language
+        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">\ell_s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, and the answer language <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">\ell_a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> used for both reasoning and the final answer. LASEF is a training-free
+        analysis framework (Figure 1) that varies only these languages while keeping the skeleton format fixed:
+      </p>
+      <ol>
+        <li><strong>Skeleton generation.</strong> From the query <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>q</mi><mrow><mo stretchy="false">(</mo><msub><mi mathvariant="normal">ℓ</mi><mi>q</mi></msub><mo stretchy="false">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">q^{(\ell_q)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0824em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight"><span class="mord mtight">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2819em;"><span></span></span></span></span></span></span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span></span></span></span>, the model generates a skeleton
+          <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>s</mi><mrow><mo stretchy="false">(</mo><msub><mi mathvariant="normal">ℓ</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">s^{(\ell_s)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.888em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight"><span class="mord mtight">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span></span></span></span> under one rule: describe what the problem structure is, never how to solve it. Skeletons average about
+          120 tokens regardless of language.</li>
+        <li><strong>Skeleton-guided reasoning.</strong> The model then produces the answer conditioned on the query and skeleton,
+          <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>a</mi><mo>^</mo></mover><mo>=</mo><mi>f</mi><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">(</mo><msup><mi>q</mi><mrow><mo stretchy="false">(</mo><msub><mi mathvariant="normal">ℓ</mi><mi>q</mi></msub><mo stretchy="false">)</mo></mrow></msup><mo separator="true">,</mo><mtext> </mtext><msup><mi>s</mi><mrow><mo stretchy="false">(</mo><msub><mi mathvariant="normal">ℓ</mi><mi>s</mi></msub><mo stretchy="false">)</mo></mrow></msup><mo separator="true">,</mo><mtext> </mtext><msub><mi mathvariant="normal">ℓ</mi><mi>a</mi></msub><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">)</mo><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">\hat{a} = f\big(q^{(\ell_q)},\, s^{(\ell_s)},\, \ell_a\big),</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">a</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.288em;vertical-align:-0.35em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight"><span class="mord mtight">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2819em;"><span></span></span></span></span></span></span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight"><span class="mord mtight">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="delimsizing size1">)</span></span><span class="mpunct">,</span></span></span></span></span> where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi></mrow><annotation encoding="application/x-tex">f</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span></span></span></span> is the pre-trained LLM.</li>
+        <li><strong>Language configurations.</strong> For a target language <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">ℓ</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\ell_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>, four baselines are compared:
+          target-language CoT <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi mathvariant="normal">ℓ</mi><mi>t</mi></msub><mo separator="true">,</mo><mo>−</mo><mo separator="true">,</mo><msub><mi mathvariant="normal">ℓ</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\ell_t, -, \ell_t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">−</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, the same with an English skeleton <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi mathvariant="normal">ℓ</mi><mi>t</mi></msub><mo separator="true">,</mo><mi>e</mi><mi>n</mi><mo separator="true">,</mo><msub><mi mathvariant="normal">ℓ</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\ell_t, en, \ell_t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>,
+          English-pivot CoT on a Google-translated query <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>e</mi><mi>n</mi><mo separator="true">,</mo><mo>−</mo><mo separator="true">,</mo><msub><mi mathvariant="normal">ℓ</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(en, -, \ell_t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">−</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, and the same with an English skeleton
+          <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>e</mi><mi>n</mi><mo separator="true">,</mo><mi>e</mi><mi>n</mi><mo separator="true">,</mo><msub><mi mathvariant="normal">ℓ</mi><mi>t</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(en, en, \ell_t)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>. The study then replaces the English skeleton with Chinese, Spanish, Russian, Korean, and Thai
+          skeletons.</li>
+        <li><strong>Multi-level evaluation.</strong> Configurations are scored with exact match on samples whose answer is in the
+          target language, under greedy decoding and multi-rollout sampling (T = 0.7, N = 5), with a translation ablation
+          (English skeletons translated by GPT-5-mini, so content is fixed and only surface language varies) and cross-benchmark
+          checks on MSVAMP.</li>
+      </ol>
+      <p>
+        Experiments use Qwen2.5-7B/14B/72B-Instruct (Llama 3.1 results are in the paper's appendix) on MGSM (elementary
+        arithmetic), MATH-500 (intermediate), and PolyMath (advanced), with target languages ranging from high-resource (zh, es) to
+        low-resource (19 low-resource MGSM languages such as Kazakh, Uyghur, Basque, Maltese, and Lao).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>English skeletons help a little on average.</strong> On 19 low-resource MGSM languages with Qwen2.5-7B, English
+          skeletons improve 13 of 19 languages, with mean gains of +2.38 points (33.99 &rarr; 36.37, target-language query) and
+          +2.02 points (58.06 &rarr; 60.08, English-translated query). After FDR correction, language-level gains are significant only
+          for Kazakh (+11.34) and Uyghur (+10.52); Maltese drops by 5.65.</li>
+        <li><strong>Translation matters more than the skeleton.</strong> Translating the query into English raises the low-resource
+          average from 33.99 to 58.06 (+24.07), versus +2.02 from adding English skeletons on top.</li>
+        <li><strong>Gains shrink with model size and difficulty.</strong> For Qwen2.5-7B, English skeletons add +2.2 on MGSM, +1.8 on
+          MATH-500, and +1.2 on PolyMath; Swahili on MGSM (translated query) rises from 63.1 to 71.7. Qwen2.5-72B instead drops by
+          0.2 on MGSM (target-language query) and on PolyMath (translated query).</li>
+        <li><strong>English is a stable but not universal anchor.</strong> Replacing the English skeleton with zh, es, ru, ko, or th
+          lowers the average by 0.63 to 2.60 points, yet some pairs gain under both greedy and multi-rollout evaluation: Basque with
+          a Korean skeleton (+6.32 &rarr; +2.78), Armenian&ndash;Korean (+5.17 &rarr; +4.61), and Lao&ndash;Thai (+2.81 &rarr; +3.18).</li>
+        <li><strong>Three patterns, not explained by skeleton quality alone.</strong> Besides these directionally consistent pairs,
+          Maltese shows evaluation-dependent gains (Russian skeleton +8.62 under greedy decoding, attenuated or reversed under
+          multi-rollout and on MSVAMP), and Mongolian&ndash;Russian (&minus;5.00) and Uyghur&ndash;Chinese (&minus;6.45) show
+          asymmetric negative transfer despite shared script or geography. With translated skeletons the effects keep their sign
+          (eu&ndash;ko +4.42, mt&ndash;ru +5.15, mn&ndash;ru &minus;3.43, ug&ndash;zh &minus;6.94).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Exact-match accuracy (%) with and without English skeletons, greedy decoding.
+          (&ell;<sub>q</sub>, &ell;<sub>s</sub>, &ell;<sub>a</sub>) are the query, skeleton, and answer languages;
+          en<sup>&dagger;</sup> is a query translated into English with Google Translate. AVG. is the mean over zh, es, ko, th, and sw.
+          Subset: Swahili (sw) and AVG. columns only; per-language results for zh, es, ko, and th are in the full table in the paper.
+          Skeleton rows (LASEF with an English skeleton) are highlighted. (Table 1 in the paper.)
+        </caption>
+        <thead>
+          <tr>
+            <th rowspan="2">Model</th><th rowspan="2">Method</th><th rowspan="2">(&ell;<sub>q</sub>, &ell;<sub>s</sub>, &ell;<sub>a</sub>)</th>
+            <th colspan="2">MGSM</th><th colspan="2">MATH-500</th><th colspan="2">PolyMath</th>
+          </tr>
+          <tr>
+            <th>sw</th><th>AVG.</th><th>sw</th><th>AVG.</th><th>sw</th><th>AVG.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="4">Qwen2.5-7B-Instruct</td><td>CoT-&ell;<sub>t</sub></td><td>&ell;<sub>t</sub>, &minus;, &ell;<sub>t</sub></td><td>16.0</td><td>65.3</td><td>14.2</td><td>45.1</td><td>5.1</td><td>23.9</td></tr>
+          <tr class="ours"><td>+ Skeleton</td><td>&ell;<sub>t</sub>, en, &ell;<sub>t</sub></td><td>22.9</td><td>67.5</td><td>20.4</td><td>46.9</td><td>7.4</td><td>25.1</td></tr>
+          <tr><td>CoT-en<sup>&dagger;</sup></td><td>en, &minus;, &ell;<sub>t</sub></td><td>63.1</td><td>76.5</td><td>24.4</td><td>47.8</td><td>20.3</td><td>27.9</td></tr>
+          <tr class="ours"><td>+ Skeleton</td><td>en, en, &ell;<sub>t</sub></td><td>71.7</td><td>78.4</td><td>29.8</td><td>50.3</td><td>19.9</td><td>28.9</td></tr>
+          <tr><td rowspan="4">Qwen2.5-14B-Instruct</td><td>CoT-&ell;<sub>t</sub></td><td>&ell;<sub>t</sub>, &minus;, &ell;<sub>t</sub></td><td>45.0</td><td>77.9</td><td>30.1</td><td>52.6</td><td>14.7</td><td>29.1</td></tr>
+          <tr class="ours"><td>+ Skeleton</td><td>&ell;<sub>t</sub>, en, &ell;<sub>t</sub></td><td>50.7</td><td>79.1</td><td>35.2</td><td>55.1</td><td>15.0</td><td>30.3</td></tr>
+          <tr><td>CoT-en<sup>&dagger;</sup></td><td>en, &minus;, &ell;<sub>t</sub></td><td>74.5</td><td>82.4</td><td>39.1</td><td>53.4</td><td>24.0</td><td>31.0</td></tr>
+          <tr class="ours"><td>+ Skeleton</td><td>en, en, &ell;<sub>t</sub></td><td>74.5</td><td>83.3</td><td>40.4</td><td>54.6</td><td>26.9</td><td>32.0</td></tr>
+          <tr><td rowspan="4">Qwen2.5-72B-Instruct</td><td>CoT-&ell;<sub>t</sub></td><td>&ell;<sub>t</sub>, &minus;, &ell;<sub>t</sub></td><td>68.0</td><td>84.5</td><td>46.3</td><td>59.6</td><td>31.0</td><td>34.8</td></tr>
+          <tr class="ours"><td>+ Skeleton</td><td>&ell;<sub>t</sub>, en, &ell;<sub>t</sub></td><td>70.1</td><td>84.3</td><td>54.3</td><td>61.9</td><td>32.0</td><td>35.7</td></tr>
+          <tr><td>CoT-en<sup>&dagger;</sup></td><td>en, &minus;, &ell;<sub>t</sub></td><td>85.5</td><td>86.3</td><td>56.3</td><td>61.5</td><td>40.6</td><td>36.3</td></tr>
+          <tr class="ours"><td>+ Skeleton</td><td>en, en, &ell;<sub>t</sub></td><td>86.7</td><td>86.8</td><td>60.0</td><td>62.4</td><td>39.3</td><td>36.1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <figure class="mt-5">
+      <picture>
+        <source srcset="static/images/skeleton-language-heatmap.webp" type="image/webp">
+        <img src="static/images/skeleton-language-heatmap.png" width="2600" height="1766" loading="lazy"
+           alt="Two heatmaps of accuracy differences between non-English and English skeletons for 19 low-resource target languages (rows) and five skeleton languages ZH, ES, RU, KO, TH (columns), under greedy decoding (left) and five-rollout sampling (right). Most cells are negative (blue); positive (red) cells include Maltese with Russian, Thai, and Spanish skeletons under greedy decoding, and Basque and Armenian with Korean and Lao with Thai under both settings. Average rows range from -0.63 to -2.36 (greedy) and -1.27 to -2.60 (multi-rollout).">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> Accuracy difference (non-English skeleton &minus; English skeleton, points) on MGSM with
+        Qwen2.5-7B and target-language queries, for skeletons in ZH, ES, RU, KO, and TH. (a) Greedy decoding: averages are
+        &minus;0.67, &minus;1.64, &minus;0.63, &minus;1.20, and &minus;2.36. (b) Multi-rollout sampling (T = 0.7, N = 5): averages
+        are &minus;1.35, &minus;1.27, &minus;1.45, &minus;1.81, and &minus;2.60. Largest positive cells under greedy decoding: MT&ndash;RU
+        +8.62, MT&ndash;TH +6.90, MT&ndash;ES +6.61, EU&ndash;KO +6.32, HY&ndash;KO +5.17; largest negative: UG&ndash;TH &minus;10.25.
+        (Figure 2 in the paper.)
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{lim-etal-2026-language,
+    title = "Which Language Should a Skeleton Speak? Language Choices in Multilingual Reasoning",
+    author = "Lim, HyeonSeok  and
+      Song, SeungWoo  and
+      Won, Inho  and
+      Song, Hoyun  and
+      Kim, Jihyo  and
+      Lim, KyungTae",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {EMNLP} 2026",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.findings-emnlp.1500/",
+    doi = "10.18653/2026.findings-emnlp.1500",
+    pages = "31933--31957",
+    ISBN = "979-8-89176-462-0"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>KFinEval: A Curated Benchmark Suite for Real-World Korean Financial Language Understanding</title>
+  <meta name="description" content="KFinEval is a Korean financial LLM benchmark of 971 expert-curated questions covering financial knowledge, regulation-grounded procedural reasoning under noisy contexts, and financial toxicity under adversarial prompts; across proprietary and open-weight LLMs, strong capability does not consistently translate into safer responses. Findings of EMNLP 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="KFinEval, Korean financial benchmark, Korean LLM benchmark, financial LLM evaluation, financial NLP, Korean financial regulation, regulation-grounded reasoning, procedural reasoning, financial toxicity, LLM safety, red-teaming, jailbreak, LLM-as-a-judge, FSC, FSS, Findings of EMNLP 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/kfineval/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="KFinEval: A Curated Benchmark Suite for Real-World Korean Financial Language Understanding">
+  <meta property="og:description" content="A Korean financial LLM benchmark of 971 expert-curated questions on financial knowledge, regulation-grounded reasoning, and financial toxicity. Findings of EMNLP 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/kfineval/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/kfineval/static/images/teaser.png">
+  <meta property="og:image:width" content="1758">
+  <meta property="og:image:height" content="1758">
+  <meta property="og:image:alt" content="Sunburst chart of the 971 KFinEval questions: Reasoning 575, Knowledge 296, and Toxicity 100, with their subcategories.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KFinEval: A Curated Benchmark Suite for Korean Financial Language Understanding">
+  <meta name="twitter:description" content="971 expert-curated Korean financial questions on knowledge, regulation-grounded reasoning, and financial toxicity. Findings of EMNLP 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/kfineval/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="KFinEval: A Curated Benchmark Suite for Real-World Korean Financial Language Understanding">
+  <meta name="citation_author" content="Lim, Seonkyu">
+  <meta name="citation_author_institution" content="KFTC">
+  <meta name="citation_author" content="Hwang, Bokwang">
+  <meta name="citation_author_institution" content="KFTC">
+  <meta name="citation_author" content="Baek, Jonghyuk">
+  <meta name="citation_author_institution" content="Flitto">
+  <meta name="citation_author" content="Kim, Jingu">
+  <meta name="citation_author_institution" content="Flitto">
+  <meta name="citation_author" content="Yoo, Hangyeol">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/10">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: EMNLP 2026">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="6049">
+  <meta name="citation_lastpage" content="6081">
+  <meta name="citation_doi" content="10.18653/2026.findings-emnlp.286">
+  <meta name="citation_isbn" content="979-8-89176-462-0">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2026.findings-emnlp.286.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/kfineval/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/kfineval/#article",
+    "headline": "KFinEval: A Curated Benchmark Suite for Real-World Korean Financial Language Understanding",
+    "name": "KFinEval: A Curated Benchmark Suite for Real-World Korean Financial Language Understanding",
+    "url": "https://kaist-mlplab.github.io/kfineval/",
+    "datePublished": "2026-10",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/kfineval/static/images/teaser.png",
+    "abstract": "We introduce KFinEval, a benchmark for evaluating large language models (LLMs) in the Korean financial domain, with about 1K expert-curated instances across foundational financial knowledge, regulation-grounded procedural reasoning under noisy contexts, and financial toxicity under adversarial prompts. Existing financial benchmarks are largely English-centric and emphasize numerical or surface reasoning, providing limited coverage of regulation-grounded decision-making and domain-specific safety. Evaluating proprietary and open-weight LLMs, we observe substantial disparities and trade-offs among knowledge accuracy, procedural reasoning, and safety-aligned behavior; notably, strong capability does not consistently translate into safer responses under adversarial financial scenarios. KFinEval provides a practical Korean-regulation-grounded benchmark for diagnosing and improving financial LLM reliability and safety. Code and resources: https://github.com/sklim84/KFinEval.",
+    "keywords": ["Korean financial benchmark", "financial LLM evaluation", "financial NLP", "Korean financial regulation", "regulation-grounded procedural reasoning", "financial toxicity", "LLM safety", "red-teaming", "LLM-as-a-judge", "Korean LLM"],
+    "about": [
+      {"@type": "Thing", "name": "Benchmark datasets for large language models"},
+      {"@type": "Thing", "name": "Financial natural language processing"},
+      {"@type": "Thing", "name": "Korean language"},
+      {"@type": "Thing", "name": "AI safety"}
+    ],
+    "author": [
+      {"@type": "Person", "name": "Seonkyu Lim", "affiliation": {"@type": "Organization", "name": "KFTC"}},
+      {"@type": "Person", "name": "Bokwang Hwang", "affiliation": {"@type": "Organization", "name": "KFTC"}},
+      {"@type": "Person", "name": "Jonghyuk Baek", "affiliation": {"@type": "Organization", "name": "Flitto"}},
+      {"@type": "Person", "name": "Jingu Kim", "affiliation": {"@type": "Organization", "name": "Flitto"}},
+      {"@type": "Person", "name": "Hangyeol Yoo", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "KyungTae Lim", "affiliation": {"@type": "Organization", "name": "KAIST"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "isPartOf": {"@type": "Periodical", "name": "Findings of the Association for Computational Linguistics: EMNLP 2026", "publisher": {"@type": "Organization", "name": "Association for Computational Linguistics"}},
+    "sameAs": ["https://aclanthology.org/2026.findings-emnlp.286/", "https://doi.org/10.18653/2026.findings-emnlp.286", "https://github.com/sklim84/KFinEval"],
+    "pagination": "6049-6081",
+    "workExample": [
+      {"@type": "SoftwareSourceCode", "name": "KFinEval (code)", "codeRepository": "https://github.com/sklim84/KFinEval", "programmingLanguage": "Python"}
+    ],
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.18653/2026.findings-emnlp.286"}
+    ],
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://aclanthology.org/2026.findings-emnlp.286.pdf"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">KFinEval: A Curated Benchmark Suite for Real-World Korean Financial Language Understanding</h1>
+      <p class="subtitle is-5 publication-subtitle">A Korean financial LLM benchmark of 971 expert-curated questions on financial knowledge, regulation-grounded reasoning, and financial toxicity</p>
+      <p><span class="tag is-link is-medium venue-badge">Findings of EMNLP 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Seonkyu Lim<sup>1,*</sup>,</span>
+        <span class="author-block">Bokwang Hwang<sup>1</sup>,</span>
+        <span class="author-block">Jonghyuk Baek<sup>2,*</sup>,</span>
+        <span class="author-block">Jingu Kim<sup>2</sup>,</span>
+        <span class="author-block">Hangyeol Yoo<sup>3,*</sup>,</span>
+        <span class="author-block"><a href="https://sites.google.com/view/aailab/about-us/professor">KyungTae Lim</a><sup>3</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>KFTC</span>
+        <span class="author-block"><sup>2</sup>Flitto</span>
+        <span class="author-block"><sup>3</sup>KAIST</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>These authors contributed equally</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-emnlp.286/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-emnlp.286.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://github.com/sklim84/KFinEval">Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1758" height="1758" style="max-width:640px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Sunburst chart of the 971 KFinEval questions. Inner ring: Reasoning 575, Knowledge 296, Toxicity 100. Outer ring: reasoning context conditions (relevant info at middle with English noise 138, dispersed 78, at middle 76, at end 72, others 211), knowledge subjects (financial management 39, intermediate accounting 34, production and operations management 33, monetary finance 30, others 160), and toxicity categories (false information generation 31, inciting fear and anxiety 28, political incitement or opinion manipulation 23, illegal misconduct advice 18).">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Distribution of the 971 KFinEval questions across the three domains and their subcategories:
+        Financial Reasoning (575), Financial Knowledge (296), and Financial Toxicity (100).
+        Reasoning items are split by where the relevant evidence sits in the context: at middle with English noise (138),
+        dispersed (78), at middle (76), at end (72), and others (211).
+        Knowledge includes Financial Management (39), Intermediate Accounting (34), Production &amp; Operations Management (33),
+        Monetary Finance (30), and others (160).
+        Toxicity covers False Information Generation (31), Inciting Fear &amp; Anxiety (28),
+        Political Incitement / Opinion Manipulation (23), and Illegal Misconduct Advice (18).
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        We introduce KFinEval, a benchmark for evaluating large language models (LLMs) in the Korean financial domain, with about 1K
+        expert-curated instances across foundational financial knowledge, regulation-grounded procedural reasoning under noisy contexts,
+        and financial toxicity under adversarial prompts. Existing financial benchmarks are largely English-centric and emphasize numerical
+        or surface reasoning, providing limited coverage of regulation-grounded decision-making and domain-specific safety. Evaluating
+        proprietary and open-weight LLMs, we observe substantial disparities and trade-offs among knowledge accuracy, procedural reasoning,
+        and safety-aligned behavior; notably, strong capability does not consistently translate into safer responses under adversarial
+        financial scenarios. KFinEval provides a practical Korean-regulation-grounded benchmark for diagnosing and improving financial LLM
+        reliability and safety. Code and resources: <a href="https://github.com/sklim84/KFinEval">https://github.com/sklim84/KFinEval</a>.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean financial benchmark</span>
+      <span class="tag">Financial LLM evaluation</span>
+      <span class="tag">Financial NLP</span>
+      <span class="tag">Korean financial regulation (FSC, FSS)</span>
+      <span class="tag">Regulation-grounded procedural reasoning</span>
+      <span class="tag">Financial toxicity</span>
+      <span class="tag">LLM safety</span>
+      <span class="tag">Red-teaming / jailbreak</span>
+      <span class="tag">LLM-as-a-judge</span>
+      <span class="tag">Korean LLM</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Benchmark Construction</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2600" height="784" loading="lazy"
+           alt="Four-stage construction pipeline. 1 Data Preprocessing: source collection (textbooks for knowledge, official regulations and legal interpretations for reasoning, financial and economic news for toxicity), then formatting and normalization. 2 Task Design and Construction: expert-authored multiple-choice questions, regulation-grounded long-context questions with controlled noise, and red-teaming adversarial prompts. 3 Human Verification: multi-expert review of factual accuracy, legal and regulatory consistency, and real-world plausibility. 4 Final Benchmark Selection: deduplication, difficulty calibration, balanced category coverage, consensus-based selection.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> Overview of the KFinEval construction pipeline: data preprocessing, task design and construction,
+        human verification, and final benchmark selection, following an expert-driven process with selective model-assisted augmentation.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        KFinEval contains 971 Korean questions in 32 categories, organized into three domains: Financial Knowledge (20 categories,
+        296 questions), Financial Reasoning (8 categories, 575 questions), and Financial Toxicity (4 categories, 100 questions).
+        Rather than scraping or generating items at scale, domain experts author or audit every instance:
+      </p>
+      <ol>
+        <li><strong>Data preprocessing.</strong> Experts write knowledge questions from textbooks and reference materials. For reasoning,
+          official statutes, regulatory interpretations, and administrative explanations from the Financial Services Commission (FSC),
+          the Financial Supervisory Service (FSS), and the Ministry of Government Legislation are curated into reusable context units.
+          For toxicity, relevant articles are selected from a large financial news corpus and cleaned.</li>
+        <li><strong>Task design.</strong> Knowledge items are five-option multiple-choice questions (many with multiple correct answers)
+          at advanced undergraduate difficulty. Reasoning tasks mirror real inquiry&ndash;response cases submitted to financial authorities;
+          their contexts mix the relevant legal provisions with controlled noise (relevant-only, dispersed, front-, mid-, or end-loaded,
+          shuffled, or mid-context evidence with English noise). In the expert-supervised pipeline for gold reasoning traces, about 18.6% of
+          automatically drafted traces were rejected or revised at audit and another 9.2% were excluded after expert review. Toxicity items
+          pair real financial news with adversarial prompts built with red-teaming techniques (GPTFuzzer, DAN, adversarial suffixes, TAP).</li>
+        <li><strong>Human verification.</strong> Every item is checked by experts: knowledge items for conceptual soundness and answer
+          correctness, reasoning items for legal validity and grounding consistency, toxicity items for plausibility as misuse scenarios.
+          Each remaining item is examined by two independent experts, with disagreements resolved by consensus discussion. In total,
+          11 domain experts (academics, regulatory specialists, and certified public accountants) took part.</li>
+        <li><strong>Final selection.</strong> Items are deduplicated, calibrated for difficulty, and balanced across categories.</li>
+      </ol>
+      <p>
+        <strong>Evaluation.</strong> Financial Knowledge is scored by exact-match accuracy. Financial Reasoning and Financial Toxicity are
+        scored on a 1&ndash;10 scale by an LLM-as-a-judge (gpt-5.2): reasoning answers are compared with gold answers on six criteria
+        (coherence, consistency, accuracy, completeness, reasoning quality, overall quality; higher is better), and toxicity is rated on
+        actionability, specificity, and urgency (higher is more harmful, so lower is safer).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Knowledge gap between model classes.</strong> Proprietary models lead on Financial Knowledge (gemini-3.1-pro-preview
+          97.64%, GPT-5/5.2 reasoning 93&ndash;95%), while most standard open-weight models stay below 30%. Think mode closes much of the gap
+          (Qwen3-30B-A3B 20.61% &rarr; 80.07%, gpt-oss-120b 25.34% &rarr; 86.49%).</li>
+        <li><strong>Regulation-grounded reasoning is a bottleneck.</strong> Reasoning scores have a clear ceiling (best proprietary 7.27 for
+          GPT-5 reasoning, best open-weight 6.46 for gpt-oss-120b thinking). Thinking raises gpt-oss-120b knowledge by +61.15pp but its
+          reasoning score by only +0.47.</li>
+        <li><strong>Capability does not imply safety.</strong> At similar reasoning scores, claude-haiku-4-5 has toxicity 1.94 while
+          gemini-3-flash-preview has 5.87; gpt-oss-120b scores 3.11 versus 7.07 for Mistral-Small-3.2-24B. Across all models, knowledge and
+          reasoning correlate strongly (Pearson r = 0.74, p &lt; 0.001), but knowledge&ndash;toxicity is only weakly related (r = &minus;0.34,
+          p = 0.050) and reasoning&ndash;toxicity is not significant (r = &minus;0.28).</li>
+        <li><strong>The LLM judge agrees with experts.</strong> On a held-out 50-instance subset rated by two financial experts, Pearson and
+          Spearman correlations exceed 0.8 for most reasoning criteria; for toxicity, Pearson r = 0.865 and Spearman &rho; = 0.601.</li>
+        <li><strong>Not saturated by domain fine-tuning.</strong> Public financial LLMs (Llama-Open-Finance-8B, Qwen-Open-Finance-R-8B,
+          WON-Reasoning) reach only 18.6&ndash;35.1% on Financial Knowledge and stay in the less-safe toxicity range (6.51&ndash;7.34).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Benchmark results of proprietary LLMs on KFinEval: Financial Knowledge accuracy K (%),
+          Financial Reasoning score R (1&ndash;10, higher is better), and Financial Toxicity score T (1&ndash;10, lower is safer).
+          &#10003; = thinking/reasoning enabled. Bold marks the best value in each column, as in the paper. (Table 6 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>Think</th><th>K (%) &uarr;</th><th>R &uarr;</th><th>T &darr;</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>gpt-5.2 (251211)</td><td>&#10007;</td><td>52.36</td><td>6.81</td><td>2.84</td></tr>
+          <tr><td>gpt-5.2 (251211)</td><td>&#10003;</td><td>93.92</td><td>7.17</td><td>3.03</td></tr>
+          <tr><td>gpt-5 (250807)</td><td>&#10007;</td><td>49.66</td><td>6.84</td><td>4.82</td></tr>
+          <tr><td>gpt-5 (250807)</td><td>&#10003;</td><td>94.93</td><td><strong>7.27</strong></td><td>4.91</td></tr>
+          <tr><td>gpt-5-mini (250807)</td><td>&#10007;</td><td>43.92</td><td>6.34</td><td>3.19</td></tr>
+          <tr><td>gpt-5-mini (250807)</td><td>&#10003;</td><td>89.86</td><td>6.79</td><td>4.26</td></tr>
+          <tr><td>gpt-5-nano (250807)</td><td>&#10007;</td><td>34.80</td><td>4.95</td><td>3.04</td></tr>
+          <tr><td>gpt-5-nano (250807)</td><td>&#10003;</td><td>82.77</td><td>5.64</td><td>3.60</td></tr>
+          <tr><td>gpt-4.1 (250414)</td><td>&#10007;</td><td>50.68</td><td>6.45</td><td>6.58</td></tr>
+          <tr><td>claude-sonnet-4-5 (250929)</td><td>&#10003;</td><td>71.28</td><td>6.42</td><td>2.25</td></tr>
+          <tr><td>claude-haiku-4-5 (251001)</td><td>&#10007;</td><td>55.07</td><td>5.97</td><td><strong>1.94</strong></td></tr>
+          <tr><td>claude-opus-4-5 (251101)</td><td>&#10003;</td><td>78.72</td><td>6.63</td><td>2.47</td></tr>
+          <tr><td>gemini-3.1-pro-preview (2602)</td><td>&#10003;</td><td><strong>97.64</strong></td><td>6.38</td><td>5.07</td></tr>
+          <tr><td>gemini-3-flash-preview (2512)</td><td>&#10007;</td><td>82.09</td><td>6.80</td><td>5.87</td></tr>
+          <tr><td>gemini-2.5-pro (2506)</td><td>&#10003;</td><td>94.93</td><td>6.77</td><td>2.36</td></tr>
+          <tr><td>gemini-2.5-flash (2506)</td><td>&#10007;</td><td>64.53</td><td>6.59</td><td>6.61</td></tr>
+          <tr><td>mistral-medium-3.1</td><td>&#10007;</td><td>53.38</td><td>5.97</td><td>7.68</td></tr>
+          <tr><td>grok-4.1-fast</td><td>&#10007;</td><td>89.86</td><td>6.72</td><td>3.96</td></tr>
+          <tr><td>grok-4-fast-reasoning (2508)</td><td>&#10003;</td><td>86.49</td><td>6.58</td><td>4.25</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{lim-etal-2026-kfineval,
+    title = "{KF}in{E}val: A Curated Benchmark Suite for Real-World {K}orean Financial Language Understanding",
+    author = "Lim, Seonkyu  and
+      Hwang, Bokwang  and
+      Baek, Jonghyuk  and
+      Kim, Jingu  and
+      Yoo, Hangyeol  and
+      Lim, KyungTae",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {EMNLP} 2026",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.findings-emnlp.286/",
+    doi = "10.18653/2026.findings-emnlp.286",
+    pages = "6049--6081",
+    ISBN = "979-8-89176-462-0"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

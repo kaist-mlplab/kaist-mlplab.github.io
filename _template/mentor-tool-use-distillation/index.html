@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>MENTOR: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation</title>
+  <meta name="description" content="MENTOR distills tool use from a 235B LLM into 1.5B-8B small language models with on-policy reinforcement learning that rewards using the teacher's set of tools rather than copying its exact trajectory, raising Qwen3-8B math accuracy to 48.26% (SFT: 41.47%) and improving out-of-domain BFCL-v4 and RAG results. EMNLP 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="tool-use distillation, knowledge distillation, on-policy distillation, small language models, SLM, tool-integrated reasoning, TIR, reinforcement learning, GRPO, reward design, function calling, tool calling, LLM agents, out-of-domain generalization, BFCL, MENTOR, EMNLP 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/mentor-tool-use-distillation/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="MENTOR: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation">
+  <meta property="og:description" content="On-policy RL distillation of tool use into small language models with flexible, set-based teacher-alignment rewards: Qwen3-8B math accuracy 48.26% vs. 41.47% with SFT. EMNLP 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/mentor-tool-use-distillation/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/mentor-tool-use-distillation/static/images/teaser.png">
+  <meta property="og:image:width" content="1809">
+  <meta property="og:image:height" content="1199">
+  <meta property="og:image:alt" content="Bar charts comparing tool use of Qwen3-235B (LLM) and Qwen3-8B (SLM): tools raise LLM accuracy from 80.5% to 88.9% but lower SLM accuracy from 74.2% to 57.8%, while the SLM makes more tool calls (1.24 vs. 0.83 per sample).">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MENTOR: Flexible Teacher-Optimized Rewards for Tool-Use Distillation">
+  <meta name="twitter:description" content="On-policy RL distillation of tool use into small language models with flexible teacher-alignment rewards. EMNLP 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/mentor-tool-use-distillation/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="MENTOR: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation">
+  <meta name="citation_author" content="Choi, ChangSu">
+  <meta name="citation_author_institution" content="Korea Advanced Institute of Science and Technology (KAIST)">
+  <meta name="citation_author" content="Song, Hoyun">
+  <meta name="citation_author_institution" content="Department of Artificial Intelligence, Dankook University">
+  <meta name="citation_author_institution" content="Korea Advanced Institute of Science and Technology (KAIST)">
+  <meta name="citation_author" content="Kim, Dongyeon">
+  <meta name="citation_author_institution" content="Korea Advanced Institute of Science and Technology (KAIST)">
+  <meta name="citation_author" content="Cho, Minkyung">
+  <meta name="citation_author_institution" content="Korea Advanced Institute of Science and Technology (KAIST)">
+  <meta name="citation_author" content="Jung, WooHyeon">
+  <meta name="citation_author_institution" content="Korea Advanced Institute of Science and Technology (KAIST)">
+  <meta name="citation_author" content="Park, SunJin">
+  <meta name="citation_author_institution" content="LG CNS">
+  <meta name="citation_author" content="Bae, NohHyeob">
+  <meta name="citation_author_institution" content="LG CNS">
+  <meta name="citation_author" content="Yu, Seona">
+  <meta name="citation_author_institution" content="LG CNS">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="Korea Advanced Institute of Science and Technology (KAIST)">
+  <meta name="citation_publication_date" content="2026/10">
+  <meta name="citation_conference_title" content="Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="29289">
+  <meta name="citation_lastpage" content="29319">
+  <meta name="citation_doi" content="10.18653/2026.emnlp-main.1286">
+  <meta name="citation_isbn" content="979-8-89176-459-0">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2026.emnlp-main.1286.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/mentor-tool-use-distillation/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/mentor-tool-use-distillation/#article",
+    "headline": "MENTOR: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation",
+    "name": "MENTOR: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation",
+    "url": "https://kaist-mlplab.github.io/mentor-tool-use-distillation/",
+    "datePublished": "2026-10",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/mentor-tool-use-distillation/static/images/teaser.png",
+    "abstract": "Distilling the tool-use capabilities of large language models (LLMs) into small language models (SLMs) is essential for their practical application. The predominant approach, supervised fine-tuning (SFT), is an off-policy distillation method that suffers from poor out-of-domain (OOD) generalization because it rigidly aligns with static teacher trajectories. While reinforcement learning (RL) offers an alternative, the capacity limitations of SLMs pose a severe dilemma: sparse outcome rewards provide insufficient guidance, whereas strict trajectory matching imposes overly restrictive constraints. To bridge this capacity-driven gap, we propose MENTOR, an on-policy distillation framework that introduces a flexible yet process-aware reward structure. Instead of enforcing rigid replication, MENTOR uses the teacher’s reference to guide tool-use behavior, balancing behavioral alignment with downstream performance. Extensive experiments on controlled executable-tool benchmarks demonstrate that MENTOR improves OOD tool-use performance compared to SFT and strict RL baselines. Our findings suggest that within verifiable tool-use environments, flexible tool-use alignment offers a more effective approach than strict trajectory replication for developing adaptable small models.",
+    "keywords": ["tool-use distillation", "knowledge distillation", "on-policy distillation", "small language models", "SLM", "tool-integrated reasoning", "reinforcement learning", "GRPO", "reward design", "function calling", "LLM agents", "out-of-domain generalization"],
+    "about": [
+      {"@type": "Thing", "name": "Knowledge distillation"},
+      {"@type": "Thing", "name": "Tool use in large language models"},
+      {"@type": "Thing", "name": "Reinforcement learning"}
+    ],
+    "author": [
+      {"@type": "Person", "name": "ChangSu Choi", "affiliation": {"@type": "Organization", "name": "Korea Advanced Institute of Science and Technology (KAIST)"}},
+      {"@type": "Person", "name": "Hoyun Song", "affiliation": [{"@type": "Organization", "name": "Department of Artificial Intelligence, Dankook University"}, {"@type": "Organization", "name": "Korea Advanced Institute of Science and Technology (KAIST)"}]},
+      {"@type": "Person", "name": "Dongyeon Kim", "affiliation": {"@type": "Organization", "name": "Korea Advanced Institute of Science and Technology (KAIST)"}},
+      {"@type": "Person", "name": "Minkyung Cho", "affiliation": {"@type": "Organization", "name": "Korea Advanced Institute of Science and Technology (KAIST)"}},
+      {"@type": "Person", "name": "WooHyeon Jung", "affiliation": {"@type": "Organization", "name": "Korea Advanced Institute of Science and Technology (KAIST)"}},
+      {"@type": "Person", "name": "SunJin Park", "affiliation": {"@type": "Organization", "name": "LG CNS"}},
+      {"@type": "Person", "name": "NohHyeob Bae", "affiliation": {"@type": "Organization", "name": "LG CNS"}},
+      {"@type": "Person", "name": "Seona Yu", "affiliation": {"@type": "Organization", "name": "LG CNS"}},
+      {"@type": "Person", "name": "KyungTae Lim", "affiliation": {"@type": "Organization", "name": "Korea Advanced Institute of Science and Technology (KAIST)"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "isPartOf": {"@type": "Periodical", "name": "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing", "publisher": {"@type": "Organization", "name": "Association for Computational Linguistics"}},
+    "sameAs": ["https://aclanthology.org/2026.emnlp-main.1286/", "https://doi.org/10.18653/2026.emnlp-main.1286", "https://github.com/choics2623/MENTOR-RL"],
+    "pagination": "29289-29319",
+    "workExample": {"@type": "SoftwareSourceCode", "name": "MENTOR-RL (code)", "codeRepository": "https://github.com/choics2623/MENTOR-RL", "programmingLanguage": "Python"},
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.18653/2026.emnlp-main.1286"}
+    ],
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://aclanthology.org/2026.emnlp-main.1286.pdf"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">MENTOR: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation</h1>
+      <p class="subtitle is-5 publication-subtitle">Distilling LLM tool use into small language models with on-policy RL and set-based teacher-alignment rewards</p>
+      <p><span class="tag is-link is-medium venue-badge">EMNLP 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">ChangSu Choi<sup>1,*</sup>,</span>
+        <span class="author-block">Hoyun Song<sup>2,1,*</sup>,</span>
+        <span class="author-block">Dongyeon Kim<sup>1</sup>,</span>
+        <span class="author-block">Minkyung Cho<sup>1</sup>,</span>
+        <span class="author-block">WooHyeon Jung<sup>1</sup>,</span>
+        <span class="author-block">Sunjin Park<sup>3</sup>,</span>
+        <span class="author-block">NohHyeob Bae<sup>3</sup>,</span>
+        <span class="author-block">Seona Yu<sup>3</sup>,</span>
+        <span class="author-block"><a href="https://sites.google.com/view/aailab/about-us/professor">KyungTae Lim</a><sup>1,†</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Korea Advanced Institute of Science and Technology (KAIST)</span>
+        <span class="author-block"><sup>2</sup>Department of Artificial Intelligence, Dankook University</span>
+        <span class="author-block"><sup>3</sup>LG CNS</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution &nbsp; <sup>†</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.emnlp-main.1286/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.emnlp-main.1286.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://github.com/choics2623/MENTOR-RL">Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1809" height="1199"
+           alt="Three bar charts comparing a large teacher (Qwen3-235B) with a small model (Qwen3-8B). (a) Using tools raises LLM accuracy from 80.5% to 88.9% but lowers SLM accuracy from 74.2% to 57.8%. (b) The SLM makes more tool calls per sample (1.24 vs. 0.83). (c) The LLM relies on multiply, divide and power, while the SLM favors simpler tools and has a large share of invalid calls.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Tool-use behavior of an LLM (Qwen3-235B) versus an SLM (Qwen3-8B).
+        <em>(a)</em> Tools help the LLM (80.5% &rarr; 88.9%, +8.3 points) but hurt the SLM (74.2% &rarr; 57.8%, &minus;16.4 points).
+        <em>(b)</em> The SLM nevertheless calls tools more often: 1.24 vs. 0.83 calls per sample.
+        <em>(c)</em> The two models choose tools differently: the LLM focuses on operations such as multiply, divide and power,
+        while the SLM leans on simpler or redundant functions and produces many invalid tool calls.
+        The gap is not a lack of tool use but ineffective tool use.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Distilling the tool-use capabilities of large language models (LLMs) into small language models (SLMs) is essential for their
+        practical application. The predominant approach, supervised fine-tuning (SFT), is an off-policy distillation method that suffers
+        from poor out-of-domain (OOD) generalization because it rigidly aligns with static teacher trajectories. While reinforcement
+        learning (RL) offers an alternative, the capacity limitations of SLMs pose a severe dilemma: sparse outcome rewards provide
+        insufficient guidance, whereas strict trajectory matching imposes overly restrictive constraints. To bridge this capacity-driven
+        gap, we propose MENTOR, an on-policy distillation framework that introduces a flexible yet process-aware reward structure.
+        Instead of enforcing rigid replication, MENTOR uses the teacher&rsquo;s reference to guide tool-use behavior, balancing
+        behavioral alignment with downstream performance. Extensive experiments on controlled executable-tool benchmarks demonstrate
+        that MENTOR improves OOD tool-use performance compared to SFT and strict RL baselines. Our findings suggest that within
+        verifiable tool-use environments, flexible tool-use alignment offers a more effective approach than strict trajectory
+        replication for developing adaptable small models.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Tool-use distillation</span>
+      <span class="tag">Knowledge distillation</span>
+      <span class="tag">On-policy distillation</span>
+      <span class="tag">Small language models (SLMs)</span>
+      <span class="tag">Tool-integrated reasoning (TIR)</span>
+      <span class="tag">Reinforcement learning (GRPO)</span>
+      <span class="tag">Reward design</span>
+      <span class="tag">Function calling</span>
+      <span class="tag">LLM agents</span>
+      <span class="tag">Out-of-domain generalization</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2600" height="778" loading="lazy"
+           alt="MENTOR training loop: the teacher produces a reference trajectory of reasoning, tool-use and observation steps plus an answer; the student generates several rollouts; each rollout is scored by three reward functions (correctness Rc, teacher alignment Ra, tool validity Rv); the rewards go through GRPO group computation to produce advantages that update the student.">
+      </picture>
+      <figcaption>
+        <strong>Figure 3.</strong> Overview of the MENTOR training framework. A trajectory consists of Reasoning (R), Tool-Use (T) and
+        Observation (O) steps and a final Answer (A). Each student rollout is scored against the teacher&rsquo;s reference trajectory by
+        three reward functions. The first rollout uses the teacher&rsquo;s tools in a different order and still receives all three
+        rewards; a rollout with a failed tool call loses <em>R<sub>v</sub></em>, one using a different tool set loses <em>R<sub>a</sub></em>,
+        and one that uses a different tool set and gives a wrong answer loses both <em>R<sub>a</sub></em> and <em>R<sub>c</sub></em>.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        Small models trained with outcome-only rewards learn to avoid tools, while strict trajectory-matching rewards (as in ToolRL)
+        make them call tools but steadily accumulate invalid calls. MENTOR (<em>Model Enhancement by Non-rigid Teacher-Optimized
+        Rewards</em>) sits between these extremes: it uses the teacher&rsquo;s trajectory as a reference for <em>which</em> tools to use,
+        not as a sequence to copy.
+      </p>
+      <ol>
+        <li><strong>Teacher references.</strong> A teacher (Qwen3-235B-Thinking) solves each training question, producing a trajectory
+          <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>τ</mi><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></msup><mo>=</mo><mo stretchy="false">⟨</mo><mo stretchy="false">(</mo><msub><mi>r</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>t</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>o</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><msub><mi>r</mi><msub><mi>L</mi><mi>τ</mi></msub></msub><mo separator="true">,</mo><msub><mi>t</mi><msub><mi>L</mi><mi>τ</mi></msub></msub><mo separator="true">,</mo><msub><mi>o</mi><msub><mi>L</mi><mi>τ</mi></msub></msub><mo stretchy="false">)</mo><mo stretchy="false">⟩</mo></mrow><annotation encoding="application/x-tex">\tau^{(t)} = \langle (r_1, t_1, o_1), \ldots, (r_{L_\tau}, t_{L_\tau}, o_{L_\tau}) \rangle</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.888em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">t</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0001em;vertical-align:-0.2501em;"></span><span class="mopen">⟨(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2501em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2501em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1132em;">τ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2501em;"><span></span></span></span></span></span></span><span class="mclose">)⟩</span></span></span></span> of reasoning, tool-use and observation
+          steps and an answer <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mover accent="true"><mi>y</mi><mo>^</mo></mover><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\hat{y}^{(t)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0824em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">t</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span></span></span></span>. Only trajectories whose answer matches the ground truth are kept.</li>
+        <li><strong>On-policy rollouts.</strong> The student generates a group of rollouts <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>O</mi><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">O^{(s)}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.888em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">s</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span></span></span></span> for the same question, executing
+          its Python tool calls in a sandbox.</li>
+        <li><strong>Composite reward.</strong> Each rollout is scored with
+          <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>R</mi><mo stretchy="false">(</mo><msup><mi>O</mi><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></msup><mo separator="true">,</mo><msup><mi>O</mi><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></msup><mo stretchy="false">)</mo><mo>=</mo><msub><mi>w</mi><mi>c</mi></msub><msub><mi>R</mi><mi>c</mi></msub><mo>+</mo><msub><mi>w</mi><mi>a</mi></msub><msub><mi>R</mi><mi>a</mi></msub><mo>+</mo><msub><mi>w</mi><mi>v</mi></msub><msub><mi>R</mi><mi>v</mi></msub></mrow><annotation encoding="application/x-tex">R(O^{(s)}, O^{(t)}) = w_c R_c + w_a R_a + w_v R_v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.188em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">s</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">t</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">v</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>
+          where <em>R<sub>c</sub></em> = 1 if the final answer matches the teacher&rsquo;s answer;
+          the teacher-alignment reward <em>R<sub>a</sub></em> = 1 if the student used exactly the same <em>set</em> of tools as the teacher,
+          <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">{</mo><mi>t</mi><mo>∣</mo><mi>t</mi><mo>∈</mo><msup><mi>τ</mi><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></msup><mo stretchy="false">}</mo><mo>=</mo><mo stretchy="false">{</mo><mi>t</mi><mo>∣</mo><mi>t</mi><mo>∈</mo><msup><mi>τ</mi><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></msup><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">\{t \mid t \in \tau^{(s)}\} = \{t \mid t \in \tau^{(t)}\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6542em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.138em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">s</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mclose">}</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6542em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.138em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.888em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight">t</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span>, regardless of order or count;
+          and the tool-validation reward <em>R<sub>v</sub></em> = 1 only if every tool call in the student&rsquo;s trajectory executes
+          without error.</li>
+        <li><strong>Policy update.</strong> The student is optimized with GRPO: rewards are normalized within each rollout group into
+          advantages that update the student policy.</li>
+      </ol>
+      <p>
+        Training uses mathematical reasoning (AceReason-Math) as a controlled domain. Students are Qwen2.5 (1.5B, 7B) and Qwen3 (1.7B, 8B).
+        Baselines are the vanilla model, SFT on teacher trajectories, outcome-based RL, and Strict RL (a re-implementation of
+        ToolRL&rsquo;s trajectory-matching reward) in the same RL framework. In-domain evaluation uses six math benchmarks
+        (Math-Forge, Omni-MATH, AIME24, AIME25, AMC23, MinervaMath); out-of-domain evaluation uses tools unseen in training:
+        the BFCL-v4 function-calling benchmark and three retrieval QA benchmarks (Bamboogle, 2WikiMultiHopQA, HotpotQA).
+        An alignment score (AS) based on the Jensen-Shannon divergence measures how close a model&rsquo;s tool-usage distribution is to
+        the teacher&rsquo;s.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Best in-domain accuracy at every scale.</strong> MENTOR reaches overall math accuracy of 48.26% on Qwen3-8B
+          (SFT: 41.47%, Strict RL: 45.77%, vanilla: 39.12%; the 235B teacher: 52.06%), and 9.89% on Qwen2.5-1.5B (SFT: 3.17%, Strict RL: 6.95%).</li>
+        <li><strong>Better out-of-domain tool use.</strong> On retrieval QA with unseen tools, MENTOR scores 20.73 EM on Qwen2.5-7B
+          (SFT: 14.57, Strict RL: 19.10) and 35.44 on Qwen3-8B (SFT: 34.14, Strict RL: 34.66). On BFCL-v4 it reaches 43.39 on Qwen3-8B
+          (SFT: 42.16, Strict RL: 42.95).</li>
+        <li><strong>SFT barely transfers.</strong> SFT gains little out of domain (e.g., BFCL-v4 overall on Qwen2.5-7B: 26.38 &rarr; 26.50),
+          while MENTOR reaches 33.52.</li>
+        <li><strong>Alignment tracks performance.</strong> In the reward ablation, the full MENTOR reward (Setting 6) gives the best Math (27.95),
+          BFCL (31.52), RAG (21.08) and alignment score (88.63); across settings, performance and alignment score correlate with Pearson&rsquo;s
+          <em>r</em> = 0.85.</li>
+        <li><strong>Fewer invalid calls.</strong> Configurations that include the tool-validation reward <em>R<sub>v</sub></em> drive the invalid
+          tool-call rate to near zero during training, while those without it stay unstable.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Overall scores: in-domain Math accuracy (%, macro-average of six benchmarks) and out-of-domain
+          BFCL-v4 accuracy (%, official weighted average) and RAG exact match (%, macro-average of Bamboogle, 2WikiMultiHopQA, HotpotQA).
+          Mean over 10 runs. Bold marks the best student per model as in the paper.
+          (Subset of Table 1 in the paper: only the Overall columns; per-benchmark scores with standard deviations are in the paper.)
+        </caption>
+        <thead>
+          <tr>
+            <th>Model</th><th>Method</th><th>Math (Acc) &uarr;</th><th>BFCL-v4 (Acc) &uarr;</th><th>RAG (EM) &uarr;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Qwen3-235B (teacher)</td><td>Vanilla</td><td>52.06</td><td>50.13</td><td>39.57</td></tr>
+          <tr><td rowspan="5">Qwen2.5-1.5B</td><td>Vanilla</td><td>1.70</td><td>24.00</td><td>1.66</td></tr>
+          <tr><td>SFT</td><td>3.17</td><td>24.59</td><td>2.43</td></tr>
+          <tr><td>Outcome-based RL</td><td>6.69</td><td>25.12</td><td>7.59</td></tr>
+          <tr><td>Strict RL</td><td>6.95</td><td>24.85</td><td>6.39</td></tr>
+          <tr class="ours"><td>MENTOR (ours)</td><td><strong>9.89</strong></td><td><strong>25.70</strong></td><td><strong>8.39</strong></td></tr>
+          <tr><td rowspan="5">Qwen2.5-7B</td><td>Vanilla</td><td>21.32</td><td>26.38</td><td>14.05</td></tr>
+          <tr><td>SFT</td><td>22.48</td><td>26.50</td><td>14.57</td></tr>
+          <tr><td>Outcome-based RL</td><td>26.13</td><td>32.94</td><td>18.89</td></tr>
+          <tr><td>Strict RL</td><td>26.64</td><td>33.15</td><td>19.10</td></tr>
+          <tr class="ours"><td>MENTOR (ours)</td><td><strong>28.63</strong></td><td><strong>33.52</strong></td><td><strong>20.73</strong></td></tr>
+          <tr><td rowspan="5">Qwen3-1.7B</td><td>Vanilla</td><td>33.37</td><td>29.81</td><td>16.53</td></tr>
+          <tr><td>SFT</td><td>36.34</td><td>30.13</td><td>17.45</td></tr>
+          <tr><td>Outcome-based RL</td><td>38.62</td><td>30.65</td><td>18.18</td></tr>
+          <tr><td>Strict RL</td><td>38.94</td><td>30.95</td><td>18.42</td></tr>
+          <tr class="ours"><td>MENTOR (ours)</td><td><strong>40.90</strong></td><td><strong>31.20</strong></td><td><strong>19.23</strong></td></tr>
+          <tr><td rowspan="5">Qwen3-8B</td><td>Vanilla</td><td>39.12</td><td>41.35</td><td>31.83</td></tr>
+          <tr><td>SFT</td><td>41.47</td><td>42.16</td><td>34.14</td></tr>
+          <tr><td>Outcome-based RL</td><td>45.19</td><td>42.78</td><td>34.81</td></tr>
+          <tr><td>Strict RL</td><td>45.77</td><td>42.95</td><td>34.66</td></tr>
+          <tr class="ours"><td>MENTOR (ours)</td><td><strong>48.26</strong></td><td><strong>43.39</strong></td><td><strong>35.44</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{choi-etal-2026-mentor,
+    title = "{MENTOR}: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation",
+    author = "Choi, ChangSu  and
+      Song, Hoyun  and
+      Kim, Dongyeon  and
+      Cho, Minkyung  and
+      Jung, WooHyeon  and
+      Park, SunJin  and
+      Bae, NohHyeob  and
+      Yu, Seona  and
+      Lim, KyungTae",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
+    booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.emnlp-main.1286/",
+    doi = "10.18653/2026.emnlp-main.1286",
+    pages = "29289--29319",
+    ISBN = "979-8-89176-459-0"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

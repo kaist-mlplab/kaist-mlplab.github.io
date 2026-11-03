@@ -20,8 +20,8 @@ jsonld: jsonld-organization.html
 <section>
   <h2>Projects</h2>
   <div class="cards">
-    {%- assign latest = site.data.projects | sort: 'date' | reverse -%}
-    {%- for p in latest limit: 6 %}
+    {%- comment -%} _data/projects.yml 순서대로(최신이 위) {%- endcomment -%}
+    {%- for p in site.data.projects %}
     {% include project-card.html project=p %}
     {%- endfor %}
   </div>

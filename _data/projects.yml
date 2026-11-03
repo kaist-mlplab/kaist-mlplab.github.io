@@ -1,5 +1,5 @@
 # =============================================================
-# 프로젝트 목록. 새 프로젝트는 여기에 항목 하나만 추가하면
+# 프로젝트 목록. 새 프로젝트는 여기에 항목 하나만 추가하면 (최신 논문을 위쪽에)
 # 홈 카드, /projects/, sitemap.xml, llms.txt에 모두 반영된다.
 #
 # 필드 설명
@@ -7,7 +7,7 @@
 #   title      (필수) 논문 제목 전체
 #   venue      (필수) 학회/저널 + 연도, 예: "EMNLP 2026"
 #   year       (필수) 정렬용 연도 (숫자)
-#   date       (필수) 공개일 YYYY-MM-DD (정렬, sitemap lastmod)
+#   date       (필수) 공개일 YYYY-MM-DD (sitemap lastmod). 목록 순서는 이 파일의 순서를 따른다
 #   updated    (선택) 프로젝트 페이지를 크게 고친 날짜 (sitemap lastmod)
 #   authors    (필수) 저자 목록(논문 순서)
 #   summary    (필수) 한두 문장 영어 요약 (수치 포함 권장)
@@ -21,7 +21,7 @@
   title: "Distribution-aware Language Neuron Identification in Multilingual Large Language Models"
   venue: "EMNLP 2026"
   year: 2026
-  date: 2026-09-10
+  date: 2026-10-24
   authors: ["Minjun Kim", "Inho Won", "Junghun Yuk", "Dongyeon Kim", "Jihyo Kim", "KyungTae Lim"]
   summary: >-
     We identify language-specific neurons in multilingual LLMs by comparing full per-language
@@ -35,3 +35,80 @@
   paper: https://aclanthology.org/2026.emnlp-main.1150/
   pdf: https://aclanthology.org/2026.emnlp-main.1150.pdf
   code: https://github.com/mjkmain/Distribution-aware-language-neurons
+
+- slug: covert-bias-injection
+  title: "Hidden Threat in Synthetic Data: Covert Targeted Bias Injection through Benign Text"
+  venue: "EMNLP 2026"
+  year: 2026
+  date: 2026-10-24
+  authors: ["Minkyung Cho", "Jihyo Kim", "SeungWoo Song", "Junghun Yuk", "Minjoon Kee", "Hoyun Song", "KyungTae Lim"]
+  summary: "Shows that subliminal learning can covertly inject targeted social biases into aligned LLMs through filtered, benign-looking synthetic data from a misaligned teacher, raising BBQ bias scores (AccSc) by up to +46.3 while general capabilities stay nearly unchanged."
+  thumbnail: /assets/img/projects/covert-bias-injection.png
+  thumbnail_alt: "Explicit harmful training data is blocked by a safety filter, while innocuous-looking data carrying hidden race, gender, religion or SES bias passes the filter and makes the model answer with a stereotype."
+  paper: https://aclanthology.org/2026.emnlp-main.1230/
+  pdf: https://aclanthology.org/2026.emnlp-main.1230.pdf
+  code: https://github.com/ada-flo/covert-bias-injection
+
+- slug: mentor-tool-use-distillation
+  title: "MENTOR: Reinforcement Learning via Flexible Teacher-Optimized Rewards for Tool-Use Distillation"
+  venue: "EMNLP 2026"
+  year: 2026
+  date: 2026-10-24
+  authors: ["ChangSu Choi", "Hoyun Song", "Dongyeon Kim", "Minkyung Cho", "WooHyeon Jung", "SunJin Park", "NohHyeob Bae", "Seona Yu", "KyungTae Lim"]
+  summary: "MENTOR is an on-policy reinforcement learning framework for tool-use distillation from LLMs into small language models that rewards using the teacher's set of tools rather than copying its exact trajectory. On Qwen3-8B it raises math accuracy to 48.26% (SFT: 41.47%) and improves out-of-domain BFCL-v4 and RAG performance."
+  thumbnail: /assets/img/projects/mentor-tool-use-distillation.png
+  thumbnail_alt: "Bar charts comparing tool use of Qwen3-235B and Qwen3-8B: tools raise LLM accuracy from 80.5% to 88.9% but lower SLM accuracy from 74.2% to 57.8%, while the SLM makes more tool calls per sample (1.24 vs. 0.83)."
+  paper: https://aclanthology.org/2026.emnlp-main.1286/
+  pdf: https://aclanthology.org/2026.emnlp-main.1286.pdf
+  code: https://github.com/choics2623/MENTOR-RL
+
+- slug: kfineval
+  title: "KFinEval: A Curated Benchmark Suite for Real-World Korean Financial Language Understanding"
+  venue: "Findings of EMNLP 2026"
+  year: 2026
+  date: 2026-10-24
+  authors: ["Seonkyu Lim", "Bokwang Hwang", "Jonghyuk Baek", "Jingu Kim", "Hangyeol Yoo", "KyungTae Lim"]
+  summary: "KFinEval is a Korean financial LLM benchmark of 971 expert-curated questions covering financial knowledge, regulation-grounded procedural reasoning, and financial toxicity. Evaluations of proprietary and open-weight LLMs show that strong capability does not consistently translate into safer responses."
+  thumbnail: /assets/img/projects/kfineval.png
+  thumbnail_alt: "Sunburst chart of the 971 KFinEval questions: Reasoning 575, Knowledge 296, and Toxicity 100, with their subcategories."
+  paper: https://aclanthology.org/2026.findings-emnlp.286/
+  pdf: https://aclanthology.org/2026.findings-emnlp.286.pdf
+  code: https://github.com/sklim84/KFinEval
+
+- slug: planning-before-reasoning
+  title: "Planning Before Reasoning: A Vision-Language Dataset for Structured Stepwise Reasoning in Document Understanding"
+  venue: "Findings of EMNLP 2026"
+  year: 2026
+  date: 2026-10-24
+  authors: ["DongJae Shin", "Hangyeol Yoo", "Yerin Nam", "Hoyeon Shin", "SeungWoo Song", "Seohyun Song", "Donghun Yang", "KyungTae Lim"]
+  summary: "DocPlan is a 133K-example vision-language dataset for document understanding that annotates each question with query analysis, planning, extraction-and-reasoning, and final-answer stages; fine-tuning VLMs on it improves document VQA accuracy by up to 13.8%p."
+  thumbnail: /assets/img/projects/planning-before-reasoning.png
+  thumbnail_alt: "A DocPlan training example: a COVID-19 line chart and question, with the answer split into tagged query analysis, plan, plan execution, and final answer stages."
+  paper: https://aclanthology.org/2026.findings-emnlp.996/
+  pdf: https://aclanthology.org/2026.findings-emnlp.996.pdf
+  dataset: https://huggingface.co/datasets/ShinDJ/DocPlan-133K
+
+- slug: skeleton-language-choice
+  title: "Which Language Should a Skeleton Speak? Language Choices in Multilingual Reasoning"
+  venue: "Findings of EMNLP 2026"
+  year: 2026
+  date: 2026-10-24
+  authors: ["HyeonSeok Lim", "SeungWoo Song", "Inho Won", "Hoyun Song", "Jihyo Kim", "KyungTae Lim"]
+  summary: "LASEF studies which language a reasoning skeleton should be written in for multilingual mathematical reasoning with LLMs. English skeletons give a small average gain (+2.38 points over 19 low-resource MGSM languages with Qwen2.5-7B) but are not universally optimal."
+  thumbnail: /assets/img/projects/skeleton-language-choice.png
+  thumbnail_alt: "Overview of the Language-Aware Skeleton Exploration Framework: a query, skeleton generation in a chosen skeleton language, skeleton-guided reasoning in the answer language, language configurations, and benchmark-conditioned analysis."
+  paper: https://aclanthology.org/2026.findings-emnlp.1500/
+  pdf: https://aclanthology.org/2026.findings-emnlp.1500.pdf
+  code: https://github.com/lhsstn/LASEF
+
+- slug: non-binary-constituency-parsing
+  title: "Non-binary bottom-up constituency parsing without arity actions"
+  venue: "Findings of EMNLP 2026"
+  year: 2026
+  date: 2026-10-24
+  authors: ["Jungyeul Park", "Eunkyul Leah Jo", "Zihao Huang"]
+  summary: "A delimiter-guided bottom-up transition system for non-binary constituency parsing that derives reduction arity from the stack instead of Reduce-X#k actions, shrinking the action inventory from 202 to 78 on PTB and from 190 to 64 on CTB while closely tracking an arity-specific baseline."
+  thumbnail: /assets/img/projects/non-binary-constituency-parsing.png
+  thumbnail_alt: "Constituency tree for the sentence \"Ms. Haag plays Elianti.\" with a ternary S node over NP, VP and the final period."
+  paper: https://aclanthology.org/2026.findings-emnlp.611/
+  pdf: https://aclanthology.org/2026.findings-emnlp.611.pdf

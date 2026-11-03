@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Planning Before Reasoning: A Vision-Language Dataset for Structured Stepwise Reasoning in Document Understanding</title>
+  <meta name="description" content="DocPlan is a 133K-example vision-language dataset for document understanding that annotates each question with four reasoning stages (query analysis, planning, extraction and reasoning, final answer); fine-tuning VLMs on it improves document VQA accuracy by up to 13.8%p. Findings of EMNLP 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="DocPlan, visual document understanding, document VQA, DocVQA, InfoVQA, ChartQA, chart question answering, vision-language models, VLM, multimodal reasoning, stepwise reasoning, chain-of-thought, plan-and-reason, reasoning dataset, synthetic data, interpretability, Findings of EMNLP 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/planning-before-reasoning/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Planning Before Reasoning: A Vision-Language Dataset for Structured Stepwise Reasoning in Document Understanding">
+  <meta property="og:description" content="DocPlan: 133K document VQA examples with query analysis, plan, extraction-and-reasoning, and final-answer stages; up to 13.8%p higher accuracy on document benchmarks. Findings of EMNLP 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/planning-before-reasoning/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/planning-before-reasoning/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="1200">
+  <meta property="og:image:alt" content="A DocPlan training example: a COVID-19 line chart and question, with the reasoning split into tagged query analysis, plan definition, plan execution, and final answer stages.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Planning Before Reasoning: DocPlan, a Stepwise Reasoning Dataset for Document Understanding">
+  <meta name="twitter:description" content="133K document VQA examples with explicit plan-then-reason stages for VLM training. Findings of EMNLP 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/planning-before-reasoning/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Planning Before Reasoning: A Vision-Language Dataset for Structured Stepwise Reasoning in Document Understanding">
+  <meta name="citation_author" content="Shin, Dongjae">
+  <meta name="citation_author_institution" content="TutorusLabs">
+  <meta name="citation_author" content="Yoo, Hangyeol">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Nam, Yerin">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Shin, Hoyeon">
+  <meta name="citation_author_institution" content="Seoultech">
+  <meta name="citation_author" content="Song, SeungWoo">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Song, Seohyun">
+  <meta name="citation_author_institution" content="Seoultech">
+  <meta name="citation_author" content="Yang, Donghun">
+  <meta name="citation_author_institution" content="KISTI">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/10">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: EMNLP 2026">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="21022">
+  <meta name="citation_lastpage" content="21061">
+  <meta name="citation_doi" content="10.18653/2026.findings-emnlp.996">
+  <meta name="citation_isbn" content="979-8-89176-462-0">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2026.findings-emnlp.996.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/planning-before-reasoning/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/planning-before-reasoning/#article",
+    "headline": "Planning Before Reasoning: A Vision-Language Dataset for Structured Stepwise Reasoning in Document Understanding",
+    "name": "Planning Before Reasoning: A Vision-Language Dataset for Structured Stepwise Reasoning in Document Understanding",
+    "url": "https://kaist-mlplab.github.io/planning-before-reasoning/",
+    "datePublished": "2026-10",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/planning-before-reasoning/static/images/teaser.png",
+    "abstract": "This paper introduces DocPlan, a vision-language training dataset designed to emulate the stepwise reasoning strategies employed by human during visual document understanding. DocPlan was constructed to enable vision-language models (VLMs) to effectively learn the structured reasoning process that humans typically follow when interpreting documents. We reorganized existing document understanding datasets into 133K examples annotated with the following four sequential stages: Recognition → Planning → Extraction and Reasoning → Conclusion. To evaluate the effectiveness of DocPlan, we fine-tuned the direct prediction-based VLMs to perform stepwise reasoning generation across these stages. The experimental results demonstrated that our approach achieved up to a 13.8%p improvement in accuracy on document-based benchmarks.",
+    "keywords": ["DocPlan", "visual document understanding", "document VQA", "DocVQA", "InfoVQA", "ChartQA", "vision-language models", "multimodal reasoning", "stepwise reasoning", "chain-of-thought", "plan-and-reason", "reasoning dataset", "synthetic data", "interpretability"],
+    "about": [
+      {"@type": "Thing", "name": "Visual document understanding"},
+      {"@type": "Thing", "name": "Vision-language models"},
+      {"@type": "Thing", "name": "Multimodal reasoning datasets"}
+    ],
+    "author": [
+      {"@type": "Person", "name": "DongJae Shin", "affiliation": {"@type": "Organization", "name": "TutorusLabs"}},
+      {"@type": "Person", "name": "Hangyeol Yoo", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Yerin Nam", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Hoyeon Shin", "affiliation": {"@type": "Organization", "name": "Seoultech"}},
+      {"@type": "Person", "name": "SeungWoo Song", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Seohyun Song", "affiliation": {"@type": "Organization", "name": "Seoultech"}},
+      {"@type": "Person", "name": "Donghun Yang", "affiliation": {"@type": "Organization", "name": "KISTI"}},
+      {"@type": "Person", "name": "KyungTae Lim", "affiliation": {"@type": "Organization", "name": "KAIST"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "isPartOf": {"@type": "Periodical", "name": "Findings of the Association for Computational Linguistics: EMNLP 2026", "publisher": {"@type": "Organization", "name": "Association for Computational Linguistics"}},
+    "sameAs": ["https://aclanthology.org/2026.findings-emnlp.996/", "https://doi.org/10.18653/2026.findings-emnlp.996"],
+    "pagination": "21022-21061",
+    "workExample": [
+      {"@type": "Dataset", "name": "DocPlan-133K", "url": "https://huggingface.co/datasets/ShinDJ/DocPlan-133K", "description": "DocPlan training set: 133,623 document VQA examples (68,513 from original queries and 65,110 from generated queries) annotated with query analysis, plan definition, plan execution, and final answer stages."},
+      {"@type": "Dataset", "name": "DocPlan-HF-124K", "url": "https://huggingface.co/datasets/ShinDJ/Docplan-HF-124k", "description": "Hard-filtered version of DocPlan with 124,053 examples."}
+    ],
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.18653/2026.findings-emnlp.996"}
+    ],
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://aclanthology.org/2026.findings-emnlp.996.pdf"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Planning Before Reasoning: A Vision-Language Dataset for Structured Stepwise Reasoning in Document Understanding</h1>
+      <p class="subtitle is-5 publication-subtitle">DocPlan: 133K document VQA examples annotated with query analysis, planning, extraction-and-reasoning, and answer stages</p>
+      <p><span class="tag is-link is-medium venue-badge">Findings of EMNLP 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">DongJae Shin<sup>1,*</sup>,</span>
+        <span class="author-block">Hangyeol Yoo<sup>2,*</sup>,</span>
+        <span class="author-block">Yerin Nam<sup>2</sup>,</span>
+        <span class="author-block">Hoyeon Shin<sup>3</sup>,</span>
+        <span class="author-block">SeungWoo Song<sup>2</sup>,</span>
+        <span class="author-block">Seohyun Song<sup>3</sup>,</span>
+        <span class="author-block">Donghun Yang<sup>4</sup>,</span>
+        <span class="author-block"><a href="https://sites.google.com/view/aailab/about-us/professor">KyungTae Lim</a><sup>2</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>TutorusLabs</span>
+        <span class="author-block"><sup>2</sup>KAIST</span>
+        <span class="author-block"><sup>3</sup>Seoultech</span>
+        <span class="author-block"><sup>4</sup>KISTI</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-emnlp.996/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-emnlp.996.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/datasets/ShinDJ/DocPlan-133K">Dataset (DocPlan-133K)</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/datasets/ShinDJ/Docplan-HF-124k">Dataset (DocPlan-HF-124K)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="1200"
+           alt="A DocPlan training example. Left: a Statista line chart of cumulative COVID-19 cases by country with the question 'Calculate the difference in the number of cases between Brazil and Russia as of day 106.' Right: the tagged answer, with a query analysis box, a plan with two sub-plans, two plan-execution blocks that extract values into markdown tables and compute 1,310,000 minus 627,646, and a final answer of 682,354. Bottom: five example questions for the same chart, one per query type (Mathematics, Coarse Perception, Fine-grained Perception, Instance Reasoning, Logical Reasoning).">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> Example of DocPlan training data. Instead of a bare question&ndash;answer pair, each instance is
+        written as four tagged stages: query analysis (<code>&lt;QUERY_ANALYSIS&gt;</code>), definition of the plan
+        (<code>&lt;DEF_PLAN&gt;</code> with <code>&lt;SUB_PLAN&gt;</code> sub-goals), execution of the plan
+        (<code>&lt;EXEC_PLAN&gt;</code> with <code>&lt;EXTRACTED_INFO&gt;</code>, <code>&lt;THINK&gt;</code> and
+        <code>&lt;PLAN_ANS&gt;</code>), and the final answer. Here the model first extracts Russia's 627,646 cases and Brazil's
+        1,310,000 cases on day 106, then answers 682,354. The bottom row shows the five query types generated for each image:
+        Mathematics (MA), Coarse Perception (CP), Fine-grained Perception (FP), Instance Reasoning (IR), and Logical Reasoning (LR).
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        This paper introduces DocPlan, a vision-language training dataset designed to emulate the stepwise reasoning strategies
+        employed by human during visual document understanding. DocPlan was constructed to enable vision-language models (VLMs) to
+        effectively learn the structured reasoning process that humans typically follow when interpreting documents. We reorganized
+        existing document understanding datasets into 133K examples annotated with the following four sequential stages:
+        Recognition &rarr; Planning &rarr; Extraction and Reasoning &rarr; Conclusion. To evaluate the effectiveness of DocPlan, we
+        fine-tuned the direct prediction-based VLMs to perform stepwise reasoning generation across these stages. The experimental
+        results demonstrated that our approach achieved up to a 13.8%p improvement in accuracy on document-based benchmarks.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Visual document understanding</span>
+      <span class="tag">Document VQA</span>
+      <span class="tag">Chart question answering</span>
+      <span class="tag">Vision-language models (VLMs)</span>
+      <span class="tag">Multimodal reasoning</span>
+      <span class="tag">Stepwise reasoning</span>
+      <span class="tag">Chain-of-thought (CoT)</span>
+      <span class="tag">Plan-and-reason</span>
+      <span class="tag">Synthetic reasoning data</span>
+      <span class="tag">Interpretability</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Dataset Construction</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2600" height="1004" loading="lazy"
+           alt="Three-step DocPlan construction pipeline. Step 1: images from DocVQA, InfoVQA, and ChartQA are given to Qwen 2.5-VL, which generates queries of five types (CP, FP, LR, MA, IR) at Basic, Intermediate, and Advanced difficulty. Step 2: generated and original queries pass through Qwen2.5-VL 72B, which writes query analysis, definition of plan, execution of plan, and final answer, and the outputs are combined into the DocPlan dataset. Step 3: origin and generated samples go through query filtering, rule-based format filtering, and model agreement among GPT-4o, Qwen2.5-VL, and Gemini 2.0 to give the filtered DocPlan dataset.">
+      </picture>
+      <figcaption>
+        <strong>Figure 3.</strong> Construction of the DocPlan dataset in three steps: (1) query generation, (2) plan and reasoning
+        generation, and (3) data filtering. The pipeline starts from about 28K training images of DocVQA, InfoVQA, and ChartQA and
+        162K queries (82K original, 80K generated), and keeps 133,623 samples after filtering.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        Existing document VQA datasets mostly pair an image with a short answer, so a model trained on them learns direct
+        prediction and can reach the right answer through wrong intermediate reasoning (Figure 1 of the paper shows such a case on
+        ChartQA). DocPlan follows the order in which people read charts and documents (recognize the question, plan, extract
+        values, reason, conclude) and writes it out as explicit tagged stages. It is built as follows:
+      </p>
+      <ol>
+        <li><strong>Image collection.</strong> All training images of DocVQA, InfoVQA, and ChartQA are reused unchanged
+          (about 28K images; 28,954 in the final dataset).</li>
+        <li><strong>Query generation.</strong> Because original queries are mostly simple extraction questions, Qwen2.5-VL generates
+          80K new queries of five document-specific types adapted from MMStar (Fine-grained Perception, Coarse Perception, Instance
+          Reasoning, Logical Reasoning, Mathematics) at three difficulty levels (Basic, Intermediate, Advanced). With the 82K original
+          queries this gives 162K queries.</li>
+        <li><strong>Plan-and-reason generation.</strong> For every query, Qwen2.5-VL writes a query analysis, then a plan with
+          <em>N</em> sub-plans (N chosen by query type and difficulty), then executes each sub-plan in turn by extracting the needed
+          information and reasoning over it, reusing earlier intermediate answers, and finally writes the final answer.</li>
+        <li><strong>Filtering.</strong> Original queries (with ground truth) pass a rule-based tag check, then GPT-4o, Qwen2.5-VL,
+          and Gemini 2.0 rate each sample and only samples on which the models agree are kept. Generated queries (without ground truth)
+          are first checked by GPT-4o for validity against the image, then pass the same tag check and model-agreement filtering.</li>
+      </ol>
+      <p>
+        The result is DocPlan with 133,623 samples (68,513 from original queries and 65,110 from generated queries). An extra
+        trace-based &ldquo;hard filtering&rdquo; step with human review of 10,207 likely errors produces DocPlan-HF with 124,053
+        samples. Both are released on Hugging Face
+        (<a href="https://huggingface.co/datasets/ShinDJ/DocPlan-133K">DocPlan-133K</a>,
+        <a href="https://huggingface.co/datasets/ShinDJ/Docplan-HF-124k">DocPlan-HF-124K</a>; access is granted on request).
+        VLMs are fine-tuned on the data with visual instruction tuning for three epochs and evaluated with VLMEvalKit on DocVQA and
+        InfoVQA (ANLS) and ChartQA and ChartQAPro (GPT-4o as judge).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Up to 13.8%p higher average accuracy.</strong> Training paligemma2-10B on DocPlan raises its average over
+          DocVQA, InfoVQA, ChartQA, and ChartQAPro from 40.1 to 53.9; Llama3.2-11B-Vision goes from 52.3 to 69.2
+          (59.3 when trained on the original QA data without reasoning).</li>
+        <li><strong>Planning beats direct prediction on the same data.</strong> Rewriting the original 82K QA pairs into the DocPlan
+          format (+DocPlan(origin)) improves Llama3.2 by 7.1%p (59.3 &rarr; 66.4) and gemma3 by 2.4%p (58.6 &rarr; 61.0) over direct
+          training; adding the generated queries gives Llama3.2 another 2.8%p (69.2).</li>
+        <li><strong>Structured stages beat free-form chain-of-thought.</strong> With the same base models, DocPlan outperforms free-form
+          CoT, e.g. Gemma3-4b DocVQA 82.8 vs. 53.46 and ChartQA 81.3 vs. 54.0, and Llama-Vision InfoVQA 71.2 vs. 54.83. In the stage
+          ablation, adding the execution stage gives the largest gain (5.3%p).</li>
+        <li><strong>Competitive with larger systems and transfers to held-out data.</strong> Llama-3.2-11B+DocPlan reaches 91.5 on DocVQA
+          and 86.6 on ChartQA, above Llava-CoT (89.8 / 82.6) and zero-shot GPT-4o (85.6 / 85.7). On held-out TextVQA, Gemma3-4B-it
+          improves from 58.14 to 62.91 (+4.77%p).</li>
+        <li><strong>More interpretable reasoning traces.</strong> In a simulatability test (answering from the reasoning trace alone,
+          without the image), Llama3.2+DocPlan scores 62.0 on average vs. 51.5 for Llava-CoT (+10.5%p); in GPT pairwise preference it
+          wins 71.3% of comparisons on average vs. 26.1% for Llava-CoT.</li>
+      </ul>
+      <p>
+        Trade-offs reported in the paper: responses become much longer (e.g. Llama3.2-11B-V generates 177.5&ndash;285.3 tokens on
+        average instead of 5.7&ndash;26.1), and accuracy on the general-domain MMMU benchmark drops after document-only fine-tuning,
+        though less than with direct-prediction training (Llama3.2-11B-Vision: &minus;15.0%p vs. &minus;31.2%p).
+      </p>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Accuracy of five open VLMs under different training data. Base: no fine-tuning;
+          +origin dataset: 82K original QA pairs without reasoning; +DocPlan(origin): the 68K original queries converted to DocPlan
+          format; +DocPlan: those plus 65K generated queries. DocVQA and InfoVQA use ANLS, ChartQA and ChartQAPro use GPT-4o-judged
+          accuracy. Bold marks the best value per model, as in the paper. (Table 2 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>Training data</th><th>DocVQA</th><th>InfoVQA</th><th>ChartQA</th><th>ChartQAPro</th><th>Avg</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="4">SmolVLM2-2.2B</td><td>Base</td><td><strong>80.9</strong></td><td><strong>47.6</strong></td><td>66.1</td><td>17.8</td><td>53.1</td></tr>
+          <tr><td>+origin dataset</td><td>77.0</td><td>45.1</td><td>63.3</td><td>18.3</td><td>50.9</td></tr>
+          <tr><td>+DocPlan(origin)</td><td>75.8</td><td>43.8</td><td>70.8</td><td>17.1</td><td>51.9</td></tr>
+          <tr class="ours"><td>+DocPlan</td><td>80.1</td><td>44.4</td><td><strong>72.7</strong></td><td><strong>18.9</strong></td><td><strong>54.0</strong></td></tr>
+          <tr><td rowspan="4">gemma-3-4b-it</td><td>Base</td><td>62.0</td><td>30.1</td><td>57.4</td><td>21.6</td><td>42.8</td></tr>
+          <tr><td>+origin dataset</td><td><strong>83.7</strong></td><td>50.3</td><td>76.1</td><td>24.1</td><td>58.6</td></tr>
+          <tr><td>+DocPlan(origin)</td><td>82.7</td><td><strong>52.9</strong></td><td>81.0</td><td>27.3</td><td><strong>61.0</strong></td></tr>
+          <tr class="ours"><td>+DocPlan</td><td>82.8</td><td>50.4</td><td><strong>81.3</strong></td><td><strong>28.9</strong></td><td>60.9</td></tr>
+          <tr><td rowspan="4">Qwen2-VL-7B</td><td>Base</td><td><strong>93.1</strong></td><td>72.7</td><td>83.1</td><td>26.6</td><td>68.9</td></tr>
+          <tr><td>+origin dataset</td><td>89.2</td><td>66.0</td><td>78.6</td><td>23.1</td><td>64.2</td></tr>
+          <tr><td>+DocPlan(origin)</td><td>91.8</td><td><strong>73.4</strong></td><td>79.9</td><td>29.9</td><td>68.8</td></tr>
+          <tr class="ours"><td>+DocPlan</td><td>91.8</td><td>71.2</td><td><strong>83.2</strong></td><td><strong>30.0</strong></td><td><strong>69.0</strong></td></tr>
+          <tr><td rowspan="4">paligemma2-10B</td><td>Base</td><td>69.0</td><td>34.9</td><td>34.2</td><td><strong>22.4</strong></td><td>40.1</td></tr>
+          <tr><td>+origin dataset</td><td>71.9</td><td>39.5</td><td>67.6</td><td>16.6</td><td>48.9</td></tr>
+          <tr><td>+DocPlan(origin)</td><td>74.9</td><td><strong>42.3</strong></td><td>71.5</td><td>20.7</td><td>52.3</td></tr>
+          <tr class="ours"><td>+DocPlan</td><td><strong>76.4</strong></td><td><strong>42.3</strong></td><td><strong>74.5</strong></td><td><strong>22.4</strong></td><td><strong>53.9</strong></td></tr>
+          <tr><td rowspan="4">Llama3.2-11B-V</td><td>Base</td><td>83.0</td><td>41.0</td><td>74.2</td><td>11.0</td><td>52.3</td></tr>
+          <tr><td>+origin dataset</td><td>87.8</td><td>59.5</td><td>73.4</td><td>16.5</td><td>59.3</td></tr>
+          <tr><td>+DocPlan(origin)</td><td>90.4</td><td><strong>68.3</strong></td><td>79.8</td><td>27.1</td><td>66.4</td></tr>
+          <tr class="ours"><td>+DocPlan</td><td><strong>91.5</strong></td><td>68.2</td><td><strong>86.6</strong></td><td><strong>30.6</strong></td><td><strong>69.2</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{shin-etal-2026-planning,
+    title = "Planning Before Reasoning: A Vision-Language Dataset for Structured Stepwise Reasoning in Document Understanding",
+    author = "Shin, Dongjae  and
+      Yoo, Hangyeol  and
+      Nam, Yerin  and
+      Shin, Hoyeon  and
+      Song, SeungWoo  and
+      Song, Seohyun  and
+      Yang, Donghun  and
+      Lim, KyungTae",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {EMNLP} 2026",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.findings-emnlp.996/",
+    doi = "10.18653/2026.findings-emnlp.996",
+    pages = "21022--21061",
+    ISBN = "979-8-89176-462-0"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

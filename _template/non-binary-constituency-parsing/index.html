@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Non-binary bottom-up constituency parsing without arity actions</title>
+  <meta name="description" content="A delimiter-guided bottom-up transition-based constituency parser builds non-binary trees without arity-specific Reduce-X#k actions, shrinking the action inventory from 202 to 78 on PTB and from 190 to 64 on CTB while closely tracking an arity-specific baseline. Findings of EMNLP 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="constituency parsing, non-binary constituency parsing, bottom-up parsing, shift-reduce parsing, transition-based parsing, phrase-structure parsing, syntactic parsing, arity, Reduce-X#k, delimiter-guided parsing, binarization, Penn Treebank, PTB, Chinese Treebank, CTB, EVALB, JP-EVALB, Findings of EMNLP 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/non-binary-constituency-parsing/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Non-binary bottom-up constituency parsing without arity actions">
+  <meta property="og:description" content="A delimiter-guided bottom-up constituency parser that derives reduction arity from the stack: action inventory 202 to 78 on PTB, 190 to 64 on CTB. Findings of EMNLP 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/non-binary-constituency-parsing/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/non-binary-constituency-parsing/static/images/teaser.png">
+  <meta property="og:image:width" content="1109">
+  <meta property="og:image:height" content="1187">
+  <meta property="og:image:alt" content="PTB-style constituency tree for the sentence &quot;Ms. Haag plays Elianti.&quot; with a ternary S node over NP, VP and the final period.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Non-binary bottom-up constituency parsing without arity actions">
+  <meta name="twitter:description" content="A delimiter-guided bottom-up constituency parser that derives reduction arity from the stack instead of Reduce-X#k actions. Findings of EMNLP 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/non-binary-constituency-parsing/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Non-binary bottom-up constituency parsing without arity actions">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="Korea Advanced Institute of Science &amp; Technology">
+  <meta name="citation_author" content="Jo, Eunkyul Leah">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Huang, Zihao">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_publication_date" content="2026/10">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: EMNLP 2026">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="12869">
+  <meta name="citation_lastpage" content="12879">
+  <meta name="citation_doi" content="10.18653/2026.findings-emnlp.611">
+  <meta name="citation_isbn" content="979-8-89176-462-0">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2026.findings-emnlp.611.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/non-binary-constituency-parsing/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/non-binary-constituency-parsing/#article",
+    "headline": "Non-binary bottom-up constituency parsing without arity actions",
+    "name": "Non-binary bottom-up constituency parsing without arity actions",
+    "url": "https://kaist-mlplab.github.io/non-binary-constituency-parsing/",
+    "datePublished": "2026-10",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/non-binary-constituency-parsing/static/images/teaser.png",
+    "abstract": "Non-binary bottom-up constituency parsing commonly uses arity-specific reductions such as Reduce-X#k, which jointly specify the mother label and number of children. We show that arity need not be a primitive transition parameter. The proposed parser predicts the mother label separately and identifies the ordered child sequence from a delimiter-bounded stack configuration. In every well-formed reducible configuration, the active delimiter, label marker, and intervening completed items uniquely determine the reduction domain and hence its arity. This factorization removes label–arity-specific reduction actions while preserving direct construction of the original non-binary trees. Controlled experiments on PTB and CTB show that the delimiter-guided parser closely tracks an arity-specific baseline while using a substantially smaller action inventory. Its predicted trees retain the gold branching profile without systematic collapse at higher arities. The smaller inventory is obtained at the cost of longer derivations and boundary-sensitive errors involving delimiter insertion, preservation, and consumption.",
+    "keywords": ["constituency parsing", "non-binary constituency parsing", "transition-based parsing", "shift-reduce parsing", "bottom-up parsing", "phrase-structure parsing", "syntactic parsing", "Penn Treebank (PTB)", "Chinese Treebank (CTB)", "binarization", "EVALB", "JP-EVALB"],
+    "about": [
+      {"@type": "Thing", "name": "Constituency parsing"},
+      {"@type": "Thing", "name": "Transition-based parsing"},
+      {"@type": "Thing", "name": "Syntactic parsing"}
+    ],
+    "author": [
+      {"@type": "Person", "name": "Jungyeul Park", "affiliation": {"@type": "Organization", "name": "Korea Advanced Institute of Science & Technology", "alternateName": "KAIST", "address": "Daejeon, South Korea"}},
+      {"@type": "Person", "name": "Eunkyul Leah Jo", "affiliation": {"@type": "Organization", "name": "The University of British Columbia", "address": "Vancouver, Canada"}},
+      {"@type": "Person", "name": "Zihao Huang", "affiliation": {"@type": "Organization", "name": "The University of British Columbia", "address": "Vancouver, Canada"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "isPartOf": {"@type": "Periodical", "name": "Findings of the Association for Computational Linguistics: EMNLP 2026", "publisher": {"@type": "Organization", "name": "Association for Computational Linguistics"}},
+    "sameAs": ["https://aclanthology.org/2026.findings-emnlp.611/", "https://doi.org/10.18653/2026.findings-emnlp.611"],
+    "pagination": "12869-12879",
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.18653/2026.findings-emnlp.611"}
+    ],
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://aclanthology.org/2026.findings-emnlp.611.pdf"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Non-binary bottom-up constituency parsing without arity actions</h1>
+      <p class="subtitle is-5 publication-subtitle">A delimiter-guided transition system for non-binary constituency parsing that derives reduction arity from the stack configuration</p>
+      <p><span class="tag is-link is-medium venue-badge">Findings of EMNLP 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Jungyeul Park<sup>1,*</sup>,</span>
+        <span class="author-block">Eunkyul Leah Jo<sup>2</sup>,</span>
+        <span class="author-block">Zihao Huang<sup>2</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Korea Advanced Institute of Science &amp; Technology (KAIST), Daejeon, South Korea</span>
+        <span class="author-block"><sup>2</sup>The University of British Columbia, Vancouver, Canada</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-emnlp.611/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-emnlp.611.pdf">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1109" height="1187" style="max-width: 460px;"
+           alt="Constituency tree for &quot;Ms. Haag plays Elianti.&quot;: TOP over S; S has three children NP, VP and the period; the subject NP covers NNP Ms. and NNP Haag; the VP covers VBZ plays and an object NP with a single NNP Elianti.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> Example PTB-style constituency tree for &ldquo;Ms. Haag plays Elianti.&rdquo; Its phrase-level
+        branching comprises a binary subject NP, a unary object NP, a binary VP, a ternary S, and a unary TOP. The delimiter-guided
+        parser builds all of these with the same arity-free reduction actions: its static-oracle derivation takes 26 steps
+        (Table 1 in the paper), whereas an arity-specific parser would need distinct actions such as Reduce-NP#2, Reduce-NP#1 and Reduce-S#3.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Non-binary bottom-up constituency parsing commonly uses arity-specific reductions such as Reduce-X#k, which jointly specify
+        the mother label and number of children. We show that arity need not be a primitive transition parameter. The proposed parser
+        predicts the mother label separately and identifies the ordered child sequence from a delimiter-bounded stack configuration.
+        In every well-formed reducible configuration, the active delimiter, label marker, and intervening completed items uniquely
+        determine the reduction domain and hence its arity. This factorization removes label&ndash;arity-specific reduction actions
+        while preserving direct construction of the original non-binary trees. Controlled experiments on PTB and CTB show that the
+        delimiter-guided parser closely tracks an arity-specific baseline while using a substantially smaller action inventory. Its
+        predicted trees retain the gold branching profile without systematic collapse at higher arities. The smaller inventory is
+        obtained at the cost of longer derivations and boundary-sensitive errors involving delimiter insertion, preservation, and consumption.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Constituency parsing</span>
+      <span class="tag">Transition-based parsing</span>
+      <span class="tag">Shift-reduce parsing</span>
+      <span class="tag">Phrase-structure parsing</span>
+      <span class="tag">Syntactic parsing</span>
+      <span class="tag">Penn Treebank (PTB)</span>
+      <span class="tag">Chinese Treebank (CTB)</span>
+      <span class="tag">Binarization</span>
+      <span class="tag">EVALB / JP-EVALB</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2600" height="768" loading="lazy"
+           alt="Definitions of the seven delimiter-guided bottom-up transitions (Shift, D-Shift, Nt(X), U-Reduce, Reduce, D-Reduce, Finish) as rewrites of the parser configuration consisting of stack, input index and completion flag.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Delimiter-guided bottom-up transitions. U-Reduce constructs a preterminal; Reduce and D-Reduce
+        compose the delimiter-bounded child sequence, respectively consuming and preserving the delimiter D. None of the
+        reduction actions carries a label or an arity parameter.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        A bottom-up parser introduces a constituent's label only after its children are built, so the label cannot mark where the
+        children begin. Existing non-binary bottom-up parsers (Fern&aacute;ndez-Gonz&aacute;lez and G&oacute;mez-Rodr&iacute;guez, 2019)
+        therefore use actions Reduce-X#k that pop exactly <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> items and label them <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>, so every observed label&ndash;arity
+        pair becomes a separate classifier target. The delimiter-guided parser splits this decision in two. A parser configuration is
+        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>σ</mi><mo separator="true">,</mo><mi>i</mi><mo separator="true">,</mo><mi>f</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\sigma, i, f)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mclose">)</span></span></span></span> (stack, next input index, completion flag), starting from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>ϵ</mi><mo separator="true">,</mo><mn>0</mn><mo separator="true">,</mo><mrow><mi mathvariant="sans-serif">f</mi><mi mathvariant="sans-serif">a</mi><mi mathvariant="sans-serif">l</mi><mi mathvariant="sans-serif">s</mi><mi mathvariant="sans-serif">e</mi></mrow><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\epsilon, 0, \mathsf{false})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">ϵ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathsf">false</span></span><span class="mclose">)</span></span></span></span>, and the parser proceeds as follows.
+      </p>
+      <ol>
+        <li><strong>Mark left boundaries while shifting.</strong> Shift pushes the next word; D-Shift first pushes a delimiter
+          <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span> (the empty label marker Nt()) and then the word, marking the leftmost word of a new phrase-level reduction domain:
+          <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>D-Shift</mtext><mo>:</mo><mtext> </mtext><mo stretchy="false">(</mo><mi>σ</mi><mo separator="true">,</mo><mi>i</mi><mo separator="true">,</mo><mrow><mi mathvariant="sans-serif">f</mi><mi mathvariant="sans-serif">a</mi><mi mathvariant="sans-serif">l</mi><mi mathvariant="sans-serif">s</mi><mi mathvariant="sans-serif">e</mi></mrow><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mi>σ</mi><mo>∣</mo><mi>D</mi><mo>∣</mo><msub><mi>w</mi><mi>i</mi></msub><mo separator="true">,</mo><mtext> </mtext><mi>i</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mtext> </mtext><mrow><mi mathvariant="sans-serif">f</mi><mi mathvariant="sans-serif">a</mi><mi mathvariant="sans-serif">l</mi><mi mathvariant="sans-serif">s</mi><mi mathvariant="sans-serif">e</mi></mrow><mo stretchy="false">)</mo><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">\text{D-Shift}:\ (\sigma, i, \mathsf{false}) \Rightarrow (\sigma \mid D \mid w_i,\ i+1,\ \mathsf{false}).</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">D-Shift</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathsf">false</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">⇒</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.854em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathsf">false</span></span><span class="mclose">)</span><span class="mord">.</span></span></span></span></span>
+          The static oracle inserts a delimiter at <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">w_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> if <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">i=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>, or if the phrase-level projection (grandparent) of
+          <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">w_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> differs from that of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">w_{i-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">w_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is at least as deep in the gold tree.</li>
+        <li><strong>Predict the label separately.</strong> Nt(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>) pushes the label marker <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span> after the children have been
+          shifted or built. For a part-of-speech tag, U-Reduce turns <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>∣</mo><mi>w</mi><mo>∣</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">\sigma \mid w \mid X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span> into <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>∣</mo><mi>X</mi><mo stretchy="false">(</mo><mi>w</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sigma \mid X(w)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mclose">)</span></span></span></span>.</li>
+        <li><strong>Recover the reduction domain from the stack.</strong> The nearest active delimiter and the topmost label marker
+          enclose a unique configuration <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>σ</mi><mo>∣</mo><mi>D</mi><mo>∣</mo><msub><mi>s</mi><mn>1</mn></msub><mo>∣</mo><mo>⋯</mo><mo>∣</mo><msub><mi>s</mi><mi>k</mi></msub><mo>∣</mo><mi>X</mi><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">\sigma \mid D \mid s_1 \mid \cdots \mid s_k \mid X,</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mpunct">,</span></span></span></span></span>
+          and both phrase-level reductions build <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo stretchy="false">(</mo><msub><mi>s</mi><mn>1</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>s</mi><mi>k</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">X(s_1, \ldots, s_k)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>. The arity <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> is simply the number of completed
+          subtrees between <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span>; a smaller value would omit a child and a larger one would cross the left boundary,
+          so no arity parameter is needed.</li>
+        <li><strong>Consume or keep the delimiter.</strong> Reduce consumes <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span> when the built constituent is the one the
+          delimiter was assigned to; D-Reduce leaves <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span> on the stack when a higher constituent shares the same left boundary.
+          Finish ends the derivation once the input is consumed and a single root remains.</li>
+      </ol>
+      <p>
+        For the tree in Figure 2, the oracle runs D-Shift(Ms.), Nt(NNP), U-Reduce, Shift(Haag), Nt(NNP), U-Reduce, Nt(NP), D-Reduce,
+        D-Shift(plays), Nt(VBZ), U-Reduce, D-Shift(Elianti), Nt(NNP), U-Reduce, Nt(NP), Reduce, Nt(VP), Reduce, Shift(.), Nt(.),
+        U-Reduce, Nt(S), D-Reduce, Nt(TOP), Reduce, Finish. Unary, binary and ternary constituents all use the same reduction
+        schema. After auxiliary delimiters are disregarded, each delimiter-guided reduction builds exactly the same local tree as the
+        corresponding Reduce-X#k action.
+      </p>
+      <p>
+        In the experiments, the delimiter-guided parser (D) is compared with a reimplementation of the arity-specific parser (A) and a
+        binary bottom-up parser trained on binarized trees (B). All three share the same Stanza-based neural architecture, optimization,
+        greedy decoding and evaluation, and differ only in transition inventory, applicability conditions and static oracle. Data: the
+        Wall Street Journal portion of the Penn Treebank (PTB; train 02&ndash;21, dev 22, test 23) and Chinese Treebank 5.1 (CTB).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Much smaller action inventory.</strong> Removing Reduce-X#k shrinks the non-binary inventory from 202 to 78 actions
+          on PTB and from 190 to 64 on CTB (binary parser: 126 and 148).</li>
+        <li><strong>Accuracy close to the arity-specific parser.</strong> On the PTB test set the delimiter-guided parser obtains
+          92.90 EVALB / 92.33 JP-EVALB F1 versus 92.45 / 91.89 for the arity-specific parser; on CTB it obtains 90.90 / 89.13 versus
+          91.02 / 89.27. On the development sets the two differ by at most 0.08 points on PTB and are 0.68 / 0.57 points lower on CTB.
+          The binary parser scores higher (PTB 94.11 EVALB), but it is trained on binarized trees.</li>
+        <li><strong>No collapse at high arity.</strong> Predicted constituents with five or more children closely follow the gold
+          counts (PTB: gold 1,859, D 1,897, A 1,950; CTB: gold 235, D 238, A 222). Labeled F1 on k&ge;5 constituents is 83.33 vs.
+          83.01 (A) on PTB and 72.73 vs. 74.84 on CTB.</li>
+        <li><strong>Cost: longer derivations.</strong> The average transition sequence per sentence is 56.76 on PTB and 77.56 on CTB,
+          compared with 43.47 and 59.45 for the arity-specific parser.</li>
+        <li><strong>Errors move to boundary control.</strong> Delimiter-persistence errors outnumber insertion errors: premature Reduce
+          455 (PTB) / 142 (CTB) and spurious D-Reduce 443 / 96, versus missing D-Shift 369 / 102 and spurious D-Shift 293 / 77.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Test-set labeled F1 on PTB and CTB with EVALB (punctuation excluded) and JP-EVALB (punctuation
+          retained). Published results are external reference points with different architectures and preprocessing; the
+          current-work rows compare the three systems under the same implementation framework. The paper does not bold any entry.
+          (Table 3 in the paper.)
+        </caption>
+        <thead>
+          <tr>
+            <th rowspan="2">System</th><th rowspan="2" style="white-space: normal;">Type</th>
+            <th colspan="2">PTB</th><th colspan="2">CTB</th>
+          </tr>
+          <tr>
+            <th>EVALB</th><th>JP-EVALB</th><th>EVALB</th><th>JP-EVALB</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Watanabe and Sumita (2015)</td><td style="white-space: normal;">Binary bottom-up</td><td>90.68</td><td>&ndash;</td><td>84.33</td><td>&ndash;</td></tr>
+          <tr><td>Liu and Zhang (2017b)</td><td style="white-space: normal;">Binary bottom-up</td><td>91.70</td><td>&ndash;</td><td>85.50</td><td>&ndash;</td></tr>
+          <tr><td>Dyer et al. (2016)</td><td style="white-space: normal;">Non-binary top-down</td><td>92.40</td><td>&ndash;</td><td>82.70</td><td>&ndash;</td></tr>
+          <tr><td>Liu and Zhang (2017a)</td><td style="white-space: normal;">Non-binary in-order</td><td>91.80</td><td>&ndash;</td><td>86.10</td><td>&ndash;</td></tr>
+          <tr><td style="white-space: normal;">Fern&aacute;ndez-Gonz&aacute;lez and G&oacute;mez-Rodr&iacute;guez (2019)</td><td style="white-space: normal;">Non-binary arity-specific bottom-up</td><td>91.70</td><td>&ndash;</td><td>86.80</td><td>&ndash;</td></tr>
+          <tr><td>Current work B</td><td style="white-space: normal;">Binary bottom-up</td><td>94.11</td><td>93.64</td><td>92.81</td><td>91.08</td></tr>
+          <tr><td>Current work A</td><td style="white-space: normal;">Non-binary arity-specific bottom-up</td><td>92.45</td><td>91.89</td><td>91.02</td><td>89.27</td></tr>
+          <tr class="ours"><td>Current work D (ours)</td><td style="white-space: normal;">Non-binary delimiter-guided bottom-up</td><td>92.90</td><td>92.33</td><td>90.90</td><td>89.13</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable results-table" style="margin: 0 auto;">
+        <caption>
+          <strong>Table 2.</strong> Action-inventory sizes of the three bottom-up systems (Table 4 in the paper).
+        </caption>
+        <thead>
+          <tr><th>System</th><th>PTB</th><th>CTB</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>B: binary</td><td>126</td><td>148</td></tr>
+          <tr><td>A: arity-specific non-binary</td><td>202</td><td>190</td></tr>
+          <tr class="ours"><td>D: delimiter-guided non-binary (ours)</td><td>78</td><td>64</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{park-etal-2026-non,
+    title = "Non-binary bottom-up constituency parsing without arity actions",
+    author = "Park, Jungyeul  and
+      Jo, Eunkyul Leah  and
+      Huang, Zihao",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {EMNLP} 2026",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.findings-emnlp.611/",
+    doi = "10.18653/2026.findings-emnlp.611",
+    pages = "12869--12879",
+    ISBN = "979-8-89176-462-0"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>
