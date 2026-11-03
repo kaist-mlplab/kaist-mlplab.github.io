@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>A Formal Framework for Fluency-based Multi-Reference Evaluation in Grammatical Error Correction</title>
+  <meta name="description" content="A formal framework for fluency-based multi-reference evaluation of grammatical error correction (GEC): GLEU with four aggregation strategies over multiple references; the merged n-gram strategy scores highest on every Czech, Estonian, and Ukrainian corpus, about +0.06 GLEU over single-reference evaluation on average. arXiv 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="grammatical error correction, GEC evaluation, multi-reference evaluation, GLEU, fluency-based metric, n-gram metric, aggregation strategies, merged n-grams, select-best, multilingual GEC, Czech, Estonian, Ukrainian, Chinese GEC, MuCGEC, MultiGEC-2025, ERRANT, M2, arXiv 2025, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/fluency-multi-reference-gec/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="A Formal Framework for Fluency-based Multi-Reference Evaluation in Grammatical Error Correction">
+  <meta property="og:description" content="GLEU under multiple references as an aggregation problem: four strategies, their formal properties, and results on Czech, Estonian, Ukrainian, and Chinese GEC corpora. arXiv 2025.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/fluency-multi-reference-gec/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/fluency-multi-reference-gec/static/images/teaser.png">
+  <meta property="og:image:width" content="1766">
+  <meta property="og:image:height" content="1082">
+  <meta property="og:image:alt" content="Line chart of corpus-level GLEU on MuCGEC as the number of references grows from 1 to 7 for four aggregation strategies.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A Formal Framework for Fluency-based Multi-Reference Evaluation in GEC">
+  <meta name="twitter:description" content="GLEU under multiple references as an aggregation problem: four strategies, their formal properties, and results on Czech, Estonian, Ukrainian, and Chinese GEC corpora. arXiv 2025.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/fluency-multi-reference-gec/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="A Formal Framework for Fluency-based Multi-Reference Evaluation in Grammatical Error Correction">
+  <meta name="citation_author" content="Klinger, Eitan">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Huang, Zihao">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author" content="Nguyen, Tran Minh">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author" content="Park, Emma Jayeon">
+  <meta name="citation_author_institution" content="Université de Rennes">
+  <meta name="citation_author" content="Chen, Yige">
+  <meta name="citation_author_institution" content="The Chinese University of Hong Kong">
+  <meta name="citation_author" content="Gu, Yang">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author" content="Gao, Qingyu">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author" content="Liu, Siliang">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author" content="Qiu, Mengyang">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author_institution" content="Trent University">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2025/10/08">
+  <meta name="citation_online_date" content="2025/10/08">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2510.06749">
+  <meta name="citation_arxiv_id" content="2510.06749">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/fluency-multi-reference-gec/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/fluency-multi-reference-gec/#article",
+    "headline": "A Formal Framework for Fluency-based Multi-Reference Evaluation in Grammatical Error Correction",
+    "name": "A Formal Framework for Fluency-based Multi-Reference Evaluation in Grammatical Error Correction",
+    "url": "https://kaist-mlplab.github.io/fluency-multi-reference-gec/",
+    "datePublished": "2025-10-08",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/fluency-multi-reference-gec/static/images/teaser.png",
+    "abstract": "Evaluating grammatical error correction requires metrics that reflect the diversity of valid human corrections rather than privileging a single reference. Existing frameworks, largely edit-based and English-centric, rely on rigid alignments between system and reference edits, limiting their applicability in multilingual and generative settings. This paper introduces a formal framework for fluency-based multi-reference evaluation, framing n-gram similarity as an aggregation problem over multiple legitimate corrections. Within this formulation, we instantiate GLEU through four aggregation strategies—SELECT-BEST, SIMPLE-AVERAGE, WEIGHTED-AVERAGE, and MERGED-COUNTS—and analyze their properties of boundedness, monotonicity, and sensitivity to reference variation. Empirical results on Czech, Estonian, Ukrainian, and Chinese corpora show that these strategies capture complementary aspects of fluency and coverage. The framework unifies multi-reference evaluation into a principled, fluency-oriented approach that incorporates linguistic diversity without penalizing legitimate variation.",
+    "keywords": [
+      "grammatical error correction",
+      "GEC evaluation",
+      "multi-reference evaluation",
+      "GLEU",
+      "fluency-based evaluation",
+      "n-gram aggregation",
+      "multilingual GEC",
+      "Chinese GEC",
+      "MuCGEC",
+      "MultiGEC-2025"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Grammatical error correction"
+      },
+      {
+        "@type": "Thing",
+        "name": "Evaluation metrics for natural language processing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multilingual natural language processing"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Eitan Klinger",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Zihao Huang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Open Writing Evaluation"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Tran Minh Nguyen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Open Writing Evaluation"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Emma Jayeon Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Université de Rennes"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yige Chen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The Chinese University of Hong Kong"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yang Gu",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Open Writing Evaluation"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Qingyu Gao",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Open Writing Evaluation"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Siliang Liu",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Open Writing Evaluation"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Mengyang Qiu",
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "Open Writing Evaluation"
+          },
+          {
+            "@type": "Organization",
+            "name": "Trent University"
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "Open Writing Evaluation"
+          },
+          {
+            "@type": "Organization",
+            "name": "KAIST"
+          }
+        ]
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2510.06749"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2510.06749"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2510.06749"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">A Formal Framework for Fluency-based Multi-Reference Evaluation in Grammatical Error Correction</h1>
+      <p class="subtitle is-5 publication-subtitle">Multi-reference GLEU for grammatical error correction, formalized as an aggregation over valid human corrections and tested on Czech, Estonian, Ukrainian, and Chinese</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2025</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Eitan Klinger<sup>1,*</sup>,</span>
+        <span class="author-block">Zihao Huang<sup>2,*</sup>,</span>
+        <span class="author-block">Tran Minh Nguyen<sup>2,*</sup>,</span>
+        <span class="author-block">Emma Jayeon Park<sup>3</sup>,</span>
+        <span class="author-block">Yige Chen<sup>4</sup>,</span>
+        <span class="author-block">Yang Gu<sup>2</sup>,</span>
+        <span class="author-block">Qingyu Gao<sup>2</sup>,</span>
+        <span class="author-block">Siliang Liu<sup>2</sup>,</span>
+        <span class="author-block">Mengyang Qiu<sup>2,5,†</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>2,6,†</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>2</sup>Open Writing Evaluation, France</span>
+        <span class="author-block"><sup>3</sup>Université de Rennes, France</span>
+        <span class="author-block"><sup>4</sup>The Chinese University of Hong Kong, Hong Kong</span>
+        <span class="author-block"><sup>5</sup>Trent University, Canada</span>
+        <span class="author-block"><sup>6</sup>KAIST, South Korea</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equally contributed authors &nbsp; <sup>†</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2510.06749">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2510.06749">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1766" height="1082" style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Line chart titled Incremental Multi-reference GLEU Evaluation (1-7 references) on the MuCGEC development set. X axis: number of references from 1 to 7; y axis: corpus-level GLEU score. All four strategies start at 0.4753 with one reference. GLEU-merged rises fastest and plateaus at about 0.54 from four references on; GLEU-select-best plateaus at about 0.53; GLEU-weighted plateaus at about 0.51; GLEU-average peaks near 0.48 at two references and then drifts slightly down.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Incremental multi-reference evaluation on the MuCGEC development set (1,137 sentences, up to seven references, 2.16 per sentence on average) using character-level, corpus-level GLEU. With one reference all variants coincide at 0.4753; as references are added the MERGED variant steadily increases, SELECT-BEST plateaus, and AVERAGE remains lower. The curves stabilize after about three to four references.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Evaluating grammatical error correction requires metrics that reflect the diversity of valid human corrections rather than privileging a single reference. Existing frameworks, largely edit-based and English-centric, rely on rigid alignments between system and reference edits, limiting their applicability in multilingual and generative settings. This paper introduces a formal framework for fluency-based multi-reference evaluation, framing n-gram similarity as an aggregation problem over multiple legitimate corrections. Within this formulation, we instantiate GLEU through four aggregation strategies&mdash;SELECT-BEST, SIMPLE-AVERAGE, WEIGHTED-AVERAGE, and MERGED-COUNTS&mdash;and analyze their properties of boundedness, monotonicity, and sensitivity to reference variation. Empirical results on Czech, Estonian, Ukrainian, and Chinese corpora show that these strategies capture complementary aspects of fluency and coverage. The framework unifies multi-reference evaluation into a principled, fluency-oriented approach that incorporates linguistic diversity without penalizing legitimate variation.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Grammatical error correction (GEC)</span>
+      <span class="tag">GEC evaluation metrics</span>
+      <span class="tag">Multi-reference evaluation</span>
+      <span class="tag">GLEU</span>
+      <span class="tag">Fluency-based evaluation</span>
+      <span class="tag">n-gram aggregation</span>
+      <span class="tag">Multilingual GEC</span>
+      <span class="tag">Chinese GEC (MuCGEC)</span>
+      <span class="tag">MultiGEC-2025</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        A learner sentence rarely has a single correct rewrite, yet edit-based metrics such as M2 and ERRANT score a system against one
+        canonical reference through span alignments. The paper instead treats evaluation as an aggregation over the set of valid human
+        corrections and studies GLEU, a fluency-oriented n-gram metric that compares the hypothesis <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span></span></span></span> with both the reference
+        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span> and the uncorrected source <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span>. For each n-gram <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi></mrow><annotation encoding="application/x-tex">g</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span></span></span></span>, GLEU rewards overlap with the reference and penalizes
+        n-grams kept from the source that the reference changed:
+        <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mrow><mi mathvariant="normal">c</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi></mrow><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">)</mo><mo>=</mo><mi>max</mi><mo>⁡</mo><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">(</mo><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><msub><mi>C</mi><mi>H</mi></msub><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mi>C</mi><mi>R</mi></msub><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>−</mo><mi>min</mi><mo>⁡</mo><mo stretchy="false">(</mo><msub><mi>C</mi><mi>H</mi></msub><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><msub><mi>C</mi><mi>S</mi></msub><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">)</mo><mo>−</mo><msub><mi>C</mi><mi>R</mi></msub><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo separator="true">,</mo><mtext> </mtext><mn>0</mn><mo fence="false" stretchy="true" minsize="1.2em" maxsize="1.2em">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{count}&#x27;(g) = \max\big(\min(C_H(g), C_R(g)) - \min(C_H(g), \max(0, C_S(g) - C_R(g))),\ 0\big)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0519em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathrm">count</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8019em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mop">max</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="delimsizing size1">(</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">min</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.00773em;">R</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">))</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.08125em;">H</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">max</span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2em;vertical-align:-0.35em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.00773em;">R</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">)))</span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">0</span><span class="mord"><span class="delimsizing size1">)</span></span></span></span></span></span>
+        followed by BLEU-style modified precisions (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">N = 4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4</span></span></span></span>) and brevity penalty.
+      </p>
+      <ol>
+        <li><strong>Score each reference.</strong> Compute <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>i</mi></msub><mo>=</mo><mrow><mi mathvariant="normal">G</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">U</mi></mrow><mo stretchy="false">(</mo><mi>S</mi><mo separator="true">,</mo><mi>H</mi><mo separator="true">,</mo><msub><mi>R</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f_i = \mathrm{GLEU}(S, H, R_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathrm">GLEU</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> for every reference <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mn>1</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>R</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">R_1, \dots, R_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.</li>
+        <li><strong>Aggregate.</strong> Combine the scores with one of four strategies:
+          <ul>
+            <li><em>Select-best</em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi>max</mi><mo>⁡</mo></mrow><mi>i</mi></msub><msub><mi>f</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\max_i f_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mop"><span class="mop">max</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> &ndash; an oracle upper bound; monotone in the number of references, but ignores all but the closest reference.</li>
+            <li><em>Simple average</em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>n</mi></mfrac><msub><mo>∑</mo><mi>i</mi></msub><msub><mi>f</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\tfrac{1}{n}\sum_i f_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.162em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> &ndash; treats every reference equally; adding a low-scoring reference can lower the score.</li>
+            <li><em>Weighted average</em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>i</mi></msub><msub><mi>w</mi><mi>i</mi></msub><msub><mi>f</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\sum_i w_i f_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0497em;vertical-align:-0.2997em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.162em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> with softmax weights <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>i</mi></msub><mo>∝</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>τ</mi><msub><mi>f</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">w_i \propto \exp(\tau f_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∝</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\tau &gt; 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span> &ndash; tends to select-best as <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span> grows and to the simple average as <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\tau \to 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>.</li>
+            <li><em>Merged n-grams</em>: pool the n-grams of all references into one multiset <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mo>∪</mo></msub></mrow><annotation encoding="application/x-tex">R_\cup</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2389em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∪</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and compute <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">G</mi><mi mathvariant="normal">L</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">U</mi></mrow><mo stretchy="false">(</mo><mi>S</mi><mo separator="true">,</mo><mi>H</mi><mo separator="true">,</mo><msub><mi>R</mi><mo>∪</mo></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{GLEU}(S, H, R_\cup)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathrm">GLEU</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2389em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∪</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> once; recall-oriented and monotone, since every attested human n-gram can be rewarded.</li>
+          </ul>
+        </li>
+        <li><strong>Report.</strong> Average the per-item scores to a corpus-level GLEU.</li>
+      </ol>
+      <p>
+        The paper proves boundedness, monotonicity, and non-penalization properties for these operators (Appendix A): select-best and
+        merged never decrease when a reference is added, while the averaging strategies can.
+        Experiments use DeepSeek-V3 to correct whole essays (temperature 0.0) from the MultiGEC-2025 development sets for Estonian, Czech,
+        and Ukrainian, each with up to two human references, and the MuCGEC development set for Chinese.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Merged multi-reference GLEU always beats the single reference.</strong> Merged n-grams gives the highest
+          corpus-level GLEU on all seven corpora, on average about +0.06 over the single-reference baseline; the difference between
+          merged and simple average is significant under paired bootstrap resampling (p &lt; 0.05) for the Czech and Ukrainian datasets.</li>
+        <li><strong>Gains grow with reference diversity.</strong> The largest gains are on Czech SecLearn (+0.0946) and Czech NatForm
+          (+0.0816); Estonian EKIL2 gains only +0.0090.</li>
+        <li><strong>Consistent ordering.</strong> All corpora show the same ordering of strategies, merged &gt; select-best &gt; weighted &gt;
+          average, and the gaps narrow as reference coverage increases.</li>
+        <li><strong>Chinese (MuCGEC).</strong> All strategies start at 0.4753 with one reference; merged keeps rising as references are
+          added, select-best plateaus, and the curves stabilize after three to four references (Figure 1).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 3.</strong> Corpus-level GLEU for multi-reference evaluation with each aggregation strategy, compared with the
+          single-reference baseline. The last column is the gain of merged multi-reference GLEU over the single-reference setting.
+          Merged is the highest in every row. (Table 3 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Corpus</th><th>Select-best</th><th>Avg</th><th>Weighted</th><th>Merged</th><th>Single-ref</th><th>&Delta; (Merged&minus;Single)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Estonian&ndash;EIC</td><td>0.5304</td><td>0.4997</td><td>0.5139</td><td>0.5609</td><td>0.5264</td><td>+0.0345</td></tr>
+          <tr><td>Estonian&ndash;EKIL2</td><td>0.4574</td><td>0.4520</td><td>0.4533</td><td>0.4584</td><td>0.4494</td><td>+0.0090</td></tr>
+          <tr><td>Czech&ndash;SecLearn</td><td>0.5625</td><td>0.5383</td><td>0.5512</td><td>0.6034</td><td>0.5088</td><td>+0.0946</td></tr>
+          <tr><td>Czech&ndash;NatForm</td><td>0.6808</td><td>0.6501</td><td>0.6701</td><td>0.7003</td><td>0.6187</td><td>+0.0816</td></tr>
+          <tr><td>Czech&ndash;NatWebInf</td><td>0.5816</td><td>0.5563</td><td>0.5771</td><td>0.5861</td><td>0.5563</td><td>+0.0298</td></tr>
+          <tr><td>Czech&ndash;Romani</td><td>0.5440</td><td>0.5168</td><td>0.5364</td><td>0.5649</td><td>0.5005</td><td>+0.0644</td></tr>
+          <tr><td>Ukrainian&ndash;UA-GEC</td><td>0.6488</td><td>0.6119</td><td>0.6320</td><td>0.6932</td><td>0.6325</td><td>+0.0607</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{klinger2025formalframeworkfluencybasedmultireference,
+      title={A Formal Framework for Fluency-based Multi-Reference Evaluation in Grammatical Error Correction}, 
+      author={Eitan Klinger and Zihao Huang and Tran Minh Nguyen and Emma Jayeon Park and Yige Chen and Yang Gu and Qingyu Gao and Siliang Liu and Mengyang Qiu and Jungyeul Park},
+      year={2025},
+      eprint={2510.06749},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2510.06749}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

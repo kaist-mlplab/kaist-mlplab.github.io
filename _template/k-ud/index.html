@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>K-UD: Revising Korean Universal Dependencies Guidelines</title>
+  <meta name="description" content="K-UD proposes revised Korean Universal Dependencies guidelines: last-noun heads for compounds and proper names, xcomp for catenative verbs, obl:arg for oblique arguments, and dislocated:nsubj for topic-marked subjects, validated by annotating 200 Sejong sentences. arXiv 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="K-UD, Korean Universal Dependencies, Korean UD, UD guidelines, Korean dependency parsing, dependency treebank, annotation guidelines, Korean syntax, GSD, Kaist treebank, KLUE, Sejong treebank, obl:arg, xcomp, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/k-ud/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="K-UD: Revising Korean Universal Dependencies Guidelines">
+  <meta property="og:description" content="Revised Korean Universal Dependencies guidelines: head-final nominal heads, catenative xcomp, obl:arg, and dislocated:nsubj, validated on 200 Sejong sentences. arXiv 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/k-ud/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/k-ud/static/images/teaser.png">
+  <meta property="og:image:width" content="1178">
+  <meta property="og:image:height" content="804">
+  <meta property="og:image:alt" content="Dependency tree for the Korean sentence na-neun jangdonggeon sajin-eul bogo sipda with current (top) and revised (bottom) Korean UD annotation.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="K-UD: Revising Korean Universal Dependencies Guidelines">
+  <meta name="twitter:description" content="Revised Korean Universal Dependencies guidelines: head-final nominal heads, catenative xcomp, obl:arg, and dislocated:nsubj, validated on 200 Sejong sentences. arXiv 2024.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/k-ud/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="K-UD: Revising Korean Universal Dependencies Guidelines">
+  <meta name="citation_author" content="Kim, Kyuwon">
+  <meta name="citation_author_institution" content="Seoul National University">
+  <meta name="citation_author" content="Chen, Yige">
+  <meta name="citation_author_institution" content="The Chinese University of Hong Kong">
+  <meta name="citation_author" content="Jo, Eunkyul Leah">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="SeoulTech">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Park, Chulwoo">
+  <meta name="citation_author_institution" content="Anyang University">
+  <meta name="citation_publication_date" content="2024/12/01">
+  <meta name="citation_publisher" content="arXiv">
+  <meta name="citation_arxiv_id" content="2412.00856">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2412.00856">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/k-ud/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/k-ud/#article",
+    "headline": "K-UD: Revising Korean Universal Dependencies Guidelines",
+    "name": "K-UD: Revising Korean Universal Dependencies Guidelines",
+    "url": "https://kaist-mlplab.github.io/k-ud/",
+    "datePublished": "2024-12-01",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/k-ud/static/images/teaser.png",
+    "abstract": "Critique has surfaced concerning the existing linguistic annotation framework for Korean Universal Dependencies (UDs), particularly in relation to syntactic relationships. In this paper, our primary objective is to refine the definition of syntactic dependency of UDs within the context of analyzing the Korean language. Our aim is not only to achieve a consensus within UDs but also to garner agreement beyond the UD framework for analyzing Korean sentences using dependency structure, by establishing a linguistic consensus model.",
+    "keywords": [
+      "Korean Universal Dependencies",
+      "annotation guidelines",
+      "Korean dependency parsing",
+      "dependency treebank",
+      "Korean syntax",
+      "Sejong treebank",
+      "KLUE",
+      "head-final"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Universal Dependencies"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Dependency grammar"
+      },
+      {
+        "@type": "Thing",
+        "name": "Treebank annotation"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Kyuwon Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yige Chen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The Chinese University of Hong Kong"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Eunkyul Leah Jo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "SeoulTech"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Chulwoo Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Anyang University"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "arXiv",
+      "url": "https://arxiv.org/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2412.00856"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2412.00856"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2412.00856"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">K-UD: Revising Korean Universal Dependencies Guidelines</h1>
+      <p class="subtitle is-5 publication-subtitle">Revised syntactic dependency guidelines for annotating Korean in Universal Dependencies</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2024</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Kyuwon Kim<sup>1</sup>,</span>
+        <span class="author-block">Yige Chen<sup>2</sup>,</span>
+        <span class="author-block">Eunkyul Leah Jo<sup>3,4</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>5</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>3</sup>,</span>
+        <span class="author-block">Chulwoo Park<sup>6</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Seoul National University, South Korea</span>
+        <span class="author-block"><sup>2</sup>The Chinese University of Hong Kong, Hong Kong</span>
+        <span class="author-block"><sup>3</sup>The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>4</sup>Sorbonne Universit&eacute;, France</span>
+        <span class="author-block"><sup>5</sup>SeoulTech, South Korea</span>
+        <span class="author-block"><sup>6</sup>Anyang University, South Korea</span>
+      </p>
+      <p class="publication-notes">Affiliations as printed in the arXiv version (December 2024).</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2412.00856">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2412.00856">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1178" height="804" style="max-width:560px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Dependency analysis of 나는 장동건 사진을 보고 싶다 (na-neun jangdonggeon sajin-eul bogo sipda, &#x27;I want to see a picture of Jang Dong-gun&#x27;). Top, current Korean GSD annotation: root on bogo &#x27;see&#x27;, nsubj to na-neun, obj to jangdonggeon, flat from jangdonggeon to sajin-eul, flat from bogo to sipda. Bottom, revised annotation: root on sipda &#x27;want&#x27;, xcomp to bogo, obj from bogo to sajin-eul, compound from sajin-eul to jangdonggeon, dislocated:nsubj to na-neun.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Example of the current annotation in Korean_GSD (top) and the revised annotation (bottom) for
+        <em>na-neun jangdonggeon sajin-eul bogo sipda</em> &lsquo;I want to see a picture of Jang Dong-gun&rsquo;. Currently the first noun
+        (<em>jangdonggeon</em>) and the first verb (<em>bogo</em>) are heads; in the revision, the last noun <em>sajin-eul</em> heads the noun phrase
+        (<code>compound</code>), the catenative verb <em>sipda</em> &lsquo;want&rsquo; is the root with an <code>xcomp</code>, and the topic-marked
+        <em>na-neun</em> is <code>dislocated:nsubj</code>.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Critique has surfaced concerning the existing linguistic annotation framework for Korean Universal Dependencies (UDs), particularly in relation to syntactic relationships. In this paper, our primary objective is to refine the definition of syntactic dependency of UDs within the context of analyzing the Korean language. Our aim is not only to achieve a consensus within UDs but also to garner agreement beyond the UD framework for analyzing Korean sentences using dependency structure, by establishing a linguistic consensus model.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean Universal Dependencies (UD)</span>
+      <span class="tag">Annotation guidelines</span>
+      <span class="tag">Korean dependency parsing</span>
+      <span class="tag">Dependency treebank</span>
+      <span class="tag">Head-final syntax</span>
+      <span class="tag">Catenative constructions</span>
+      <span class="tag">Sejong treebank</span>
+      <span class="tag">KLUE</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Proposed Revisions</h2>
+    <div class="content has-text-justified">
+      <p>
+        Current Korean UD treebanks (GSD and Kaist) annotate the <em>first</em> word as the head of noun compounds, multiword proper names, and
+        verb sequences, regardless of grammatical category, and attach many arguments with generic relations. Korean is head-final, so the
+        revised guidelines align the dependency analysis with Korean syntax. In the paper&rsquo;s figures, &lsquo;top&rsquo; arcs show the current
+        annotation and &lsquo;bottom&rsquo; arcs the revised one; examples up to Section 3 come from <code>ko_gsd-ud</code> (UD v2.12).
+      </p>
+      <ol>
+        <li><strong>Nominal heads.</strong> In a noun compound, the head is the stem that determines the semantic category, usually the <em>last</em>
+          noun; for multiword proper names, the last proper noun is the head because it receives case from the predicate.
+          <code>flat</code> attaches to the last word in Korean (e.g., dates such as <em>1941nyeon 1wol 11il</em>).</li>
+        <li><strong>Auxiliaries vs. catenative verbs.</strong> Verbs in catenative constructions (e.g., <em>sipda</em> &lsquo;want&rsquo; in
+          <em>bogo sipda</em>) are the lexical head and take an <code>xcomp</code>; auxiliaries expressing tense, mood, aspect, voice, or evidentiality
+          are attached with <code>aux</code>.</li>
+        <li><strong>Clausal arguments.</strong> <code>ccomp</code> marks clausal complements, <code>xcomp</code> is reserved for catenative
+          constructions, and <code>csubj:pass</code> is introduced for clausal passive subjects.</li>
+        <li><strong>Oblique arguments.</strong> Adverbial-postposition (<code>jkb</code>) phrases that are complements of the predicate according to
+          the Sejong dictionary&rsquo;s subcategorization frames are annotated <code>obl:arg</code>, distinguishing them from adjunct <code>obl</code>.</li>
+        <li><strong>Topic-marked subjects.</strong> Most nominals with the topic marker <em>eun/neun</em>, now labeled <code>dislocated</code>, are
+          annotated <code>dislocated:nsubj</code>; <code>expl</code> is not used for Korean.</li>
+        <li><strong>Function words and MWEs.</strong> <code>cop</code> is annotated only when the copula is tokenized apart from its lexeme (e.g., after
+          punctuation); <code>mark</code> marks subordinate clauses; <code>fixed</code> covers grammaticized expressions such as <em>ppun anila</em>
+          &lsquo;in addition to&rsquo;.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Findings</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Validation on new data.</strong> 200 sentences randomly selected from the Sejong project were manually annotated with the revised
+          guidelines, using argument-structure frames from the Sejong verb dictionary (e.g., <em>geolaesikida</em> &lsquo;trade&rsquo; with
+          <code>nsubj</code>, <code>iobj</code>, and <code>obj</code>; <em>mudeonada</em> &lsquo;stand out&rsquo; with <code>nsubj</code> and <code>obl:arg</code>).</li>
+        <li><strong>Known annotation problems.</strong> The current Korean GSD data also contains morphological annotation errors, on average 2.46 words
+          per sentence for language-specific XPOS and 2.35 words per sentence for Universal POS (as reported by Jo et al., 2023).</li>
+        <li><strong>Consistency with Sejong-style dependencies.</strong> The paper compares the revision with the Sejong-style dependency structure used
+          by KLUE, which consistently follows a right-to-left (head-final) pattern, as part of building a linguistic consensus model for Korean.</li>
+        <li><strong>Next steps.</strong> The authors plan to add full Korean guidelines with examples to the UD relation pages and to align UD-style and
+          Sejong-style treebanks with the KLUE benchmark consortium and the National Institute of Korean Language.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Statistics of the available Korean dependency parsing datasets, in number of sentences. (Table 1 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Source</th><th>Train</th><th>Dev</th><th>Test</th><th>Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>GSD</td><td>4400</td><td>950</td><td>989</td><td>6339</td></tr>
+          <tr><td>Kaist</td><td>23,010</td><td>2066</td><td>2287</td><td>27,363</td></tr>
+          <tr><td>Penn</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>5010</td></tr>
+          <tr><td>KLUE</td><td>10,000</td><td>2000</td><td>2500</td><td>14,500</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{kim2024kudrevisingkoreanuniversal,
+      title={K-UD: Revising Korean Universal Dependencies Guidelines}, 
+      author={Kyuwon Kim and Yige Chen and Eunkyul Leah Jo and KyungTae Lim and Jungyeul Park and Chulwoo Park},
+      year={2024},
+      eprint={2412.00856},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2412.00856}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

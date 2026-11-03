@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Representing and Parsing Korean Constituency Structure at Different Levels of Granularity</title>
+  <meta name="description" content="Comparing Morpheme+XPOS, Eojeol+XPOS, and Eojeol+UPOS constituency representations of the Penn Korean Treebank with top-down, in-order, and bottom-up transition parsers; after projection to eojeol terminals, Morpheme+XPOS bottom-up parsing reaches 84.76 EVALB F1 versus 70.11 for Eojeol+UPOS. arXiv 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="Korean constituency parsing, Penn Korean Treebank, eojeol, morpheme, phrase structure, treebank representation, terminal granularity, XPOS, UPOS, transition-based parsing, non-binary parsing, top-down parsing, in-order parsing, bottom-up parsing, Stanza, EVALB, jp-evalb, Korean NLP, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/korean-constituency-granularity/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Representing and Parsing Korean Constituency Structure at Different Levels of Granularity">
+  <meta property="og:description" content="How terminal granularity (morpheme vs. eojeol) and POS granularity (XPOS vs. UPOS) affect Korean constituency parsing on the Penn Korean Treebank. arXiv 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/korean-constituency-granularity/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/korean-constituency-granularity/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="2651">
+  <meta property="og:image:alt" content="The same Penn Korean Treebank sentence as (a) morpheme terminals with XPOS tags, (b) eojeol terminals with combined XPOS tags, and (c) eojeol terminals with UPOS tags.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Representing and Parsing Korean Constituency Structure at Different Granularities">
+  <meta name="twitter:description" content="Morpheme+XPOS, Eojeol+XPOS, and Eojeol+UPOS trees from the Penn Korean Treebank, parsed top-down, in-order, and bottom-up. arXiv 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/korean-constituency-granularity/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Representing and Parsing Korean Constituency Structure at Different Levels of Granularity">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Huang, Zihao">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Jo, Eunkyul Leah">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Chen, Yige">
+  <meta name="citation_author_institution" content="The Chinese University of Hong Kong">
+  <meta name="citation_author" content="Park, Chulwoo">
+  <meta name="citation_author_institution" content="Anyang University">
+  <meta name="citation_publication_date" content="2026/08/27">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2608.27035">
+  <meta name="citation_arxiv_id" content="2608.27035">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/korean-constituency-granularity/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/korean-constituency-granularity/#article",
+    "headline": "Representing and Parsing Korean Constituency Structure at Different Levels of Granularity",
+    "name": "Representing and Parsing Korean Constituency Structure at Different Levels of Granularity",
+    "url": "https://kaist-mlplab.github.io/korean-constituency-granularity/",
+    "datePublished": "2026-08-27",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/korean-constituency-granularity/static/images/teaser.png",
+    "abstract": "Korean constituency parsing raises a representational challenge because the terminal units of a phrase-structure tree do not straightforwardly correspond to simple surface words. Korean eojeols are morphologically complex spacing units, and existing constituency resources differ in how they represent eojeol-internal morphology and non-overt elements. This paper compares three constituency parsing representations derived from the Penn Korean Treebank: Morpheme+XPOS, Eojeol+XPOS, and Eojeol+UPOS. We construct these representations by removing null elements, aligning Penn Korean phrase structure with overt eojeol tokens, preserving Penn Korean phrase labels where possible, and varying the terminal and preterminal layers. We then evaluate canonical non-binary transition-based constituency parsers in top-down, in-order, and bottom-up orders under a shared modeling and evaluation setup. All experiments use gold terminal segmentation and gold preterminal labels and therefore evaluate constituency parsing conditioned on gold morphosyntactic annotation. Eojeol terminals yield shorter transition sequences, but Eojeol+UPOS parsing substantially underperforms the morphologically richer conditions. Eojeol+XPOS narrows this gap, while Morpheme+XPOS gives the strongest results even after its predictions are projected to the eojeol terminal domain. Under these gold-annotation conditions, the results show that fine-grained morphological and XPOS representations provide valuable evidence for the evaluated parsers. This empirical finding concerns the information available for parsing and does not by itself determine the linguistically preferable terminal domain. Independently, linguistic and resource-design considerations motivate eojeol as a stable and interpretable surface domain for phrase-structure annotation, with morpheme-level and XPOS information retained as aligned morphosyntactic evidence.",
+    "keywords": [
+      "Korean constituency parsing",
+      "Penn Korean Treebank",
+      "eojeol",
+      "morpheme",
+      "XPOS",
+      "UPOS",
+      "treebank conversion",
+      "transition-based parsing",
+      "non-binary constituency parsing",
+      "jp-evalb"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Constituency parsing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Treebanks"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Morphology (linguistics)"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Zihao Huang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Eunkyul Leah Jo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yige Chen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The Chinese University of Hong Kong"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Chulwoo Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Anyang University"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2608.27035"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2608.27035"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2608.27035"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Representing and Parsing Korean Constituency Structure at Different Levels of Granularity</h1>
+      <p class="subtitle is-5 publication-subtitle">Morpheme- versus eojeol-based Penn Korean Treebank representations for top-down, in-order, and bottom-up non-binary transition-based constituency parsing</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Jungyeul Park<sup>1,*</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>1</sup>,</span>
+        <span class="author-block">Zihao Huang<sup>2</sup>,</span>
+        <span class="author-block">Eunkyul Leah Jo<sup>2</sup>,</span>
+        <span class="author-block">Yige Chen<sup>3</sup>,</span>
+        <span class="author-block">Chulwoo Park<sup>4</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Korea Advanced Institute of Science &amp; Technology (KAIST), South Korea</span>
+        <span class="author-block"><sup>2</sup>The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>3</sup>The Chinese University of Hong Kong, Hong Kong</span>
+        <span class="author-block"><sup>4</sup>Anyang University, South Korea</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2608.27035">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2608.27035">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="2651" style="max-width:640px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Three constituency trees for the same Korean sentence (&#x27;The British government announced that it would announce Chile&#x27;s former dictator Augusto Pinochet&#x27;s final handling policy within 2 days&#x27;). (a) Morpheme terminals with XPOS preterminals: each eojeol is split into morphemes, e.g. 영국/NPR 정부/NNC 은/PAU under NP-SBJ, and 밝히/VV 었/EPF 다/EFN. (b) Eojeol terminals with combined XPOS preterminals: 영국정부는 under NPR+NNC+PAU, 밝혔다 under VV+EPF+EFN, 것이라고 under NNX+CO+EFN+PAD. (c) Eojeol terminals with UPOS preterminals: the same eojeols under coarse labels such as NOUN, VERB, PROPN, ADJ, NUM, and PUNCT. The phrase labels (S, NP-SBJ, VP, S-COMP, NP-ADV, NP-OBJ, NP) are shared.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Three terminal/POS representations derived from the same Penn Korean Treebank sentence: (a) <strong>Morpheme+XPOS</strong>, where morphemes such as 영국/NPR, 정부/NNC, 은/PAU are terminals; (b) <strong>Eojeol+XPOS</strong>, where the eojeol 영국정부는 is one terminal under the combined preterminal NPR+NNC+PAU; (c) <strong>Eojeol+UPOS</strong>, where the same eojeol sits under the coarse UPOS label NOUN. Null elements are removed and the Penn Korean phrase labels are kept.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Korean constituency parsing raises a representational challenge because the terminal units of a phrase-structure tree do not straightforwardly correspond to simple surface words. Korean eojeols are morphologically complex spacing units, and existing constituency resources differ in how they represent eojeol-internal morphology and non-overt elements. This paper compares three constituency parsing representations derived from the Penn Korean Treebank: Morpheme+XPOS, Eojeol+XPOS, and Eojeol+UPOS. We construct these representations by removing null elements, aligning Penn Korean phrase structure with overt eojeol tokens, preserving Penn Korean phrase labels where possible, and varying the terminal and preterminal layers. We then evaluate canonical non-binary transition-based constituency parsers in top-down, in-order, and bottom-up orders under a shared modeling and evaluation setup. All experiments use gold terminal segmentation and gold preterminal labels and therefore evaluate constituency parsing conditioned on gold morphosyntactic annotation. Eojeol terminals yield shorter transition sequences, but Eojeol+UPOS parsing substantially underperforms the morphologically richer conditions. Eojeol+XPOS narrows this gap, while Morpheme+XPOS gives the strongest results even after its predictions are projected to the eojeol terminal domain. Under these gold-annotation conditions, the results show that fine-grained morphological and XPOS representations provide valuable evidence for the evaluated parsers. This empirical finding concerns the information available for parsing and does not by itself determine the linguistically preferable terminal domain. Independently, linguistic and resource-design considerations motivate eojeol as a stable and interpretable surface domain for phrase-structure annotation, with morpheme-level and XPOS information retained as aligned morphosyntactic evidence.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean constituency parsing</span>
+      <span class="tag">Penn Korean Treebank</span>
+      <span class="tag">Eojeol vs. morpheme terminals</span>
+      <span class="tag">XPOS / UPOS</span>
+      <span class="tag">Treebank conversion</span>
+      <span class="tag">Transition-based parsing</span>
+      <span class="tag">Top-down / in-order / bottom-up</span>
+      <span class="tag">Non-binary trees</span>
+      <span class="tag">jp-evalb</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Representations and Parsers</h2>
+
+    <div class="content has-text-justified">
+      <p>
+        All three parsing targets come from the same Penn Korean phrase-structure trees, aligned with the treebank's Universal
+        Dependencies counterpart. Null elements are removed, each overt eojeol is aligned with its morpheme sequence, XPOS tags, and
+        UPOS label, and Penn Korean phrase labels are kept where possible. The representations differ only in the terminal and
+        preterminal layers:
+      </p>
+      <ol>
+        <li><strong>Morpheme+XPOS:</strong> morphemes are terminals with fine-grained Korean XPOS preterminals, so particles and endings appear in the tree yield.</li>
+        <li><strong>Eojeol+XPOS:</strong> eojeols are terminals; the preterminal is the combined XPOS sequence of the eojeol (e.g., VJ+ECS for 이르면 &lsquo;if it is early&rsquo;).</li>
+        <li><strong>Eojeol+UPOS:</strong> eojeols are terminals with coarse UPOS preterminals (NOUN, PROPN, VERB, ADJ, ADV, PUNCT, &hellip;).</li>
+      </ol>
+      <p>
+        Three canonical non-binary transition systems are implemented in the same Stanza BiLSTM parser and differ only in when a phrase
+        label is predicted: <strong>top-down</strong> (before the children, as in RNNG), <strong>in-order</strong> (after the left corner), and
+        <strong>bottom-up</strong> (at reduction time, with arity-specific Reduce-X#k actions). The converted treebank is split by file
+        (3,877 / 428 / 685 sentences for train / dev / test). Parsers receive gold segmentation and gold preterminals, so the study measures
+        constituency parsing conditioned on gold morphosyntax. For a common comparison, Morpheme+XPOS and Eojeol+XPOS predictions are
+        projected to Eojeol+UPOS trees and scored with EVALB and punctuation-aware jp-evalb.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Morphological detail helps the parser.</strong> After projection to eojeol terminals, Morpheme+XPOS bottom-up parsing is best
+          with 84.76 EVALB F1 / 82.17 jp-evalb F1, compared with 70.11 / 68.30 for the best native Eojeol+UPOS system.</li>
+        <li><strong>XPOS closes most of the gap.</strong> Keeping fine-grained XPOS on eojeol terminals raises in-order parsing from 69.97 (Eojeol+UPOS)
+          to 81.01 EVALB F1 (Eojeol+XPOS).</li>
+        <li><strong>Eojeol terminals give shorter derivations.</strong> Average oracle transitions per training sentence drop from 217.88 (morpheme) to
+          150.94 (eojeol) for top-down and in-order parsing, and from 84.55 to 62.24 for bottom-up parsing.</li>
+        <li><strong>The gain starts locally and propagates upward.</strong> Right above the preterminals (tree height 2), top-down parsing reaches 91.09
+          F1 with Morpheme+XPOS, 86.36 with Eojeol+XPOS, and 78.69 with Eojeol+UPOS, and the morpheme advantage persists at higher levels.
+          For binary constituents, bottom-up parsing scores 77.12 (Morpheme+XPOS) versus 56.88 (Eojeol+UPOS).</li>
+        <li><strong>Interpretation.</strong> These results concern the information available to the parser under gold annotation; the authors
+          still motivate eojeol as the constituency terminal domain, with morphemes and XPOS kept as aligned morphosyntactic layers.</li>
+      </ul>
+    </div>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 4.</strong> Constituency parsing on the Penn Korean Treebank test set, normalized to the Eojeol+UPOS representation:
+          Morpheme+XPOS and Eojeol+XPOS predictions are converted to Eojeol+UPOS before evaluation, so all systems are scored against the
+          same gold trees. Labeled F1; bold marks the best value per column.
+        </caption>
+        <thead>
+          <tr><th>Representation</th><th>System</th><th>EVALB F1</th><th>jp-evalb F1</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="3">Morpheme+XPOS &rarr; Eojeol+UPOS</td><td>Top-down</td><td>79.58</td><td>77.32</td></tr>
+          <tr><td>In-order</td><td>83.26</td><td>80.79</td></tr>
+          <tr><td>Bottom-up</td><td><strong>84.76</strong></td><td><strong>82.17</strong></td></tr>
+          <tr><td rowspan="3">Eojeol+XPOS &rarr; Eojeol+UPOS</td><td>Top-down</td><td>69.62</td><td>67.73</td></tr>
+          <tr><td>In-order</td><td>81.01</td><td>78.62</td></tr>
+          <tr><td>Bottom-up</td><td>80.80</td><td>78.48</td></tr>
+          <tr><td rowspan="3">Eojeol+UPOS (native)</td><td>Top-down</td><td>63.91</td><td>62.44</td></tr>
+          <tr><td>In-order</td><td>69.97</td><td>68.19</td></tr>
+          <tr><td>Bottom-up</td><td>70.11</td><td>68.30</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{park2026representingparsingkoreanconstituency,
+      title={Representing and Parsing Korean Constituency Structure at Different Levels of Granularity},
+      author={Jungyeul Park and KyungTae Lim and Zihao Huang and Eunkyul Leah Jo and Yige Chen and Chulwoo Park},
+      year={2026},
+      eprint={2608.27035},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2608.27035},
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

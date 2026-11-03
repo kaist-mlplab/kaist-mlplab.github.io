@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Lexically conditioned realization ambiguity in Korean predicate morphology</title>
+  <meta name="description" content="Korean surface realization from analyzed morphemes is underdetermined for homonymous predicates in different conjugation classes (regular vs. digeut-irregular, regular vs. bieup-irregular, reu- vs. reo-irregular), e.g. 걷+었+다 yields 걸었다 &#x27;walked&#x27; or 걷었다 &#x27;cleared away&#x27;; a refined rule-based reconstructor reaches 92.56 target-eojeol F1 on KLUE. arXiv 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="Korean morphology, Korean predicate morphology, Korean irregular conjugation, irregular verbs, surface realization, morphological realization, morphological generation, homonymy, inflectional divergence, digeut irregular, bieup irregular, reu irregular, reo irregular, eojeol, KLUE, Korean NLP, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/korean-predicate-morphology/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Lexically conditioned realization ambiguity in Korean predicate morphology">
+  <meta property="og:description" content="Korean predicates with the same stem shape can belong to different irregular conjugation classes, so a morpheme sequence alone does not determine the surface form. arXiv 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/korean-predicate-morphology/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Lexically conditioned realization ambiguity in Korean predicate morphology">
+  <meta name="twitter:description" content="Why Korean morpheme sequences do not always determine the surface form: homonymy with inflectional divergence. arXiv 2026.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Lexically conditioned realization ambiguity in Korean predicate morphology">
+  <meta name="citation_author" content="Oh, Wonjun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/08/28">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2608.27966">
+  <meta name="citation_arxiv_id" content="2608.27966">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/korean-predicate-morphology/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/korean-predicate-morphology/#article",
+    "headline": "Lexically conditioned realization ambiguity in Korean predicate morphology",
+    "name": "Lexically conditioned realization ambiguity in Korean predicate morphology",
+    "url": "https://kaist-mlplab.github.io/korean-predicate-morphology/",
+    "datePublished": "2026-08-28",
+    "inLanguage": "en",
+    "abstract": "This paper examines Korean surface realization as distinct from morphological analysis. It asks whether a sequence of canonical morphemes and grammatical category labels uniquely determines the corresponding surface form. The answer is negative for a restricted but theoretically revealing class of Korean predicates. In these cases, formally identical or near-identical stem-ending configurations yield different outputs depending on lexical identity and realization class membership. We analyze this phenomenon as homonymy with inflectional divergence, focusing on regular versus digeut irregular pairs, regular versus bieup irregular pairs, and reu irregular versus reo irregular pairs. These cases show that stem shape and ending alone do not always determine surface realization. Instead, lexical meaning, subcategorization, and semantic role structure help identify the intended predicate; the predicate determines the realization class; and the realization class determines the surface form. Korean realization thus reveals a limit of bare morphological representation.",
+    "keywords": [
+      "Korean morphology",
+      "irregular conjugation",
+      "surface realization",
+      "morphological generation",
+      "homonymy with inflectional divergence",
+      "Korean irregular predicates",
+      "eojeol",
+      "Korean NLP"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Morphology (linguistics)"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Natural language generation"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Wonjun Oh",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2608.27966"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2608.27966"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2608.27966"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Lexically conditioned realization ambiguity in Korean predicate morphology</h1>
+      <p class="subtitle is-5 publication-subtitle">Why a sequence of Korean morphemes and POS labels does not always determine the surface form: homonymous predicates in different conjugation classes</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Wonjun Oh,</span>
+        <span class="author-block">KyungTae Lim,</span>
+        <span class="author-block">Jungyeul Park<sup>*</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block">Korea Advanced Institute of Science &amp; Technology (KAIST), South Korea</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2608.27966">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2608.27966">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        This paper examines Korean surface realization as distinct from morphological analysis. It asks whether a sequence of canonical morphemes and grammatical category labels uniquely determines the corresponding surface form. The answer is negative for a restricted but theoretically revealing class of Korean predicates. In these cases, formally identical or near-identical stem-ending configurations yield different outputs depending on lexical identity and realization class membership. We analyze this phenomenon as homonymy with inflectional divergence, focusing on regular versus digeut irregular pairs, regular versus bieup irregular pairs, and reu irregular versus reo irregular pairs. These cases show that stem shape and ending alone do not always determine surface realization. Instead, lexical meaning, subcategorization, and semantic role structure help identify the intended predicate; the predicate determines the realization class; and the realization class determines the surface form. Korean realization thus reveals a limit of bare morphological representation.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean morphology</span>
+      <span class="tag">Irregular conjugation</span>
+      <span class="tag">Surface realization</span>
+      <span class="tag">Morphological generation</span>
+      <span class="tag">Homonymy with inflectional divergence</span>
+      <span class="tag">ㄷ / ㅂ / 르 / 러 irregular predicates</span>
+      <span class="tag">Eojeol</span>
+      <span class="tag">Korean NLP</span>
+      <span class="tag">KLUE</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Analysis</h2>
+
+    <div class="content has-text-justified">
+      <p>
+        The paper treats realization as the inverse of morphological analysis: given canonical morphemes with category labels, can
+        the grammar recover a unique eojeol (the Korean spacing unit)? It distinguishes three relations between analysis and realization:
+      </p>
+      <ol>
+        <li><strong>Nearly transparent:</strong> {먹+었+다} &rarr; 먹었다 <em>meogeotda</em> &lsquo;ate&rsquo;.</li>
+        <li><strong>Non-transparent but locally predictable:</strong> {나서+었+다} &rarr; 나섰다 <em>naseotda</em> &lsquo;stepped forward&rsquo;,
+          once the lexical item and morphophonological conditions are known.</li>
+        <li><strong>Underdetermined:</strong> {걷+었+다} yields 걸었다 <em>georeotda</em> &lsquo;walked&rsquo; or 걷었다 <em>geodeotda</em>
+          &lsquo;cleared away&rsquo;, depending on the intended lexeme.</li>
+      </ol>
+      <p>
+        The third case is called <strong>homonymy with inflectional divergence</strong>: predicates with the same or nearly the same stem shape
+        belong to different realization (conjugation) classes. Using subcategorization frames from the Sejong dictionary, the paper argues for
+        an indirect chain of explanation:
+      </p>
+      <p class="has-text-centered">
+        <strong>argument frame / semantic role pattern &rarr; lexical identity &rarr; realization class &rarr; surface form</strong>
+      </p>
+      <p>
+        Semantic roles do not choose the surface form directly; they help identify the lexeme, which carries its conjugation class.
+        Derived predicates such as 치걷다 <em>chigeotda</em>, 되묻다 <em>doemutda</em>, and 파묻다 <em>pamutda</em> inherit the behavior of
+        their simplex base.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Findings</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Three ambiguity classes.</strong> Realization ambiguity among simplex predicates falls into regular vs. ㄷ <em>digeut</em>
+          irregular (걷다, 닫다, 묻다), regular vs. ㅂ <em>bieup</em> irregular (곱다, 굽다), and 르 <em>reu</em> vs. 러 <em>reo</em> irregular
+          (누르다, 이르다); the inventory in Table 2 is exhaustive for the Standard Korean Language Dictionary.</li>
+        <li><strong>Stem shape marks only the site of alternation.</strong> The final consonant and ending show where an alternation could
+          occur, but only the lexeme's realization class decides whether it does, so bare morphological representation is not a reversible
+          encoding of surface form.</li>
+        <li><strong>Attested in corpus data.</strong> In the KLUE dependency treebank (train + dev), the 걷다 family has 6 regular and 124
+          ㄷ-irregular tokens, 묻다 6 and 19, 닫다 6 and 13; 이르다 has 13 르-irregular and 20 러-irregular tokens; no token of 곱다 was found.</li>
+        <li><strong>Practical consequence for reconstruction.</strong> Rebuilding surface eojeols from morpheme and POS input over KLUE, a refined
+          rule-based system with explicit realization-class constraints reaches 92.56 target-eojeol F1 and 85.59 sentence-level accuracy,
+          compared with 64.96 F1 for a previous rule-based baseline and 73.42 F1 (54.57 accuracy) for GPT-5.5.</li>
+      </ul>
+    </div>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> Lexically distinct homonymous predicates whose realization classes differ (homograph numbers from the
+          Standard Korean Language Dictionary in parentheses). The same stem and ending surface differently depending on the lexeme.
+        </caption>
+        <thead>
+          <tr><th>Predicate</th><th>Meaning</th><th>Class</th><th>Realization examples</th></tr>
+        </thead>
+        <tbody>
+          <tr><th colspan="4">Regular vs. ㄷ <em>digeut</em> irregular</th></tr>
+          <tr><td>걷다 <em>geotda</em> (03)</td><td>&lsquo;clear away&rsquo;</td><td>regular</td><td>걷어 <em>geodeo</em>, 걷으니 <em>geodeuni</em></td></tr>
+          <tr><td>걷다 <em>geotda</em> (02)</td><td>&lsquo;walk&rsquo;</td><td>ㄷ <em>digeut</em> irregular</td><td>걸어 <em>georeo</em>, 걸으니 <em>georeuni</em></td></tr>
+          <tr><td>닫다 <em>datda</em> (02)</td><td>&lsquo;close&rsquo;</td><td>regular</td><td>닫아 <em>dada</em>, 닫으니 <em>dadeuni</em></td></tr>
+          <tr><td>닫다 <em>datda</em> (01)</td><td>&lsquo;run&rsquo;</td><td>ㄷ <em>digeut</em> irregular</td><td>달아 <em>dara</em>, 달으니 <em>dareuni</em></td></tr>
+          <tr><td>묻다 <em>mutda</em> (02)</td><td>&lsquo;bury&rsquo;</td><td>regular</td><td>묻어 <em>mudeo</em>, 묻으니 <em>mudeuni</em></td></tr>
+          <tr><td>묻다 <em>mutda</em> (03)</td><td>&lsquo;ask&rsquo;</td><td>ㄷ <em>digeut</em> irregular</td><td>물어 <em>mureo</em>, 물으니 <em>mureuni</em></td></tr>
+          <tr><th colspan="4">Regular vs. ㅂ <em>bieup</em> irregular</th></tr>
+          <tr><td>곱다 <em>gopda</em> (01)</td><td>&lsquo;suffer a loss&rsquo;</td><td>regular</td><td>곱아 <em>goba</em>, 곱으니 <em>gobeuni</em></td></tr>
+          <tr><td>곱다 <em>gopda</em> (02)</td><td>&lsquo;be beautiful&rsquo;</td><td>ㅂ <em>bieup</em> irregular</td><td>고와 <em>gowa</em>, 고우니 <em>gouni</em></td></tr>
+          <tr><td>굽다 <em>gupda</em> (02)</td><td>&lsquo;bend&rsquo;</td><td>regular</td><td>굽어 <em>gubeo</em>, 굽으니 <em>gubeuni</em></td></tr>
+          <tr><td>굽다 <em>gupda</em> (01)</td><td>&lsquo;roast&rsquo;</td><td>ㅂ <em>bieup</em> irregular</td><td>구워 <em>guwo</em>, 구우니 <em>guuni</em></td></tr>
+          <tr><th colspan="4">르 <em>reu</em> irregular vs. 러 <em>reo</em> irregular</th></tr>
+          <tr><td>누르다 <em>nureuda</em> (01)</td><td>&lsquo;press&rsquo;</td><td>르 <em>reu</em> irregular</td><td>눌러 <em>nulleo</em>, 누르니 <em>nureuni</em></td></tr>
+          <tr><td>누르다 <em>nureuda</em> (02)</td><td>&lsquo;be yellowish&rsquo;</td><td>러 <em>reo</em> irregular</td><td>누르러 <em>nureureo</em>, 누르니 <em>nureuni</em></td></tr>
+          <tr><td>이르다 <em>ireuda</em> (02)</td><td>&lsquo;say&rsquo;</td><td>르 <em>reu</em> irregular</td><td>일러 <em>illeo</em>, 이르니 <em>ireuni</em></td></tr>
+          <tr><td>이르다 <em>ireuda</em> (01)</td><td>&lsquo;reach&rsquo;</td><td>러 <em>reo</em> irregular</td><td>이르러 <em>ireureo</em>, 이르니 <em>ireuni</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{oh2026lexicallyconditionedrealizationambiguity,
+      title={Lexically conditioned realization ambiguity in Korean predicate morphology},
+      author={Wonjun Oh and KyungTae Lim and Jungyeul Park},
+      year={2026},
+      eprint={2608.27966},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2608.27966},
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

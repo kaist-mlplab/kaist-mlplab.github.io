@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>A Novel Communication Framework for Reduction of Staffs in Advanced MCRs of SMRs: A Prototype Development of a NLP-Based System</title>
+  <meta name="description" content="Proposes a communication framework that uses natural language processing (NLP) to replace selected operator tasks in advanced main control rooms (MCRs) of small modular reactors (SMRs), with a task analysis and a prototype NLP-based system, aiming to reduce the number of required operators. Nuclear Technology 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="small modular reactor, SMR, advanced main control room, MCR, operator staffing reduction, natural language processing, NLP, communication framework, nuclear power plant operation, human factors, operator task analysis, speech interface, Nuclear Technology 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/smr-communication-framework/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="A Novel Communication Framework for Reduction of Staffs in Advanced MCRs of SMRs: A Prototype Development of a NLP-Based System">
+  <meta property="og:description" content="An NLP-based communication framework and prototype to reduce operator staffing in advanced main control rooms of small modular reactors. Nuclear Technology 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/smr-communication-framework/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A Novel Communication Framework for Reduction of Staffs in Advanced MCRs of SMRs: A Prototype Development of a NLP-Based System">
+  <meta name="twitter:description" content="An NLP-based communication framework and prototype to reduce operator staffing in advanced main control rooms of small modular reactors. Nuclear Technology 2024.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="A Novel Communication Framework for Reduction of Staffs in Advanced MCRs of SMRs: A Prototype Development of a NLP-Based System">
+  <meta name="citation_author" content="Kim, Taejin">
+  <meta name="citation_author_institution" content="Korea Atomic Energy Research Institute, Daejeon, Republic of Korea">
+  <meta name="citation_author" content="Yoo, Donghan">
+  <meta name="citation_author_institution" content="Korea Atomic Energy Research Institute, Daejeon, Republic of Korea">
+  <meta name="citation_author" content="Yang, Jongin">
+  <meta name="citation_author_institution" content="Kumoh National Institute of Technology, Gyeongbuk, Republic of Korea">
+  <meta name="citation_author" content="Koo, Seoryong">
+  <meta name="citation_author_institution" content="Korea Atomic Energy Research Institute, Daejeon, Republic of Korea">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology, Seoul, Republic of Korea">
+  <meta name="citation_publication_date" content="2024/03/21">
+  <meta name="citation_journal_title" content="Nuclear Technology">
+  <meta name="citation_publisher" content="Informa UK Limited">
+  <meta name="citation_volume" content="210">
+  <meta name="citation_issue" content="8">
+  <meta name="citation_firstpage" content="1304">
+  <meta name="citation_lastpage" content="1318">
+  <meta name="citation_doi" content="10.1080/00295450.2023.2295147">
+  <meta name="citation_issn" content="0029-5450">
+  <meta name="citation_issn" content="1943-7471">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/smr-communication-framework/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/smr-communication-framework/#article",
+    "headline": "A Novel Communication Framework for Reduction of Staffs in Advanced MCRs of SMRs: A Prototype Development of a NLP-Based System",
+    "name": "A Novel Communication Framework for Reduction of Staffs in Advanced MCRs of SMRs: A Prototype Development of a NLP-Based System",
+    "url": "https://kaist-mlplab.github.io/smr-communication-framework/",
+    "datePublished": "2024-03-21",
+    "inLanguage": "en",
+    "abstract": "As small modular reactors are gaining attention as the future of nuclear energy, it has become increasingly imperative to minimize the number of required operators in order to improve economic competitiveness. Although the tasks of operators have changed and their workloads have been relatively reduced as digital technologies have been applied to advanced main control rooms (MCRs), no change in the number of operators has been made when compared to conventional MCRs in the Republic of Korea. As a solution, the introduction of natural language processing (NLP) technology to replace certain operator tasks in advanced MCRs can be a valuable means of reducing MCR staff. In this paper, we suggest a novel communication framework utilizing NLP technology to minimize the number of operators in advanced MCRs. To do this, we analyze operator tasks in advanced MCRs and select those that can be replaced by NLP technology. We then develop a prototype NLP-based system and analyze the process and characteristics of the suggested communication framework.",
+    "keywords": [
+      "small modular reactor",
+      "advanced main control room",
+      "operator staffing",
+      "natural language processing",
+      "communication framework",
+      "nuclear power plant operation",
+      "operator task analysis"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Small modular reactors"
+      },
+      {
+        "@type": "Thing",
+        "name": "Nuclear power plant control rooms"
+      },
+      {
+        "@type": "Thing",
+        "name": "Natural language processing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Human factors"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Taejin Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Korea Atomic Energy Research Institute, Daejeon, Republic of Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Donghan Yoo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Korea Atomic Energy Research Institute, Daejeon, Republic of Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jongin Yang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Kumoh National Institute of Technology, Gyeongbuk, Republic of Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Seoryong Koo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Korea Atomic Energy Research Institute, Daejeon, Republic of Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology, Seoul, Republic of Korea"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "PublicationIssue",
+      "issueNumber": "8",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "volumeNumber": "210",
+        "isPartOf": {
+          "@type": "Periodical",
+          "name": "Nuclear Technology",
+          "issn": [
+            "0029-5450",
+            "1943-7471"
+          ],
+          "publisher": {
+            "@type": "Organization",
+            "name": "Taylor & Francis (Informa UK Limited)"
+          }
+        }
+      }
+    },
+    "sameAs": [
+      "https://doi.org/10.1080/00295450.2023.2295147",
+      "https://www.tandfonline.com/doi/full/10.1080/00295450.2023.2295147"
+    ],
+    "pagination": "1304-1318",
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.1080/00295450.2023.2295147"
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">A Novel Communication Framework for Reduction of Staffs in Advanced MCRs of SMRs: A Prototype Development of a NLP-Based System</h1>
+      <p class="subtitle is-5 publication-subtitle">Using natural language processing to take over selected operator tasks and reduce staffing in advanced main control rooms of small modular reactors</p>
+      <p><span class="tag is-link is-medium venue-badge">Nuclear Technology 2024</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Taejin Kim<sup>1</sup>,</span>
+        <span class="author-block">Donghan Yoo<sup>1</sup>,</span>
+        <span class="author-block">Jongin Yang<sup>2</sup>,</span>
+        <span class="author-block">Seoryong Koo<sup>1</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>3,&dagger;</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Korea Atomic Energy Research Institute (KAERI)</span>
+        <span class="author-block"><sup>2</sup>Kumoh National Institute of Technology</span>
+        <span class="author-block"><sup>3</sup>Seoul National University of Science and Technology</span>
+      </p>
+      <p class="publication-notes"><sup>&dagger;</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://doi.org/10.1080/00295450.2023.2295147">Paper (Nuclear Technology)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        As small modular reactors are gaining attention as the future of nuclear energy, it has become increasingly imperative to minimize the number of required operators in order to improve economic competitiveness. Although the tasks of operators have changed and their workloads have been relatively reduced as digital technologies have been applied to advanced main control rooms (MCRs), no change in the number of operators has been made when compared to conventional MCRs in the Republic of Korea. As a solution, the introduction of natural language processing (NLP) technology to replace certain operator tasks in advanced MCRs can be a valuable means of reducing MCR staff. In this paper, we suggest a novel communication framework utilizing NLP technology to minimize the number of operators in advanced MCRs. To do this, we analyze operator tasks in advanced MCRs and select those that can be replaced by NLP technology. We then develop a prototype NLP-based system and analyze the process and characteristics of the suggested communication framework.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Small modular reactors (SMRs)</span>
+      <span class="tag">Advanced main control room (MCR)</span>
+      <span class="tag">Operator staffing reduction</span>
+      <span class="tag">Natural language processing (NLP)</span>
+      <span class="tag">Communication framework</span>
+      <span class="tag">Operator task analysis</span>
+      <span class="tag">Nuclear power plant operation</span>
+      <span class="tag">Human&ndash;system interface</span>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@article{Kim_2024,
+  title={A Novel Communication Framework for Reduction of Staffs in Advanced MCRs of SMRs: A Prototype Development of a NLP-Based System},
+  volume={210},
+  ISSN={1943-7471},
+  url={http://dx.doi.org/10.1080/00295450.2023.2295147},
+  DOI={10.1080/00295450.2023.2295147},
+  number={8},
+  journal={Nuclear Technology},
+  publisher={Informa UK Limited},
+  author={Kim, Taejin and Yoo, Donghan and Yang, Jongin and Koo, Seoryong and Lim, KyungTae},
+  year={2024},
+  month=Mar,
+  pages={1304–1318}
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

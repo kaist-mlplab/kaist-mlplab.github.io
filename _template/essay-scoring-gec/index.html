@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Unified Automated Essay Scoring and Grammatical Error Correction</title>
+  <meta name="description" content="Joint training of automated writing evaluation (AWE) and grammatical error correction (GEC) on K-UEED, a Korean learner corpus of 4,011 essays and 48,937 corrected sentences, raises essay-scoring QWK from 46.18 to 64.16. Findings of NAACL 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="automated essay scoring, AES, automated writing evaluation, AWE, grammatical error correction, GEC, multitask learning, K-UEED, Korean learner corpus, Korean as a second language, L2 writing, KAGAS, QWK, GLEU, Bllossom, Llama 3, Findings of NAACL 2025, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/essay-scoring-gec/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Unified Automated Essay Scoring and Grammatical Error Correction">
+  <meta property="og:description" content="Joint essay scoring and grammatical error correction on K-UEED, a new Korean learner dataset: QWK rises from 46.18 to 64.16. Findings of NAACL 2025.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/essay-scoring-gec/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/essay-scoring-gec/static/images/teaser.png">
+  <meta property="og:image:width" content="1857">
+  <meta property="og:image:height" content="533">
+  <meta property="og:image:alt" content="Stacked bar chart of grammatical error type percentages in K-UEED, KAGAS L1 and L2, and in predictions of Bllossom GA, AG, GEC and BllossomV GEC models.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unified Automated Essay Scoring and Grammatical Error Correction">
+  <meta name="twitter:description" content="Joint essay scoring and grammatical error correction on K-UEED, a new Korean learner dataset: QWK rises from 46.18 to 64.16. Findings of NAACL 2025.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/essay-scoring-gec/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Unified Automated Essay Scoring and Grammatical Error Correction">
+  <meta name="citation_author" content="Song, SeungWoo">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology, South Korea">
+  <meta name="citation_author" content="Yuk, Junghun">
+  <meta name="citation_author_institution" content="Hanbat National University, South Korea">
+  <meta name="citation_author" content="Choi, ChangSu">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology, South Korea">
+  <meta name="citation_author" content="Yoo, HanGyeol">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology, South Korea">
+  <meta name="citation_author" content="Lim, HyeonSeok">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology, South Korea">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="Korea Advanced Institute of Science and Technology (KAIST), South Korea">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="The University of British Columbia, Canada">
+  <meta name="citation_publication_date" content="2025/04">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: NAACL 2025">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="4412">
+  <meta name="citation_lastpage" content="4426">
+  <meta name="citation_doi" content="10.18653/v1/2025.findings-naacl.250">
+  <meta name="citation_isbn" content="979-8-89176-195-7">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2025.findings-naacl.250.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/essay-scoring-gec/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/essay-scoring-gec/#article",
+    "headline": "Unified Automated Essay Scoring and Grammatical Error Correction",
+    "name": "Unified Automated Essay Scoring and Grammatical Error Correction",
+    "url": "https://kaist-mlplab.github.io/essay-scoring-gec/",
+    "datePublished": "2025-04",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/essay-scoring-gec/static/images/teaser.png",
+    "abstract": "This study explores the integration of automated writing evaluation (AWE) and grammatical error correction (GEC) through multitask learning, demonstrating how combining these distinct tasks can enhance performance in both areas. By leveraging a shared learning framework, we show that models trained jointly on AWE and GEC outperform those trained on each task individually. To support this effort, we introduce a dataset specifically designed for multitask learning using AWE and GEC. Our experiments reveal significant synergies between tasks, leading to improvements in both writing assessment accuracy and error correction precision. This research represents a novel approach for optimizing language learning tools by unifying writing evaluation and correction tasks, offering insights into the potential of multitask learning in educational applications.",
+    "keywords": [
+      "automated essay scoring",
+      "automated writing evaluation",
+      "grammatical error correction",
+      "multitask learning",
+      "K-UEED",
+      "Korean learner corpus",
+      "Korean as a second language",
+      "KAGAS",
+      "QWK",
+      "GLEU"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Automated essay scoring"
+      },
+      {
+        "@type": "Thing",
+        "name": "Grammatical error correction"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multitask learning"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "SeungWoo Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Junghun Yuk",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Hanbat National University, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "ChangSu Choi",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "HanGyeol Yoo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "HyeonSeok Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Korea Advanced Institute of Science and Technology (KAIST), South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia, Canada"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Findings of the Association for Computational Linguistics: NAACL 2025",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2025.findings-naacl.250/",
+      "https://doi.org/10.18653/v1/2025.findings-naacl.250"
+    ],
+    "pagination": "4412-4426",
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.18653/v1/2025.findings-naacl.250"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2025.findings-naacl.250.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Unified Automated Essay Scoring and Grammatical Error Correction</h1>
+      <p class="subtitle is-5 publication-subtitle">Multitask learning of essay scoring and grammatical error correction on a new Korean learner dataset (K-UEED)</p>
+      <p><span class="tag is-link is-medium venue-badge">Findings of NAACL 2025</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">SeungWoo Song<sup>1,*</sup>,</span>
+        <span class="author-block">Junghun Yuk<sup>2,*</sup>,</span>
+        <span class="author-block">ChangSu Choi<sup>1</sup>,</span>
+        <span class="author-block">HanGyeol Yoo<sup>1</sup>,</span>
+        <span class="author-block">HyeonSeok Lim<sup>1</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>3,†</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>4,†</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Seoul National University of Science and Technology, South Korea</span>
+        <span class="author-block"><sup>2</sup>Hanbat National University, South Korea</span>
+        <span class="author-block"><sup>3</sup>Korea Advanced Institute of Science and Technology (KAIST), South Korea</span>
+        <span class="author-block"><sup>4</sup>The University of British Columbia, Canada</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution &nbsp; <sup>†</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.findings-naacl.250/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.findings-naacl.250.pdf">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1857" height="533"
+           alt="Horizontal stacked bar chart of error-type percentages (noop, WS, UNCLASSIFIED, PARTICLE, INSERTION, CONJUGATION, SPELL, NOUN, ENDING, DELETION, VERB, PUNCT, MODIFIER, ADJECTIVE, SHORTEN, WO) for K-UEED, KAGAS L1, KAGAS L2, and predictions of Bllossom_GA, Bllossom_AG, Bllossom_GEC and BllossomV_GEC. L1 is dominated by whitespace (WS) errors, while L2 and K-UEED are dominated by particle errors and look alike.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Distributions of GEC error types in K-UEED and KAGAS (L1 native, L2 learner), and error predictions by the
+        Bllossom models. Apart from the <code>noop</code> type that only K-UEED has, the K-UEED and L2 learner distributions are strikingly
+        similar, while L1 is dominated by spacing (WS) errors.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        This study explores the integration of automated writing evaluation (AWE) and grammatical error correction (GEC) through multitask learning, demonstrating how combining these distinct tasks can enhance performance in both areas. By leveraging a shared learning framework, we show that models trained jointly on AWE and GEC outperform those trained on each task individually. To support this effort, we introduce a dataset specifically designed for multitask learning using AWE and GEC. Our experiments reveal significant synergies between tasks, leading to improvements in both writing assessment accuracy and error correction precision. This research represents a novel approach for optimizing language learning tools by unifying writing evaluation and correction tasks, offering insights into the potential of multitask learning in educational applications.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Automated essay scoring (AES)</span>
+      <span class="tag">Automated writing evaluation (AWE)</span>
+      <span class="tag">Grammatical error correction (GEC)</span>
+      <span class="tag">Multitask learning</span>
+      <span class="tag">K-UEED</span>
+      <span class="tag">Korean learner corpus</span>
+      <span class="tag">L2 Korean writing</span>
+      <span class="tag">KAGAS</span>
+      <span class="tag">LLM fine-tuning</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Dataset and Method</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/data.webp" type="image/webp">
+        <img src="static/images/data.png" width="2600" height="809" loading="lazy"
+           alt="Spreadsheet excerpt of K-UEED: for each essay, the segmented original learner sentence, corrections by annotators A and B, and the combined result; two rows where the annotators disagreed are highlighted.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> A part of the K-UEED data. Original learner sentences, corrections by two annotators (A, B), and the final
+        combined result agreed through discussion.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        Essay scoring (AWE) works on whole essays, while GEC works sentence by sentence. The paper bridges the two with a single dataset,
+        <strong>K-UEED</strong>, and instruction-tunes one generative model (Bllossom, a Korean-English Llama-3-8B) for both tasks.
+      </p>
+      <ol>
+        <li><strong>Start from a Korean AWE corpus.</strong> The Korean learner essays of Lim et al. (2023) carry proficiency levels 1&ndash;6
+          (CEFR A1&ndash;C2), teacher-assigned scores (0&ndash;100), writing prompts, and learners' native languages.</li>
+        <li><strong>Add GEC annotation.</strong> A native speaker manually split the essays into 48,937 sentences, which were corrected with
+          minimal edits and verified by two native Korean linguists (82.6% agreement; conflicts resolved by discussion).</li>
+        <li><strong>Split by prompt.</strong> The prompt &ldquo;The most memorable day of my life&rdquo;, shared by Levels 3 (B1) and 5 (C1), forms the test set
+          (207 essays, 4,072 sentences); the remaining 3,804 essays and 44,865 sentences are for training.</li>
+        <li><strong>Train with different task combinations.</strong> Single-task models (AWE only, GEC only) are compared with multitask
+          variants: <em>AG</em> (predict the score, then correct the essay), <em>GA</em> (correct the essay, then predict the score), and
+          <em>MUL</em> (sentence-level GEC combined with essay-level GA data).</li>
+      </ol>
+      <p>
+        AWE is measured by the paper's AWE metric and quadratic weighted kappa (QWK); GEC by GLEU and M2 precision, recall, and F0.5.
+        The models are also evaluated on the KAGAS Korean GEC benchmark (Yoon et al., 2023) for native (L1) and learner (L2) text.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Correct first, then score.</strong> Bllossom-GA reaches 60.39 AWE and 64.16 QWK, versus 36.72 and 46.18 for the
+          AWE-only model and 41.55 / 39.25 for GPT-4o (5-shot). Multitask training raises QWK by 0.68 to 17.98 points.</li>
+        <li><strong>GEC on K-UEED.</strong> GPT-4o (5-shot) has the highest GLEU (56.19); among fine-tuned Bllossom models the GEC-only model
+          is best (50.76), so adding AWE data did not help GEC on K-UEED.</li>
+        <li><strong>Helps existing GEC benchmarks.</strong> Adding K-UEED GEC data to KAGAS training raises L2 (learner) GLEU from 53.64 to 54.65 and
+          F0.5 from 53.22 to 55.01; Bllossom-GA+KAGAS gives the best Union (L1+L2) GLEU (64.28) and F0.5 (67.09).</li>
+        <li><strong>Korean pre-training matters; vocabulary expansion does not.</strong> Bllossom+KAGAS beats Llama-3-8B-Inst+KAGAS
+          (e.g. L2 F0.5 53.22 vs. 50.63), while the vocabulary-expanded BllossomV-GEC+KAGAS drops to 48.05 L2 F0.5.</li>
+        <li><strong>Errors track essay scores.</strong> In K-UEED, sentences needing no correction (noop) rise from 3.59% at score 0 to 28.83% at
+          score 100, while INSERTION errors fall from 20.96% to 7.01%.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable results-table" style="margin:0 auto">
+        <caption>
+          <strong>Table 1.</strong> Results on the K-UEED test set. AWE and QWK are essay-scoring metrics; GEC is scored with GLEU.
+          Bllossom models are fine-tuned on K-UEED: AWE only, GEC only, or multitask (MUL, GA, AG). Bold marks the best score per column.
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>AWE</th><th>QWK</th><th>GEC (GLEU)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Llama3-8B-MUL</td><td>47.34</td><td>36.46</td><td>49.06</td></tr>
+          <tr><td>Llama3-8B (5-shot)</td><td>16.42</td><td>4.86</td><td>37.01</td></tr>
+          <tr><td>GPT-4o (5-shot)</td><td>41.55</td><td>39.25</td><td><strong>56.19</strong></td></tr>
+          <tr><td>Bllossom-AWE</td><td>36.72</td><td>46.18</td><td>-</td></tr>
+          <tr><td>Bllossom-GEC</td><td>-</td><td>-</td><td>50.76</td></tr>
+          <tr class="ours"><td>Bllossom-MUL</td><td>46.38</td><td>46.86</td><td>49.92</td></tr>
+          <tr class="ours"><td>Bllossom-GA</td><td><strong>60.39</strong></td><td><strong>64.16</strong></td><td>50.13</td></tr>
+          <tr class="ours"><td>Bllossom-AG</td><td>41.06</td><td>58.60</td><td>50.01</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{song-etal-2025-unified,
+    title = "Unified Automated Essay Scoring and Grammatical Error Correction",
+    author = "Song, SeungWoo  and
+      Yuk, Junghun  and
+      Choi, ChangSu  and
+      Yoo, HanGyeol  and
+      Lim, HyeonSeok  and
+      Lim, KyungTae  and
+      Park, Jungyeul",
+    editor = "Chiruzzo, Luis  and
+      Ritter, Alan  and
+      Wang, Lu",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {NAACL} 2025",
+    month = apr,
+    year = "2025",
+    address = "Albuquerque, New Mexico",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.findings-naacl.250/",
+    doi = "10.18653/v1/2025.findings-naacl.250",
+    pages = "4412--4426",
+    ISBN = "979-8-89176-195-7"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

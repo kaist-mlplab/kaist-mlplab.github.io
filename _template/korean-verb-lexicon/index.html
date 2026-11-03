@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Unlocking Korean Verbs: A User-Friendly Exploration into the Verb Lexicon</title>
+  <meta name="description" content="A web interface and the pySejongFrame Python library for exploring the Sejong verb dictionary (15,181 Korean verbs, 1.812 frames per verb on average), projecting subcategorization frames onto example sentences with argument boundaries and semantic roles. NAACL 2025 Demo, KAIST MLP Lab.">
+  <meta name="keywords" content="Korean verbs, Sejong dictionary, Sejong verb dictionary, verb lexicon, subcategorization frames, valency, semantic role labeling, SRL, Korean PropBank, Korean FrameNet, pySejongFrame, NLTK, argument boundary detection, Korean NLP, NAACL 2025 System Demonstrations, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/korean-verb-lexicon/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Unlocking Korean Verbs: A User-Friendly Exploration into the Verb Lexicon">
+  <meta property="og:description" content="A web interface and Python library for the Sejong verb dictionary: subcategorization frames projected onto example sentences with semantic roles. NAACL 2025 Demo.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/korean-verb-lexicon/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/korean-verb-lexicon/static/images/teaser.png">
+  <meta property="og:image:width" content="1610">
+  <meta property="og:image:height" content="1463">
+  <meta property="og:image:alt" content="Web interface page for the Korean verb 확립하다 (&#x27;establish&#x27;): morphology, sense 1 with semantic class and English translations, frame X=N0-이 Y=N1-을 V with AGT and THM roles, and three example sentences.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unlocking Korean Verbs: A User-Friendly Exploration into the Verb Lexicon">
+  <meta name="twitter:description" content="A web interface and Python library for the Sejong verb dictionary: subcategorization frames projected onto example sentences with semantic roles. NAACL 2025 Demo.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/korean-verb-lexicon/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Unlocking Korean Verbs: A User-Friendly Exploration into the Verb Lexicon">
+  <meta name="citation_author" content="Song, Seohyun">
+  <meta name="citation_author_institution" content="Seoultech, South Korea">
+  <meta name="citation_author" content="Jo, Eunkyul Leah">
+  <meta name="citation_author_institution" content="The University of British Columbia, Canada">
+  <meta name="citation_author" content="Chen, Yige">
+  <meta name="citation_author_institution" content="The Chinese University of Hong Kong, Hong Kong">
+  <meta name="citation_author" content="Hong, Jeen-Pyo">
+  <meta name="citation_author_institution" content="42dot Inc., South Korea">
+  <meta name="citation_author" content="Kim, Kyuwon">
+  <meta name="citation_author_institution" content="Seoul National University, South Korea">
+  <meta name="citation_author" content="Wee, Jin">
+  <meta name="citation_author_institution" content="National Institute of Korean Language, South Korea">
+  <meta name="citation_author" content="Kang, Miyoung">
+  <meta name="citation_author_institution" content="National Institute of Korean Language, South Korea">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST, South Korea">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="The University of British Columbia, Canada">
+  <meta name="citation_author" content="Park, Chulwoo">
+  <meta name="citation_author_institution" content="Anyang University, South Korea">
+  <meta name="citation_publication_date" content="2025/04">
+  <meta name="citation_conference_title" content="Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (System Demonstrations)">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="287">
+  <meta name="citation_lastpage" content="294">
+  <meta name="citation_doi" content="10.18653/v1/2025.naacl-demo.24">
+  <meta name="citation_isbn" content="979-8-89176-191-9">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2025.naacl-demo.24.pdf">
+  <meta name="citation_arxiv_id" content="2410.01100">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/korean-verb-lexicon/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/korean-verb-lexicon/#article",
+    "headline": "Unlocking Korean Verbs: A User-Friendly Exploration into the Verb Lexicon",
+    "name": "Unlocking Korean Verbs: A User-Friendly Exploration into the Verb Lexicon",
+    "url": "https://kaist-mlplab.github.io/korean-verb-lexicon/",
+    "datePublished": "2025-04",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/korean-verb-lexicon/static/images/teaser.png",
+    "abstract": "The Sejong dictionary dataset offers a valuable resource, providing extensive coverage of morphology, syntax, and semantic representation. This dataset can be utilized to explore linguistic information in greater depth. The labeled linguistic structures within this dataset form the basis for uncovering relationships between words and phrases and their associations with target verbs. This paper introduces a user-friendly web interface designed for the collection and consolidation of verb-related information, with a particular focus on subcategorization frames. Additionally, it outlines our efforts in mapping this information by aligning subcategorization frames with corresponding illustrative sentence examples. Furthermore, we provide a Python library that would simplify syntactic parsing and semantic role labeling. These tools are intended to assist individuals interested in harnessing the Sejong dictionary dataset to develop applications for Korean language processing.",
+    "keywords": [
+      "Korean verbs",
+      "Sejong dictionary",
+      "verb lexicon",
+      "subcategorization frames",
+      "semantic role labeling",
+      "Korean PropBank",
+      "Korean FrameNet",
+      "pySejongFrame",
+      "argument boundary detection",
+      "Korean NLP"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Verb lexicon"
+      },
+      {
+        "@type": "Thing",
+        "name": "Subcategorization frames"
+      },
+      {
+        "@type": "Thing",
+        "name": "Semantic role labeling"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Seohyun Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoultech, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Eunkyul Leah Jo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia, Canada"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yige Chen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The Chinese University of Hong Kong, Hong Kong"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jeen-Pyo Hong",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "42dot Inc., South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Kyuwon Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jin Wee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "National Institute of Korean Language, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Miyoung Kang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "National Institute of Korean Language, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia, Canada"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Chulwoo Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Anyang University, South Korea"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (System Demonstrations)",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2025.naacl-demo.24/",
+      "https://arxiv.org/abs/2410.01100",
+      "https://doi.org/10.18653/v1/2025.naacl-demo.24"
+    ],
+    "pagination": "287-294",
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.18653/v1/2025.naacl-demo.24"
+      },
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2410.01100"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2025.naacl-demo.24.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Unlocking Korean Verbs: A User-Friendly Exploration into the Verb Lexicon</h1>
+      <p class="subtitle is-5 publication-subtitle">A web interface and Python library (pySejongFrame) for the subcategorization frames of the Sejong verb dictionary</p>
+      <p><span class="tag is-link is-medium venue-badge">NAACL 2025 Demo</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Seohyun Song<sup>1,*</sup>,</span>
+        <span class="author-block">Eunkyul Leah Jo<sup>2,*</sup>,</span>
+        <span class="author-block">Yige Chen<sup>3,*</sup>,</span>
+        <span class="author-block">Jeen-Pyo Hong<sup>4,*</sup>,</span>
+        <span class="author-block">Kyuwon Kim<sup>5</sup>,</span>
+        <span class="author-block">Jin Wee<sup>6</sup>,</span>
+        <span class="author-block">Miyoung Kang<sup>6</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>7,†</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>2,†</sup>,</span>
+        <span class="author-block">Chulwoo Park<sup>8</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Seoultech, South Korea</span>
+        <span class="author-block"><sup>2</sup>The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>3</sup>The Chinese University of Hong Kong, Hong Kong</span>
+        <span class="author-block"><sup>4</sup>42dot Inc., South Korea</span>
+        <span class="author-block"><sup>5</sup>Seoul National University, South Korea</span>
+        <span class="author-block"><sup>6</sup>National Institute of Korean Language, South Korea</span>
+        <span class="author-block"><sup>7</sup>KAIST, South Korea</span>
+        <span class="author-block"><sup>8</sup>Anyang University, South Korea</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution &nbsp; <sup>†</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.naacl-demo.24/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.naacl-demo.24.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2410.01100">arXiv</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1610" height="1463" style="max-width:640px;margin:0 auto;display:block"
+           alt="Screenshot of the word details page for 확립하다 (hwaglibhada, 'establish'): the headword, its variant 확립을 하다, structure N.하 and origin 確立, then Sense 1 with semantic class 종료행위 and translation 'establish, settle, fix', Frame 1 'X=N0-이 Y=N1-을 V' with X as agent (AGT) and Y as theme (THM), and three Korean example sentences.">
+      </picture>
+      <figcaption>
+        <strong>Figure 3.</strong> Interface screenshot of a word details page for 확립하다 <em>hwaglibhada</em> (&lsquo;establish&rsquo;),
+        showing morphological, semantic, and syntactic frame information (frame <code>X=N0-이 Y=N1-을 V</code> with X = AGENT and Y = THEME)
+        together with sentence examples, all read from the Sejong dictionary XML entry.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        The Sejong dictionary dataset offers a valuable resource, providing extensive coverage of morphology, syntax, and semantic representation. This dataset can be utilized to explore linguistic information in greater depth. The labeled linguistic structures within this dataset form the basis for uncovering relationships between words and phrases and their associations with target verbs. This paper introduces a user-friendly web interface designed for the collection and consolidation of verb-related information, with a particular focus on subcategorization frames. Additionally, it outlines our efforts in mapping this information by aligning subcategorization frames with corresponding illustrative sentence examples. Furthermore, we provide a Python library that would simplify syntactic parsing and semantic role labeling. These tools are intended to assist individuals interested in harnessing the Sejong dictionary dataset to develop applications for Korean language processing.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean verb lexicon</span>
+      <span class="tag">Sejong dictionary</span>
+      <span class="tag">Subcategorization frames</span>
+      <span class="tag">Valency</span>
+      <span class="tag">Semantic role labeling (SRL)</span>
+      <span class="tag">Korean PropBank</span>
+      <span class="tag">Korean FrameNet</span>
+      <span class="tag">pySejongFrame</span>
+      <span class="tag">Korean NLP</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">System</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="1672" height="996" loading="lazy" style="max-width:720px;margin:0 auto;display:block"
+           alt="Frame projection view for the sentence 많은 사람들이 사회의 질서를 확립하려는 노력을 기울여 왔다: entry, sense, frame X=N0-이 Y=N1-을 V, selectional restrictions (X agent: human or human group; Y theme: factual proposition, norm, custom, institution and others), and a brat visualization labeling 많은 사람들이 as AGT, 사회의 질서를 as THM and 확립하려는 as TARGET.">
+      </picture>
+      <figcaption>
+        <strong>Figure 4.</strong> Subcategorization frame of the verb with semantic role information for its arguments, and chunked
+        argument boundaries in the example sentence &lsquo;Many people have made efforts to establish order in society&rsquo;,
+        visualized with brat: [많은 사람들이]<sub>AGENT</sub> [사회의 질서를]<sub>THEME</sub> [확립하려는]<sub>TARGET</sub>.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        The Sejong dictionary, built in the 21st Century Sejong Project, stores each Korean verb as an XML file with morphology,
+        senses (semantic class and English translation), subcategorization frames, selectional restrictions with semantic roles
+        such as AGENT (AGT) and THEME (THM), and example sentences. The paper turns this resource into two tools:
+      </p>
+      <ol>
+        <li><strong>Web interface.</strong> Verbs are listed in Korean alphabetical order and can be searched by verb, frame, argument,
+          morphological inflection, and semantic group. Each word page renders the XML tags (orthography, morphology, senses, frames,
+          selectional restrictions, examples) for users without programming experience.</li>
+        <li><strong>Frame-to-sentence projection.</strong> Argument boundaries in each example sentence are found by heuristic chunking at
+          postpositions, which in Korean usually mark the end of arguments and modifiers, with dependency structures as a fallback.
+          The postposition of each chunk is compared with the postpositions in the frame (e.g. -이, -을) to decide whether it is an
+          argument, and the frame's semantic roles are assigned to it.</li>
+        <li><strong>Python library (pySejongFrame).</strong> A corpus reader for the Sejong Frame Dictionary with direct loading,
+          lazy loading (indexing postponed until the data is queried), and NLTK integration, plus queries for entries
+          (e.g. <code>entries("수정하다.vv")</code>), senses, semantic classes, translations, frames, and arguments.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Resource Overview</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Coverage.</strong> The Sejong dictionary describes 15,181 verbs with 1.812 subcategorization frames per verb on average,
+          far more verbs than Korean PropBank (2,749 verbs, 1.408 frames) or the NIKL SRL lexicon (3,660 verbs, 1.593 frames).</li>
+        <li><strong>Contribution.</strong> A corpus of Sejong dictionary example sentences annotated with argument&ndash;predicate boundaries,
+          plus a web interface and a Python library for accessing the dictionary.</li>
+        <li><strong>Distribution.</strong> The National Institute of Korean Language, which holds the Sejong Project copyright, granted
+          permission to distribute these derivative materials and will host the web system; the dictionary files for the library
+          must still be obtained from the institute.</li>
+        <li><strong>Uses.</strong> Lexicalized parsing, semantic role labeling, and FrameNet parsing for Korean, and a planned Korean VerbNet
+          that harmonizes Sejong, PropBank, and FrameNet frames.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable results-table" style="margin:0 auto">
+        <caption>
+          <strong>Table 1.</strong> Basic statistics of Korean verb lexicons: number of verbs and average number of frames per verb.
+        </caption>
+        <thead>
+          <tr><th></th><th>Sejong</th><th>K-PropBank</th><th>NIKL</th></tr>
+        </thead>
+        <tbody>
+          <tr><td># of verbs</td><td>15,181</td><td>2,749</td><td>3,660</td></tr>
+          <tr><td>avg. # of frames</td><td>1.812</td><td>1.408</td><td>1.593</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{song-etal-2025-unlocking,
+    title = "Unlocking {K}orean Verbs: A User-Friendly Exploration into the Verb Lexicon",
+    author = "Song, Seohyun  and
+      Jo, Eunkyul Leah  and
+      Chen, Yige  and
+      Hong, Jeen-Pyo  and
+      Kim, Kyuwon  and
+      Wee, Jin  and
+      Miyoung, Kang  and
+      Lim, KyungTae  and
+      Park, Jungyeul  and
+      Park, Chulwoo",
+    editor = "Dziri, Nouha  and
+      Ren, Sean (Xiang)  and
+      Diao, Shizhe",
+    booktitle = "Proceedings of the 2025 Conference of the Nations of the {A}mericas Chapter of the {A}ssociation for {C}omputational {L}inguistics: Human Language Technologies (System Demonstrations)",
+    month = apr,
+    year = "2025",
+    address = "Albuquerque, New Mexico",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.naacl-demo.24/",
+    doi = "10.18653/v1/2025.naacl-demo.24",
+    pages = "287--294",
+    ISBN = "979-8-89176-191-9"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Solar Open Technical Report</title>
+  <meta name="description" content="Solar Open is Upstage&#x27;s 102B-parameter (12B active) bilingual Korean-English Mixture-of-Experts LLM, trained on 20T tokens including 4.5T synthetic tokens and post-trained with the SnapPO RL framework; it scores 73.0 on KMMLU and 84.4 on KorMedMCQA. Technical Report 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="Solar Open, Solar Open 100B, Upstage, Korean LLM, bilingual LLM, Mixture-of-Experts, MoE, open-weight LLM, synthetic data, data curriculum, SnapPO, reinforcement learning, GSPO, underserved languages, KMMLU, KorMedMCQA, technical report, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/solar-open/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Solar Open Technical Report">
+  <meta property="og:description" content="Upstage&#x27;s 102B bilingual Korean-English MoE LLM: 4.5T synthetic tokens, a 20T-token curriculum, and SnapPO RL. KMMLU 73.0, KorMedMCQA 84.4. Technical Report 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/solar-open/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/solar-open/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="647">
+  <meta property="og:image:alt" content="Bar chart comparing Solar Open 100B with gpt-oss-120b (high, medium) and GLM 4.5 Air on Korean and English category averages.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Solar Open Technical Report">
+  <meta name="twitter:description" content="Upstage&#x27;s 102B bilingual Korean-English MoE LLM: 4.5T synthetic tokens, a 20T-token curriculum, and SnapPO RL. KMMLU 73.0, KorMedMCQA 84.4. Technical Report 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/solar-open/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Solar Open Technical Report">
+  <meta name="citation_author" content="Park, Sungrae">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Kim, Sanghoon">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Cho, Jungho">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Gim, Gyoungjin">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Jung, Dawoon">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Cha, Mikyoung">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Choo, Eunhae">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Hong, Taekgyu">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Jeong, Minbyul">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Joo, SeHwan">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Khang, Minsoo">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Kim, Eunwon">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Kim, Minjeong">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Kim, Sujeong">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Kim, Yunsu">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Lee, Hyeonju">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Lee, Seunghyun">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Lee, Sukyung">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Park, Siyoung">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Shin, Gyungin">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Song, Inseo">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Song, Wonho">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Yang, Seonghoon">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Yi, Seungyoun">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Yoon, Sanghoon">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Ko, Jeonghyun">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Song, Seyoung">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Choi, Keunwoo">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Lee, Hwalsuk">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Kim, Sunghun">
+  <meta name="citation_author_institution" content="Upstage">
+  <meta name="citation_author" content="Chang, Du-Seong">
+  <meta name="citation_author_institution" content="Department of Artificial Intelligence, Sogang University">
+  <meta name="citation_author" content="Cho, Kyunghyun">
+  <meta name="citation_author_institution" content="New York University">
+  <meta name="citation_author" content="Choe, Junsuk">
+  <meta name="citation_author_institution" content="Sogang University">
+  <meta name="citation_author" content="Lee, Hwaran">
+  <meta name="citation_author_institution" content="Sogang University">
+  <meta name="citation_author" content="Lee, Jae-Gil">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Oh, Alice">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/01/11">
+  <meta name="citation_technical_report_institution" content="Upstage">
+  <meta name="citation_publisher" content="arXiv">
+  <meta name="citation_arxiv_id" content="2601.07022">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2601.07022">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/solar-open/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/solar-open/#article",
+    "headline": "Solar Open Technical Report",
+    "name": "Solar Open Technical Report",
+    "url": "https://kaist-mlplab.github.io/solar-open/",
+    "datePublished": "2026-01-11",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/solar-open/static/images/teaser.png",
+    "abstract": "We introduce Solar Open, a 102B-parameter bilingual Mixture-of-Experts language model for underserved languages. Solar Open demonstrates a systematic methodology for building competitive LLMs by addressing three interconnected challenges. First, to train effectively despite data scarcity for underserved languages, we synthesize 4.5T tokens of high-quality, domain-specific, and RL-oriented data. Second, we coordinate this data through a progressive curriculum jointly optimizing composition, quality thresholds, and domain coverage across 20 trillion tokens. Third, to enable reasoning capabilities through scalable RL, we apply our proposed framework SnapPO for efficient optimization. Across benchmarks in English and Korean, Solar Open achieves competitive performance, demonstrating the effectiveness of this methodology for underserved language AI development.",
+    "keywords": [
+      "Korean LLM",
+      "bilingual large language model",
+      "Mixture-of-Experts",
+      "open-weight LLM",
+      "synthetic pre-training data",
+      "data curriculum",
+      "SnapPO",
+      "reinforcement learning",
+      "underserved languages",
+      "Korean benchmarks"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Large language models"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Mixture-of-Experts"
+      },
+      {
+        "@type": "Thing",
+        "name": "Reinforcement learning"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Sungrae Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Sanghoon Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungho Cho",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Gyoungjin Gim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Dawoon Jung",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Mikyoung Cha",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Eunhae Choo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Taekgyu Hong",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Minbyul Jeong",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "SeHwan Joo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Minsoo Khang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Eunwon Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Minjeong Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Sujeong Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yunsu Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Hyeonju Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Seunghyun Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Sukyung Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Siyoung Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Gyungin Shin",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Inseo Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Wonho Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Seonghoon Yang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Seungyoun Yi",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Sanghoon Yoon",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jeonghyun Ko",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Seyoung Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Keunwoo Choi",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Hwalsuk Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Sunghun Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Upstage"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Du-Seong Chang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Department of Artificial Intelligence, Sogang University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Kyunghyun Cho",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "New York University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Junsuk Choe",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Sogang University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Hwaran Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Sogang University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jae-Gil Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Alice Oh",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "Organization",
+      "name": "Upstage",
+      "url": "https://upstage.ai"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "arXiv",
+      "url": "https://arxiv.org/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2601.07022"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2601.07022"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2601.07022"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Solar Open Technical Report</h1>
+      <p class="subtitle is-5 publication-subtitle">A 102B-parameter bilingual Korean-English Mixture-of-Experts LLM trained on 20T tokens with 4.5T synthetic tokens and SnapPO reinforcement learning</p>
+      <p><span class="tag is-link is-medium venue-badge">Technical Report 2026</span></p>
+
+      <p class="publication-notes mb-1"><strong>Upstage Solar Team</strong></p>
+      <p class="publication-notes mb-1">Core Contributors</p>
+      <p class="publication-authors" style="font-size:0.95rem">
+        <span class="author-block">Sungrae Park<sup>1</sup>,</span>
+        <span class="author-block">Sanghoon Kim<sup>1</sup>,</span>
+        <span class="author-block">Jungho Cho<sup>1</sup>,</span>
+        <span class="author-block">Gyoungjin Gim<sup>1</sup>,</span>
+        <span class="author-block">Dawoon Jung<sup>1</sup>,</span>
+        <span class="author-block">Mikyoung Cha<sup>1</sup>,</span>
+        <span class="author-block">Eunhae Choo<sup>1</sup>,</span>
+        <span class="author-block">Taekgyu Hong<sup>1</sup>,</span>
+        <span class="author-block">Minbyul Jeong<sup>1</sup>,</span>
+        <span class="author-block">SeHwan Joo<sup>1</sup>,</span>
+        <span class="author-block">Minsoo Khang<sup>1</sup>,</span>
+        <span class="author-block">Eunwon Kim<sup>1</sup>,</span>
+        <span class="author-block">Minjeong Kim<sup>1</sup>,</span>
+        <span class="author-block">Sujeong Kim<sup>1</sup>,</span>
+        <span class="author-block">Yunsu Kim<sup>1</sup>,</span>
+        <span class="author-block">Hyeonju Lee<sup>1</sup>,</span>
+        <span class="author-block">Seunghyun Lee<sup>1</sup>,</span>
+        <span class="author-block">Sukyung Lee<sup>1</sup>,</span>
+        <span class="author-block">Siyoung Park<sup>1</sup>,</span>
+        <span class="author-block">Gyungin Shin<sup>1</sup>,</span>
+        <span class="author-block">Inseo Song<sup>1</sup>,</span>
+        <span class="author-block">Wonho Song<sup>1</sup>,</span>
+        <span class="author-block">Seonghoon Yang<sup>1</sup>,</span>
+        <span class="author-block">Seungyoun Yi<sup>1</sup>,</span>
+        <span class="author-block">Sanghoon Yoon<sup>1</sup>,</span>
+        <span class="author-block">Jeonghyun Ko<sup>1</sup>,</span>
+        <span class="author-block">Seyoung Song<sup>1</sup>,</span>
+        <span class="author-block">Keunwoo Choi<sup>1</sup></span>
+      </p>
+      <p class="publication-notes mb-1 mt-2">Contributors</p>
+      <p class="publication-authors" style="font-size:0.95rem">
+        <span class="author-block">Hwalsuk Lee<sup>1</sup>,</span>
+        <span class="author-block">Sunghun Kim<sup>1</sup>,</span>
+        <span class="author-block">Du-Seong Chang<sup>2</sup>,</span>
+        <span class="author-block">Kyunghyun Cho<sup>3</sup>,</span>
+        <span class="author-block">Junsuk Choe<sup>4</sup>,</span>
+        <span class="author-block">Hwaran Lee<sup>4</sup>,</span>
+        <span class="author-block">Jae-Gil Lee<sup>5</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>5</sup>,</span>
+        <span class="author-block">Alice Oh<sup>5</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Upstage</span>
+        <span class="author-block"><sup>2</sup>Department of Artificial Intelligence, Sogang University</span>
+        <span class="author-block"><sup>3</sup>New York University</span>
+        <span class="author-block"><sup>4</sup>Sogang University</span>
+        <span class="author-block"><sup>5</sup>KAIST</span>
+      </p>
+      <p class="publication-notes">Authors in each group made equal contributions. Affiliations are given exactly as printed in the report's author list
+        (Appendix A.1: &ldquo;Every author is affiliated with Upstage, South Korea, unless specified otherwise&rdquo;).
+        This is an Upstage technical report; KAIST appears only as the affiliation of three contributors (Jae-Gil Lee, KyungTae Lim, Alice Oh).</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2601.07022">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2601.07022">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="647"
+           alt="Grouped bar chart of category-average scores. Korean: General Knowledge Solar Open 66.7, gpt-oss-120b high 67.2, gpt-oss-120b medium 63.7, GLM 4.5 Air 52.4; Preference 79.9, 79.5, 73.8, 60.4; Medical 84.4, 75.8, 76.3, 80.5; Law 65.5, 62.8, 60.1, 60.6; Finance 65.5, 62.5, 61.5, 64.7. English: General Knowledge 61.8, 66.3, 60.8, 62.8; Math 82.3, 84.8, 70.7, 77.0.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Overall performance of Solar Open and comparable models (category averages; order: Solar Open 100B,
+        gpt-oss-120b high, gpt-oss-120b medium, GLM 4.5 Air). Korean: General Knowledge 66.7 / 67.2 / 63.7 / 52.4; Preference 79.9 / 79.5 / 73.8 / 60.4;
+        Medical 84.4 / 75.8 / 76.3 / 80.5; Law 65.5 / 62.8 / 60.1 / 60.6; Finance 65.5 / 62.5 / 61.5 / 64.7.
+        English: General Knowledge 61.8 / 66.3 / 60.8 / 62.8; Math 82.3 / 84.8 / 70.7 / 77.0.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        We introduce Solar Open, a 102B-parameter bilingual Mixture-of-Experts language model for underserved languages. Solar Open demonstrates a systematic methodology for building competitive LLMs by addressing three interconnected challenges. First, to train effectively despite data scarcity for underserved languages, we synthesize 4.5T tokens of high-quality, domain-specific, and RL-oriented data. Second, we coordinate this data through a progressive curriculum jointly optimizing composition, quality thresholds, and domain coverage across 20 trillion tokens. Third, to enable reasoning capabilities through scalable RL, we apply our proposed framework SnapPO for efficient optimization. Across benchmarks in English and Korean, Solar Open achieves competitive performance, demonstrating the effectiveness of this methodology for underserved language AI development.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean LLM</span>
+      <span class="tag">Bilingual Korean-English LLM</span>
+      <span class="tag">Mixture-of-Experts (MoE)</span>
+      <span class="tag">Open-weight LLM</span>
+      <span class="tag">Synthetic pre-training data</span>
+      <span class="tag">Data curriculum</span>
+      <span class="tag">SnapPO</span>
+      <span class="tag">RL for reasoning (GSPO)</span>
+      <span class="tag">Underserved languages</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2600" height="1421" loading="lazy"
+           alt="Stacked bar chart of the Solar Open pre-training data curriculum. Phase 1: 10.8T tokens, 3.3% Korean, 10.2% synthetic. Phase 2.A: 5.3T tokens, 3.2% Korean, 32.0% synthetic. Phase 2.B: 2.7T tokens, 16.4% Korean, 36.1% synthetic. Phase 2.C: 1.2T tokens, 13.6% Korean, 64.5% synthetic. Each phase is broken down into EN General, EN Code, EN Math, EN PDF, Korean, and Others, with a second bar splitting real and synthetic data.">
+      </picture>
+      <figcaption>
+        <strong>Figure 4.</strong> The data curriculum for the pre-training phases of Solar Open. Phase 1: 10.8T tokens (Korean 3.3%, synthetic 10.2%);
+        Phase 2.A: 5.3T (Korean 3.2%, synthetic 32.0%); Phase 2.B: 2.7T (Korean 16.4%, synthetic 36.1%); Phase 2.C: 1.2T (Korean 13.6%, synthetic 64.5%).
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        Solar Open is a sparse Mixture-of-Experts (MoE) Transformer with 102.6B total and 12B active parameters per token: 48 layers,
+        hidden size 4,096, 64 attention heads with 8 key-value heads, 128 routed experts plus 1 shared expert, a 131,072-token context, and a
+        custom byte-level BPE tokenizer with a 196,608-token vocabulary that oversamples Korean. The configuration was chosen for a compute budget of 480 B200 GPUs and 20T pre-training tokens.
+        The report frames the work as three linked answers to the problems of building an LLM for an underserved language (Korean):
+      </p>
+      <ol>
+        <li><strong>Synthetic data against data scarcity.</strong> Korean is only 0.8% of indexed web content, so 4.5T tokens of synthetic data are
+          generated (with Solar Pro 2 and permissive open models). The final 19.7T-token corpus has English General 13.0T, Math &amp; Code 3.7T,
+          Korean General 1.1T, Japanese 0.8T, Multilingual 0.8T, and Finance/Medical/Legal 0.4T.</li>
+        <li><strong>A bilingual, low-to-high-quality curriculum.</strong> Data quality thresholds and the synthetic ratio rise across phases
+          (10% &rarr; 32% &rarr; 36% &rarr; 64% synthetic), using general quality filtering, language-aware educational quality scoring, and
+          embedding-based topic clustering; a final specialization phase of 1.5T tokens targets Korean cultural knowledge, advanced mathematics,
+          and repository-level code.</li>
+        <li><strong>SnapPO for scalable RL.</strong> Snapshot Sampling for Policy Optimization is a cyclic off-policy framework that decouples
+          generation (vLLM, 8&ndash;16 samples per prompt, cached log-probabilities), reward computation (domain-specific, cached to disk), and
+          training (GSPO on TorchTitan). RL Phase A optimizes reasoning on about 200K STEM, code, and agent prompts; RL Phase B uses DPO for
+          preference alignment and safety.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Korean general knowledge.</strong> Solar Open scores 73.0 on KMMLU (+2.7pp over gpt-oss-120b high), 64.0 on KMMLU-Pro (+1.4pp),
+          78.9 on CLIcK (+1.7pp), and 73.3 on HAE-RAE v1.1 (+2.5pp).</li>
+        <li><strong>Korean domain expertise.</strong> 65.5 on KBankMMLU (finance; ahead of all baselines by +0.8&ndash;4.0pp), 65.5 on KBL (law; +2.7pp
+          over gpt-oss-120b high), and 84.4 on KorMedMCQA (medical; +3.9pp over GLM-4.5-Air, +8.6pp over gpt-oss-120b high).</li>
+        <li><strong>Preference alignment.</strong> 79.9 on Ko Arena Hard v2 (+0.4pp over gpt-oss-120b high, +19.5pp over GLM-4.5-Air) and 74.8 on
+          the English Arena Hard v2.</li>
+        <li><strong>English.</strong> 88.2 on MMLU, 80.4 on MMLU-Pro, 68.1 on GPQA-Diamond; math 91.7 on AIME 2024 (+14.0pp over gpt-oss-120b medium),
+          84.3 on AIME 2025 (+9.3pp), and 73.3 on HMMT 2025 Feb (+10.0pp); 74.2 on LiveCodeBench.</li>
+        <li><strong>Where it trails.</strong> Mathematical reasoning lags gpt-oss-120b high (e.g., Ko-AIME 2024 80.3 vs. 90.0), which the report
+          attributes to a data mix that prioritized natural text and domain expertise over mathematical content.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 5.</strong> Korean benchmark results. Solar Open (102B) is compared with gpt-oss-120b (117B, high and medium reasoning)
+          and GLM-4.5-Air (110B); the Solar Open column is highlighted. (Table 5 in the report; the English results are in Table 6.)
+        </caption>
+        <thead>
+          <tr><th>Category</th><th>Benchmark</th><th>Solar Open (102B)</th><th>gpt-oss-120b (high)</th><th>gpt-oss-120b (medium)</th><th>GLM-4.5-Air (110B)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>General</td><td>KMMLU</td><td style="background:#eef5ff">73.0</td><td>72.7</td><td>70.3</td><td>70.2</td></tr>
+          <tr><td></td><td>KMMLU-Pro</td><td style="background:#eef5ff">64.0</td><td>62.6</td><td>60.5</td><td>60.7</td></tr>
+          <tr><td></td><td>CLIcK</td><td style="background:#eef5ff">78.9</td><td>77.2</td><td>72.9</td><td>48.3</td></tr>
+          <tr><td></td><td>HAE-RAE v1.1</td><td style="background:#eef5ff">73.3</td><td>70.8</td><td>69.6</td><td>42.6</td></tr>
+          <tr><td></td><td>KoBALT</td><td style="background:#eef5ff">44.3</td><td>52.6</td><td>45.0</td><td>40.3</td></tr>
+          <tr><td>Finance</td><td>KBankMMLU (in-house)</td><td style="background:#eef5ff">65.5</td><td>62.5</td><td>61.5</td><td>64.7</td></tr>
+          <tr><td>Law</td><td>KBL</td><td style="background:#eef5ff">65.5</td><td>62.8</td><td>60.1</td><td>60.6</td></tr>
+          <tr><td>Medical</td><td>KorMedMCQA</td><td style="background:#eef5ff">84.4</td><td>75.8</td><td>76.3</td><td>80.5</td></tr>
+          <tr><td>Math</td><td>Ko-AIME 2024 (in-house)</td><td style="background:#eef5ff">80.3</td><td>90.0</td><td>76.7</td><td>80.0</td></tr>
+          <tr><td></td><td>Ko-AIME 2025 (in-house)</td><td style="background:#eef5ff">80.0</td><td>90.0</td><td>70.0</td><td>83.3</td></tr>
+          <tr><td></td><td>HRM8K</td><td style="background:#eef5ff">87.6</td><td>89.5</td><td>84.8</td><td>86.0</td></tr>
+          <tr><td>IF</td><td>Ko-IFEval</td><td style="background:#eef5ff">87.5</td><td>93.2</td><td>86.7</td><td>79.5</td></tr>
+          <tr><td>Preference</td><td>Ko Arena Hard v2 (in-house)</td><td style="background:#eef5ff">79.9</td><td>79.5</td><td>73.8</td><td>60.4</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{park2026solaropentechnicalreport,
+      title={Solar Open Technical Report}, 
+      author={Sungrae Park and Sanghoon Kim and Jungho Cho and Gyoungjin Gim and Dawoon Jung and Mikyoung Cha and Eunhae Choo and Taekgyu Hong and Minbyul Jeong and SeHwan Joo and Minsoo Khang and Eunwon Kim and Minjeong Kim and Sujeong Kim and Yunsu Kim and Hyeonju Lee and Seunghyun Lee and Sukyung Lee and Siyoung Park and Gyungin Shin and Inseo Song and Wonho Song and Seonghoon Yang and Seungyoun Yi and Sanghoon Yoon and Jeonghyun Ko and Seyoung Song and Keunwoo Choi and Hwalsuk Lee and Sunghun Kim and Du-Seong Chang and Kyunghyun Cho and Junsuk Choe and Hwaran Lee and Jae-Gil Lee and KyungTae Lim and Alice Oh},
+      year={2026},
+      eprint={2601.07022},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2601.07022}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

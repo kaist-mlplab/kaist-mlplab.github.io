@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>BOK-VQA: Bilingual outside Knowledge-Based Visual Question Answering via Graph Representation Pretraining</title>
+  <meta name="description" content="BOK-VQA is a bilingual (Korean-English) outside-knowledge visual question answering dataset with 17,836 images and question-answer pairs and 282,533 knowledge triples; the GEL-VQA model, which predicts knowledge-graph triples and uses their pretrained embeddings, improves VQA accuracy by 25.97 points over a baseline without external knowledge. AAAI 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="BOK-VQA, GEL-VQA, knowledge-based visual question answering, KB-VQA, outside-knowledge VQA, OK-VQA, multilingual VQA, bilingual VQA, Korean VQA, Korean-English, knowledge graph embedding, KGE, ConvKB, triple prediction, multimodal dataset, ConceptNet, DBpedia, AAAI 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/bok-vqa/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="BOK-VQA: Bilingual outside Knowledge-Based Visual Question Answering via Graph Representation Pretraining">
+  <meta property="og:description" content="A bilingual Korean-English knowledge-based VQA dataset (17K images, 280K knowledge triples) and GEL-VQA, which injects knowledge graph embeddings into VQA (+25.97 points over a no-knowledge baseline). AAAI 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/bok-vqa/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/bok-vqa/static/images/teaser.png">
+  <meta property="og:image:width" content="1910">
+  <meta property="og:image:height" content="803">
+  <meta property="og:image:alt" content="BOK-VQA example: a jellyfish image with a question in English and Korean, the knowledge triple [Jellyfish, phylum, Cnidaria], and the answer Cnidaria.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BOK-VQA: Bilingual outside Knowledge-Based Visual Question Answering via Graph Representation Pretraining">
+  <meta name="twitter:description" content="A bilingual Korean-English knowledge-based VQA dataset (17K images, 280K knowledge triples) and GEL-VQA, which injects knowledge graph embeddings into VQA (+25.97 points over a no-knowledge baseline). AAAI 2024.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/bok-vqa/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="BOK-VQA: Bilingual outside Knowledge-Based Visual Question Answering via Graph Representation Pretraining">
+  <meta name="citation_author" content="Kim, MinJun">
+  <meta name="citation_author_institution" content="Hanbat National University">
+  <meta name="citation_author" content="Song, SeungWoo">
+  <meta name="citation_author_institution" content="Hanbat National University">
+  <meta name="citation_author" content="Lee, YouHan">
+  <meta name="citation_author_institution" content="Kakao Brain">
+  <meta name="citation_author" content="Jang, Haneol">
+  <meta name="citation_author_institution" content="Hanbat National University">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_publication_date" content="2024/03/24">
+  <meta name="citation_conference_title" content="Proceedings of the AAAI Conference on Artificial Intelligence">
+  <meta name="citation_publisher" content="Association for the Advancement of Artificial Intelligence (AAAI)">
+  <meta name="citation_volume" content="38">
+  <meta name="citation_issue" content="16">
+  <meta name="citation_firstpage" content="18381">
+  <meta name="citation_lastpage" content="18389">
+  <meta name="citation_doi" content="10.1609/aaai.v38i16.29798">
+  <meta name="citation_issn" content="2159-5399">
+  <meta name="citation_pdf_url" content="https://ojs.aaai.org/index.php/AAAI/article/download/29798/31380">
+  <meta name="citation_arxiv_id" content="2401.06443">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/bok-vqa/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/bok-vqa/#article",
+    "headline": "BOK-VQA: Bilingual outside Knowledge-Based Visual Question Answering via Graph Representation Pretraining",
+    "name": "BOK-VQA: Bilingual outside Knowledge-Based Visual Question Answering via Graph Representation Pretraining",
+    "url": "https://kaist-mlplab.github.io/bok-vqa/",
+    "datePublished": "2024-03-24",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/bok-vqa/static/images/teaser.png",
+    "abstract": "The current research direction in generative models, such as the recently developed GPT4, aims to find relevant knowledge information for multimodal and multilingual inputs to provide answers. Under these research circumstances, the demand for multilingual evaluation of visual question answering (VQA) tasks, a representative task of multimodal systems, has increased. Accordingly, we propose a bilingual outside-knowledge VQA (BOK-VQA) dataset in this study that can be extended to multilingualism. The proposed data include 17K images, 17K question-answer pairs for both Korean and English and 280K instances of knowledge information related to question-answer content. We also present a framework that can effectively inject knowledge information into a VQA system by pretraining the knowledge information of BOK-VQA data in the form of graph embeddings. Finally, through in-depth analysis, we demonstrated the actual effect of the knowledge information contained in the constructed training data on VQA.",
+    "keywords": [
+      "knowledge-based visual question answering",
+      "outside-knowledge VQA",
+      "multilingual VQA",
+      "bilingual dataset",
+      "Korean VQA",
+      "knowledge graph embedding",
+      "ConvKB",
+      "triple prediction",
+      "multimodal dataset"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Visual question answering"
+      },
+      {
+        "@type": "Thing",
+        "name": "Knowledge graphs"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multilingual natural language processing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "MinJun Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Hanbat National University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "SeungWoo Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Hanbat National University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "YouHan Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Kakao Brain"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Haneol Jang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Hanbat National University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "PublicationIssue",
+      "issueNumber": "16",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "volumeNumber": "38",
+        "isPartOf": {
+          "@type": "Periodical",
+          "name": "Proceedings of the AAAI Conference on Artificial Intelligence",
+          "issn": "2159-5399",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Association for the Advancement of Artificial Intelligence (AAAI)"
+          }
+        }
+      }
+    },
+    "sameAs": [
+      "https://ojs.aaai.org/index.php/AAAI/article/view/29798",
+      "https://doi.org/10.1609/aaai.v38i16.29798",
+      "https://arxiv.org/abs/2401.06443"
+    ],
+    "pagination": "18381-18389",
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.1609/aaai.v38i16.29798"
+      },
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2401.06443"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://ojs.aaai.org/index.php/AAAI/article/download/29798/31380"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">BOK-VQA: Bilingual outside Knowledge-Based Visual Question Answering via Graph Representation Pretraining</h1>
+      <p class="subtitle is-5 publication-subtitle">A Korean&ndash;English knowledge-based VQA dataset (17K images, 280K knowledge triples) and a model that injects pretrained knowledge graph embeddings into visual question answering</p>
+      <p><span class="tag is-link is-medium venue-badge">AAAI 2024</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">MinJun Kim<sup>1,*</sup>,</span>
+        <span class="author-block">SeungWoo Song<sup>1,*</sup>,</span>
+        <span class="author-block">YouHan Lee<sup>2</sup>,</span>
+        <span class="author-block">Haneol Jang<sup>1</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>3,&dagger;</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Hanbat National University</span>
+        <span class="author-block"><sup>2</sup>Kakao Brain</span>
+        <span class="author-block"><sup>3</sup>Seoul National University of Science and Technology</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>These authors contributed equally &nbsp; <sup>&dagger;</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://ojs.aaai.org/index.php/AAAI/article/view/29798">Paper (AAAI)</a>
+        <a class="button is-dark is-rounded" href="https://ojs.aaai.org/index.php/AAAI/article/download/29798/31380">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2401.06443">arXiv</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1910" height="803"
+           alt="Example BOK-VQA sample. Left: photo of a jellyfish in an aquarium. Right: English question &#x27;Which phylum does an animal belonging to Scyphozoa in the image belong to?&#x27;, the same question in Korean, the knowledge-base triple [Jellyfish, phylum, Cnidaria], and the answer &#x27;Cnidaria&#x27; in English and its Korean equivalent.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Example of a BOK-VQA sample. The question cannot be answered from the image alone; the external knowledge triple [Jellyfish, phylum, Cnidaria] supplies the missing fact. Every sample has the question and answer in both English (en) and Korean (ko), while the knowledge base is in English only.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        The current research direction in generative models, such as the recently developed GPT4, aims to find relevant knowledge information for multimodal and multilingual inputs to provide answers. Under these research circumstances, the demand for multilingual evaluation of visual question answering (VQA) tasks, a representative task of multimodal systems, has increased. Accordingly, we propose a bilingual outside-knowledge VQA (BOK-VQA) dataset in this study that can be extended to multilingualism. The proposed data include 17K images, 17K question-answer pairs for both Korean and English and 280K instances of knowledge information related to question-answer content. We also present a framework that can effectively inject knowledge information into a VQA system by pretraining the knowledge information of BOK-VQA data in the form of graph embeddings. Finally, through in-depth analysis, we demonstrated the actual effect of the knowledge information contained in the constructed training data on VQA.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Knowledge-based VQA (KB-VQA)</span>
+      <span class="tag">Outside-knowledge VQA (OK-VQA)</span>
+      <span class="tag">Multilingual / bilingual VQA</span>
+      <span class="tag">Korean&ndash;English dataset</span>
+      <span class="tag">Knowledge graph embedding (KGE)</span>
+      <span class="tag">ConvKB</span>
+      <span class="tag">Triple prediction</span>
+      <span class="tag">Multimodal dataset</span>
+      <span class="tag">Multi-task learning</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Dataset and Method</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="1997" height="989" loading="lazy"
+           alt="GEL-VQA architecture. (a) VQA module: image v_i goes through ResNet and question q_i through XLM-RoBERTa; their features are multiplied element-wise into f_i(u), which is multiplied with a knowledge embedding emb_kb_i and passed through an FCNN and softmax to predict the answer y_i. (b) Triple prediction module: three separate FCNN and softmax heads predict the head h_i, relation r_i, and tail t_i from the fused feature. (c) Pretrained knowledge graph embedding table: the embeddings of the predicted head, relation, and tail from the previous step are concatenated and passed through an FCNN to form emb_kb_i.">
+      </picture>
+      <figcaption>
+        <strong>Figure 4.</strong> GEL-VQA architecture: (a) VQA module, (b) triple prediction module, and (c) pretrained knowledge graph embeddings (KGE). The embeddings of the triple predicted at the previous training step are fused with the image&ndash;question feature to answer the question.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        <strong>Dataset.</strong> BOK-VQA contains 17,836 samples, each with an image, a question, an answer, and the IDs of the external knowledge
+        needed to answer it, plus 282,533 knowledge triples covering 1,579 objects and 42 relations taken from English ConceptNet and DBpedia
+        (based on the 500 objects and 10 relations of FVQA, extended with 1,079 ImageNet objects and 32 more relations). 87 skilled annotators wrote
+        the Korean questions and answers; English versions were produced by neural translation and reviewed by two professional translators.
+        A question was kept only if three reviewers agreed that external knowledge was needed to answer it.
+      </p>
+      <p>
+        <strong>Key idea.</strong> Entities and relations do not depend on language, so knowledge graph embeddings trained on English triples can be
+        reused for Korean (or any other language) questions. No Korean knowledge graph is needed; the model only has to link a Korean question
+        to the right English triple.
+      </p>
+      <ol>
+        <li><strong>KGE pretraining.</strong> ConvKB is trained on the full English knowledge graph (about 280K triples) for 50,000 iterations,
+          learning to separate valid triples from corrupted ones (random head or tail replacement).</li>
+        <li><strong>VQA module.</strong> ResNet-50 encodes the image and multilingual XLM-RoBERTa encodes the question; the two features are combined
+          by element-wise multiplication and classified with an MLP. Used alone, this is the BASELINE.</li>
+        <li><strong>Triple prediction.</strong> From the same image&ndash;question feature, three separate classifiers predict the head, relation,
+          and tail of the needed triple. The targets are language-independent IDs.</li>
+        <li><strong>Knowledge injection (GEL-VQA).</strong> The pretrained embeddings of the triple predicted at the previous step are concatenated,
+          projected, and multiplied with the image&ndash;question feature before answer classification. VQA and triple prediction are trained jointly
+          as a multi-task loss. Variants add teacher forcing with ground-truth triples during training (+TF) and multi-head attention over the
+          head, relation, and tail embeddings (+ATTN).</li>
+      </ol>
+
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>External knowledge matters.</strong> VQA accuracy ranges from 21.16 to 55.48 depending on how knowledge graph embeddings and
+          triple prediction are used. the paper reports GEL-VQA 25.97 points above the BASELINE, and the oracle GEL-VQA (Ideal), which is given the
+          correct triples, reaches 66.01&ndash;72.25.</li>
+        <li><strong>No drop for the less-resourced language.</strong> Even though the knowledge graph is English only, Korean accuracy was on average
+          3.7% higher than English (best Korean result 55.48 with GEL-VQA + TF + ATTN).</li>
+        <li><strong>Triple prediction is language-independent.</strong> Overall triple prediction accuracy is 50.43 for Korean, 47.59 for English,
+          and 47.17 for bilingual training (relation accuracy 85.39 / 81.93 / 82.76).</li>
+        <li><strong>Robustness.</strong> Replacing nouns with synonyms keeps GEL-VQA close to the original (42.79 vs. 45.08), while hypernyms drop it
+          to 36.24. Under ontological transformation the accuracy drop on BOK-VQA was 7.85%, versus 12.03% reported for VQA v2.0.</li>
+        <li><strong>Choice of KGE.</strong> TransE gives the best GEL-VQA accuracy (51.22, vs. 45.08 with ConvKB); KGE quality on FB15K (Hits@10)
+          correlates with GEL-VQA (Ideal) accuracy (Pearson 0.85).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> VQA accuracy (mean &plusmn; std over five folds) on BOK-VQA when training on bilingual, English, or Korean questions,
+          always with the English knowledge base. GEL-VQA (Ideal) is an oracle that is given the correct triples. Rows and columns are transposed
+          from the paper (Table 2 in the paper).
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>Bilingual</th><th>English</th><th>Korean</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>BASELINE (no external knowledge)</td><td>21.51&plusmn;1.81</td><td>21.90&plusmn;2.34</td><td>21.16&plusmn;1.50</td></tr>
+          <tr><td>GEL-VQA (Ideal, oracle triples)</td><td>66.01&plusmn;1.83</td><td>66.68&plusmn;1.15</td><td>72.25&plusmn;1.29</td></tr>
+          <tr class="ours"><td>GEL-VQA</td><td>45.08&plusmn;0.94</td><td>47.83&plusmn;0.56</td><td>50.30&plusmn;2.24</td></tr>
+          <tr class="ours"><td>GEL-VQA + TF</td><td>48.07&plusmn;1.33</td><td>51.64&plusmn;0.88</td><td>53.40&plusmn;2.73</td></tr>
+          <tr class="ours"><td>GEL-VQA + TF + ATTN</td><td>48.11&plusmn;1.50</td><td>50.74&plusmn;0.90</td><td>55.48&plusmn;1.89</td></tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@article{Kim_2024,
+  title={BOK-VQA: Bilingual outside Knowledge-Based Visual Question Answering via Graph Representation Pretraining},
+  volume={38},
+  ISSN={2159-5399},
+  url={http://dx.doi.org/10.1609/aaai.v38i16.29798},
+  DOI={10.1609/aaai.v38i16.29798},
+  number={16},
+  journal={Proceedings of the AAAI Conference on Artificial Intelligence},
+  publisher={Association for the Advancement of Artificial Intelligence (AAAI)},
+  author={Kim, MinJun and Song, SeungWoo and Lee, YouHan and Jang, Haneol and Lim, KyungTae},
+  year={2024},
+  month=Mar,
+  pages={18381–18389}
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Comparative Analysis of Extrinsic Factors for NER in French</title>
+  <meta name="description" content="French named entity recognition (NER) with limited data: switching from CRF to BiLSTM with FlauBERT embeddings, using the BIOES annotation scheme, and adding data augmentation raises F1 from 62.41 to 79.39 on Europeana French newspaper NER. arXiv 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="French NER, named entity recognition, French named entity recognition, reconnaissance d&#x27;entités nommées, annotation scheme, IO, BIO, BIOES, data augmentation, label-wise token replacement, shuffle within segments, CRF, Wapiti, BiLSTM, FlauBERT, Flair, Europeana newspapers, low-resource NER, information extraction, arXiv 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/french-ner-extrinsic/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Comparative Analysis of Extrinsic Factors for NER in French">
+  <meta property="og:description" content="Model architecture, annotation scheme, and data augmentation for French NER: F1 from 62.41 (CRF) to 79.39. arXiv 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/french-ner-extrinsic/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Comparative Analysis of Extrinsic Factors for NER in French">
+  <meta name="twitter:description" content="Model architecture, annotation scheme, and data augmentation for French NER: F1 from 62.41 (CRF) to 79.39. arXiv 2024.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Comparative Analysis of Extrinsic Factors for NER in French">
+  <meta name="citation_author" content="Yang, Grace">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Li, Zhiyi">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Liu, Yadong">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_publication_date" content="2024/10/16">
+  <meta name="citation_online_date" content="2024/10/16">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2410.12750">
+  <meta name="citation_arxiv_id" content="2410.12750">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/french-ner-extrinsic/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/french-ner-extrinsic/#article",
+    "headline": "Comparative Analysis of Extrinsic Factors for NER in French",
+    "name": "Comparative Analysis of Extrinsic Factors for NER in French",
+    "url": "https://kaist-mlplab.github.io/french-ner-extrinsic/",
+    "datePublished": "2024-10-16",
+    "inLanguage": "en",
+    "abstract": "Named entity recognition (NER) is a crucial task that aims to identify structured information, which is often replete with complex, technical terms and a high degree of variability. Accurate and reliable NER can facilitate the extraction and analysis of important information. However, NER for other than English is challenging due to limited data availability, as the high expertise, time, and expenses are required to annotate its data. In this paper, by using the limited data, we explore various factors including model structure, corpus annotation scheme and data augmentation techniques to improve the performance of a NER model for French. Our experiments demonstrate that these approaches can significantly improve the model's F1 score from original CRF score of 62.41 to 79.39. Our findings suggest that considering different extrinsic factors and combining these techniques is a promising approach for improving NER performance where the size of data is limited.",
+    "keywords": [
+      "French NER",
+      "named entity recognition",
+      "annotation scheme",
+      "BIOES",
+      "data augmentation",
+      "label-wise token replacement",
+      "shuffle within segments",
+      "CRF",
+      "FlauBERT",
+      "information extraction"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Named-entity recognition"
+      },
+      {
+        "@type": "Thing",
+        "name": "French language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Information extraction"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Grace Yang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Zhiyi Li",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yadong Liu",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2410.12750"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2410.12750"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2410.12750"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Comparative Analysis of Extrinsic Factors for NER in French</h1>
+      <p class="subtitle is-5 publication-subtitle">How model architecture, annotation scheme (IO, BIO, BIOES), and data augmentation affect French named entity recognition on limited data</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2024</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Grace Yang,</span>
+        <span class="author-block">Zhiyi Li,</span>
+        <span class="author-block">Yadong Liu,</span>
+        <span class="author-block">Jungyeul Park</span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block">Department of Linguistics, The University of British Columbia, Vancouver, Canada</span>
+      </p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2410.12750">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2410.12750">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Named entity recognition (NER) is a crucial task that aims to identify structured information, which is often replete with complex, technical terms and a high degree of variability. Accurate and reliable NER can facilitate the extraction and analysis of important information. However, NER for other than English is challenging due to limited data availability, as the high expertise, time, and expenses are required to annotate its data. In this paper, by using the limited data, we explore various factors including model structure, corpus annotation scheme and data augmentation techniques to improve the performance of a NER model for French. Our experiments demonstrate that these approaches can significantly improve the model's F1 score from original CRF score of 62.41 to 79.39. Our findings suggest that considering different extrinsic factors and combining these techniques is a promising approach for improving NER performance where the size of data is limited.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">French NER</span>
+      <span class="tag">Named entity recognition</span>
+      <span class="tag">Annotation schemes (IO / BIO / BIOES)</span>
+      <span class="tag">Data augmentation</span>
+      <span class="tag">Label-wise token replacement</span>
+      <span class="tag">Shuffle within segments</span>
+      <span class="tag">CRF vs. BiLSTM + FlauBERT</span>
+      <span class="tag">Low-resource NER</span>
+      <span class="tag">Information extraction</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        The study uses the Europeana Newspapers French NER data (OCRed and manually annotated historical newspapers from the National
+        Library of France): 185,323 training tokens with 8,895 entity phrases (3,592 LOC, 4,071 PER, 1,232 ORG) and 20,592 test tokens
+        (634 LOC, 107 ORG, 200 PER). It varies three extrinsic factors:
+      </p>
+      <ol>
+        <li><strong>Annotation scheme.</strong> The original IO labels are converted to BIO and BIOES (which adds End and Single tags), and
+          all predictions are converted back to IO for a fair comparison with conlleval F1.</li>
+        <li><strong>Model structure.</strong> A CRF (Wapiti), with and without TreeTagger POS features, versus a BiLSTM sequence tagger
+          with FlauBERT transformer embeddings (Flair).</li>
+        <li><strong>Data augmentation.</strong> Label-wise token replacement (LWTR) replaces a token with another token of the same label;
+          shuffle within segments (SIS) shuffles tokens inside same-label segments. Together they roughly double the training data and
+          entities.</li>
+      </ol>
+    </div>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Figure 1.</strong> Example of the annotation schemes and data augmentation on the sentence <em>M. Brandi, professeur au lycée
+          de Saint-Brieuc</em> (&lsquo;Mr. Brandi, teacher at high school of Saint-Brieuc&rsquo;): IO, BIO, and BIOES labels (left), and the
+          original tokens next to label-wise token replacement (LWTR) and shuffle within segments (SIS) versions (right). Reproduced as text
+          from the paper.
+        </caption>
+        <thead>
+          <tr><th>Token</th><th>IO</th><th>BIO</th><th>BIOES</th><th>Original</th><th>LWTR</th><th>SIS</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>M.</td><td>O</td><td>O</td><td>O</td><td>M.</td><td>M.</td><td>M.</td></tr>
+          <tr><td>Brandi</td><td>I-PER</td><td>B-PER</td><td>S-PER</td><td>Brandi</td><td>Louis</td><td>Brandi</td></tr>
+          <tr><td>,</td><td>O</td><td>O</td><td>O</td><td>,</td><td>,</td><td>,</td></tr>
+          <tr><td>Professeur</td><td>O</td><td>O</td><td>O</td><td>Professeur</td><td>Professeur</td><td>Professeur</td></tr>
+          <tr><td>au</td><td>O</td><td>O</td><td>O</td><td>au</td><td>au</td><td>au</td></tr>
+          <tr><td>lycée</td><td>I-ORG</td><td>B-ORG</td><td>B-ORG</td><td>lycée</td><td>Château</td><td>de</td></tr>
+          <tr><td>de</td><td>I-ORG</td><td>I-ORG</td><td>I-ORG</td><td>de</td><td>de</td><td>Saint-Brieuc</td></tr>
+          <tr><td>Saint-Brieuc</td><td>I-ORG</td><td>I-ORG</td><td>E-ORG</td><td>Saint-Brieuc</td><td>Versailles</td><td>lycée</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>BIOES is the best annotation scheme.</strong> With CRF, BIOES gives the highest F1 on the original corpus (62.57 vs. 62.41
+          IO and 61.33 BIO) and with POS tags (65.62 vs. 63.39 IO and 64.58 BIO); precision and recall for ORG rise by about 3 points.</li>
+        <li><strong>Model structure matters most.</strong> A BiLSTM with FlauBERT embeddings raises BIOES F1 from 65.62 (CRF) to 79.12.</li>
+        <li><strong>Data augmentation helps rare classes.</strong> LWTR and SIS bring the final F1 to 79.39, with gains of less than 0.1 for
+          LOC, about 1 for PER, and almost 7 for ORG, the rarest class (about one sixth as frequent as LOC in training).</li>
+        <li><strong>Overall</strong>, F1 improves from the original CRF score of 62.41 to 79.39, above the 77.95 previously reported on
+          this dataset (Park, 2018).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Results.</strong> French NER F1 on the Europeana test set, evaluated in IO format. Top: CRF with each annotation scheme,
+          without and with POS features (Figures 2 and 3 in the paper). Bottom: BIOES with CRF, BiLSTM + FlauBERT, and data augmentation
+          (Figure 4 in the paper).
+        </caption>
+        <thead>
+          <tr><th>Setting</th><th>IO</th><th>BIO</th><th>BIOES</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CRF, original corpus</td><td>62.41</td><td>61.33</td><td>62.57</td></tr>
+          <tr><td>CRF, with POS tags</td><td>63.39</td><td>64.58</td><td>65.62</td></tr>
+          <tr><td>BiLSTM + FlauBERT</td><td></td><td></td><td>79.12</td></tr>
+          <tr class="ours"><td>BiLSTM + FlauBERT + data augmentation</td><td></td><td></td><td>79.39</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{yang2024comparativeanalysisextrinsicfactors,
+      title={Comparative Analysis of Extrinsic Factors for NER in French}, 
+      author={Grace Yang and Zhiyi Li and Yadong Liu and Jungyeul Park},
+      year={2024},
+      eprint={2410.12750},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2410.12750}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

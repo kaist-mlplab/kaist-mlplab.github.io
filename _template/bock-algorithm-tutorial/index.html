@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>A gentle tutorial on Bock&#x27;s algorithm for minimum directed spanning trees with a structured reformulation</title>
+  <meta name="description" content="A self-contained tutorial on Bock&#x27;s 1971 primal-dual algorithm for the minimum-cost arborescence (minimum directed spanning tree) problem: the original Algol listing explained line by line, a three-node circuit example, a complete trace of Bock&#x27;s ten-node instance (optimum Z = 87), and a structured reformulation with a correspondence proof. arXiv 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="Bock&#x27;s algorithm, minimum directed spanning tree, minimum-cost arborescence, optimum branching, primal-dual algorithm, Chu-Liu/Edmonds, Algol, tutorial, algorithm trace, dependency parsing, arXiv 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/bock-algorithm-tutorial/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="A gentle tutorial on Bock&#x27;s algorithm for minimum directed spanning trees with a structured reformulation">
+  <meta property="og:description" content="Bock&#x27;s 1971 minimum directed spanning tree algorithm explained line by line, fully traced on its ten-node example (Z = 87), and restated as a proven-equivalent structured procedure. arXiv 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/bock-algorithm-tutorial/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="A gentle tutorial on Bock&#x27;s algorithm for minimum directed spanning trees">
+  <meta name="twitter:description" content="Bock&#x27;s 1971 minimum directed spanning tree algorithm explained line by line, fully traced on its ten-node example (Z = 87), and restated as a proven-equivalent structured procedure. arXiv 2026.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="A gentle tutorial on Bock&#x27;s algorithm for minimum directed spanning trees with a structured reformulation">
+  <meta name="citation_author" content="Wang, Yuxi">
+  <meta name="citation_author_institution" content="UBC">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/03/29">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2603.27530">
+  <meta name="citation_arxiv_id" content="2603.27530">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/bock-algorithm-tutorial/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/bock-algorithm-tutorial/#article",
+    "headline": "A gentle tutorial on Bock's algorithm for minimum directed spanning trees with a structured reformulation",
+    "name": "A gentle tutorial on Bock's algorithm for minimum directed spanning trees with a structured reformulation",
+    "url": "https://kaist-mlplab.github.io/bock-algorithm-tutorial/",
+    "datePublished": "2026-03-29",
+    "inLanguage": "en",
+    "abstract": "Bock's 1971 algorithm is an exact primal–dual method for the minimum-cost arborescence problem, but its Algol presentation obscures the interaction of its maintained arrays and label-directed control flow. We provide a self-contained tutorial comprising the original listing, a line-mapped explanation, a circuit-forming three-node example, and a complete trace of Bock's ten-node instance. We also present a structured reformulation that replaces temporary span-label changes with explicit component and trace state. Local tightness and contraction-progress results, together with an operational-correspondence theorem, establish that the reformulation preserves Bock's candidate choices, transfers, and final solution.",
+    "keywords": [
+      "Bock's algorithm",
+      "minimum directed spanning tree",
+      "minimum-cost arborescence",
+      "optimum branching",
+      "primal-dual algorithm",
+      "Chu-Liu/Edmonds",
+      "Algol",
+      "tutorial",
+      "operational correspondence"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Minimum spanning arborescence"
+      },
+      {
+        "@type": "Thing",
+        "name": "Combinatorial optimization"
+      },
+      {
+        "@type": "Thing",
+        "name": "Graph algorithms"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Yuxi Wang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "UBC"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2603.27530",
+      "https://github.com/jungyeul/mst-bock"
+    ],
+    "workExample": {
+      "@type": "SoftwareSourceCode",
+      "name": "mst-bock: Algol-faithful and structured Python implementations of Bock's algorithm",
+      "codeRepository": "https://github.com/jungyeul/mst-bock",
+      "programmingLanguage": "Python"
+    },
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2603.27530"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2603.27530"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">A gentle tutorial on Bock&#x27;s algorithm for minimum directed spanning trees with a structured reformulation</h1>
+      <p class="subtitle is-5 publication-subtitle">A line-by-line guide to Bock&rsquo;s 1971 minimum-cost arborescence algorithm, with worked traces and a readable reformulation proved to make the same choices</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Yuxi Wang<sup>1</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>2</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>UBC, Canada</span>
+        <span class="author-block"><sup>2</sup>KAIST, South Korea</span>
+      </p>
+      <p class="publication-notes"></p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2603.27530">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2603.27530">PDF</a>
+        <a class="button is-dark is-rounded" href="https://github.com/jungyeul/mst-bock">Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Bock's 1971 algorithm is an exact primal&ndash;dual method for the minimum-cost arborescence problem, but its Algol presentation
+        obscures the interaction of its maintained arrays and label-directed control flow. We provide a self-contained tutorial comprising the
+        original listing, a line-mapped explanation, a circuit-forming three-node example, and a complete trace of Bock's ten-node instance.
+        We also present a structured reformulation that replaces temporary span-label changes with explicit component and trace state. Local
+        tightness and contraction-progress results, together with an operational-correspondence theorem, establish that the reformulation
+        preserves Bock's candidate choices, transfers, and final solution.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Bock&#x27;s algorithm</span>
+      <span class="tag">Minimum directed spanning tree</span>
+      <span class="tag">Minimum-cost arborescence</span>
+      <span class="tag">Optimum branching</span>
+      <span class="tag">Primal-dual method</span>
+      <span class="tag">Chu-Liu/Edmonds</span>
+      <span class="tag">Algol 60 listing</span>
+      <span class="tag">Tutorial</span>
+      <span class="tag">Algorithm trace</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">What the Tutorial Covers</h2>
+    <div class="content has-text-justified">
+      <p>
+        Given a directed graph with a designated origin and a cost <em>C</em>[<em>I</em>,&nbsp;<em>J</em>] for each link <em>I</em>&nbsp;&rarr;&nbsp;<em>J</em>
+        (rows = initial nodes, columns = terminal nodes), the task is to find a rooted spanning arborescence of minimum total cost.
+        Bock's procedure solves it without building reduced graphs: it keeps the original cost matrix and node indices, records provisional links
+        as <em>stars</em>, represents contracted circuits by common <code>SPAN</code> labels, and uses <em>bars</em> to drive later exchanges.
+        The tutorial is organized as follows:
+      </p>
+      <ol>
+        <li><strong>The original Algol listing</strong> (statement labels L1&ndash;L100), reproduced verbatim, with the matrix conventions and maintained state defined.</li>
+        <li><strong>A line-mapped explanation</strong> that preserves Bock's variables, tests, assignment order, and control flow: candidate search (L4), column adjustment (L5),
+          backward trace and circuit test (L6&ndash;L8), and the star-and-bar transfer (L9&ndash;L11).</li>
+        <li><strong>A three-node example</strong> that isolates circuit formation, contraction, and the ensuing transfer.</li>
+        <li><strong>A complete trace of Bock's original 10&nbsp;&times;&nbsp;10 instance</strong>, covering every candidate search, column adjustment, backward trace,
+          contraction, and transfer from initialization to the reported optimum (the source paper gives only a partial computation).</li>
+        <li><strong>A structured reformulation</strong> (implemented as <code>bock_algorithm_readable</code>) with separate candidate-selection, column-adjustment,
+          backward-trace, contraction, and transfer phases. It replaces negative <code>SPAN</code> labels by an explicit trace mask and fresh contraction labels by the
+          active component's label. Lemma&nbsp;1 (candidate tightness), Lemma&nbsp;2 (progress under contraction), and Theorem&nbsp;1 (operational correspondence) show that,
+          under the same scan order and tie-breaking convention, it selects the same candidates, applies the same adjustments and transfers, and returns the same arborescence and objective value.</li>
+      </ol>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption><strong>Principal arrays maintained by Bock's procedure</strong> (Table 1 in the paper), with their names in the readable implementation (Table 2 in the paper).</caption>
+        <thead><tr><th>Bock</th><th>Readable implementation</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td>U1[J]</td><td><code>U1[J]</code></td><td style="white-space:normal;text-align:left !important">Amount subtracted from the costs of links entering J; the reduced cost of I&nbsp;&rarr;&nbsp;J is C[I,&nbsp;J]&nbsp;&minus;&nbsp;U1[J].</td></tr>
+          <tr><td>I*[J]</td><td><code>parents[J]</code></td><td style="white-space:normal;text-align:left !important">Initial node of the link currently starred into J (0 = no starred link).</td></tr>
+          <tr><td>(&#x012A;[J], J&#x0304;[J])</td><td><code>candidate_edges[J]</code></td><td style="white-space:normal;text-align:left !important">Candidate link whose backward trace passed through J; identifies the next candidate when a transfer displaces J's star.</td></tr>
+          <tr><td>SPAN[J]</td><td><code>components[J]</code></td><td style="white-space:normal;text-align:left !important">Label of the span (contracted component) containing J.</td></tr>
+          <tr><td>Negative SPAN labels</td><td><code>cycle_trace</code></td><td style="white-space:normal;text-align:left !important">Spans visited by the current backward trace.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Worked Examples</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Three-node example.</strong> Origin 1 and links 1&rarr;2 (cost 50), 1&rarr;3 (60), 2&rarr;3 (10), 3&rarr;2 (20). The two cheapest entering links, 3&rarr;2 and 2&rarr;3,
+          form a circuit; after contraction and transfer the procedure returns T* = {1&rarr;2, 2&rarr;3} with Z = 50 + 10 = 60, the unique minimum
+          (final state U1 = (0, 50, 40), I* = (0, 1, 2), SPAN = (1, 4, 4)).</li>
+        <li><strong>Bock's ten-node instance</strong> (origin node 10, no infeasible arcs). The complete trace contains two circuits resolved at K = 4 and K = 5, contractions at K = 7,
+          and two contractions with three L4 passes at K = 9. It terminates with the arcs 6&rarr;1, 4&rarr;2, 2&rarr;3, 1&rarr;4, 4&rarr;5, 10&rarr;6, 6&rarr;7, 9&rarr;8, 4&rarr;9 and
+          Z = 22 + 3 + 2 + 7 + 0 + 26 + 5 + 6 + 16 = <strong>87</strong>, matching Bock's reported optimum.</li>
+        <li><strong>Reformulation.</strong> The structured procedure is proved to make the same candidate choices and transfers and to return the same final solution as the Algol listing;
+          both are implemented in the accompanying Python repository.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable results-table">
+        <caption><strong>Three-node example:</strong> all feasible arborescences rooted at node 1 and their costs (Section 3.5 in the paper). Bock's procedure returns the first.</caption>
+        <thead><tr><th>Arborescence</th><th>Cost</th></tr></thead>
+        <tbody>
+          <tr class="ours"><td>{1&rarr;2, 2&rarr;3} (returned)</td><td><strong>50 + 10 = 60</strong></td></tr>
+          <tr><td>{1&rarr;3, 3&rarr;2}</td><td>60 + 20 = 80</td></tr>
+          <tr><td>{1&rarr;2, 1&rarr;3}</td><td>50 + 60 = 110</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{wang2026gentletutorialbocksalgorithm,
+      title={A gentle tutorial on Bock&#x27;s algorithm for minimum directed spanning trees with a structured reformulation}, 
+      author={Yuxi Wang and Jungyeul Park},
+      year={2026},
+      eprint={2603.27530},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2603.27530}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

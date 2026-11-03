@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>X-LLaVA: Optimizing Bilingual Large Vision-Language Alignment</title>
+  <meta name="description" content="X-LLaVA is a bilingual Korean-English large multimodal model built on LLaVA1.5 with Korean vocabulary expansion, bilingual pretraining and a 91K English-Korean-Chinese visual instruction dataset generated with GPT-4V; it averages 57.0 on three Korean VQA benchmarks, about 5.2 points above KoLLaVA. Findings of NAACL 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="X-LLaVA, LLaVA, bilingual vision-language model, large multimodal model, LMM, multimodal LLM, Korean vision-language model, Korean VQA, visual instruction tuning, visual instruction following dataset, mvif, GPT-4V data generation, vocabulary expansion, multilingual pretraining, Findings of NAACL 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/x-llava/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="X-LLaVA: Optimizing Bilingual Large Vision-Language Alignment">
+  <meta property="og:description" content="Bilingual Korean-English vision-language model and a 91K multilingual visual instruction dataset (mvif) built with GPT-4V for about $3,200. Findings of NAACL 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/x-llava/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/x-llava/static/images/teaser.png">
+  <meta property="og:image:width" content="1872">
+  <meta property="og:image:height" content="1109">
+  <meta property="og:image:alt" content="Data construction for X-LLaVA: an image, a prompt with main objects, and GPT-4V output with questions and answers in English, Korean and Chinese.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="X-LLaVA: Optimizing Bilingual Large Vision-Language Alignment">
+  <meta name="twitter:description" content="Bilingual Korean-English vision-language model and a 91K multilingual visual instruction dataset (mvif) built with GPT-4V for about $3,200. Findings of NAACL 2024.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/x-llava/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="X-LLaVA: Optimizing Bilingual Large Vision-Language Alignment">
+  <meta name="citation_author" content="Shin, DongJae">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author_institution" content="Teddysum">
+  <meta name="citation_author" content="Lim, HyeonSeok">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Won, Inho">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author_institution" content="Teddysum">
+  <meta name="citation_author" content="Choi, ChangSu">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Kim, Minjun">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Song, SeungWoo">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Yoo, HanGyeol">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Kim, SangMin">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_publication_date" content="2024/06">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: NAACL 2024">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="2463">
+  <meta name="citation_lastpage" content="2473">
+  <meta name="citation_doi" content="10.18653/v1/2024.findings-naacl.158">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2024.findings-naacl.158.pdf">
+  <meta name="citation_arxiv_id" content="2403.11399">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/x-llava/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/x-llava/#article",
+    "headline": "X-LLaVA: Optimizing Bilingual Large Vision-Language Alignment",
+    "name": "X-LLaVA: Optimizing Bilingual Large Vision-Language Alignment",
+    "url": "https://kaist-mlplab.github.io/x-llava/",
+    "datePublished": "2024-06",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/x-llava/static/images/teaser.png",
+    "abstract": "The impressive development of large language models (LLMs) is expanding into the realm of large multimodal models (LMMs), which incorporate multiple types of data beyond text. However, the nature of multimodal models leads to significant expenses in the creation of training data. Furthermore, constructing multilingual data for LMMs presents its own set of challenges due to language diversity and complexity. Therefore, in this study, we propose two cost-effective methods to solve this problem: (1) vocabulary expansion and pretraining of multilingual LLM for specific languages, and (2) automatic and elaborate construction of multimodal datasets using GPT4-V. Based on these methods, we constructed a 91K English-Korean-Chinese multilingual, multimodal training dataset. Additionally, we developed a bilingual multimodal model that exhibits excellent performance in both Korean and English, surpassing existing approaches.",
+    "keywords": [
+      "X-LLaVA",
+      "large multimodal model",
+      "bilingual vision-language model",
+      "Korean VQA",
+      "visual instruction tuning",
+      "multilingual visual instruction dataset",
+      "GPT-4V",
+      "vocabulary expansion",
+      "LLaVA1.5"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Large multimodal models"
+      },
+      {
+        "@type": "Thing",
+        "name": "Vision-language models"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multilingual NLP"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "DongJae Shin",
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "Seoul National University of Science and Technology"
+          },
+          {
+            "@type": "Organization",
+            "name": "Teddysum"
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "HyeonSeok Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Inho Won",
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "Seoul National University of Science and Technology"
+          },
+          {
+            "@type": "Organization",
+            "name": "Teddysum"
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "ChangSu Choi",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Minjun Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "SeungWoo Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "HanGyeol Yoo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "SangMin Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Findings of the Association for Computational Linguistics: NAACL 2024",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2024.findings-naacl.158/",
+      "https://arxiv.org/abs/2403.11399",
+      "https://doi.org/10.18653/v1/2024.findings-naacl.158"
+    ],
+    "pagination": "2463-2473",
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.18653/v1/2024.findings-naacl.158"
+      },
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2403.11399"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2024.findings-naacl.158.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">X-LLaVA: Optimizing Bilingual Large Vision-Language Alignment</h1>
+      <p class="subtitle is-5 publication-subtitle">A Korean-English multimodal LLM and a 91K English-Korean-Chinese visual instruction dataset built with GPT-4V</p>
+      <p><span class="tag is-link is-medium venue-badge">Findings of NAACL 2024</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">DongJae Shin<sup>1,2,*</sup>,</span>
+        <span class="author-block">HyeonSeok Lim<sup>1,*</sup>,</span>
+        <span class="author-block">Inho Won<sup>1,2</sup>,</span>
+        <span class="author-block">ChangSu Choi<sup>1</sup>,</span>
+        <span class="author-block">Minjun Kim<sup>1</sup>,</span>
+        <span class="author-block">SeungWoo Song<sup>1</sup>,</span>
+        <span class="author-block">HanGyeol Yoo<sup>1</sup>,</span>
+        <span class="author-block">SangMin Kim<sup>1</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>1,†</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Seoul National University of Science and Technology</span>
+        <span class="author-block"><sup>2</sup>Teddysum</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>These authors contributed equally &nbsp; <sup>†</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.findings-naacl.158/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.findings-naacl.158.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2403.11399">arXiv</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1872" height="1109"
+           alt="Left: an input image of a bus parking lot with double-decker buses, and the prompt given to GPT-4V (system message, two in-context samples with image, scene graph, questions and answers, and the main objects sign, parking lot, lamp, man, bus). Right: GPT-4V output for the object-centric case, a question and a detailed answer about the buses, a van and people, each written in English, Korean and Chinese.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2 (paper).</strong> Building the multilingual visual instruction-following dataset (mvif). GPT-4V receives an image, its main objects, a system message and two in-context samples, and generates questions and answers in English, Korean and Chinese. Four data types are produced (object-centric, location-centric, atmosphere-centric and 8-turn conversation), 91K items in total from 23,496 Visual Genome images, for about $3,200.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        The impressive development of large language models (LLMs) is expanding into the realm of large multimodal models (LMMs), which incorporate multiple types of data beyond text. However, the nature of multimodal models leads to significant expenses in the creation of training data. Furthermore, constructing multilingual data for LMMs presents its own set of challenges due to language diversity and complexity. Therefore, in this study, we propose two cost-effective methods to solve this problem: (1) vocabulary expansion and pretraining of multilingual LLM for specific languages, and (2) automatic and elaborate construction of multimodal datasets using GPT4-V. Based on these methods, we constructed a 91K English-Korean-Chinese multilingual, multimodal training dataset. Additionally, we developed a bilingual multimodal model that exhibits excellent performance in both Korean and English, surpassing existing approaches.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Large multimodal models (LMM)</span>
+      <span class="tag">Vision-language models</span>
+      <span class="tag">Bilingual LMM</span>
+      <span class="tag">Korean VQA</span>
+      <span class="tag">Visual instruction tuning</span>
+      <span class="tag">Multilingual visual instruction dataset</span>
+      <span class="tag">GPT-4V data generation</span>
+      <span class="tag">Vocabulary expansion</span>
+      <span class="tag">LLaVA1.5</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="1910" height="837" loading="lazy"
+           alt="Left (a): LLaVA1.5 architecture, where an input image passes through a visual encoder H and a projection P, a tokenized question passes through the word embedding layer G, and the two representations are concatenated and fed to the language model F. Right: (b) vocabulary expansion of LLaMA2 by adding the KoBERT vocabulary to the LLaMA2 vocabulary in the embedding layer, and (c) multilingual pretraining on English and Korean pretraining data.">
+      </picture>
+      <figcaption>
+        <strong>Figure 3 (paper).</strong> (a) The LLaVA1.5 architecture that X-LLaVA keeps: a CLIP visual encoder <em>H</em>, a projection <em>P</em> into the word-embedding space (576&times;1024 &rarr; 576&times;5120), and the LLaMA2-13B language model <em>F</em>. (b, c) The proposed language-model preparation: KoBERT vocabulary added to LLaMA2 and further pretraining on English and Korean Wikipedia.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <ol>
+        <li><strong>Vocabulary expansion.</strong> Korean is only 0.37% of the LLaMA2 tokenizer (89.7% Latin script), which causes English answers or code-switching to Korean queries. 7,478 KoBERT tokens are added (39,478 entries in total) with randomly initialized embeddings.</li>
+        <li><strong>Bilingual pretraining.</strong> The expanded LLaMA2 is further trained with causal language modeling on English and Korean Wikipedia (7.8 GB) to link knowledge across the two languages.</li>
+        <li><strong>Stage 1: image-text alignment.</strong> Only the projection layer is trained, on LLaVA-CC3M captions and their machine-translated Korean counterpart, learning English and Korean simultaneously.</li>
+        <li><strong>Stage 2: multilingual visual instruction tuning.</strong> The projection and language model are trained on the LLaVA instruct data (158K), its Korean translation (158K), and the new mvif dataset (91K).</li>
+      </ol>
+      <p>
+        The whole pipeline trains in 7.5 days on a single A6000 GPU. Evaluation covers Korean (BVQA<sup>k</sup>, KoViz, KoLiv) and English
+        (BVQA<sup>e</sup>, VQA2.0, GQA, LLaVA-in-the-wild (LV), POPE) benchmarks, plus GPT-4V and human preference judgments.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Best Korean performance.</strong> X-LLaVA averages 57.0 on the three Korean benchmarks (BVQA<sup>k</sup> 57.9, KoViz 51.3, KoLiv 61.7), about 5.2 points higher than KoLLaVA.</li>
+        <li><strong>English is not sacrificed.</strong> X-LLaVA has the best English BVQA<sup>e</sup> (34.3) and GQA (64.0) scores, 8.2 and 0.7 points above LLaVA1.5-13B; LLaVA1.5 is 4.5 points higher on VQA2.0.</li>
+        <li><strong>Vocabulary expansion and pretraining.</strong> Compared with the variant without them, X-LLaVA gains 6.1 points on average in Korean and 0.8 points in English; adding mvif data (+O) improves scores by 0.2 to 3 points.</li>
+        <li><strong>Preference evaluation.</strong> In Korean GPT-4V preference tests, X-LLaVA&rsquo;s answers are preferred over BLIP-2 in 93% and over InstructBLIP in 83% of comparisons; in English it receives about 25% higher preference than LLaVA1.5.</li>
+        <li><strong>Low cost.</strong> The 91K mvif data cost about $3,200 to generate with GPT-4V.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Extrinsic evaluation on Korean (BVQA<sup>k</sup>, KoViz, KoLiv) and English (BVQA<sup>e</sup>, VQA2.0, GQA, LV, POPE) benchmarks.
+          #PT / #VIT: number of pretraining / visual instruction tuning examples; (O) and (B): LLaVA1.5 additionally trained with mvif or BVQA data;
+          POPE measures hallucination. Bold marks the best score per column as in the paper (Table 3 in the paper).
+        </caption>
+        <thead>
+          <tr><th>LMM</th><th>LLM</th><th>#PT</th><th>#VIT</th><th>BVQA<sup>k</sup></th><th>KoViz</th><th>KoLiv</th><th>BVQA<sup>e</sup></th><th>VQA</th><th>GQA</th><th>LV</th><th>POPE</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>BLIP-2</td><td>Vicuna13B</td><td>129M</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>41</td><td>41</td><td>-</td><td>85.3</td></tr>
+          <tr><td>InstructBLIP</td><td>Vicuna7B</td><td>129M</td><td>1.2M</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>49.2</td><td>-</td><td>-</td></tr>
+          <tr><td>InstructBLIP</td><td>Vicuna13B</td><td>129M</td><td>1.2M</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>49.5</td><td>-</td><td>78.9</td></tr>
+          <tr><td>LLaVA1.5</td><td>Vicuna7B</td><td>558K</td><td>665K</td><td>16.2</td><td>33.9</td><td>44.9</td><td>25.1</td><td>78.5</td><td>62.0</td><td>64.7</td><td><strong>85.9</strong></td></tr>
+          <tr><td>LLaVA1.5</td><td>Vicuna13B</td><td>558K</td><td>665K</td><td>27.9</td><td>24.4</td><td>33.4</td><td>26.1</td><td><strong>80.0</strong></td><td>63.3</td><td>65.7</td><td><strong>85.9</strong></td></tr>
+          <tr><td>LLaVA1.5(O)</td><td>Vicuna13B</td><td>558K</td><td>756K</td><td>32.6</td><td>24.6</td><td>23.2</td><td>29.1</td><td>78.1</td><td>45.3</td><td><strong>70.4</strong></td><td>85.8</td></tr>
+          <tr><td>LLaVA1.5(B)</td><td>Vicuna13B</td><td>558K</td><td>857K</td><td>54.5</td><td>50.3</td><td>52.1</td><td>33.5</td><td>76.4</td><td>63.0</td><td>22.8</td><td>85.8</td></tr>
+          <tr><td>KoLLaVA</td><td>Synatra7B</td><td>595K</td><td>612k</td><td>45.3</td><td><strong>55.9</strong></td><td>54.2</td><td>5.5</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+          <tr class="ours"><td>X-LLaVA (ours)</td><td>Ours</td><td>1.2M</td><td>407K</td><td><strong>57.9</strong></td><td>51.3</td><td><strong>61.7</strong></td><td><strong>34.3</strong></td><td>75.5</td><td><strong>64.0</strong></td><td>57.5</td><td>85.5</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{shin-etal-2024-x,
+    title = "{X}-{LL}a{VA}: Optimizing Bilingual Large Vision-Language Alignment",
+    author = "Shin, DongJae  and
+      Lim, HyeonSeok  and
+      Won, Inho  and
+      Choi, ChangSu  and
+      Kim, Minjun  and
+      Song, SeungWoo  and
+      Yoo, HanGyeol  and
+      Kim, SangMin  and
+      Lim, KyungTae",
+    editor = "Duh, Kevin  and
+      Gomez, Helena  and
+      Bethard, Steven",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {NAACL} 2024",
+    month = jun,
+    year = "2024",
+    address = "Mexico City, Mexico",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.findings-naacl.158/",
+    doi = "10.18653/v1/2024.findings-naacl.158",
+    pages = "2463--2473"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

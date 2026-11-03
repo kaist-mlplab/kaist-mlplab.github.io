@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Foundations and Evaluations in NLP</title>
+  <meta name="description" content="Habilitation thesis (mémoire d’habilitation à diriger des recherches) by Jungyeul Park on morpheme-based annotation of Korean, from segmentation granularity to POS tagging, NER, dependency and FrameNet parsing, and on the jp-algorithm, an alignment-based method for end-to-end NLP evaluation (jp-evalb, jp-errant). HDR Thesis 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="habilitation thesis, HDR, mémoire d&#x27;habilitation à diriger des recherches, linguistic resources, Korean NLP, morpheme-based annotation, segmentation granularity, eojeol, Universal Dependencies, morphUD, Korean NER, Korean FrameNet, NLP evaluation, alignment-based evaluation, jp-algorithm, jp-evalb, PARSEVAL, jp-errant, tokenization, sentence boundary detection, end-to-end evaluation, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/foundations-evaluations-nlp/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Foundations and Evaluations in NLP">
+  <meta property="og:description" content="HDR memoir on morpheme-based annotation of Korean and alignment-based end-to-end evaluation of NLP systems (jp-algorithm, jp-evalb, jp-errant).">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/foundations-evaluations-nlp/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Foundations and Evaluations in NLP">
+  <meta name="twitter:description" content="HDR memoir on morpheme-based annotation of Korean and alignment-based end-to-end evaluation of NLP systems (jp-algorithm, jp-evalb, jp-errant).">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Foundations and Evaluations in NLP">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_publication_date" content="2025/04/02">
+  <meta name="citation_online_date" content="2025/04/02">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2504.01342">
+  <meta name="citation_arxiv_id" content="2504.01342">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/foundations-evaluations-nlp/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/foundations-evaluations-nlp/#article",
+    "headline": "Foundations and Evaluations in NLP",
+    "name": "Foundations and Evaluations in NLP",
+    "url": "https://kaist-mlplab.github.io/foundations-evaluations-nlp/",
+    "datePublished": "2025-04-02",
+    "inLanguage": "en",
+    "abstract": "This memoir explores two fundamental aspects of Natural Language Processing (NLP): the creation of linguistic resources and the evaluation of NLP system performance. Over the past decade, my work has focused on developing a morpheme-based annotation scheme for the Korean language that captures linguistic properties from morphology to semantics. This approach has achieved state-of-the-art results in various NLP tasks, including part-of-speech tagging, dependency parsing, and named entity recognition. Additionally, this work provides a comprehensive analysis of segmentation granularity and its critical impact on NLP system performance. In parallel with linguistic resource development, I have proposed a novel evaluation framework, the jp-algorithm, which introduces an alignment-based method to address challenges in preprocessing tasks like tokenization and sentence boundary detection (SBD). Traditional evaluation methods assume identical tokenization and sentence lengths between gold standards and system outputs, limiting their applicability to real-world data. The jp-algorithm overcomes these limitations, enabling robust end-to-end evaluations across a variety of NLP tasks. It enhances accuracy and flexibility by incorporating linear-time alignment while preserving the complexity of traditional evaluation metrics. This memoir provides key insights into the processing of morphologically rich languages, such as Korean, while offering a generalizable framework for evaluating diverse end-to-end NLP systems. My contributions lay the foundation for future developments, with broader implications for multilingual resource development and system evaluation.",
+    "keywords": [
+      "habilitation thesis",
+      "Korean NLP",
+      "morpheme-based annotation",
+      "segmentation granularity",
+      "Universal Dependencies",
+      "named entity recognition",
+      "FrameNet parsing",
+      "alignment-based evaluation",
+      "jp-algorithm",
+      "jp-evalb",
+      "jp-errant",
+      "sentence boundary detection"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Natural language processing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Linguistic annotation"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Evaluation metrics for natural language processing"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park"
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "genre": "Habilitation thesis (mémoire d’habilitation à diriger des recherches)",
+    "numberOfPages": 206,
+    "sameAs": [
+      "https://arxiv.org/abs/2504.01342"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2504.01342"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2504.01342"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Foundations and Evaluations in NLP</h1>
+      <p class="subtitle is-5 publication-subtitle">New Methods for Annotating Linguistic Resources and Evaluating System Performance <br><span lang="fr" style="font-size:0.9em">Fondements et évaluations en TAL : nouvelles méthodes pour l&rsquo;annotation des ressources linguistiques et l&rsquo;évaluation des performances des systèmes</span></p>
+      <p><span class="tag is-link is-medium venue-badge">HDR Thesis 2025</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Jungyeul Park</span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block">Mémoire d’habilitation à diriger des recherches, 2025-2026</span>
+      </p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2504.01342">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2504.01342">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        This memoir explores two fundamental aspects of Natural Language Processing (NLP): the creation of linguistic resources and the evaluation of NLP system performance. Over the past decade, my work has focused on developing a morpheme-based annotation scheme for the Korean language that captures linguistic properties from morphology to semantics. This approach has achieved state-of-the-art results in various NLP tasks, including part-of-speech tagging, dependency parsing, and named entity recognition. Additionally, this work provides a comprehensive analysis of segmentation granularity and its critical impact on NLP system performance. In parallel with linguistic resource development, I have proposed a novel evaluation framework, the jp-algorithm, which introduces an alignment-based method to address challenges in preprocessing tasks like tokenization and sentence boundary detection (SBD). Traditional evaluation methods assume identical tokenization and sentence lengths between gold standards and system outputs, limiting their applicability to real-world data. The jp-algorithm overcomes these limitations, enabling robust end-to-end evaluations across a variety of NLP tasks. It enhances accuracy and flexibility by incorporating linear-time alignment while preserving the complexity of traditional evaluation metrics. This memoir provides key insights into the processing of morphologically rich languages, such as Korean, while offering a generalizable framework for evaluating diverse end-to-end NLP systems. My contributions lay the foundation for future developments, with broader implications for multilingual resource development and system evaluation.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Habilitation thesis (HDR)</span>
+      <span class="tag">Korean NLP</span>
+      <span class="tag">Morpheme-based annotation</span>
+      <span class="tag">Segmentation granularity</span>
+      <span class="tag">Universal Dependencies (morphUD)</span>
+      <span class="tag">Korean NER and FrameNet</span>
+      <span class="tag">Alignment-based evaluation (jp-algorithm)</span>
+      <span class="tag">jp-evalb / PARSEVAL</span>
+      <span class="tag">jp-errant / GEC evaluation</span>
+      <span class="tag">Tokenization and sentence boundary detection</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Overview -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Overview</h2>
+    <div class="content has-text-justified">
+      <p>
+        The memoir (206 pages) has two parts, framed by an introduction and a conclusion.
+      </p>
+      <ol>
+        <li><strong>Part I: How to create linguistic resources for NLP.</strong>
+          <ul>
+            <li><em>Word segmentation granularity in Korean</em> (Chapter 2): five levels, from eojeols (space-separated units) through
+              separating symbols, case markers, and verbal endings to separating all morphemes, with a diagnostic analysis of their effect on
+              POS tagging, syntactic parsing, and Korean-to-English machine translation.</li>
+            <li><em>From morphology to semantics</em> (Chapter 3): a CoNLL-U annotation with multiword tokens for Korean POS tagging, a
+              morpheme-based representation of named entities, morpheme-based Universal Dependencies (morphUD) for dependency parsing, and
+              a morphologically enhanced Korean FrameNet dataset.</li>
+          </ul>
+        </li>
+        <li><strong>Part II: How to evaluate results of NLP.</strong>
+          <ul>
+            <li><em>Evaluation by alignment</em> (Chapter 4): the jointly preprocessed evaluation algorithm (jp-algorithm), which aligns
+              sentences and words between gold and system outputs in linear time, so that standard metrics can be applied even when
+              tokenization and sentence boundaries differ.</li>
+            <li><em>Applications</em> (Chapter 5): jp-preprocessing for tokenization and sentence boundary detection, jp-evalb for
+              PARSEVAL-style constituency parsing evaluation, and jp-errant for end-to-end, multilingual grammatical error correction
+              evaluation.</li>
+          </ul>
+        </li>
+      </ol>
+      <p>
+        According to the acknowledgments, Part I will appear as a standalone volume (<em>Rethinking Linguistic Units in the Age of AI: A
+        Morpheme-Based Approach to Korean Language Processing</em>, Academy of Korean Studies Press) and Part II in Springer Nature&rsquo;s
+        Synthesis Lectures on Computer Science (<em>Evaluation by Alignment &ndash; A Framework for Robust End-to-End NLP Assessment</em>).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{park2026foundationsevaluationsnlp,
+      title={Foundations and Evaluations in NLP}, 
+      author={Jungyeul Park},
+      year={2026},
+      eprint={2504.01342},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2504.01342}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

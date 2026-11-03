@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>MELON: A Large-Scale Dataset for Multi-Event Text-to-Long-Video Retrieval</title>
+  <meta name="description" content="MELON is a text-to-video retrieval dataset of 12,000 long-form videos (12.4 min on average) with 42,526 annotated events, where each query describes 3-5 events; the proposed multi-event aware (MEA) loss improves seven retrieval models, e.g., PAU text-to-video R@1 from 48.5 to 55.4. arXiv 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="MELON, text-to-video retrieval, text-video retrieval, long-form video retrieval, multi-event video retrieval, long video dataset, video-language benchmark, multi-event aware loss, MEA loss, contrastive learning, partial event matching, CLIP4Clip, X-CLIP, TempMe, Long-CLIP, video moment, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/melon-video-retrieval/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="MELON: A Large-Scale Dataset for Multi-Event Text-to-Long-Video Retrieval">
+  <meta property="og:description" content="A large-scale dataset for multi-event text-to-long-video retrieval (12,000 videos, 42,526 events) and a multi-event aware loss that improves seven retrieval models. arXiv 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/melon-video-retrieval/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/melon-video-retrieval/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="1945">
+  <meta property="og:image:alt" content="Single-event queries over short clips cause redundant matches in a long-video database, whereas MELON&#x27;s multi-event queries identify the one long video that contains all queried events.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MELON: Multi-Event Text-to-Long-Video Retrieval">
+  <meta name="twitter:description" content="12,000 long-form videos, 42,526 annotated events, and a multi-event aware (MEA) loss for text-to-video retrieval. arXiv 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/melon-video-retrieval/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="MELON: A Large-Scale Dataset for Multi-Event Text-to-Long-Video Retrieval">
+  <meta name="citation_author" content="Hur, Chan">
+  <meta name="citation_author_institution" content="ETRI">
+  <meta name="citation_author" content="Song, SeungWoo">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Hong, Jeong-hun">
+  <meta name="citation_author_institution" content="Kyungpook National University">
+  <meta name="citation_author" content="Oh, Won Jun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Park, Hyeyoung">
+  <meta name="citation_author_institution" content="Kyungpook National University">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/08/31">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2609.01654">
+  <meta name="citation_arxiv_id" content="2609.01654">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/melon-video-retrieval/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/melon-video-retrieval/#article",
+    "headline": "MELON: A Large-Scale Dataset for Multi-Event Text-to-Long-Video Retrieval",
+    "name": "MELON: A Large-Scale Dataset for Multi-Event Text-to-Long-Video Retrieval",
+    "url": "https://kaist-mlplab.github.io/melon-video-retrieval/",
+    "datePublished": "2026-08-31",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/melon-video-retrieval/static/images/teaser.png",
+    "abstract": "Existing text-video retrieval datasets primarily consist of short-form clips containing a single dominant event. While suitable for measuring basic vision-language alignment, they are limited in capturing real-world retrieval scenarios, where long-form videos naturally contain multiple semantically distinct events and a single text query may correspond to several non-contiguous temporal segments. To bridge this gap, we introduce MELON, the first large-scale dataset designed to extend text-video retrieval to long-form videos featuring complex, multi-event structures. MELON explicitly annotates multiple event intervals per video along with their corresponding textual descriptions, enabling both training and evaluation of multi-event understanding in long, untrimmed videos. In addition, we propose a multi-event aware loss that encourages models to differentiate between full-event and partial-event matches, yielding substantial improvements in retrieval accuracy. Together, the MELON dataset and our proposed loss establish a robust foundation for expanding text-to-video retrieval to complex long-form scenarios and provide a more realistic evaluation setting for future research in the field.",
+    "keywords": [
+      "text-to-video retrieval",
+      "long-form video",
+      "multi-event video understanding",
+      "video-language dataset",
+      "multi-event aware loss",
+      "contrastive learning",
+      "partial event matching",
+      "event annotation"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Text-video retrieval"
+      },
+      {
+        "@type": "Thing",
+        "name": "Video datasets"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multimodal learning"
+      },
+      {
+        "@type": "Thing",
+        "name": "Information retrieval"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Chan Hur",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "ETRI"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "SeungWoo Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jeong-hun Hong",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Kyungpook National University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Won Jun Oh",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Hyeyoung Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Kyungpook National University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2609.01654"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2609.01654"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2609.01654"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">MELON: A Large-Scale Dataset for Multi-Event Text-to-Long-Video Retrieval</h1>
+      <p class="subtitle is-5 publication-subtitle">A text-to-video retrieval dataset of 12,000 long-form videos with 42,526 annotated events, plus a multi-event aware (MEA) training loss</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Chan Hur<sup>1,*</sup>,</span>
+        <span class="author-block">SeungWoo Song<sup>2,*</sup>,</span>
+        <span class="author-block">Jeong-hun Hong<sup>3,*</sup>,</span>
+        <span class="author-block">Won Jun Oh<sup>2</sup>,</span>
+        <span class="author-block">Hyeyoung Park<sup>3</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>2</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>ETRI</span>
+        <span class="author-block"><sup>2</sup>KAIST</span>
+        <span class="author-block"><sup>3</sup>Kyungpook National University</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2609.01654">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2609.01654">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="1945" style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Two-panel comparison. (a) Traditional text-video retrieval: a single-event query, &#x27;A person is cooking beans in a pot with a ladle&#x27;, matches a 40-second clip with one event; searching a long-video database with such a query returns many videos that contain the same event, so the results are redundant and the retriever is confused. (b) MELON: a multi-event query with three event descriptions (E1 &#x27;A woman speaks&#x27;, E2 &#x27;A child sits in a shopping cart&#x27;, E3 &#x27;A person reviews holiday decorations&#x27;) matches an 18-minute video whose events span 0-4 min, 4-10 min, and 10-18 min; only the video containing all three events is an exact match.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> (a) Traditional text-video retrieval datasets pair a short clip with a single-event query, which leads to redundant, ambiguous matches when searching long videos. (b) MELON pairs each long-form video (here 18 minutes) with a multi-event query of several event descriptions, so that only the video containing all queried events is the exact match.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Existing text-video retrieval datasets primarily consist of short-form clips containing a single dominant event. While suitable for measuring basic vision-language alignment, they are limited in capturing real-world retrieval scenarios, where long-form videos naturally contain multiple semantically distinct events and a single text query may correspond to several non-contiguous temporal segments. To bridge this gap, we introduce MELON, the first large-scale dataset designed to extend text-video retrieval to long-form videos featuring complex, multi-event structures. MELON explicitly annotates multiple event intervals per video along with their corresponding textual descriptions, enabling both training and evaluation of multi-event understanding in long, untrimmed videos. In addition, we propose a multi-event aware loss that encourages models to differentiate between full-event and partial-event matches, yielding substantial improvements in retrieval accuracy. Together, the MELON dataset and our proposed loss establish a robust foundation for expanding text-to-video retrieval to complex long-form scenarios and provide a more realistic evaluation setting for future research in the field.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Text-to-video retrieval</span>
+      <span class="tag">Long-form video</span>
+      <span class="tag">Multi-event video understanding</span>
+      <span class="tag">Video-language dataset</span>
+      <span class="tag">Multi-event aware (MEA) loss</span>
+      <span class="tag">Contrastive learning (InfoNCE)</span>
+      <span class="tag">Partial event matching</span>
+      <span class="tag">Video moment / event annotation</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Dataset Construction and MEA Loss</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/pipeline.webp" type="image/webp">
+        <img src="static/images/pipeline.png" width="2600" height="703" loading="lazy"
+           alt="MELON data pipeline. Left, 1 Data Collection: a database of source datasets goes through pre-processing (filter videos shorter than 2 minutes, annotation filtering); Q&amp;A datasets with timestamped question-answer pairs are turned into descriptions by an LLM (&#x27;Make Description&#x27;), and description datasets provide videos with timestamped descriptions; quality filtering then applies Text-to-Text (T2T) and Video-to-Text (V2T) filtering. Right, 2 Multi-Event Summary: an LLM produces K summaries of 3 to 5 events, each with description, timestamp, and theme, split into a train and a test dataset; test data is additionally checked by an LMM judge on the videos and by human filtering. Example for one video: &#x27;A woman speaks from a car&#x27; 00:00:00-00:03:52, &#x27;A child sits in a shopping cart&#x27; 00:03:52-00:10:10, &#x27;A person reviews or demonstrates holiday decorations&#x27; 00:10:10-00:17:26.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> The MELON data pipeline. <em>Data collection</em>: long videos from six source benchmarks are pre-processed (videos under 2 minutes removed), timestamped QA pairs are converted to event descriptions by an LLM, and Text-to-Text (T2T) and Video-to-Text (V2T) filtering remove event-redundant videos and misaligned timestamps. <em>Multi-event summary</em>: an LLM (Qwen3-235B-A22B) condenses the dense annotations into 3&ndash;5 salient event summaries per video; test data is further validated by an LMM judge (Gemini) and human filtering.
+      </figcaption>
+    </figure>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2186" height="1648" loading="lazy"
+           alt="(a) Proposed method: a video is uniformly sampled into frames and encoded by a video encoder; the full query (Event 1, Event 2, Event 3 descriptions) and a partial query set made of event subsets ({Event 1, Event 2}, {Event 1, Event 3}, {Event 2, Event 3}) are encoded by weight-sharing text encoders; the retrieval architecture is trained with the standard contrastive loss L_std and the multi-event aware loss L_mea. (b) Multi-event aware loss in embedding space: around the video v_i and its full query q_i, partial queries are pushed beyond a push margin but kept within a push-margin upper bound, and a pull margin keeps them closer than the in-batch negative queries q_j.">
+      </picture>
+      <figcaption>
+        <strong>Figure 4.</strong> (a) A dual-encoder retrieval model receives the full multi-event query and a set of partial queries (subsets of the events). (b) The multi-event aware (MEA) loss pushes partial queries below the similarity of the full query by an adaptive margin, bounded above, and pulls them back so they stay more similar to the video than in-batch negatives.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        MELON (Multi-Event Text-to-Long Video Retrieval) curates long-form videos from six recent video-language benchmarks that
+        provide fine-grained timestamps. Every video is at least 2 minutes long and is paired with a query made of 3 to 5
+        non-overlapping event descriptions:
+      </p>
+      <ol>
+        <li><strong>Collection and refinement.</strong> Videos shorter than 2 minutes and sparse or misaligned annotations are discarded.
+          Dense temporal captions are used directly; timestamped question&ndash;answer pairs are converted into event captions by an LLM.</li>
+        <li><strong>Quality filtering.</strong> T2T filtering drops videos whose consecutive descriptions are too similar (similarity &gt; 0.70),
+          removing 14.2% of videos; V2T filtering removes timestamps whose video&ndash;text similarity is below a dataset-specific threshold
+          (about 0.12&ndash;0.18), removing about 16.6% of event segments.</li>
+        <li><strong>Multi-event summary.</strong> Qwen3-235B-A22B condenses the remaining segments into K = 3&ndash;5 salient events per video,
+          each with a theme, description, and timestamp.</li>
+        <li><strong>Test-set validation.</strong> A multimodal LMM (Gemini) checks description&ndash;timestamp&ndash;video consistency,
+          followed by human review.</li>
+      </ol>
+      <p>
+        <strong>Multi-event aware (MEA) loss.</strong> Standard contrastive (InfoNCE) training over-rewards videos that match only some of
+        the queried events (the <em>partial event matching problem</em>). MEA builds partial queries by dropping events from the full
+        query and adds two hinge terms to the contrastive loss: a <em>push</em> term that keeps each partial query less similar to the video
+        than the full query by an adaptive margin (the previous step's average gap, capped at half the gap to the hardest negative), and a
+        <em>pull</em> term that keeps partial queries more similar to the video than the hardest in-batch negative. The total objective is
+        the standard contrastive loss plus a weighted MEA loss; it is plug-and-play and needs no temporal segmentation at inference.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Scale and length.</strong> MELON contains 12,000 long-form videos (8,400 train / 3,600 test) and 42,526 annotated events
+          across ten themes. Videos average 12.4 minutes, compared with at most 145 seconds for the prior text-video retrieval datasets compared
+          in the paper (e.g., 2 minutes for ActivityNet-Cap, 10 seconds for MSR-VTT); over 75% of videos span 2&ndash;10 minutes and 5.0% exceed 60 minutes.</li>
+        <li><strong>MEA improves every model.</strong> Adding the MEA loss raises Recall and Rsum for all seven CLIP-based retrievers in both
+          directions. The largest text-to-video R@1 gain is for PAU (48.5 &rarr; 55.4); X-CLIP has the largest combined gain (Rsum +13.0 text-to-video and
+          +17.3 video-to-text; video-to-text R@1 50.6 &rarr; 58.1); TempMe + MEA reaches the best text-to-video R@1 of 59.2.</li>
+        <li><strong>The test set penalizes partial matches.</strong> For five-event queries, CLIP4Clip + MEA reaches 57.9% R@1 with the full
+          multi-event query, but only 7.7% average R@1 when each single event is used as the query.</li>
+        <li><strong>Both MEA terms are needed.</strong> Using only the push term drops text-to-video R@1 to 45.2 (baseline 52.7); the full MEA
+          loss gives 55.1 (+2.4).</li>
+        <li><strong>Generalizes beyond MELON.</strong> With a TempMe backbone, MEA gives R@1 gains of up to +2.4 on ActivityNet-Cap and +3.2 on
+          DiDeMo. The one-to-many multi-event method MeVTR reaches only 41.4 text-to-video R@1 on MELON.</li>
+      </ul>
+    </div>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> Retrieval on the MELON test set with and without the MEA loss (+MEA rows). Text-to-video (T2V) metrics in full and
+          video-to-text (V2T) R@1 and Rsum (subset of columns; full table in the paper). R@K and Rsum: higher is better; MdR and MnR: lower is better.
+        </caption>
+        <thead>
+          <tr><th>Method</th><th>T2V R@1</th><th>T2V R@5</th><th>T2V R@10</th><th>T2V Rsum</th><th>MdR</th><th>MnR</th><th>V2T R@1</th><th>V2T Rsum</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CLIP4Clip</td><td>52.7</td><td>77.1</td><td>84.7</td><td>214.5</td><td>1.0</td><td>10.7</td><td>53.1</td><td>215.0</td></tr>
+          <tr class="ours"><td>CLIP4Clip + MEA</td><td>55.1</td><td>78.1</td><td>86.0</td><td>219.2</td><td>1.0</td><td>10.7</td><td>54.9</td><td>221.1</td></tr>
+          <tr><td>X-CLIP</td><td>50.8</td><td>75.8</td><td>83.7</td><td>210.3</td><td>1.0</td><td>10.6</td><td>50.6</td><td>211.1</td></tr>
+          <tr class="ours"><td>X-CLIP + MEA</td><td>56.4</td><td>79.9</td><td>87.0</td><td>223.3</td><td>1.0</td><td>9.9</td><td>58.1</td><td>228.4</td></tr>
+          <tr><td>TS2-Net</td><td>47.6</td><td>74.3</td><td>83.6</td><td>205.5</td><td>2.0</td><td>11.2</td><td>53.3</td><td>215.3</td></tr>
+          <tr class="ours"><td>TS2-Net + MEA</td><td>48.1</td><td>74.7</td><td>83.4</td><td>206.2</td><td>2.0</td><td>11.8</td><td>54.8</td><td>220.6</td></tr>
+          <tr><td>UCOFIA</td><td>44.5</td><td>70.0</td><td>79.7</td><td>194.2</td><td>2.0</td><td>13.9</td><td>42.8</td><td>190.9</td></tr>
+          <tr class="ours"><td>UCOFIA + MEA</td><td>47.3</td><td>73.8</td><td>82.3</td><td>203.4</td><td>2.0</td><td>14.6</td><td>49.2</td><td>208.4</td></tr>
+          <tr><td>UATVR</td><td>52.8</td><td>77.7</td><td>85.8</td><td>216.3</td><td>1.0</td><td>9.5</td><td>54.3</td><td>219.8</td></tr>
+          <tr class="ours"><td>UATVR + MEA</td><td>53.0</td><td>78.1</td><td>86.4</td><td>217.5</td><td>1.0</td><td>11.7</td><td>55.1</td><td>221.9</td></tr>
+          <tr><td>PAU</td><td>48.5</td><td>75.1</td><td>83.0</td><td>206.6</td><td>2.0</td><td>11.2</td><td>50.3</td><td>210.3</td></tr>
+          <tr class="ours"><td>PAU + MEA</td><td>55.4</td><td>79.0</td><td>86.6</td><td>221.0</td><td>1.0</td><td>9.0</td><td>55.2</td><td>222.4</td></tr>
+          <tr><td>TempMe</td><td>57.6</td><td>79.7</td><td>86.2</td><td>223.5</td><td>1.0</td><td>9.2</td><td>56.9</td><td>222.5</td></tr>
+          <tr class="ours"><td>TempMe + MEA</td><td>59.2</td><td>80.5</td><td>87.1</td><td>226.8</td><td>1.0</td><td>9.6</td><td>57.4</td><td>225.2</td></tr>
+          <tr><td>MeVTR (multi-event, one-to-many)</td><td>41.4</td><td>63.2</td><td>73.3</td><td>177.9</td><td>2.0</td><td>12.8</td><td>44.0</td><td>190.3</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{hur2026melonlargescaledatasetmultievent,
+      title={MELON: A Large-Scale Dataset for Multi-Event Text-to-Long-Video Retrieval},
+      author={Chan Hur and SeungWoo Song and Jeong-hun Hong and Won Jun Oh and Hyeyoung Park and KyungTae Lim},
+      year={2026},
+      eprint={2609.01654},
+      archivePrefix={arXiv},
+      primaryClass={cs.IR},
+      url={https://arxiv.org/abs/2609.01654},
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

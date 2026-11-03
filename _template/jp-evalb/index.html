@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>jp-evalb: Robust Alignment-based PARSEVAL Measures</title>
+  <meta name="description" content="jp-evalb computes PARSEVAL measures for constituency parsing by aligning sentences and words before matching constituents, so parses with different tokenization or sentence boundaries can still be scored; a legacy option reproduces evalb exactly, and all five evalb bug cases are evaluated. NAACL 2024 Demo, KAIST MLP Lab.">
+  <meta name="keywords" content="jp-evalb, evalb, PARSEVAL, constituency parsing evaluation, constituent parsing, parser evaluation, bracket F1, sentence alignment, word alignment, tokenization mismatch, sentence boundary detection, end-to-end parsing, Penn Treebank, Korean Sejong treebank, NAACL 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/jp-evalb/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="jp-evalb: Robust Alignment-based PARSEVAL Measures">
+  <meta property="og:description" content="An alignment-based alternative to evalb that computes PARSEVAL scores even when tokenization and sentence boundaries differ from the gold trees. NAACL 2024 Demo.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/jp-evalb/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/jp-evalb/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="1131">
+  <meta property="og:image:alt" content="Gold vs. system constituent span charts for word mismatches (ca n&#x27;t vs. can not; Hebrew morphemes) and a sentence mismatch merged under a dummy root.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="jp-evalb: Robust Alignment-based PARSEVAL Measures">
+  <meta name="twitter:description" content="An alignment-based alternative to evalb that computes PARSEVAL scores even when tokenization and sentence boundaries differ from the gold trees. NAACL 2024 Demo.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/jp-evalb/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="jp-evalb: Robust Alignment-based PARSEVAL Measures">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="Department of Linguistics, The University of British Columbia">
+  <meta name="citation_author" content="Wang, Junrui">
+  <meta name="citation_author_institution" content="Department of Linguistics, The University of British Columbia">
+  <meta name="citation_author" content="Jo, Eunkyul Leah">
+  <meta name="citation_author_institution" content="Department of Computer Science, The University of British Columbia">
+  <meta name="citation_author_institution" content="Faculté des Sciences et Ingénierie, Sorbonne Université">
+  <meta name="citation_author" content="Park, Angela Yoonseo">
+  <meta name="citation_author_institution" content="Department of Linguistics, The University of British Columbia">
+  <meta name="citation_publication_date" content="2024/06">
+  <meta name="citation_conference_title" content="Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 3: System Demonstrations)">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="70">
+  <meta name="citation_lastpage" content="77">
+  <meta name="citation_doi" content="10.18653/v1/2024.naacl-demo.7">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2024.naacl-demo.7.pdf">
+  <meta name="citation_arxiv_id" content="2405.14150">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/jp-evalb/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://kaist-mlplab.github.io/jp-evalb/#article",
+  "headline": "jp-evalb: Robust Alignment-based PARSEVAL Measures",
+  "name": "jp-evalb: Robust Alignment-based PARSEVAL Measures",
+  "url": "https://kaist-mlplab.github.io/jp-evalb/",
+  "datePublished": "2024-06",
+  "inLanguage": "en",
+  "image": "https://kaist-mlplab.github.io/jp-evalb/static/images/teaser.png",
+  "abstract": "We introduce an evaluation system designed to compute PARSEVAL measures, offering a viable alternative to evalb commonly used for constituency parsing evaluation. The widely used evalb script has traditionally been employed for evaluating the accuracy of constituency parsing results, albeit with the requirement for consistent tokenization and sentence boundaries. In contrast, our approach, named jp-evalb, is founded on an alignment method. This method aligns sentences and words when discrepancies arise. It aims to overcome several known issues associated with evalb by utilizing the ‘jointly preprocessed (JP)’ alignment-based method. We introduce a more flexible and adaptive framework, ultimately contributing to a more accurate assessment of constituency parsing performance.",
+  "keywords": [
+    "PARSEVAL",
+    "evalb",
+    "constituency parsing evaluation",
+    "sentence alignment",
+    "word alignment",
+    "tokenization mismatch",
+    "sentence boundary detection",
+    "end-to-end parsing",
+    "Penn Treebank",
+    "Korean Sejong treebank"
+  ],
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Constituency parsing"
+    },
+    {
+      "@type": "Thing",
+      "name": "Evaluation metrics"
+    },
+    {
+      "@type": "Thing",
+      "name": "Syntactic parsing"
+    },
+    {
+      "@type": "Thing",
+      "name": "Natural language processing tools"
+    }
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Jungyeul Park",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Department of Linguistics, The University of British Columbia"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Junrui Wang",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Department of Linguistics, The University of British Columbia"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Eunkyul Leah Jo",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "name": "Department of Computer Science, The University of British Columbia"
+        },
+        {
+          "@type": "Organization",
+          "name": "Faculté des Sciences et Ingénierie, Sorbonne Université"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "Angela Yoonseo Park",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Department of Linguistics, The University of British Columbia"
+      }
+    }
+  ],
+  "publisher": {
+    "@type": "ResearchOrganization",
+    "name": "KAIST Multimodal Language Processing Lab",
+    "url": "https://kaist-mlplab.github.io/"
+  },
+  "isPartOf": {
+    "@type": "Periodical",
+    "name": "Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 3: System Demonstrations)",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Association for Computational Linguistics"
+    }
+  },
+  "sameAs": [
+    "https://aclanthology.org/2024.naacl-demo.7/",
+    "https://arxiv.org/abs/2405.14150",
+    "https://doi.org/10.18653/v1/2024.naacl-demo.7",
+    "https://github.com/jungyeul/alignment-based-PARSEVAL"
+  ],
+  "pagination": "70-77",
+  "workExample": {
+    "@type": "SoftwareSourceCode",
+    "name": "alignment-based-PARSEVAL / jp-evalb (code)",
+    "codeRepository": "https://github.com/jungyeul/alignment-based-PARSEVAL",
+    "programmingLanguage": "Python"
+  },
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "DOI",
+      "value": "10.18653/v1/2024.naacl-demo.7"
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "arXiv",
+      "value": "2405.14150"
+    }
+  ],
+  "encoding": {
+    "@type": "MediaObject",
+    "encodingFormat": "application/pdf",
+    "contentUrl": "https://aclanthology.org/2024.naacl-demo.7.pdf"
+  }
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title"><code style="font-size:inherit;color:inherit;background:none;padding:0">jp-evalb</code>: Robust Alignment-based PARSEVAL Measures</h1>
+      <p class="subtitle is-5 publication-subtitle">An alignment-based alternative to evalb for constituency parsing evaluation when sentence boundaries and tokenization differ from the gold trees</p>
+      <p><span class="tag is-link is-medium venue-badge">NAACL 2024 Demo</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Jungyeul Park<sup>1</sup>,</span>
+        <span class="author-block">Junrui Wang<sup>1</sup>,</span>
+        <span class="author-block">Eunkyul Leah Jo<sup>2,3</sup>,</span>
+        <span class="author-block">Angela Yoonseo Park<sup>1</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Department of Linguistics, The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>2</sup>Department of Computer Science, The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>3</sup>Faculté des Sciences et Ingénierie, Sorbonne Université, France</span>
+      </p>
+
+      <div class="publication-links" style="margin-top:1.25rem">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.naacl-demo.7/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.naacl-demo.7.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2405.14150">arXiv</a>
+        <a class="button is-dark is-rounded" href="https://github.com/jungyeul/alignment-based-PARSEVAL">Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="1131"
+           alt="Three gold-versus-system constituency tree pairs drawn as colored span charts. (a) Word mismatch: gold &#x27;This ca n&#x27;t be right&#x27; vs. system &#x27;this can not be right&#x27;; both have S(0,4), NP(0,1), VP(1,4), VP(2,4), AdjP(3,4). (b) Word mismatch with additional morphemes in Hebrew: gold B H CL FL HM H NEIM (&#x27;in the shadow of them the pleasant&#x27;) with PP(0,5), NP(1,5), NP(1,4), PP(2,4), AdjP(4,5) vs. system B CL FL HM HNEIM with PP(0,5), NP(1,5), NP(1,4), PP(2,4). (c) Sentence mismatch: gold &#x27;Click here To view it .&#x27; as one sentence S(0,6) vs. system split into &#x27;Click here&#x27; and &#x27;To view it .&#x27;, merged after alignment under a dummy root @S(0,6).">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Examples of word and sentence mismatches that evalb cannot score but jp-evalb can.
+        (a) Word mismatch <em>ca n't</em> vs. <em>can not</em>: after word alignment the trees match exactly, precision = recall = 5/5.
+        (b) Word mismatch with additional morphemes (Hebrew, from Tsarfaty et al., 2012): <em>H CL</em> &harr; <em>CL</em> and
+        <em>H NEIM</em> &harr; <em>HNEIM</em> are aligned, giving precision 4/4 and recall 4/6.
+        (c) Sentence mismatch: the system splits <em>Click here To view it.</em> into two sentences; after sentence alignment they are merged
+        under a dummy root <code>@S</code> (ignored in scoring), giving precision 5/8 and recall 5/7.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        We introduce an evaluation system designed to compute PARSEVAL measures, offering a viable alternative to evalb commonly used for constituency parsing evaluation. The widely used evalb script has traditionally been employed for evaluating the accuracy of constituency parsing results, albeit with the requirement for consistent tokenization and sentence boundaries. In contrast, our approach, named jp-evalb, is founded on an alignment method. This method aligns sentences and words when discrepancies arise. It aims to overcome several known issues associated with evalb by utilizing the ‘jointly preprocessed (JP)’ alignment-based method. We introduce a more flexible and adaptive framework, ultimately contributing to a more accurate assessment of constituency parsing performance.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Constituency parsing evaluation</span>
+      <span class="tag">evalb</span>
+      <span class="tag">PARSEVAL / bracket F1</span>
+      <span class="tag">Sentence alignment</span>
+      <span class="tag">Word alignment</span>
+      <span class="tag">Tokenization mismatch</span>
+      <span class="tag">Sentence boundary detection</span>
+      <span class="tag">End-to-end parsing</span>
+      <span class="tag">Penn Treebank</span>
+      <span class="tag">Korean Sejong treebank</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">How jp-evalb Works</h2>
+    <div class="content has-text-justified">
+      <p>
+        evalb, the standard PARSEVAL implementation, requires the gold and system files to have the same number of sentences and the same
+        terminal tokens; otherwise sentences are skipped or reported as errors. jp-evalb adds a linear-time alignment step before the usual
+        constituent matching, borrowing the idea of sentence and word alignment from machine translation:
+      </p>
+      <ol>
+        <li><strong>Sentence alignment.</strong> Tokens <em>L</em> (gold) and <em>R</em> (system) are compared with spaces removed. Two
+          sentences match if they are equal, or if they are similar (edit distance below 10% of the character length) and the next pair also
+          matches. Otherwise consecutive sentences on the shorter side are accumulated until the next pair matches, so m:n segmentations
+          are merged into one aligned pair.</li>
+        <li><strong>Word alignment.</strong> Inside each aligned pair, tokens are matched in the same way; mismatching spans such as
+          <em>ca n't</em> / <em>can not</em> are accumulated until the following tokens agree. A small per-language exception list of
+          contractions and symbols handles frequent cases directly.</li>
+        <li><strong>Constituent matching.</strong> Constituents (label, start, end, aligned tokens) are extracted from both trees and a
+          constituent counts as a true positive if label and aligned span agree, yielding the usual precision, recall and F scores, matched
+          and crossing brackets, and POS tagging accuracy.</li>
+      </ol>
+      <p>
+        jp-evalb produces the same output columns as evalb. By default it keeps punctuation and all tokens, so bracket counts reflect the
+        actual constituents and tagging accuracy is computed over every token; a legacy option (second line; COLLINS.prm is used if no parameter file is given) reproduces evalb exactly:
+      </p>
+      <pre><code>python3 jp-evalb.py gold_parsed_file system_parsed_file
+python3 jp-evalb.py gold_parsed_file system_parsed_file -evalb param.prm</code></pre>
+    </div>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="1723" height="2472" style="max-width:420px;width:100%;height:auto;display:block;margin:0 auto" loading="lazy"
+           alt="(a) Penn Treebank parse tree of &#x27;No , it was n&#x27;t Black Monday .&#x27; with two index sequences per token: jp-evalb indices 0 to 7 including punctuation, and evalb indices 0 to 5 skipping the comma and period (in red). (b) Constituents by jp-evalb: (&#x27;S&#x27;, 0, 8), (&#x27;INTJ&#x27;, 0, 1, &#x27;No&#x27;), (&#x27;NP&#x27;, 2, 3, &#x27;it&#x27;), (&#x27;VP&#x27;, 3, 7, &quot;was n&#x27;t Black Monday&quot;), (&#x27;NP&#x27;, 5, 7, &#x27;Black Monday&#x27;). (c) Constituents by evalb: (&#x27;S&#x27;, 0, 6), (&#x27;INTJ&#x27;, 0, 1), (&#x27;NP&#x27;, 1, 2), (&#x27;VP&#x27;, 2, 6), (&#x27;NP&#x27;, 4, 6).">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> Difference between jp-evalb and evalb on <em>No , it was n't Black Monday .</em>
+        evalb drops punctuation, so spans are re-indexed (red) and POS accuracy is computed over 6 tokens; jp-evalb keeps punctuation in the
+        spans and computes POS accuracy over all 8 tokens. Both yield the same 5 constituents, since punctuation never forms a constituent on its own.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Exact evalb reproduction.</strong> On Section 23 of the English Penn Treebank, the <code>-evalb</code> legacy option produces
+          exactly the same per-sentence results as the original evalb (e.g. sentence 2: recall 70.97, precision 73.33, 22 matched brackets,
+          tagging accuracy 100.00), including cases evalb reports as <em>Length unmatch</em> or <em>Words unmatch</em>.</li>
+        <li><strong>Punctuation-inclusive default.</strong> With punctuation counted, bracket scores are unchanged but tagging accuracy is over all
+          tokens: for sentence 1 (8 tokens) jp-evalb reports 7/8 = 87.50 vs. evalb's 5/6 = 83.33.</li>
+        <li><strong>All five evalb bug cases are scored.</strong> Sentences 1, 2 and 5 contain symbols treated as words; sentences 3 and 4 contain
+          real word mismatches from inserted trace symbols (*-<em>num</em>). jp-evalb evaluates all of them without failure (table below).</li>
+        <li><strong>End-to-end Korean parsing.</strong> On 148 gold sentences (4,538 morphemes) from BGAA0001 of the Korean Sejong treebank, the
+          system pipeline (sjmorph.model segmentation + Berkeley parser) produced 123 sentences and 4,367 morphemes; jp-evalb aligns these
+          mismatched sentences and morphemes and scores the parses.</li>
+        <li><strong>Speed.</strong> On Penn Treebank Section 23 with matching sentences and words, the Python implementation takes about
+          4.5 seconds vs. less than 0.1 seconds for the C implementation of evalb; alignment itself is linear time.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table (Figure 4 in the paper).</strong> jp-evalb results on the five bug cases identified by evalb. L = sentence length,
+          St = status (0 = OK), Re/Pr = recall/precision of constituents, Mt Br = matched brackets, Br gd/te = brackets in gold/test,
+          Cr Br = crossing brackets, Wd = words, Co Tg = correct tags, Tag Acc = tagging accuracy.
+        </caption>
+        <thead>
+          <tr><th>Sent ID</th><th>L</th><th>St</th><th>Re</th><th>Pr</th><th>Mt Br</th><th>Br gd</th><th>Br te</th><th>Cr Br</th><th>Wd</th><th>Co Tg</th><th>Tag Acc</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>37</td><td>0</td><td>77.27</td><td>62.96</td><td>17</td><td>22</td><td>27</td><td>5</td><td>37</td><td>30</td><td>81.08</td></tr>
+          <tr><td>2</td><td>21</td><td>0</td><td>69.23</td><td>60.00</td><td>9</td><td>13</td><td>15</td><td>2</td><td>21</td><td>17</td><td>80.95</td></tr>
+          <tr><td>3</td><td>47</td><td>0</td><td>77.78</td><td>80.00</td><td>28</td><td>36</td><td>35</td><td>4</td><td>48</td><td>43</td><td>89.58</td></tr>
+          <tr><td>4</td><td>26</td><td>0</td><td>33.33</td><td>35.29</td><td>6</td><td>18</td><td>17</td><td>8</td><td>27</td><td>19</td><td>70.37</td></tr>
+          <tr><td>5</td><td>44</td><td>0</td><td>42.31</td><td>32.35</td><td>11</td><td>26</td><td>34</td><td>17</td><td>44</td><td>33</td><td>75.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{park-etal-2024-jp,
+    title = "jp-evalb: Robust Alignment-based {PARSEVAL} Measures",
+    author = "Park, Jungyeul  and
+      Wang, Junrui  and
+      Jo, Eunkyul Leah  and
+      Park, Angela Yoonseo",
+    editor = "Chang, Kai-Wei  and
+      Lee, Annie  and
+      Rajani, Nazneen",
+    booktitle = "Proceedings of the 2024 Conference of the {N}orth {A}merican Chapter of the {A}ssociation for {C}omputational {L}inguistics: Human Language Technologies (Volume 3: System Demonstrations)",
+    month = jun,
+    year = "2024",
+    address = "Mexico City, Mexico",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.naacl-demo.7/",
+    doi = "10.18653/v1/2024.naacl-demo.7",
+    pages = "70--77"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

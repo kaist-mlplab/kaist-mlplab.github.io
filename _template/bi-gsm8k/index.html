@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Beyond Accuracy: Alignment and Error Detection across Languages in the Bi-GSM8K Math-Teaching Benchmark</title>
+  <meta name="description" content="Bi-GSM8K is a bilingual English-Korean math-teaching benchmark with teacher solutions, simulated student solutions and initial-error annotations; its step-alignment metric reaches Pearson 0.89 with human judgments, and open-source LLMs detect the first student error with about 86% accuracy vs. 95% for GPT-4o. Findings of EACL 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="Bi-GSM8K, GSM8K, math education, mathematics teaching, LLM tutor, intelligent tutoring system, error detection, initial error detection, student solution, teacher solution, solution alignment, Needleman-Wunsch, BERTScore, Korean, bilingual benchmark, Findings of EACL 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/bi-gsm8k/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Beyond Accuracy: Alignment and Error Detection across Languages in the Bi-GSM8K Math-Teaching Benchmark">
+  <meta property="og:description" content="A bilingual English-Korean math-teaching benchmark for aligning student and teacher solutions and detecting a student&#x27;s first error. Findings of EACL 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/bi-gsm8k/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/bi-gsm8k/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="797">
+  <meta property="og:image:alt" content="A student&#x27;s three-step solution aligned to a five-step teacher solution, with matching and missing steps and the first student error marked.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bi-GSM8K: Alignment and Error Detection in a Bilingual Math-Teaching Benchmark">
+  <meta name="twitter:description" content="Bilingual English-Korean benchmark for evaluating LLMs as math tutors. Findings of EACL 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/bi-gsm8k/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Beyond Accuracy: Alignment and Error Detection across Languages in the Bi-GSM8K Math-Teaching Benchmark">
+  <meta name="citation_author" content="Park, Jieun">
+  <meta name="citation_author_institution" content="Tutorus Labs">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Lim, Joon-ho">
+  <meta name="citation_author_institution" content="Tutorus Labs">
+  <meta name="citation_publication_date" content="2026/03">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: EACL 2026">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="1678">
+  <meta name="citation_lastpage" content="1704">
+  <meta name="citation_doi" content="10.18653/v1/2026.findings-eacl.85">
+  <meta name="citation_isbn" content="979-8-89176-386-9">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2026.findings-eacl.85.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/bi-gsm8k/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/bi-gsm8k/#article",
+    "headline": "Beyond Accuracy: Alignment and Error Detection across Languages in the Bi-GSM8K Math-Teaching Benchmark",
+    "name": "Beyond Accuracy: Alignment and Error Detection across Languages in the Bi-GSM8K Math-Teaching Benchmark",
+    "url": "https://kaist-mlplab.github.io/bi-gsm8k/",
+    "datePublished": "2026-03",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/bi-gsm8k/static/images/teaser.png",
+    "abstract": "Recent advancements in LLMs have significantly improved mathematical problem-solving, with models like GPT-4 achieving human-level performance. However, proficiently solving mathematical problems differs fundamentally from effectively teaching mathematics. To bridge this gap, we introduce the Bi-GSM8K benchmark, a bilingual English-Korean dataset enriched with teacher solutions, student solutions, and annotations marking students’ initial errors. This dataset is designed to evaluate two core capabilities of LLMs: (1) measuring similarity between student and teacher solutions, and (2) identifying the initial error point in student solutions. Our method achieves high agreement with human judgments, with Pearson 0.89 and Spearman 0.88 on English, and Pearson 0.89 and Spearman 0.87 on Korean. It also offers significantly lower latency and resource usage than commercial APIs, demonstrating strong computational efficiency. In the error detection task, open-source models achieved approximately 86% accuracy, with performance within 10% points of commercial LLMs API, suggesting strong practical potential. Our key contributions include the open-source release of Bi-GSM8K, novel evaluation metrics, and comparative analyses of LLM performance across languages.",
+    "keywords": [
+      "math education",
+      "LLM tutor",
+      "intelligent tutoring system",
+      "student error detection",
+      "solution step alignment",
+      "Needleman-Wunsch alignment",
+      "BERTScore",
+      "GSM8K",
+      "Korean",
+      "bilingual benchmark"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Mathematics education"
+      },
+      {
+        "@type": "Thing",
+        "name": "Large language models"
+      },
+      {
+        "@type": "Thing",
+        "name": "Benchmark datasets"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Jieun Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Tutorus Labs"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Joon-ho Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Tutorus Labs"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Findings of the Association for Computational Linguistics: EACL 2026",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2026.findings-eacl.85/",
+      "https://doi.org/10.18653/v1/2026.findings-eacl.85"
+    ],
+    "pagination": "1678-1704",
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.18653/v1/2026.findings-eacl.85"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2026.findings-eacl.85.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Beyond Accuracy: Alignment and Error Detection across Languages in the Bi-GSM8K Math-Teaching Benchmark</h1>
+      <p class="subtitle is-5 publication-subtitle">A bilingual English&ndash;Korean GSM8K benchmark with teacher solutions, simulated student solutions and first-error annotations for evaluating LLMs as math tutors</p>
+      <p><span class="tag is-link is-medium venue-badge">Findings of EACL 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Jieun Park<sup>&dagger;,*</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>&Dagger;,*</sup>,</span>
+        <span class="author-block">Joon-ho Lim<sup>&dagger;</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>&dagger;</sup>Tutorus Labs (AI Lab)</span>
+        <span class="author-block"><sup>&Dagger;</sup>Korea Advanced Institute of Science and Technology (KAIST)</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equally contributed authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-eacl.85/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-eacl.85.pdf">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="797"
+           alt="Step alignment between a student solution (left) and the answer solution (right) for a cleaning-time word problem. The student&#x27;s first step matches the teacher&#x27;s first step; the student&#x27;s second step &#x27;Thus, 3D = 38&#x27; is marked as the first error; teacher steps &#x27;set up the equation 3D + 5 = 38&#x27; and the final upstairs-time step are labeled missing.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> When a student's solution is submitted, it is first aligned with the answer solution using language-model similarity functions and the Needleman&ndash;Wunsch (NW) algorithm, revealing matching, omitted and extraneous steps; a separate LLM-based error detection module then identifies the first erroneous step (here, &ldquo;Thus, 3D = 38&rdquo;, where the student drops the +5).
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Recent advancements in LLMs have significantly improved mathematical problem-solving, with models like GPT-4 achieving human-level performance. However, proficiently solving mathematical problems differs fundamentally from effectively teaching mathematics. To bridge this gap, we introduce the Bi-GSM8K benchmark, a bilingual English-Korean dataset enriched with teacher solutions, student solutions, and annotations marking students’ initial errors. This dataset is designed to evaluate two core capabilities of LLMs: (1) measuring similarity between student and teacher solutions, and (2) identifying the initial error point in student solutions. Our method achieves high agreement with human judgments, with Pearson 0.89 and Spearman 0.88 on English, and Pearson 0.89 and Spearman 0.87 on Korean. It also offers significantly lower latency and resource usage than commercial APIs, demonstrating strong computational efficiency. In the error detection task, open-source models achieved approximately 86% accuracy, with performance within 10% points of commercial LLMs API, suggesting strong practical potential. Our key contributions include the open-source release of Bi-GSM8K, novel evaluation metrics, and comparative analyses of LLM performance across languages.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Math education</span>
+      <span class="tag">LLM tutoring</span>
+      <span class="tag">Student error detection</span>
+      <span class="tag">Solution step alignment</span>
+      <span class="tag">Needleman-Wunsch</span>
+      <span class="tag">GSM8K</span>
+      <span class="tag">Korean–English bilingual</span>
+      <span class="tag">Benchmark</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Benchmark and Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        Solving math problems and teaching math are different skills: a tutor must follow a student's reasoning and find where it goes wrong.
+        GSM8K only provides problems and solved answers, so the paper builds <strong>Bi-GSM8K</strong>, 7,985 JSON entries with:
+      </p>
+      <ul>
+        <li><strong>Curriculum-aligned bilingual problems.</strong> GSM8K was translated into Korean and refined to the Korean national curriculum
+          (names, units, vocabulary) by mathematics education experts, then translated back into English with GPT-4o.</li>
+        <li><strong>Teacher solutions</strong> (<code>correct_solution</code>) written step by step by experts and reviewed for accuracy and pedagogy.</li>
+        <li><strong>Simulated student solutions</strong> (<code>error_solution</code>) written by education annotators to reflect realistic misconceptions
+          (not real student data).</li>
+        <li><strong>Initial error annotations</strong> marking the first step with a numerical or logical inconsistency, cross-validated by experts.</li>
+      </ul>
+      <p>Two evaluation tasks are defined on top of the data:</p>
+      <ol>
+        <li><strong>Ground Truth Alignment (GTA).</strong> Compute semantic similarity between teacher and student steps (cosine, Pearson or SemScore of
+          LLM embeddings, or BERTScore), align the two step sequences with a Needleman&ndash;Wunsch algorithm whose gap penalty shrinks for semantically
+          similar steps, and score the solution as the fraction of matched steps (0 to 1).</li>
+        <li><strong>Solution Error Detection (SED).</strong> A 3-shot prompt gives the problem, the teacher solution and the student solution and asks the LLM
+          for the step number of the first error (0 if correct).</li>
+      </ol>
+      <p>Both tasks are evaluated on 500 randomly selected problems in English and Korean, with GTA compared against five human annotators.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Human-level alignment scores.</strong> With BERTScore (bert-large-uncased), GTA reaches Pearson 0.8942 (EN) and 0.8929 (KO) and Spearman 0.8752 (EN)
+          against human similarity judgments; open-source configurations are within about 0.03 points of commercial LLM APIs on average.</li>
+        <li><strong>Much cheaper alignment.</strong> bart-large and bert-large-uncased take 0.070 s and 0.113 s per problem with about 700&ndash;1,010 MB of memory,
+          vs. 3.614 s for GPT-4o-mini through the API.</li>
+        <li><strong>First-error detection.</strong> GPT-4o finds the student's first error with 94.4% (EN) and 95.8% (KO) accuracy; the best open-source models reach
+          86.4% (DeepSeek-R1-Distill-Qwen-7B-Multilingual, EN) and 86.0% (Qwen2.5-7B-Instruct, KO).</li>
+        <li><strong>Language effects.</strong> Multilingual training does not help both languages equally: DeepSeek-R1-Distill-Qwen-7B-Multilingual is stronger in English
+          than Qwen2.5-7B-Instruct (86.4 vs. 79.4) but weaker in Korean (83.4 vs. 86.0).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> Solution Error Detection on 500 Bi-GSM8K problems: accuracy (%) of identifying the student's first erroneous step in English (EN)
+          and Korean (KO), and latency (sec). Commercial APIs above the line, open-source models below; bold marks the best value per group, as in the paper.
+          (Subset of Table 2 in the paper: throughput and peak memory omitted.)
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>Accuracy EN</th><th>Accuracy KO</th><th>Latency (sec)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>GPT-4o</td><td><strong>94.4</strong></td><td><strong>95.8</strong></td><td>8.39</td></tr>
+          <tr><td>Claude-Sonnet-4</td><td>87.8</td><td>90.2</td><td>5.31</td></tr>
+          <tr><td>Gemini-2.5-Flash</td><td>90.4</td><td>91.4</td><td><strong>4.91</strong></td></tr>
+          <tr style="border-top: 2px solid #4a4a4a"><td>Llama-3.1-8B-Instruct</td><td>80.4</td><td>75.2</td><td>711.60</td></tr>
+          <tr><td>DeepSeek-R1-Distill-Llama-8B</td><td>55.4</td><td>57.8</td><td>720.06</td></tr>
+          <tr><td>DeepSeek-llama3.1-Bllossom-8B</td><td>63.2</td><td>62.0</td><td>716.86</td></tr>
+          <tr><td>Qwen2.5-7B-Instruct</td><td>79.4</td><td><strong>86.0</strong></td><td>783.91</td></tr>
+          <tr><td>DeepSeek-R1-Distill-Qwen-7B</td><td>82.8</td><td>80.4</td><td>801.63</td></tr>
+          <tr><td>DeepSeek-R1-Distill-Qwen-7B-Multilingual</td><td><strong>86.4</strong></td><td>83.4</td><td>847.68</td></tr>
+          <tr><td>Mistral-7B-Instruct-v0.3</td><td>67.0</td><td>67.0</td><td>1168.91</td></tr>
+          <tr><td>Phi-4-mini-instruct</td><td>76.6</td><td>78.6</td><td><strong>355.01</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{park-etal-2026-beyond,
+    title = &quot;Beyond Accuracy: Alignment and Error Detection across Languages in the {B}i-{GSM}8{K} Math-Teaching Benchmark&quot;,
+    author = &quot;Park, Jieun  and
+      Lim, KyungTae  and
+      Lim, Joon-ho&quot;,
+    editor = &quot;Demberg, Vera  and
+      Inui, Kentaro  and
+      Marquez, Llu{\&#x27;i}s&quot;,
+    booktitle = &quot;Findings of the {A}ssociation for {C}omputational {L}inguistics: {EACL} 2026&quot;,
+    month = mar,
+    year = &quot;2026&quot;,
+    address = &quot;Rabat, Morocco&quot;,
+    publisher = &quot;Association for Computational Linguistics&quot;,
+    url = &quot;https://aclanthology.org/2026.findings-eacl.85/&quot;,
+    doi = &quot;10.18653/v1/2026.findings-eacl.85&quot;,
+    pages = &quot;1678--1704&quot;,
+    ISBN = &quot;979-8-89176-386-9&quot;
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

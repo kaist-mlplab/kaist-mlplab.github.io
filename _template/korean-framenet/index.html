@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Towards Standardized Annotation and Parsing for Korean FrameNet</title>
+  <meta name="description" content="A morphologically enhanced, morpheme-based CoNLL-U annotation scheme for Korean FrameNet; argument-extraction parsers trained on the morpheme-based jkfn data raise exact F1 from 0.3968 to 0.6528 (KoELECTRA). LREC-COLING 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="Korean FrameNet, FrameNet, frame semantics, frame-semantic parsing, semantic parsing, morpheme-based annotation, CoNLL-U, eojeol, agglutinative language, Korean PropBank, Japanese FrameNet, Sejong dictionary, data standardization, Korean NLP, LREC-COLING 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/korean-framenet/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Towards Standardized Annotation and Parsing for Korean FrameNet">
+  <meta property="og:description" content="Morpheme-based CoNLL-U annotation for Korean FrameNet: frame argument parsing on jkfn improves from 0.3968 to 0.6528 exact F1. LREC-COLING 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/korean-framenet/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/korean-framenet/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="1075">
+  <meta property="og:image:alt" content="Morphologically enhanced Korean FrameNet data in CoNLL-U style, with eojeol split into morphemes that carry frame labels.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Towards Standardized Annotation and Parsing for Korean FrameNet">
+  <meta name="twitter:description" content="Morpheme-based CoNLL-U annotation for Korean FrameNet: frame argument parsing on jkfn improves from 0.3968 to 0.6528 exact F1. LREC-COLING 2024.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/korean-framenet/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Towards Standardized Annotation and Parsing for Korean FrameNet">
+  <meta name="citation_author" content="Chen, Yige">
+  <meta name="citation_author_institution" content="The Chinese University of Hong Kong, Hong Kong">
+  <meta name="citation_author" content="Ihn, Jae">
+  <meta name="citation_author_institution" content="The University of British Columbia, Canada">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="SeoulTech, South Korea">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="The University of British Columbia, Canada">
+  <meta name="citation_publication_date" content="2024/05">
+  <meta name="citation_conference_title" content="Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)">
+  <meta name="citation_publisher" content="ELRA and ICCL">
+  <meta name="citation_firstpage" content="16653">
+  <meta name="citation_lastpage" content="16658">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2024.lrec-main.1447.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/korean-framenet/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/korean-framenet/#article",
+    "headline": "Towards Standardized Annotation and Parsing for Korean FrameNet",
+    "name": "Towards Standardized Annotation and Parsing for Korean FrameNet",
+    "url": "https://kaist-mlplab.github.io/korean-framenet/",
+    "datePublished": "2024-05",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/korean-framenet/static/images/teaser.png",
+    "abstract": "Previous research on Korean FrameNet has produced several datasets that serve as resources for FrameNet parsing in Korean. However, these datasets suffer from the problem that annotations are assigned on the word level, which is not optimally designed based on the agglutinative feature of Korean. To address this issue, we introduce a morphologically enhanced annotation strategy for Korean FrameNet datasets and parsing by leveraging the CoNLL-U format. We present the results of the FrameNet parsers trained on the Korean FrameNet data in the original format and our proposed format, respectively, and further elaborate on the linguistic rationales of our proposed scheme. We suggest the morpheme-based scheme to be the standard of Korean FrameNet data annotation.",
+    "keywords": [
+      "Korean FrameNet",
+      "FrameNet",
+      "frame-semantic parsing",
+      "morpheme-based annotation",
+      "CoNLL-U",
+      "eojeol",
+      "data standardization",
+      "Korean NLP"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "FrameNet"
+      },
+      {
+        "@type": "Thing",
+        "name": "Frame semantics"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Yige Chen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The Chinese University of Hong Kong, Hong Kong"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jae Ihn",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia, Canada"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "SeoulTech, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia, Canada"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)",
+      "publisher": {
+        "@type": "Organization",
+        "name": "ELRA and ICCL"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2024.lrec-main.1447/"
+    ],
+    "pagination": "16653-16658",
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2024.lrec-main.1447.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Towards Standardized Annotation and Parsing for Korean FrameNet</h1>
+      <p class="subtitle is-5 publication-subtitle">A morpheme-based CoNLL-U annotation scheme for Korean FrameNet data and frame-semantic parsing</p>
+      <p><span class="tag is-link is-medium venue-badge">LREC-COLING 2024</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Yige Chen<sup>1</sup>,</span>
+        <span class="author-block">Jae Ihn<sup>2,∗∗</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>3,∗</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>2</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>The Chinese University of Hong Kong, Hong Kong</span>
+        <span class="author-block"><sup>2</sup>The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>3</sup>SeoulTech, South Korea</span>
+      </p>
+      <p class="publication-notes"><sup>∗</sup>Corresponding author &nbsp; <sup>∗∗</sup>Currently at Rocketbrew Inc., Canada</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.lrec-main.1447/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.lrec-main.1447.pdf">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="1075"
+           alt="CoNLL-U style table with columns index, word, lexeme, target, frame and annotation for tokens 16 to 26 of a Korean sentence. Multiword lines such as 17-19 여년간, 20-21 오스트리아를, 22-24 통치한 and 25-26 좌익이 keep the original eojeol, and the morphemes below them carry BIO labels: B-Time/I-Time, B-Dependent_entity/I-Dependent_entity, B-FrameTarget/I-FrameTarget for 통치하다.v evoking the frame Being_in_control, and B-Controlling_entity/I-Controlling_entity.">
+      </picture>
+      <figcaption>
+        <strong>Figure 4 (paper).</strong> Example of the morphologically enhanced FrameNet data for &ldquo;The left wing that ruled Austria for over 30 years...&rdquo;. Each eojeol (e.g. 오스트리아를, <em>Austria</em>+accusative) is kept as a CoNLL-U multiword line, and its morphemes are labeled separately: the target 통치하다.v evokes the frame <code>Being_in_control</code> with frame elements <code>Time</code>, <code>Dependent_entity</code> and <code>Controlling_entity</code>.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Previous research on Korean FrameNet has produced several datasets that serve as resources for FrameNet parsing in Korean. However, these datasets suffer from the problem that annotations are assigned on the word level, which is not optimally designed based on the agglutinative feature of Korean. To address this issue, we introduce a morphologically enhanced annotation strategy for Korean FrameNet datasets and parsing by leveraging the CoNLL-U format. We present the results of the FrameNet parsers trained on the Korean FrameNet data in the original format and our proposed format, respectively, and further elaborate on the linguistic rationales of our proposed scheme. We suggest the morpheme-based scheme to be the standard of Korean FrameNet data annotation.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean FrameNet</span>
+      <span class="tag">Frame-semantic parsing</span>
+      <span class="tag">Morpheme-based annotation</span>
+      <span class="tag">CoNLL-U format</span>
+      <span class="tag">Eojeol vs. morpheme</span>
+      <span class="tag">Agglutinative languages</span>
+      <span class="tag">Frame element extraction</span>
+      <span class="tag">Data standardization</span>
+      <span class="tag">Korean NLP</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Data and Annotation Scheme</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/propbank-vs-framenet.webp" type="image/webp">
+        <img src="static/images/propbank-vs-framenet.png" width="2600" height="389" loading="lazy"
+           alt="The Korean PropBank fragment 북한이 국무부의테러지원국명단에 빠지게 되면 (if North Korea were excluded from the Department of State&#x27;s list of state sponsors of terrorism) annotated in PropBank as (thing-excluded) ARG1, (excluded-from) ARG2 and (exclude) PRED, and in Korean FrameNet as Theme, Source and the target of the frame Removing.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1 (paper).</strong> The same instance annotated in the Korean PropBank and in Korean FrameNet (pkfn): FrameNet inherits the predicate-argument relations (Arg1 &rarr; <code>Theme</code>, Arg2 &rarr; <code>Source</code>) and re-analyzes the predicate as the target of the frame <code>Removing</code>.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        The study uses three parts of the Korean FrameNet released by KAIST: <strong>pkfn</strong> (from the Korean PropBank; 1,767 sentences,
+        2,350 instances, mostly verbal targets), <strong>jkfn</strong> (projected from the Japanese FrameNet; 1,357 sentences, 2,919 instances,
+        including 755 nominal lexical units) and <strong>skfn</strong> (from Sejong dictionary example sentences; 5,703 sentences, one frame each,
+        verbal targets only). In the original data, frames are annotated on eojeol, the space-separated units that combine a lexical morpheme
+        with functional morphemes such as case particles.
+      </p>
+      <ol>
+        <li><strong>Morpheme-based tokens.</strong> Each eojeol is decomposed into morphemes, which become the basic tokens; the original eojeol is kept as a CoNLL-U multiword line above them.</li>
+        <li><strong>Labels on morphemes.</strong> Targets and frame elements are annotated on morphemes. Functional morphemes stay inside the target/argument span (they are not labeled O) and no extra labels are introduced.</li>
+        <li><strong>Lossless conversion.</strong> A script aligns eojeol and morphemes to convert existing Korean FrameNet data into the morpheme-based format and back.</li>
+        <li><strong>Parsing setup.</strong> Given the frame target and frame, parsers extract arguments as sequence labeling over five classes (O, B-/I-FrameTarget, B-/I-Argument), since the data contain more than 2,000 unique frame elements. KoELECTRA-Base-v3 and KR-BERT-char16424 are fine-tuned with 2-fold cross-validation, and morpheme-based outputs are converted back to eojeol for a fair comparison.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Large gains on jkfn.</strong> With KoELECTRA-Base, exact F1 rises from 0.3968 (eojeol) to 0.6528 (morpheme) and partial F1 from 0.4438 to 0.7152; with KR-BERT, exact F1 rises from 0.3493 to 0.6256.</li>
+        <li><strong>Gains on pkfn.</strong> Exact F1 improves from 0.2523 to 0.3319 (KoELECTRA) and from 0.2964 to 0.3070 (KR-BERT); partial F1 from 0.3051 to 0.4091 and from 0.3475 to 0.4094.</li>
+        <li><strong>skfn is the exception.</strong> On skfn, morpheme-based parsing scores lower (KoELECTRA exact F1 0.8091 &rarr; 0.6054), which the authors attribute to argument boundaries that were detected automatically rather than inherited from the Sejong source.</li>
+        <li><strong>Recommendation.</strong> The authors propose the morpheme-based scheme as the standard way to annotate Korean FrameNet data for parsing.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Cross-validation mean &plusmn; standard deviation of exact and partial F1 for frame argument extraction on
+          eojeol-based (original) and morpheme-based (proposed) variants of the three Korean FrameNet subsets (Table 4 in the paper).
+        </caption>
+        <thead>
+          <tr><th rowspan="2">F1</th><th rowspan="2">Format</th><th colspan="3">KoELECTRA-Base</th><th colspan="3">KR-BERT-char16424</th></tr>
+          <tr><th>pkfn</th><th>jkfn</th><th>skfn</th><th>pkfn</th><th>jkfn</th><th>skfn</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="2">exact</td><td>eojeol</td><td>0.2523 &plusmn; 0.0215</td><td>0.3968 &plusmn; 0.0445</td><td>0.8091 &plusmn; 0.0003</td><td>0.2964 &plusmn; 0.0229</td><td>0.3493 &plusmn; 0.0281</td><td>0.8041 &plusmn; 0.0009</td></tr>
+          <tr class="ours"><td>morph</td><td>0.3319 &plusmn; 0.0807</td><td>0.6528 &plusmn; 0.0135</td><td>0.6054 &plusmn; 0.0056</td><td>0.3070 &plusmn; 0.0868</td><td>0.6256 &plusmn; 0.0127</td><td>0.5343 &plusmn; 0.0042</td></tr>
+          <tr><td rowspan="2">partial</td><td>eojeol</td><td>0.3051 &plusmn; 0.0224</td><td>0.4438 &plusmn; 0.0444</td><td>0.8279 &plusmn; 0.0003</td><td>0.3475 &plusmn; 0.0226</td><td>0.4010 &plusmn; 0.0267</td><td>0.8241 &plusmn; 0.0008</td></tr>
+          <tr class="ours"><td>morph</td><td>0.4091 &plusmn; 0.0694</td><td>0.7152 &plusmn; 0.0096</td><td>0.7373 &plusmn; 0.0047</td><td>0.4094 &plusmn; 0.0677</td><td>0.6929 &plusmn; 0.0083</td><td>0.6627 &plusmn; 0.0036</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{chen-etal-2024-towards,
+    title = "Towards Standardized Annotation and Parsing for {K}orean {F}rame{N}et",
+    author = "Chen, Yige  and
+      Ihn, Jae  and
+      Lim, KyungTae  and
+      Park, Jungyeul",
+    editor = "Calzolari, Nicoletta  and
+      Kan, Min-Yen  and
+      Hoste, Veronique  and
+      Lenci, Alessandro  and
+      Sakti, Sakriani  and
+      Xue, Nianwen",
+    booktitle = "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation ({LREC}-{COLING} 2024)",
+    month = may,
+    year = "2024",
+    address = "Torino, Italia",
+    publisher = "ELRA and ICCL",
+    url = "https://aclanthology.org/2024.lrec-main.1447/",
+    pages = "16653--16658"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

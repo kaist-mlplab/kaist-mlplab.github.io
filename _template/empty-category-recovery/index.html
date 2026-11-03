@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Revisiting Absence with Symptoms that *T* Show up Decades Later to Recover Empty Categories</title>
+  <meta name="description" content="Null element (empty category) recovery in the English, Chinese, and Korean Penn Treebanks: a rule-based approach extended to Chinese reaches 80.00 average F1, and a language-agnostic T5 seq2seq model reaches 90.94 (English), 85.38 (Chinese), and 88.98 (Korean). arXiv 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="null elements, empty categories, empty category recovery, traces, *T*, *PRO*, *pro*, pro-drop, null operator, Penn Treebank, PTB, Penn Chinese Treebank, CTB, Penn Korean Treebank, KTB, constituency parsing, rule-based, seq2seq, T5, tree linearization, Government-Binding theory, arXiv 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/empty-category-recovery/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Revisiting Absence with Symptoms that *T* Show up Decades Later to Recover Empty Categories">
+  <meta property="og:description" content="Removing and restoring null elements in English, Chinese, and Korean Penn Treebanks with rules and a seq2seq model. arXiv 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/empty-category-recovery/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/empty-category-recovery/static/images/teaser.png">
+  <meta property="og:image:width" content="1819">
+  <meta property="og:image:height" content="925">
+  <meta property="og:image:alt" content="English Penn Treebank tree for &quot;We&#x27;re about to see if advertising works&quot; with a null subject trace, and the same tree with the trace removed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Revisiting Absence with Symptoms that *T* Show up Decades Later to Recover Empty Categories">
+  <meta name="twitter:description" content="Removing and restoring null elements in English, Chinese, and Korean Penn Treebanks with rules and a seq2seq model. arXiv 2024.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/empty-category-recovery/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Revisiting Absence with Symptoms that *T* Show up Decades Later to Recover Empty Categories">
+  <meta name="citation_author" content="Chen, Emily">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Huang, Nicholas">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Robinson, Casey">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Xu, Kevin">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Huang, Zihao">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_publication_date" content="2024/12/02">
+  <meta name="citation_online_date" content="2024/12/02">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2412.01109">
+  <meta name="citation_arxiv_id" content="2412.01109">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/empty-category-recovery/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/empty-category-recovery/#article",
+    "headline": "Revisiting Absence with Symptoms that *T* Show up Decades Later to Recover Empty Categories",
+    "name": "Revisiting Absence with Symptoms that *T* Show up Decades Later to Recover Empty Categories",
+    "url": "https://kaist-mlplab.github.io/empty-category-recovery/",
+    "datePublished": "2024-12-02",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/empty-category-recovery/static/images/teaser.png",
+    "abstract": "This paper explores null elements in English, Chinese, and Korean Penn treebanks. Null elements contain important syntactic and semantic information, yet they have typically been treated as entities to be removed during language processing tasks, particularly in constituency parsing. Thus, we work towards the removal and, in particular, the restoration of null elements in parse trees. We focus on expanding a rule-based approach utilizing linguistic context information to Chinese, as rule based approaches have historically only been applied to English. We also worked to conduct neural experiments with a language agnostic sequence-to-sequence model to recover null elements for English (PTB), Chinese (CTB) and Korean (KTB). To the best of the authors' knowledge, null elements in three different languages have been explored and compared for the first time. In expanding a rule based approach to Chinese, we achieved an overall F1 score of 80.00, which is comparable to past results in the CTB. In our neural experiments we achieved F1 scores up to 90.94, 85.38 and 88.79 for English, Chinese, and Korean respectively with functional labels.",
+    "keywords": [
+      "null elements",
+      "empty categories",
+      "empty category recovery",
+      "traces",
+      "pro-drop",
+      "Penn Treebank",
+      "Penn Chinese Treebank",
+      "Penn Korean Treebank",
+      "rule-based approach",
+      "sequence-to-sequence",
+      "constituency parsing"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Empty categories in syntax"
+      },
+      {
+        "@type": "Thing",
+        "name": "Constituency parsing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Treebanks"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multilingual natural language processing"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Emily Chen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Nicholas Huang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Casey Robinson",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Kevin Xu",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Zihao Huang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2412.01109"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2412.01109"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2412.01109"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Revisiting Absence with Symptoms that *T* Show up Decades Later to Recover Empty Categories</h1>
+      <p class="subtitle is-5 publication-subtitle">Removing and restoring null elements (empty categories) in the English, Chinese, and Korean Penn Treebanks with rules and a seq2seq model</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2024</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Emily Chen<sup>1,*</sup>,</span>
+        <span class="author-block">Nicholas Huang<sup>1,*</sup>,</span>
+        <span class="author-block">Casey Robinson<sup>2,*</sup>,</span>
+        <span class="author-block">Kevin Xu<sup>1,*</sup>,</span>
+        <span class="author-block">Zihao Huang<sup>2</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>2</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Department of Computer Science, The University of British Columbia</span>
+        <span class="author-block"><sup>2</sup>Department of Linguistics, The University of British Columbia</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equally contributed authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2412.01109">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2412.01109">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1819" height="925" style="max-width:760px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Two constituency trees for the English sentence We&#x27;re about to see if advertising works. Left, ptb with trace: S has NP-SBJ-1 (We), VP (&#x27;re about S) and a period; the embedded S has a subject NP-SBJ dominating -NONE- with the null element *-1, co-indexed with NP-SBJ-1, followed by VP to see if advertising works. Right, ptb parsed without trace: the same tree with plain NP instead of NP-SBJ-1 and the embedded S containing only the VP, because the null subject has been removed.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> English (PTB) tree with and without traces. In the original treebank (left) the embedded clause <em>to see if advertising works</em> has a null subject (-NONE- *-1) co-indexed with the matrix subject, and nodes carry function labels such as NP-SBJ. The Berkeley Neural Parser output without traces (right) drops the null element, leaving an S with only a VP, and drops the function labels. The paper restores such null elements in a post-processing step.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        This paper explores null elements in English, Chinese, and Korean Penn treebanks. Null elements contain important syntactic and semantic information, yet they have typically been treated as entities to be removed during language processing tasks, particularly in constituency parsing. Thus, we work towards the removal and, in particular, the restoration of null elements in parse trees. We focus on expanding a rule-based approach utilizing linguistic context information to Chinese, as rule based approaches have historically only been applied to English. We also worked to conduct neural experiments with a language agnostic sequence-to-sequence model to recover null elements for English (PTB), Chinese (CTB) and Korean (KTB). To the best of the authors' knowledge, null elements in three different languages have been explored and compared for the first time. In expanding a rule based approach to Chinese, we achieved an overall F1 score of 80.00, which is comparable to past results in the CTB. In our neural experiments we achieved F1 scores up to 90.94, 85.38 and 88.79 for English, Chinese, and Korean respectively with functional labels.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Null elements / empty categories</span>
+      <span class="tag">Empty category recovery</span>
+      <span class="tag">Traces (*T*)</span>
+      <span class="tag">*PRO* and *pro* (pro-drop)</span>
+      <span class="tag">Penn Treebank (PTB)</span>
+      <span class="tag">Penn Chinese Treebank (CTB)</span>
+      <span class="tag">Penn Korean Treebank (KTB)</span>
+      <span class="tag">Rule-based recovery</span>
+      <span class="tag">Seq2seq tree linearization (T5)</span>
+      <span class="tag">Constituency parsing</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        Penn-style treebanks mark unpronounced material with null elements: traces of A&prime; movement (*T*, the only type found in all three
+        languages), NP traces (*), empty units (*U*) and null complementizers (0) in English, and *PRO*, *pro*, null operators (*OP*),
+        right node raising (*RNR*), and predicate deletion (*?*, Korean) in the pro-drop languages. Parsers usually strip them. The paper
+        studies both removal and restoration, using a post-processing approach that inserts null elements into trees parsed without them.
+      </p>
+      <ol>
+        <li><strong>Removal.</strong> Trees are produced with and without traces (Berkeley Neural Parser style for English and Chinese,
+          and a similar procedure for Korean, for which no such parser existed); removal also drops function labels such as NP-SBJ.</li>
+        <li><strong>Rule-based restoration.</strong> For English, Campbell&rsquo;s (2004) Government-Binding-based rules are re-implemented;
+          for Chinese, new rules derived from the CTB bracketing guidelines insert *OP*/*T* in relative clauses, *PRO*, *pro*, and *RNR*
+          from tree patterns such as ( CP ( IP VP ) DEC ).</li>
+        <li><strong>Language-agnostic seq2seq restoration.</strong> Trees are linearized and T5-small (about 60M parameters) translates a
+          tree without null elements into a tree with them, without access to the words, for example<br>
+          <code style="word-break:break-all">(TOP (S (NP ... )NP (VP VBD (NP (NP NN )NP (SBAR (WHNP WDT )WHNP (S (VP MD (VP)VP )VP )S )SBAR )NP )VP SFN )S )TOP</code> &rarr;<br>
+          <code style="word-break:break-all">(TOP (S (NP ... )NP (VP VBD (NP (NP NN )NP (SBAR (WHNP WDT )WHNP (S (NP *T* )NP (VP ... )VP )S )SBAR )NP )VP SFN )S )TOP</code>
+          (Figure 3 in the paper). Models are trained with and without function labels.</li>
+        <li><strong>Evaluation.</strong> Johnson&rsquo;s (2002) PARSEVAL over null-element nodes only, re-implemented on top of the
+          alignment-based jp-evalb so that terminals are aligned first.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Rules for Chinese.</strong> The rule-based approach extended to the CTB reaches 80.00 average F1, improving over Chung and
+          Gildea&rsquo;s (2010) pattern matching for *PRO* (71.49 vs. 62.00) and *pro* (39.08 vs. 31.00).</li>
+        <li><strong>Seq2seq across three languages.</strong> The T5 model reaches 88.67 / 85.38 / 88.79 average F1 for English / Chinese /
+          Korean without function labels and 90.94 / 83.76 / 88.98 with them.</li>
+        <li><strong>Neural beats rules on hard elements.</strong> Without lexical information, seq2seq still restores Chinese *PRO* and *pro*
+          better than rules (82.03 and 63.79 vs. 71.49 and 39.08); Korean *pro* is much easier (91.61 / 92.11) because it need not be
+          distinguished from *PRO*.</li>
+        <li><strong>English rules remain strong.</strong> Campbell (2004) still leads in English (93.70 average; 91.90 for *T*), while seq2seq is
+          better on *U* (99.61) and 0 (97.31).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 7.</strong> Results for null element insertion, F1 per null element type and average. Highlighted rows are this
+          paper&rsquo;s systems; the first three rows are previous work. &ldquo;&ndash;&rdquo; and empty cells as in the paper.
+          (Table 7 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>System</th><th>Language</th><th>*T*</th><th>*</th><th>*U*</th><th>*0*</th><th>*PRO*</th><th>*pro*</th><th>*op*</th><th>*RNR*</th><th>*?*</th><th>Average</th></tr>
+        </thead>
+        <tbody>
+          <tr><td style="white-space:normal">Campbell (2004)</td><td style="white-space:normal">English</td><td>91.90</td><td>97.50</td><td>98.60</td><td>94.80</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>93.70</td></tr>
+          <tr><td style="white-space:normal">Johnson (2002)</td><td style="white-space:normal">English</td><td>85.90</td><td>88.00</td><td>95.00</td><td>94.00</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>N/A</td></tr>
+          <tr><td style="white-space:normal">Chung and Gildea (2010)</td><td style="white-space:normal">Chinese</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>62.00</td><td>31.00</td><td>&ndash;</td><td>&ndash;</td><td></td><td>N/A</td></tr>
+          <tr class="ours"><td style="white-space:normal">Rules-based</td><td style="white-space:normal">English</td><td>56.68</td><td>28.47</td><td>93.90</td><td>87.06</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>64.02</td></tr>
+          <tr class="ours"><td style="white-space:normal">Rules-based</td><td style="white-space:normal">Chinese</td><td>84.03</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>71.49</td><td>39.08</td><td>91.92</td><td>78.57</td><td>&ndash;</td><td>80.00</td></tr>
+          <tr class="ours"><td style="white-space:normal">seq2seq</td><td style="white-space:normal">English (without labels)</td><td>88.49</td><td>83.24</td><td>99.09</td><td>96.73</td><td>86.50</td><td>&ndash;</td><td>&ndash;</td><td></td><td>64.43</td><td>88.67</td></tr>
+          <tr class="ours"><td style="white-space:normal">seq2seq</td><td style="white-space:normal">Chinese (without labels)</td><td>86.10</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>82.03</td><td>63.79</td><td>95.24</td><td>66.67</td><td>&ndash;</td><td>85.38</td></tr>
+          <tr class="ours"><td style="white-space:normal">seq2seq</td><td style="white-space:normal">Korean (without labels)</td><td>82.76</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>91.61</td><td>92.14</td><td></td><td>&ndash;</td><td>88.79</td></tr>
+          <tr class="ours"><td style="white-space:normal">seq2seq</td><td style="white-space:normal">English (with labels)</td><td>91.34</td><td>86.47</td><td>99.61</td><td>97.31</td><td>88.26</td><td>&ndash;</td><td>&ndash;</td><td></td><td>65.79</td><td>90.94</td></tr>
+          <tr class="ours"><td style="white-space:normal">seq2seq</td><td style="white-space:normal">Chinese (with labels)</td><td>85.48</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>79.86</td><td>64.22</td><td>92.27</td><td>72.73</td><td>&ndash;</td><td>83.76</td></tr>
+          <tr class="ours"><td style="white-space:normal">seq2seq</td><td style="white-space:normal">Korean (with labels)</td><td>82.28</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td>92.11</td><td>92.67</td><td></td><td>&ndash;</td><td>88.98</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{chen2024revisitingabsencewithsymptomst,
+      title={Revisiting Absence withSymptoms that *T* Show up Decades Later to Recover Empty Categories}, 
+      author={Emily Chen and Nicholas Huang and Casey Robinson and Kevin Xu and Zihao Huang and Jungyeul Park},
+      year={2024},
+      eprint={2412.01109},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2412.01109}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

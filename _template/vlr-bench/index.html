@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>VLR-Bench: Multilingual Benchmark Dataset for Vision-Language Retrieval Augmented Generation</title>
+  <meta name="description" content="VLR-Bench is a multilingual (English, Chinese, Korean) visual question answering benchmark for retrieval-augmented generation (RAG) in vision-language models, where each query comes with five passages of which only two are useful; the 32K-example VLR-IF training set improves LLaVA-Llama-3 by 22.67% with passages. COLING 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="VLR-Bench, VLR-IF, vision-language RAG, multimodal retrieval-augmented generation, visual question answering, VQA, knowledge-based VQA, vision language models, VLM, multilingual benchmark, Korean, Chinese, LLaVA, X-LLaVA, GPT-4o, instruction tuning, COLING 2025, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/vlr-bench/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="VLR-Bench: Multilingual Benchmark Dataset for Vision-Language Retrieval Augmented Generation">
+  <meta property="og:description" content="A multilingual VQA benchmark for retrieval-augmented vision-language models: each query has five passages (2 gold, 2 silver, 1 bronze). COLING 2025.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/vlr-bench/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/vlr-bench/static/images/teaser.png">
+  <meta property="og:image:width" content="1829">
+  <meta property="og:image:height" content="1070">
+  <meta property="og:image:alt" content="VLR-Bench example: a photo of Uluru, the query about its name and significance to indigenous people, the answer, keywords Uluru and Anangu, and five passages labeled gold, silver, and bronze.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="VLR-Bench: Multilingual Benchmark for Vision-Language RAG">
+  <meta name="twitter:description" content="A multilingual VQA benchmark for retrieval-augmented vision-language models: each query has five passages (2 gold, 2 silver, 1 bronze). COLING 2025.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/vlr-bench/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="VLR-Bench: Multilingual Benchmark Dataset for Vision-Language Retrieval Augmented Generation">
+  <meta name="citation_author" content="Lim, Hyeonseok">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology (SeoulTech)">
+  <meta name="citation_author" content="Shin, Dongjae">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology (SeoulTech)">
+  <meta name="citation_author_institution" content="Teddysum">
+  <meta name="citation_author" content="Song, Seohyun">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology (SeoulTech)">
+  <meta name="citation_author" content="Won, Inho">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology (SeoulTech)">
+  <meta name="citation_author_institution" content="Teddysum">
+  <meta name="citation_author" content="Kim, Minjun">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology (SeoulTech)">
+  <meta name="citation_author" content="Yuk, Junghun">
+  <meta name="citation_author_institution" content="Hanbat National University">
+  <meta name="citation_author" content="Jang, Haneol">
+  <meta name="citation_author_institution" content="Hanbat National University">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology (SeoulTech)">
+  <meta name="citation_publication_date" content="2025/01">
+  <meta name="citation_conference_title" content="Proceedings of the 31st International Conference on Computational Linguistics">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="6150">
+  <meta name="citation_lastpage" content="6168">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2025.coling-main.411.pdf">
+  <meta name="citation_arxiv_id" content="2412.10151">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/vlr-bench/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/vlr-bench/#article",
+    "headline": "VLR-Bench: Multilingual Benchmark Dataset for Vision-Language Retrieval Augmented Generation",
+    "name": "VLR-Bench: Multilingual Benchmark Dataset for Vision-Language Retrieval Augmented Generation",
+    "url": "https://kaist-mlplab.github.io/vlr-bench/",
+    "datePublished": "2025-01",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/vlr-bench/static/images/teaser.png",
+    "abstract": "We propose the VLR-Bench, a visual question answering (VQA) benchmark for evaluating vision language models (VLMs) based on retrieval augmented generation (RAG). Unlike existing evaluation datasets for external knowledge-based VQA, the proposed VLR-Bench includes five input passages. This allows testing of the ability to determine which passage is useful for answering a given query, a capability lacking in previous research. In this context, we constructed a dataset of 32,000 automatically generated instruction-following examples, which we denote as VLR-IF. This dataset is specifically designed to enhance the RAG capabilities of VLMs by enabling them to learn how to generate appropriate answers based on input passages. We evaluated the validity of the proposed benchmark and training data and verified its performance using the state-of-the-art Llama3-based VLM, the Llava-Llama-3 model. The proposed VLR-Bench and VLR-IF datasets are publicly available online.",
+    "keywords": [
+      "VLR-Bench",
+      "VLR-IF",
+      "vision-language retrieval-augmented generation",
+      "multimodal RAG",
+      "visual question answering",
+      "knowledge-based VQA",
+      "vision language models",
+      "multilingual benchmark",
+      "Korean",
+      "Chinese",
+      "instruction tuning"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Visual question answering"
+      },
+      {
+        "@type": "Thing",
+        "name": "Retrieval-augmented generation"
+      },
+      {
+        "@type": "Thing",
+        "name": "Vision-language models"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multilingual benchmark datasets"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Hyeonseok Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology (SeoulTech)"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Dongjae Shin",
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "Seoul National University of Science and Technology (SeoulTech)"
+          },
+          {
+            "@type": "Organization",
+            "name": "Teddysum"
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "Seohyun Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology (SeoulTech)"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Inho Won",
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "Seoul National University of Science and Technology (SeoulTech)"
+          },
+          {
+            "@type": "Organization",
+            "name": "Teddysum"
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "Minjun Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology (SeoulTech)"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Junghun Yuk",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Hanbat National University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Haneol Jang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Hanbat National University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology (SeoulTech)"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Proceedings of the 31st International Conference on Computational Linguistics",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2025.coling-main.411/",
+      "https://arxiv.org/abs/2412.10151",
+      "https://huggingface.co/datasets/MLP-KTLim/VLR-Bench",
+      "https://huggingface.co/datasets/MLP-KTLim/VLR-IF"
+    ],
+    "pagination": "6150-6168",
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2412.10151"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2025.coling-main.411.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">VLR-Bench: Multilingual Benchmark Dataset for Vision-Language Retrieval Augmented Generation</h1>
+      <p class="subtitle is-5 publication-subtitle">A multilingual (English, Chinese, Korean) VQA benchmark for retrieval-augmented vision-language models, with gold, silver, and bronze passages</p>
+      <p><span class="tag is-link is-medium venue-badge">COLING 2025</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Hyeonseok Lim<sup>1,*</sup>,</span>
+        <span class="author-block">Dongjae Shin<sup>1,2,*</sup>,</span>
+        <span class="author-block">Seohyun Song<sup>1</sup>,</span>
+        <span class="author-block">Inho Won<sup>1,2</sup>,</span>
+        <span class="author-block">Minjun Kim<sup>1</sup>,</span>
+        <span class="author-block">Junghun Yuk<sup>3</sup>,</span>
+        <span class="author-block">Haneol Jang<sup>3,†</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>1,†</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Seoul National University of Science and Technology (SeoulTech)</span>
+        <span class="author-block"><sup>2</sup>Teddysum</span>
+        <span class="author-block"><sup>3</sup>Hanbat National University</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution &nbsp; <sup>†</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.coling-main.411/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.coling-main.411.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2412.10151">arXiv</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/datasets/MLP-KTLim/VLR-Bench">Dataset</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/datasets/MLP-KTLim/VLR-IF">Training data (VLR-IF)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1829" height="1070"
+           alt="VLR-Bench sample. Left: a photo of the red sandstone rock Uluru, the query 'What is the name of the rock formation in this image, and what is its significance to the indigenous people of the region?', and the answer naming Uluru and the Anangu people. Right: keywords Uluru and Anangu, and five passages: two gold passages about Uluru and the Anangu, two silver passages about Uluru's colour changes and the national park, and one bronze passage about the Great Barrier Reef.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> An example of a VLR-Bench data sample. Each sample has an image, a query that cannot be answered from the
+        image alone, five passages (two <strong>gold</strong> passages needed for the answer, two <strong>silver</strong> passages on the same topic
+        but not answering the query, one unrelated <strong>bronze</strong> passage), a descriptive answer, and two answer keywords.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        We propose the VLR-Bench, a visual question answering (VQA) benchmark for evaluating vision language models (VLMs) based on retrieval augmented generation (RAG). Unlike existing evaluation datasets for external knowledge-based VQA, the proposed VLR-Bench includes five input passages. This allows testing of the ability to determine which passage is useful for answering a given query, a capability lacking in previous research. In this context, we constructed a dataset of 32,000 automatically generated instruction-following examples, which we denote as VLR-IF. This dataset is specifically designed to enhance the RAG capabilities of VLMs by enabling them to learn how to generate appropriate answers based on input passages. We evaluated the validity of the proposed benchmark and training data and verified its performance using the state-of-the-art Llama3-based VLM, the Llava-Llama-3 model. The proposed VLR-Bench and VLR-IF datasets are publicly available online.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Vision-language RAG</span>
+      <span class="tag">Multimodal retrieval-augmented generation</span>
+      <span class="tag">Knowledge-based VQA</span>
+      <span class="tag">Vision-language models (VLMs)</span>
+      <span class="tag">Multilingual benchmark</span>
+      <span class="tag">Korean</span>
+      <span class="tag">Chinese</span>
+      <span class="tag">Instruction tuning</span>
+      <span class="tag">LLaVA</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Benchmark Construction</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2000" height="1906" loading="lazy" style="max-width:760px;margin:0 auto;display:block"
+           alt="Three-step construction diagram. Step 1: an image sampled from BOK-VQA plus few-shot samples go to GPT-4o, which generates 10 question-answer-keywords-gold passage candidates. Step 2: annotators accept the best candidate or reject and return to step 1. Step 3: GPT-4o generates two silver passages and one bronze passage, followed by review and revision into the final data.">
+      </picture>
+      <figcaption>
+        <strong>Figure 6.</strong> Overview of the VLR-Bench dataset construction process (Appendix A.2 of the paper).
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        Real RAG systems feed several retrieved passages (e.g. top-5) to the model, some of which look relevant but are wrong.
+        VLR-Bench therefore tests both <em>choosing</em> the right external knowledge and <em>generating</em> a correct answer despite distractors.
+      </p>
+      <ol>
+        <li><strong>Images.</strong> 150 images manually selected from the 10 categories of BOK-VQA (general knowledge) and 150 images of
+          English, Chinese, and Korean cultural backgrounds from Wikimedia Commons, giving a parallel corpus of 300 samples.</li>
+        <li><strong>Queries and gold passages.</strong> GPT-4o proposes ten query&ndash;knowledge&ndash;answer candidates per image; queries must be
+          unanswerable from the image alone and must not reveal the image content. The best candidate is kept after review.</li>
+        <li><strong>Distractors and review.</strong> GPT-4o adds two silver passages and one bronze passage; three annotators check every
+          sample, replace erroneous or unsourced knowledge, and mark two answer keywords.</li>
+        <li><strong>VLR-IF training data.</strong> From 9K COCO images, a valid passage is generated for each image and invalid passages are
+          taken from other samples, producing contrastive instruction-following data: 32K examples per language for English, Chinese, and Korean.</li>
+      </ol>
+      <p>
+        Long-form answers are scored with the keyword-matching score (KMS: correct only if both keywords appear), ROUGE-2, ROUGE-L, BLEU,
+        and BERTScore. Because KMS rises with answer length, it is used as a reference indicator.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>VLR-IF helps models use passages.</strong> Training LLaVA-Llama-3 on VLR-IF improves it by 22.67% over the baseline when
+          passages are given (e.g. ROUGE-L 38.8 &rarr; 46.4, BLEU 13.5 &rarr; 20.9 in English). On Korean, X-LLaVA + VLR-IF (Ko) rises from 27.0 to 35.7
+          ROUGE-2 and from 15.2 to 24.9 BLEU.</li>
+        <li><strong>External knowledge is required.</strong> Without the passages, X-LLaVA's English ROUGE-2 drops by 37.72% on average.</li>
+        <li><strong>Passages narrow the gap to GPT-4o.</strong> Without passages GPT-4o beats Qwen-VL-Chat by 17.33 points on average; with
+          passages the gap shrinks to 7.36 points.</li>
+        <li><strong>KMS alone can mislead.</strong> LLaVA-1.5 has the top English KMS (88.4) by copying passages into long answers, but low
+          ROUGE-L (37.2) and BLEU (14.7).</li>
+        <li><strong>Transfers to InfoSeek.</strong> VLR-IF training also gives a 3.6% improvement on the InfoSeek benchmark.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table" style="font-size:0.78rem">
+        <caption>
+          <strong>Table 1.</strong> Overall results on VLR-Bench by language. The VLR-IF columns mark which language subsets of VLR-IF the model was
+          trained on (highlighted rows). KMS = keyword-matching score, R = ROUGE, B-Score = BERTScore. Bold marks the best score within each language.
+        </caption>
+        <thead>
+          <tr>
+            <th rowspan="2">Lang.</th><th rowspan="2">Model</th>
+            <th colspan="3">VLR-IF</th><th colspan="5">With passages</th><th colspan="5">Without passages</th>
+          </tr>
+          <tr>
+            <th>EN</th><th>ZH</th><th>KO</th>
+            <th>KMS</th><th>R-2</th><th>R-L</th><th>BLEU</th><th>B-Score</th>
+            <th>KMS</th><th>R-2</th><th>R-L</th><th>BLEU</th><th>B-Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="8">EN</td><td>LLaVA-1.5</td><td>✗</td><td>✗</td><td>✗</td><td><strong>88.4</strong></td><td>26.0</td><td>37.2</td><td>14.7</td><td>76.3</td><td>25.6</td><td>17.8</td><td>30.4</td><td>9.1</td><td>73.4</td></tr>
+          <tr><td>LLaVA-Llama-3</td><td>✗</td><td>✗</td><td>✗</td><td>79.2</td><td>25.4</td><td>38.8</td><td>13.5</td><td>79.3</td><td>20.4</td><td>12.2</td><td>23.8</td><td>6.1</td><td>73.4</td></tr>
+          <tr class="ours"><td>LLaVA-Llama-3 + VLR-IF (En)</td><td>✓</td><td>✗</td><td>✗</td><td>85.6</td><td>30.1</td><td>46.4</td><td>20.9</td><td>81.5</td><td>20.4</td><td>19.1</td><td>29.9</td><td>8.6</td><td>69.1</td></tr>
+          <tr><td>X-LLaVA</td><td>✗</td><td>✗</td><td>✗</td><td>80.4</td><td>28.1</td><td>42.2</td><td>16.9</td><td>80.1</td><td>20.8</td><td>17.5</td><td>31.9</td><td>9.6</td><td>74.3</td></tr>
+          <tr class="ours"><td>X-LLaVA + VLR-IF (En)</td><td>✓</td><td>✗</td><td>✗</td><td>82.4</td><td>29.4</td><td>44.2</td><td>20.1</td><td>80.7</td><td>20.4</td><td>19.7</td><td>35.4</td><td>12.7</td><td>77.5</td></tr>
+          <tr class="ours"><td>X-LLaVA + VLR-IF (En+Ko)</td><td>✓</td><td>✗</td><td>✓</td><td>83.2</td><td>30.2</td><td>45.2</td><td>20.6</td><td>81.0</td><td>18.4</td><td>20.4</td><td>36.3</td><td>14.5</td><td>77.1</td></tr>
+          <tr><td>Qwen-VL-Chat</td><td>✗</td><td>✗</td><td>✗</td><td>84.8</td><td>32.8</td><td>47.4</td><td>20.6</td><td>82.1</td><td>31.2</td><td>20.0</td><td>34.1</td><td>9.7</td><td>77.5</td></tr>
+          <tr><td>GPT-4o</td><td>✗</td><td>✗</td><td>✗</td><td>85.6</td><td><strong>42.6</strong></td><td><strong>57.9</strong></td><td><strong>32.8</strong></td><td><strong>85.6</strong></td><td><strong>61.6</strong></td><td><strong>35.6</strong></td><td><strong>52.1</strong></td><td><strong>26.2</strong></td><td><strong>83.7</strong></td></tr>
+          <tr><td rowspan="3">ZH</td><td>Qwen-VL-Chat</td><td>✗</td><td>✗</td><td>✗</td><td>75.6</td><td>51.6</td><td>56.3</td><td>33.8</td><td>84.0</td><td>10.8</td><td>28.9</td><td>37.2</td><td>18.2</td><td>75.4</td></tr>
+          <tr class="ours"><td>Qwen-VL-Chat + VLR-IF (Zh)</td><td>✗</td><td>✓</td><td>✗</td><td>72.4</td><td><strong>59.0</strong></td><td><strong>63.4</strong></td><td><strong>42.9</strong></td><td><strong>86.2</strong></td><td>16.0</td><td>30.4</td><td>37.8</td><td>18.1</td><td>77.4</td></tr>
+          <tr><td>GPT-4o</td><td>✗</td><td>✗</td><td>✗</td><td><strong>80.4</strong></td><td>56.9</td><td>62.3</td><td>41.6</td><td><strong>86.2</strong></td><td><strong>36.0</strong></td><td><strong>36.6</strong></td><td><strong>42.9</strong></td><td><strong>24.6</strong></td><td><strong>80.3</strong></td></tr>
+          <tr><td rowspan="4">KO</td><td>X-LLaVA</td><td>✗</td><td>✗</td><td>✗</td><td>59.6</td><td>27.0</td><td>35.2</td><td>15.2</td><td>78.4</td><td>6.0</td><td>18.0</td><td>28.0</td><td>8.6</td><td>74.2</td></tr>
+          <tr class="ours"><td>X-LLaVA + VLR-IF (Ko)</td><td>✗</td><td>✗</td><td>✓</td><td>63.6</td><td>35.7</td><td>44.1</td><td>24.9</td><td>81.0</td><td>6.8</td><td>22.4</td><td>32.9</td><td>14.9</td><td>77.0</td></tr>
+          <tr class="ours"><td>X-LLaVA + VLR-IF (En+Ko)</td><td>✓</td><td>✗</td><td>✓</td><td>62.4</td><td>36.0</td><td>44.6</td><td>24.2</td><td>81.7</td><td>0.8</td><td>4.7</td><td>15.2</td><td>5.14</td><td>64.5</td></tr>
+          <tr><td>GPT-4o</td><td>✗</td><td>✗</td><td>✗</td><td><strong>83.6</strong></td><td><strong>51.9</strong></td><td><strong>55.2</strong></td><td><strong>37.2</strong></td><td><strong>84.4</strong></td><td><strong>31.6</strong></td><td><strong>35.9</strong></td><td><strong>39.0</strong></td><td><strong>24.9</strong></td><td><strong>79.7</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{lim-etal-2025-vlr,
+    title = "{VLR}-Bench: Multilingual Benchmark Dataset for Vision-Language Retrieval Augmented Generation",
+    author = "Lim, Hyeonseok  and
+      Shin, Dongjae  and
+      Song, Seohyun  and
+      Won, Inho  and
+      Kim, Minjun  and
+      Yuk, Junghun  and
+      Jang, Haneol  and
+      Lim, KyungTae",
+    editor = "Rambow, Owen  and
+      Wanner, Leo  and
+      Apidianaki, Marianna  and
+      Al-Khalifa, Hend  and
+      Eugenio, Barbara Di  and
+      Schockaert, Steven",
+    booktitle = "Proceedings of the 31st International Conference on Computational Linguistics",
+    month = jan,
+    year = "2025",
+    address = "Abu Dhabi, UAE",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.coling-main.411/",
+    pages = "6150--6168"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

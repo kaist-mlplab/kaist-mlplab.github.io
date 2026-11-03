@@ -21,7 +21,7 @@ jsonld: jsonld-organization.html
   <h2>Projects</h2>
   <div class="cards">
     {%- comment -%} _data/projects.yml 순서대로(최신이 위) {%- endcomment -%}
-    {%- for p in site.data.projects %}
+    {%- for p in site.data.projects limit: 6 %}
     {% include project-card.html project=p %}
     {%- endfor %}
   </div>

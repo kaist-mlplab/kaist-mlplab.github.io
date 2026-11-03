@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Neural Automated Writing Evaluation with Corrective Feedback</title>
+  <meta name="description" content="An integrated neural automated writing evaluation (AWE) and grammatical error correction (GEC) system for second language learners: RoBERTa rubric scoring on denoised ASAP/ASAP++ (average cross-prompt QWK 0.6143) and a BERT-based seq2seq GEC model with 65.29 F0.5 on the BEA-2019 test set. arXiv 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="automated writing evaluation, AWE, automated essay scoring, AES, grammatical error correction, GEC, corrective feedback, second language writing, L2 English, rubric scoring, cross-prompt scoring, ASAP, ASAP++, QWK, RoBERTa, BERT, BART, fairseq, BEA-2019, ERRANT, writing assessment, language education, arXiv 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/neural-awe-feedback/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Neural Automated Writing Evaluation with Corrective Feedback">
+  <meta property="og:description" content="Integrated neural AWE rubric scoring and GEC corrective feedback for second language learners. arXiv 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/neural-awe-feedback/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/neural-awe-feedback/static/images/teaser.png">
+  <meta property="og:image:width" content="2530">
+  <meta property="og:image:height" content="1042">
+  <meta property="og:image:alt" content="Interface of the integrated AWE and GEC system showing inline corrections of a learner essay and nine rubric scores.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Neural Automated Writing Evaluation with Corrective Feedback">
+  <meta name="twitter:description" content="Integrated neural AWE rubric scoring and GEC corrective feedback for second language learners. arXiv 2024.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/neural-awe-feedback/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Neural Automated Writing Evaluation with Corrective Feedback">
+  <meta name="citation_author" content="Wang, Izia Xiaoxiao">
+  <meta name="citation_author_institution" content="Universität Zürich">
+  <meta name="citation_author" content="Wu, Xihan">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Coates, Edith">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Zeng, Min">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Kuang, Jiexin">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Liu, Siliang">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Qiu, Mengyang">
+  <meta name="citation_author_institution" content="Trent University">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_publication_date" content="2024/02/27">
+  <meta name="citation_online_date" content="2024/02/27">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2402.17613">
+  <meta name="citation_arxiv_id" content="2402.17613">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/neural-awe-feedback/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/neural-awe-feedback/#article",
+    "headline": "Neural Automated Writing Evaluation with Corrective Feedback",
+    "name": "Neural Automated Writing Evaluation with Corrective Feedback",
+    "url": "https://kaist-mlplab.github.io/neural-awe-feedback/",
+    "datePublished": "2024-02-27",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/neural-awe-feedback/static/images/teaser.png",
+    "abstract": "The utilization of technology in second language learning and teaching has become ubiquitous. For the assessment of writing specifically, automated writing evaluation (AWE) and grammatical error correction (GEC) have become immensely popular and effective methods for enhancing writing proficiency and delivering instant and individualized feedback to learners. By leveraging the power of natural language processing (NLP) and machine learning algorithms, AWE and GEC systems have been developed separately to provide language learners with automated corrective feedback and more accurate and unbiased scoring that would otherwise be subject to examiners. In this paper, we propose an integrated system for automated writing evaluation with corrective feedback as a means of bridging the gap between AWE and GEC results for second language learners. This system enables language learners to simulate the essay writing tests: a student writes and submits an essay, and the system returns the assessment of the writing along with suggested grammatical error corrections. Given that automated scoring and grammatical correction are more efficient and cost-effective than human grading, this integrated system would also alleviate the burden of manually correcting innumerable essays. A link to the demonstration video: https://youtu.be/CoqmBqqcXio",
+    "keywords": [
+      "automated writing evaluation",
+      "automated essay scoring",
+      "grammatical error correction",
+      "corrective feedback",
+      "second language writing",
+      "rubric scoring",
+      "ASAP++",
+      "BEA-2019",
+      "language education"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Automated essay scoring"
+      },
+      {
+        "@type": "Thing",
+        "name": "Grammatical error correction"
+      },
+      {
+        "@type": "Thing",
+        "name": "Second-language acquisition"
+      },
+      {
+        "@type": "Thing",
+        "name": "Educational technology"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Izia Xiaoxiao Wang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Universität Zürich"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Xihan Wu",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Edith Coates",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Min Zeng",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jiexin Kuang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Siliang Liu",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Mengyang Qiu",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Trent University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2402.17613"
+    ],
+    "workExample": [
+      {
+        "@type": "VideoObject",
+        "name": "Neural Automated Writing Evaluation with Corrective Feedback (demonstration video)",
+        "url": "https://youtu.be/CoqmBqqcXio",
+        "embedUrl": "https://www.youtube.com/embed/CoqmBqqcXio",
+        "thumbnailUrl": "https://i.ytimg.com/vi/CoqmBqqcXio/hqdefault.jpg",
+        "uploadDate": "2024-02-27"
+      }
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2402.17613"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2402.17613"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Neural Automated Writing Evaluation with Corrective Feedback</h1>
+      <p class="subtitle is-5 publication-subtitle">An integrated system that scores L2 English essays on an overall score and eight rubrics (AWE) and returns grammatical error corrections (GEC)</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2024</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Izia Xiaoxiao Wang<sup>1,*</sup>,</span>
+        <span class="author-block">Xihan Wu<sup>2,*</sup>,</span>
+        <span class="author-block">Edith Coates<sup>3,*</sup>,</span>
+        <span class="author-block">Min Zeng<sup>2</sup>,</span>
+        <span class="author-block">Jiexin Kuang<sup>2</sup>,</span>
+        <span class="author-block">Siliang Liu<sup>2</sup>,</span>
+        <span class="author-block">Mengyang Qiu<sup>4</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>2</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Linguistik Zentrum Zürich, Universität Zürich, Schweiz</span>
+        <span class="author-block"><sup>2</sup>Department of Linguistics, The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>3</sup>Department of Mathematics, The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>4</sup>Department of Psychology, Trent University, Canada</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equally contributed authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2402.17613">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2402.17613">PDF</a>
+        <a class="button is-dark is-rounded" href="https://youtu.be/CoqmBqqcXio">Demo video</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2530" height="1042"
+           alt="Screenshot of the web interface titled Write It Right: Automated Writing Evaluation with Corrective Feedback. A learner essay is shown with inline corrections: deleted tokens in faded red and inserted tokens in green, e.g. a to an, inportant to important, gess to guess, almost to most, speaking to speak, and a removed that. Below, a score table: Overall Score 12, Content 1, Organization 1, Word Choice 16, Sentence Fluency 10, Conventions 1, Prompt Adherence 17, Language 18, Narrativity 39, and a Back button.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> Interface screenshot for AWE and GEC results: tokens in the faded red boxes have been deleted, and tokens in the green boxes are the grammatical corrections inserted by GEC (e.g., <em>*I gess almost people cannot speaking English</em> &rarr; <em>I guess most people cannot speak English</em>). AWE returns an overall score and eight rubric scores (content, organization, word choice, sentence fluency, conventions, prompt adherence, language, narrativity), scaled to 0&ndash;100.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        The utilization of technology in second language learning and teaching has become ubiquitous. For the assessment of writing specifically, automated writing evaluation (AWE) and grammatical error correction (GEC) have become immensely popular and effective methods for enhancing writing proficiency and delivering instant and individualized feedback to learners. By leveraging the power of natural language processing (NLP) and machine learning algorithms, AWE and GEC systems have been developed separately to provide language learners with automated corrective feedback and more accurate and unbiased scoring that would otherwise be subject to examiners. In this paper, we propose an integrated system for automated writing evaluation with corrective feedback as a means of bridging the gap between AWE and GEC results for second language learners. This system enables language learners to simulate the essay writing tests: a student writes and submits an essay, and the system returns the assessment of the writing along with suggested grammatical error corrections. Given that automated scoring and grammatical correction are more efficient and cost-effective than human grading, this integrated system would also alleviate the burden of manually correcting innumerable essays. A link to the demonstration video: <a href="https://youtu.be/CoqmBqqcXio">https://youtu.be/CoqmBqqcXio</a>
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Automated writing evaluation (AWE)</span>
+      <span class="tag">Automated essay scoring</span>
+      <span class="tag">Grammatical error correction (GEC)</span>
+      <span class="tag">Corrective feedback</span>
+      <span class="tag">Second language (L2) writing</span>
+      <span class="tag">Rubric / trait scoring</span>
+      <span class="tag">ASAP / ASAP++</span>
+      <span class="tag">BEA-2019</span>
+      <span class="tag">Language education technology</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">System</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="1727" height="902" loading="lazy" style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Workflow diagram. A student submits writing in a Submission window; the text goes to two modules, GEC and AWE; their outputs appear in a Results window, GEC as inline red and green edits and AWE as a row of scores, which is returned to the student as feedback. A legend lists the 1 + 8 rubrics: Overall, Content, Organization, Word Choice, Sentence Fluency, Convention, Prompt Adherence, Language, and Narrativity.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> System workflow of integrated AWE and GEC for language learners. The learner submits an essay, the system
+        runs GEC and AWE on it, and returns inline corrections together with an overall score and eight rubric scores, simulating an
+        examination with instant scoring and corrective feedback.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <ol>
+        <li><strong>AWE (rubric scoring).</strong> Trained on ASAP and ASAP++ (eight prompts with overall and three to five rubric scores).
+          The essays are first denoised with gpt-3.5-turbo-instruct (fixing UTF-8 encoding errors and replacing anonymized @PERSON-style
+          entities), and ERRANT .m2 edits are used to undo any grammatical corrections the LLM introduced. RoBERTa-base is then trained as a
+          regressor on scores normalized to 0&ndash;1, and evaluated by quadratic weighted kappa (QWK) in a cross-prompt setting.</li>
+        <li><strong>GEC (corrective feedback).</strong> fairseq seq2seq models with pre-trained BERT or BART, following Kaneko et al. (2020),
+          trained on the BEA-2019 data (FCE, NUCLE, W&amp;I+LOCNESS, Lang-8; 1,157,324 sentence pairs, augmented with spell-checked sources
+          to 1,718,693 pairs).</li>
+        <li><strong>Interface.</strong> Results are merged into one view with inline edits and scores (Figure 2). A planned instructor
+          workflow lets teachers adjust AWE and GEC output before it reaches students; extensions to Chinese and Korean GEC and multilingual
+          rubrics are under way.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>GEC.</strong> The best GEC model (using BERT) reaches 65.29 F0.5 on the BEA-2019 test set.</li>
+        <li><strong>AWE.</strong> Cross-prompt QWK averages 0.6143 on denoised (cleaned) essays versus 0.6047 on the original text, with the
+          largest gain on Prompt 1 (0.6187 &rarr; 0.7344) and a drop on Prompt 2 (0.6308 &rarr; 0.5485).</li>
+        <li><strong>Denoising.</strong> More than 5% of ASAP sentences have encoding problems or non-word entities, which motivated the
+          LLM-based denoising step.</li>
+        <li><strong>Integration.</strong> The system returns one overall score, eight rubric scores, and inline corrections for each
+          submission; a questionnaire for learner and instructor perception studies is proposed (Table 2 in the paper).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Prompt-by-prompt AWE results (QWK) for the original and cleaned (denoised) ASAP essays. &ldquo;Prompt 1&rdquo;
+          means prompt 1 is the test set, prompts 2&ndash;7 the training set, and prompt 8 the development set. (Table 1 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Test prompt</th><th>Original</th><th>Cleaned</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Prompt 1</td><td>0.6187</td><td>0.7344</td></tr>
+          <tr><td>Prompt 2</td><td>0.6308</td><td>0.5485</td></tr>
+          <tr><td>Prompt 3</td><td>0.6962</td><td>0.6978</td></tr>
+          <tr><td>Prompt 4</td><td>0.6626</td><td>0.6540</td></tr>
+          <tr><td>Prompt 5</td><td>0.7158</td><td>0.7416</td></tr>
+          <tr><td>Prompt 6</td><td>0.5924</td><td>0.6156</td></tr>
+          <tr><td>Prompt 7</td><td>0.4622</td><td>0.4637</td></tr>
+          <tr><td>Prompt 8</td><td>0.4586</td><td>0.4589</td></tr>
+          <tr><td>Average</td><td>0.6047</td><td>0.6143</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{wang2024neuralautomatedwritingevaluation,
+      title={Neural Automated Writing Evaluation with Corrective Feedback}, 
+      author={Izia Xiaoxiao Wang and Xihan Wu and Edith Coates and Min Zeng and Jiexin Kuang and Siliang Liu and Mengyang Qiu and Jungyeul Park},
+      year={2024},
+      eprint={2402.17613},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2402.17613}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

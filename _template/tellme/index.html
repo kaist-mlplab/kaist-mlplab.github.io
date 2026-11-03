@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>TELLME: Test-Enhanced Learning for Language Model Enrichment</title>
+  <meta name="description" content="TELLME applies test-enhanced learning to continual pre-training of LLMs by training on plain text together with descriptive QA pairs, outperforming existing methods by up to 23.6% in the financial domain and improving long-term retention by 9.8%. Findings of EACL 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="TELLME, test-enhanced learning, testing effect, continual pre-training, CPT, domain adaptation, domain-specific LLM, synthetic QA data, instruction pre-training, InstPT, pre-instruction tuning, knowledge retention, catastrophic forgetting, financial LLM, medical LLM, Findings of EACL 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/tellme/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="TELLME: Test-Enhanced Learning for Language Model Enrichment">
+  <meta property="og:description" content="Continual pre-training of LLMs with test-enhanced learning: plain text plus descriptive quiz QA in one sample, up to 23.6% better in finance and 9.8% better long-term retention. Findings of EACL 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/tellme/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/tellme/static/images/teaser.png">
+  <meta property="og:image:width" content="1848">
+  <meta property="og:image:height" content="958">
+  <meta property="og:image:alt" content="A financial news excerpt with a reading-comprehension QA pair from InstPT and a descriptive concept QA pair from TELLME.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TELLME: Test-Enhanced Learning for Language Model Enrichment">
+  <meta name="twitter:description" content="Test-enhanced learning for continual pre-training of LLMs in finance and medicine. Findings of EACL 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/tellme/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="TELLME: Test-Enhanced Learning for Language Model Enrichment">
+  <meta name="citation_author" content="Kim, Minjun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Won, Inho">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Lim, HyeonSeok">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Kim, MinKyu">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Yuk, Junghun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Go, Wooyoung">
+  <meta name="citation_author_institution" content="National Security Research Institute">
+  <meta name="citation_author" content="Park, Jongyoul">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/03">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: EACL 2026">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="1655">
+  <meta name="citation_lastpage" content="1677">
+  <meta name="citation_doi" content="10.18653/v1/2026.findings-eacl.84">
+  <meta name="citation_isbn" content="979-8-89176-386-9">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2026.findings-eacl.84.pdf">
+  <meta name="citation_arxiv_id" content="2608.11788">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/tellme/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/tellme/#article",
+    "headline": "TELLME: Test-Enhanced Learning for Language Model Enrichment",
+    "name": "TELLME: Test-Enhanced Learning for Language Model Enrichment",
+    "url": "https://kaist-mlplab.github.io/tellme/",
+    "datePublished": "2026-03",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/tellme/static/images/teaser.png",
+    "abstract": "Continual pre-training (CPT) has been widely adopted as a method for domain expansion in large language models. However, CPT has consistently been accompanied by challenges, such as the difficulty of acquiring large-scale domain-specific datasets and high computational costs. In this study, we propose a novel method called Test-Enhanced Learning for Language Model Enrichment (TELLME) to alleviate these issues. TELLME leverages the Test-Enhanced Learning (TEL) principle, whereby the model’s learning efficiency is improved using quizzes during training. It integrates this principle with CPT, thereby promoting efficient domain-specific knowledge acquisition and long-term memory retention. Experimental results demonstrate that TELLME outperforms existing methods by up to 23.6% in the financial domain and achieves a 9.8% improvement in long-term memory retention.",
+    "keywords": [
+      "test-enhanced learning",
+      "testing effect",
+      "continual pre-training",
+      "domain adaptation",
+      "synthetic QA data",
+      "instruction pre-training",
+      "knowledge retention",
+      "catastrophic forgetting",
+      "financial LLM",
+      "medical LLM"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Continual pre-training"
+      },
+      {
+        "@type": "Thing",
+        "name": "Domain adaptation of large language models"
+      },
+      {
+        "@type": "Thing",
+        "name": "Test-enhanced learning"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Minjun Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Inho Won",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "HyeonSeok Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "MinKyu Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Junghun Yuk",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Wooyoung Go",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "National Security Research Institute"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jongyoul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Findings of the Association for Computational Linguistics: EACL 2026",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2026.findings-eacl.84/",
+      "https://arxiv.org/abs/2608.11788",
+      "https://doi.org/10.18653/v1/2026.findings-eacl.84"
+    ],
+    "pagination": "1655-1677",
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.18653/v1/2026.findings-eacl.84"
+      },
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2608.11788"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2026.findings-eacl.84.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">TELLME: Test-Enhanced Learning for Language Model Enrichment</h1>
+      <p class="subtitle is-5 publication-subtitle">Continual pre-training with descriptive quiz-style QA, inspired by the testing effect, for domain knowledge acquisition and long-term retention in LLMs</p>
+      <p><span class="tag is-link is-medium venue-badge">Findings of EACL 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Minjun Kim<sup>1,*</sup>,</span>
+        <span class="author-block">Inho Won<sup>1,*</sup>,</span>
+        <span class="author-block">HyeonSeok Lim<sup>1</sup>,</span>
+        <span class="author-block">MinKyu Kim<sup>2</sup>,</span>
+        <span class="author-block">Junghun Yuk<sup>1</sup>,</span>
+        <span class="author-block">Wooyoung Go<sup>3</sup>,</span>
+        <span class="author-block">Jongyoul Park<sup>2</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>1</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>1,&dagger;</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Korea Advanced Institute of Science and Technology (KAIST)</span>
+        <span class="author-block"><sup>2</sup>Seoul National University of Science and Technology</span>
+        <span class="author-block"><sup>3</sup>National Security Research Institute</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution &nbsp; <sup>&dagger;</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-eacl.84/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-eacl.84.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2608.11788">arXiv</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1848" height="958"
+           alt="A Bloomberg news excerpt about the ECB offering longer loans and full-allotment operations. Below it, the InstPT question &#x27;What did Trichet say the ECB will offer?&#x27; is answered by copying &#x27;Longer Loans&#x27; from the text, while the TELLME question &#x27;What does full allotment mean in the context of central bank lending operations?&#x27; requires an explanatory answer beyond the text.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> QA pairs produced with InstPT and TELLME for the same plain text. InstPT uses reading-comprehension QA whose answers are copied from the context (<em>Longer Loans</em>); TELLME asks descriptive questions that connect concepts in the text to related knowledge (<em>what does full allotment mean in central bank lending?</em>), reinforcing knowledge in the way a quiz does.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Continual pre-training (CPT) has been widely adopted as a method for domain expansion in large language models. However, CPT has consistently been accompanied by challenges, such as the difficulty of acquiring large-scale domain-specific datasets and high computational costs. In this study, we propose a novel method called Test-Enhanced Learning for Language Model Enrichment (TELLME) to alleviate these issues. TELLME leverages the Test-Enhanced Learning (TEL) principle, whereby the model’s learning efficiency is improved using quizzes during training. It integrates this principle with CPT, thereby promoting efficient domain-specific knowledge acquisition and long-term memory retention. Experimental results demonstrate that TELLME outperforms existing methods by up to 23.6% in the financial domain and achieves a 9.8% improvement in long-term memory retention.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Test-enhanced learning (TEL)</span>
+      <span class="tag">Testing effect</span>
+      <span class="tag">Continual pre-training (CPT)</span>
+      <span class="tag">Domain adaptation</span>
+      <span class="tag">Synthetic QA data</span>
+      <span class="tag">Knowledge retention</span>
+      <span class="tag">Catastrophic forgetting</span>
+      <span class="tag">Financial LLM</span>
+      <span class="tag">Medical LLM</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2600" height="1297" loading="lazy"
+           alt="Schematic of seven training paradigms showing which segments receive loss. Continual pre-training: plain text, all tokens trained. Instruction tuning: question masked, answer trained. PIT: plain text and QA as separate samples, question masked. InstPT: plain text, question and answer all trained. TELLME: plain text followed by question and answer in one sequence, question masked. Inv-TEL: question and answer before plain text. TEL-Q/L: like TELLME but the question is also trained.">
+      </picture>
+      <figcaption>
+        <strong>Figure 4.</strong> Data composition and token-level loss masking across training paradigms (green check: loss computed;
+        red cross: masked). TELLME places plain text and its QA pairs in a single training sequence and computes the loss on plain-text and
+        answer tokens only; Inv-TEL reverses the order and TEL-Q/L also trains on question tokens. (Appendix figure in the paper.)
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        In educational psychology, <em>test-enhanced learning</em> (TEL) describes the testing effect: taking quizzes, especially
+        open-ended explanatory ones, improves learning and long-term retention more than re-reading. TELLME transfers this idea to
+        continual pre-training (CPT) of LLMs:
+      </p>
+      <ol>
+        <li><strong>Quiz generation.</strong> For each domain document, GPT-4o-mini generates M = 3 descriptive question&ndash;answer pairs
+          that are related to the text but cannot be answered by copying from it (concept mapping, e.g. &ldquo;How do high-frequency trading
+          strategies impact market volatility?&rdquo;). 100K samples were built from PubMed abstracts and Bloomberg financial news for about $12;
+          an LLM-as-a-judge rated them 4.03 out of 5 on average.</li>
+        <li><strong>Joint training sample.</strong> Each training sequence is X = (t, q<sub>1</sub>, a<sub>1</sub>, &hellip;, q<sub>M</sub>, a<sub>M</sub>):
+          the plain text followed by its quiz.</li>
+        <li><strong>Loss masking.</strong> The causal language modeling loss is computed on plain-text and answer tokens, while question tokens are
+          masked, so CPT and quiz learning happen in a single forward&ndash;backward pass.</li>
+      </ol>
+      <p>
+        TELLME is compared with CPT, CPT followed by instruction tuning (CPT + IT, same tokens as TELLME), and InstPT on Llama-3.2-1B,
+        Llama-3.2-3B, Llama-3.1-8B and SmolLM2-1.7B, using FOMC, NIFTY and MMLU-Finance for finance and HeadQA, MedMCQA and
+        MMLU-Clinical for medicine.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Best overall average.</strong> TELLME achieves the highest average score across finance and medicine for every model
+          (e.g. 40.73 on Llama-3.1-8B vs. 39.94 for CPT), outperforming CPT + IT by 10.0% and InstPT by 6.3% overall.</li>
+        <li><strong>Finance gains.</strong> In the finance domain TELLME improves on the base models by about 9.8% on average and outperforms
+          InstPT by 5.1% on average, although InstPT trains on nearly twice as much QA data.</li>
+        <li><strong>Long-term retention.</strong> When a finance-trained SmolLM2-1.7B is further trained on medical data, the CPT model loses 5.72%
+          of its finance performance but the TELLME model only 0.94%, ending 9.8% (3.15 points) higher.</li>
+        <li><strong>Efficiency and robustness.</strong> TELLME reaches the same perplexity 1.4&times; faster than CPT; with Mistral-generated or
+          self-generated quizzes it still beats InstPT by 2.27 and 2.61 points (Llama-3.2-3B, finance), and Korean TELLME data raise OLMo2-1B's
+          KoBEST average by 8.4 points.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> Average accuracy in the finance (FOMC, NIFTY, MMLU-F) and medicine (HeadQA, MedMCQA, MMLU-C) domains
+          under different training methods (subset: domain averages only; per-benchmark scores are in the paper). Bold marks the best value
+          per model, as in the paper. (Table 2 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>Method</th><th>Finance avg.</th><th>Medicine avg.</th><th>Average</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="5">Llama-3.2-1B</td><td>Base</td><td>30.73</td><td>32.16</td><td>31.45</td></tr>
+          <tr><td>+ CPT</td><td>29.05</td><td>32.26</td><td>30.66</td></tr>
+          <tr><td>+ CPT + IT</td><td>30.36</td><td>29.76</td><td>30.06</td></tr>
+          <tr><td>+ InstPT</td><td>31.15</td><td>30.08</td><td>30.61</td></tr>
+          <tr class="ours"><td>+ TELLME (ours)</td><td><strong>33.46</strong></td><td><strong>32.62</strong></td><td><strong>33.04</strong></td></tr>
+          <tr><td rowspan="5">Llama-3.2-3B</td><td>Base</td><td>32.97</td><td>37.63</td><td>35.30</td></tr>
+          <tr><td>+ CPT</td><td>29.98</td><td>37.22</td><td>33.60</td></tr>
+          <tr><td>+ CPT + IT</td><td>30.87</td><td>35.64</td><td>33.26</td></tr>
+          <tr><td>+ InstPT</td><td>31.03</td><td>35.16</td><td>33.10</td></tr>
+          <tr class="ours"><td>+ TELLME (ours)</td><td><strong>33.87</strong></td><td><strong>38.22</strong></td><td><strong>36.05</strong></td></tr>
+          <tr><td rowspan="5">Llama-3.1-8B</td><td>Base</td><td>33.07</td><td><strong>43.99</strong></td><td>38.53</td></tr>
+          <tr><td>+ CPT</td><td>37.44</td><td>42.44</td><td>39.94</td></tr>
+          <tr><td>+ CPT + IT</td><td>31.41</td><td>36.62</td><td>34.02</td></tr>
+          <tr><td>+ InstPT</td><td>36.99</td><td>38.66</td><td>37.83</td></tr>
+          <tr class="ours"><td>+ TELLME (ours)</td><td><strong>38.82</strong></td><td>42.63</td><td><strong>40.73</strong></td></tr>
+          <tr><td rowspan="5">SmolLM2-1.7B</td><td>Base</td><td>32.53</td><td>35.49</td><td>34.01</td></tr>
+          <tr><td>+ CPT</td><td>34.28</td><td>35.28</td><td>34.78</td></tr>
+          <tr><td>+ CPT + IT</td><td>34.62</td><td>35.71</td><td>35.17</td></tr>
+          <tr><td>+ InstPT</td><td><strong>35.95</strong></td><td>35.39</td><td>35.67</td></tr>
+          <tr class="ours"><td>+ TELLME (ours)</td><td>35.82</td><td><strong>36.14</strong></td><td><strong>35.98</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{kim-etal-2026-tellme,
+    title = &quot;{TELLME}: Test-Enhanced Learning for Language Model Enrichment&quot;,
+    author = &quot;Kim, Minjun  and
+      Won, Inho  and
+      Lim, HyeonSeok  and
+      Kim, MinKyu  and
+      Yuk, Junghun  and
+      Go, Wooyoung  and
+      Park, Jongyoul  and
+      Park, Jungyeul  and
+      Lim, KyungTae&quot;,
+    editor = &quot;Demberg, Vera  and
+      Inui, Kentaro  and
+      Marquez, Llu{\&#x27;i}s&quot;,
+    booktitle = &quot;Findings of the {A}ssociation for {C}omputational {L}inguistics: {EACL} 2026&quot;,
+    month = mar,
+    year = &quot;2026&quot;,
+    address = &quot;Rabat, Morocco&quot;,
+    publisher = &quot;Association for Computational Linguistics&quot;,
+    url = &quot;https://aclanthology.org/2026.findings-eacl.84/&quot;,
+    doi = &quot;10.18653/v1/2026.findings-eacl.84&quot;,
+    pages = &quot;1655--1677&quot;,
+    ISBN = &quot;979-8-89176-386-9&quot;
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

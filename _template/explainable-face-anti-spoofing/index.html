@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Analyzing the effect of reasoning-based supervision on face anti-spoofing</title>
+  <meta name="description" content="Explainable face anti-spoofing with a vision-language model trained on GPT-4o-generated reasoning captions for MSU-MFSD, CASIA-FASD, Replay-Attack, and OULU-NPU; reasoning supervision lowers average MCIO leave-one-out HTER from 0.19 to 0.16 but can bias the model toward training-set spoof cues. Scientific Reports 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="face anti-spoofing, FAS, explainable face anti-spoofing, presentation attack detection, vision-language model, VLM, reasoning captions, explanation supervision, domain generalization, MCIO, SiW-Mv2, HTER, biometric security, Scientific Reports, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/explainable-face-anti-spoofing/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Analyzing the effect of reasoning-based supervision on face anti-spoofing">
+  <meta property="og:description" content="Explainable face anti-spoofing with a vision-language model trained on reasoning-structured captions: average MCIO leave-one-out HTER 0.19 to 0.16. Scientific Reports 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/explainable-face-anti-spoofing/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/explainable-face-anti-spoofing/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="1665">
+  <meta property="og:image:alt" content="Architecture of the explanation-supervised face anti-spoofing vision-language model with a binary spoof classifier and caption generation loss.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Reasoning-based supervision for explainable face anti-spoofing">
+  <meta name="twitter:description" content="A VLM trained with reasoning-style explanations for face anti-spoofing: MCIO leave-one-out HTER 0.19 to 0.16. Scientific Reports 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/explainable-face-anti-spoofing/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Analyzing the effect of reasoning-based supervision on face anti-spoofing">
+  <meta name="citation_author" content="Min, Jimin">
+  <meta name="citation_author_institution" content="Department of Computer Engineering, Hanbat National University">
+  <meta name="citation_author_institution" content="Datamaker Inc.">
+  <meta name="citation_author" content="Lim, Kyungtae">
+  <meta name="citation_author_institution" content="Graduate School of Culture Technology, KAIST">
+  <meta name="citation_author" content="Kim, Minjun">
+  <meta name="citation_author_institution" content="Graduate School of Culture Technology, KAIST">
+  <meta name="citation_author" content="Kim, Dongsu">
+  <meta name="citation_author_institution" content="Department of Computer Engineering, Hanbat National University">
+  <meta name="citation_author" content="Oh, Seoyeon">
+  <meta name="citation_author_institution" content="Department of Computer Engineering, Hanbat National University">
+  <meta name="citation_author" content="Kim, Eunkyung">
+  <meta name="citation_author_institution" content="Department of Artificial Intelligence Software, Hanbat National University">
+  <meta name="citation_author" content="Jang, Haneol">
+  <meta name="citation_author_institution" content="Department of Computer Engineering, Hanbat National University">
+  <meta name="citation_publication_date" content="2026/03/13">
+  <meta name="citation_journal_title" content="Scientific Reports">
+  <meta name="citation_journal_abbrev" content="Sci Rep">
+  <meta name="citation_issn" content="2045-2322">
+  <meta name="citation_publisher" content="Nature Publishing Group">
+  <meta name="citation_volume" content="16">
+  <meta name="citation_issue" content="1">
+  <meta name="citation_firstpage" content="13360">
+  <meta name="citation_doi" content="10.1038/s41598-026-43800-5">
+  <meta name="citation_pdf_url" content="https://www.nature.com/articles/s41598-026-43800-5.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/explainable-face-anti-spoofing/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/explainable-face-anti-spoofing/#article",
+    "headline": "Analyzing the effect of reasoning-based supervision on face anti-spoofing",
+    "name": "Analyzing the effect of reasoning-based supervision on face anti-spoofing",
+    "alternativeHeadline": "Beyond Black Boxes: Explainable Face Anti-Spoofing with Vision-Language Models",
+    "url": "https://kaist-mlplab.github.io/explainable-face-anti-spoofing/",
+    "datePublished": "2026-03-13",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/explainable-face-anti-spoofing/static/images/teaser.png",
+    "abstract": "Face anti-spoofing (FAS) has become a crucial component in securing face recognition systems against presentation attacks, such as printed photos, replay videos, and 3D masks. While recent advances have improved generalization to unseen spoofing attempts, many existing methods remain black-box models that provide binary decisions without interpretable reasoning. In this paper, we investigate explainable face anti-spoofing from a supervision-centric perspective, using a vision-language model (VLM) to analyze how natural language explanations influence model behavior. To enable this study under controlled conditions, we construct an explanation-augmented benchmark by enriching four standard FAS datasets—MSU-MFSD, CASIA-FASD, Replay-Attack, and OULU-NPU—with both vanilla and reasoning-structured captions generated via the GPT-4o API. We further adopt a dual-objective training strategy that combines spoof classification loss with explanation generation loss, allowing us to examine the effect of explanation-based supervision while keeping the backbone architecture fixed. Through extensive cross-dataset evaluations, we show that reasoning-style captions can enhance detection performance and domain generalization in many settings, while also introducing inductive biases that may degrade performance when emphasized cues are misaligned with unseen attack types. These findings suggest that explanations in FAS should be viewed not only as interpretable outputs, but also as controllable training signals that shape generalization behavior. To support reproducibility, we publicly release the explanation annotations and associated metadata—excluding all face images—via a Hugging Face repository at https://huggingface.co/datasets/DescriptiveFAS/MCIO_public.",
+    "keywords": ["face anti-spoofing", "explainable face anti-spoofing", "presentation attack detection", "vision-language model", "reasoning captions", "explanation-based supervision", "domain generalization", "MCIO leave-one-out", "SiW-Mv2", "biometric security"],
+    "about": [
+      {"@type": "Thing", "name": "Face anti-spoofing"},
+      {"@type": "Thing", "name": "Explainable artificial intelligence"},
+      {"@type": "Thing", "name": "Vision-language models"},
+      {"@type": "Thing", "name": "Biometric security"}
+    ],
+    "author": [
+      {"@type": "Person", "name": "Jimin Min", "affiliation": [{"@type": "Organization", "name": "Hanbat National University"}, {"@type": "Organization", "name": "Datamaker Inc."}]},
+      {"@type": "Person", "name": "Kyungtae Lim", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Minjun Kim", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Dongsu Kim", "affiliation": {"@type": "Organization", "name": "Hanbat National University"}},
+      {"@type": "Person", "name": "Seoyeon Oh", "affiliation": {"@type": "Organization", "name": "Hanbat National University"}},
+      {"@type": "Person", "name": "Eunkyung Kim", "affiliation": {"@type": "Organization", "name": "Hanbat National University"}},
+      {"@type": "Person", "name": "Haneol Jang", "affiliation": {"@type": "Organization", "name": "Hanbat National University"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "isPartOf": {"@type": "PublicationVolume", "volumeNumber": "16", "isPartOf": {"@type": "Periodical", "name": "Scientific Reports", "issn": "2045-2322", "publisher": {"@type": "Organization", "name": "Nature Publishing Group"}}},
+    "sameAs": ["https://www.nature.com/articles/s41598-026-43800-5", "https://doi.org/10.1038/s41598-026-43800-5", "https://doi.org/10.2139/ssrn.5393495", "https://huggingface.co/datasets/DescriptiveFAS/MCIO_public"],
+    "pagination": "13360",
+    "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+    "workExample": [
+      {"@type": "Dataset", "name": "DescriptiveFAS MCIO_public (explanation captions)", "url": "https://huggingface.co/datasets/DescriptiveFAS/MCIO_public"}
+    ],
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.1038/s41598-026-43800-5"}
+    ],
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://www.nature.com/articles/s41598-026-43800-5.pdf"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Analyzing the effect of reasoning-based supervision on face anti-spoofing</h1>
+      <p class="subtitle is-5 publication-subtitle">Explainable face anti-spoofing with a vision-language model trained on reasoning-structured explanations</p>
+      <p><span class="tag is-link is-medium venue-badge">Scientific Reports 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Jimin Min<sup>1,4,*</sup>,</span>
+        <span class="author-block">Kyungtae Lim<sup>2,*</sup>,</span>
+        <span class="author-block">Minjun Kim<sup>2</sup>,</span>
+        <span class="author-block">Dongsu Kim<sup>1</sup>,</span>
+        <span class="author-block">Seoyeon Oh<sup>1</sup>,</span>
+        <span class="author-block">Eunkyung Kim<sup>3,&dagger;</sup>,</span>
+        <span class="author-block">Haneol Jang<sup>1,&dagger;</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Department of Computer Engineering, Hanbat National University</span>
+        <span class="author-block"><sup>2</sup>Graduate School of Culture Technology, KAIST</span>
+        <span class="author-block"><sup>3</sup>Department of Artificial Intelligence Software, Hanbat National University</span>
+        <span class="author-block"><sup>4</sup>Present address: Datamaker Inc.</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution &nbsp; <sup>&dagger;</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://www.nature.com/articles/s41598-026-43800-5">Paper (Scientific Reports)</a>
+        <a class="button is-dark is-rounded" href="https://www.nature.com/articles/s41598-026-43800-5.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/datasets/DescriptiveFAS/MCIO_public">Dataset</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="1665" style="max-width:760px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Architecture diagram. A face image goes into a LoRA-adapted vision encoder; its features feed both a multi-modal projector and a binary spoof classifier trained with a cross-entropy spoof classification loss. The projected features and a forensic-expert instruction prompt (examine artifacts, facial features, textures, lighting and shadows to determine whether the image is real or manipulated) go into a LoRA-adapted language model trained with a cross-entropy caption generation loss. Total loss = alpha times spoof classification loss plus beta times caption generation loss.">
+      </picture>
+      <figcaption>
+        <strong>Figure 5.</strong> Architecture of the explanation-based face anti-spoofing framework. The vision encoder extracts visual
+        representations, which are fused with the textual instruction through a multi-modal projector. The model is trained with a
+        dual-objective loss, L<sub>total</sub> = &alpha;&middot;L<sub>cls</sub> + &beta;&middot;L<sub>cap</sub> with &alpha; = 0.7 and
+        &beta; = 0.3, combining binary spoof classification and explanation generation. LoRA is applied only to attention projection layers
+        of the marked modules; all other parameters stay frozen.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Face anti-spoofing (FAS) has become a crucial component in securing face recognition systems against presentation attacks, such as
+        printed photos, replay videos, and 3D masks. While recent advances have improved generalization to unseen spoofing attempts, many
+        existing methods remain black-box models that provide binary decisions without interpretable reasoning. In this paper, we investigate
+        explainable face anti-spoofing from a supervision-centric perspective, using a vision-language model (VLM) to analyze how natural
+        language explanations influence model behavior. To enable this study under controlled conditions, we construct an
+        explanation-augmented benchmark by enriching four standard FAS datasets&mdash;MSU-MFSD, CASIA-FASD, Replay-Attack, and
+        OULU-NPU&mdash;with both vanilla and reasoning-structured captions generated via the GPT-4o API. We further adopt a dual-objective
+        training strategy that combines spoof classification loss with explanation generation loss, allowing us to examine the effect of
+        explanation-based supervision while keeping the backbone architecture fixed. Through extensive cross-dataset evaluations, we show
+        that reasoning-style captions can enhance detection performance and domain generalization in many settings, while also introducing
+        inductive biases that may degrade performance when emphasized cues are misaligned with unseen attack types. These findings suggest
+        that explanations in FAS should be viewed not only as interpretable outputs, but also as controllable training signals that shape
+        generalization behavior. To support reproducibility, we publicly release the explanation annotations and associated
+        metadata&mdash;excluding all face images&mdash;via a Hugging Face repository at
+        <a href="https://huggingface.co/datasets/DescriptiveFAS/MCIO_public">https://huggingface.co/datasets/DescriptiveFAS/MCIO_public</a>.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Face anti-spoofing (FAS)</span>
+      <span class="tag">Explainable FAS</span>
+      <span class="tag">Presentation attack detection</span>
+      <span class="tag">Vision-language model (VLM)</span>
+      <span class="tag">Reasoning captions</span>
+      <span class="tag">Explanation-based supervision</span>
+      <span class="tag">Domain generalization</span>
+      <span class="tag">MCIO leave-one-out</span>
+      <span class="tag">SiW-Mv2</span>
+      <span class="tag">Biometric security</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        The study treats natural-language explanations as a controllable <em>training signal</em> rather than a post-hoc output, and
+        compares two kinds of explanation supervision while keeping the VLM backbone and the amount of training data fixed:
+      </p>
+      <ol>
+        <li><strong>Explanation-augmented benchmark.</strong> Videos from MSU-MFSD (M), CASIA-FASD (C), Idiap Replay-Attack (I), and
+          OULU-NPU (O) are reduced to two representative frames per video (one early, one middle). For every frame, GPT-4o writes a
+          <em>vanilla</em> caption (a short high-level justification) and a <em>reasoning</em> caption that follows a fixed six-stage
+          structure: initial observation, artifact detection, feature analysis, lighting and shadow inspection, context, and final judgment.
+          Generation is label-aware (live/spoof and attack type are given) and guided by manually refined few-shot examples.</li>
+        <li><strong>Dual-objective training.</strong> A linear binary spoof classifier on the vision-encoder features is trained with
+          cross-entropy (L<sub>cls</sub>) alongside the caption language-modeling loss (L<sub>cap</sub>), weighted 0.7 and 0.3. LoRA
+          (rank 32) is inserted into the q/k/v attention projections; the classifier head, projector, and LM head are trained, the rest
+          is frozen.</li>
+        <li><strong>Two supervision settings.</strong> <em>Vanilla</em> uses only vanilla captions; <em>vanilla+reasoning</em> replaces
+          half of the captions with reasoning captions, so the number of training samples is identical.</li>
+        <li><strong>Evaluation.</strong> GPT-4o-mini reads each generated explanation and decides whether it implies &ldquo;live&rdquo; or
+          &ldquo;spoof&rdquo;; from these decisions the paper reports accuracy and Half Total Error Rate (HTER, the mean of false
+          acceptance and false rejection rates) under MCIO leave-one-out and on the unseen attack types of SiW-Mv2.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Reasoning supervision helps cross-dataset generalization.</strong> Under MCIO leave-one-out, vanilla+reasoning raises
+          average accuracy from 0.84 to 0.87 and lowers average HTER from 0.19 to 0.16 (MOI&rarr;C: HTER 0.19 &rarr; 0.12).</li>
+        <li><strong>Unseen attack types (SiW-Mv2, 14 attack types).</strong> Trained on MSU, Idiap, and CASIA, vanilla+reasoning reaches the
+          best average accuracy 0.88 and HTER 0.12, versus 0.29 for both SA-FAS and DiVT-M; trained on OULU, CASIA, and Idiap it reaches
+          0.82 accuracy and 0.18 HTER (vanilla 0.76 / 0.25).</li>
+        <li><strong>Reasoning can also hurt.</strong> Trained on MSU, OULU, and Idiap, the vanilla model is better (accuracy 0.78, HTER 0.21)
+          than vanilla+reasoning (0.75, 0.25): reasoning captions bias the model toward cues seen in training (e.g. print texture) that are
+          absent in attacks such as 3D masks.</li>
+        <li><strong>Classification head matters.</strong> Removing the auxiliary classification loss raises average MCIO leave-one-out HTER
+          from 0.16 to 0.20 (accuracy 0.87 &rarr; 0.86).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Binary classification accuracy (&uarr;) and HTER (&darr;) of the vanilla and vanilla+reasoning models
+          under the MCIO leave-one-out protocols. Each protocol trains on three datasets and tests on the remaining one (e.g. OCI-M trains on
+          OULU-NPU, CASIA-FASD, and Replay-Attack and tests on MSU-MFSD). Bold marks the best result per column; identical values are
+          underlined, as in the paper. (Table 1 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Metric</th><th>Method</th><th>OCI-M</th><th>MOI-C</th><th>MOC-I</th><th>MIC-O</th><th>avg.</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="2">Accuracy &uarr;</td><td>vanilla</td><td>0.87</td><td>0.90</td><td>0.89</td><td>0.69</td><td>0.84</td></tr>
+          <tr class="ours"><td>vanilla+reasoning</td><td><strong>0.92</strong></td><td><strong>0.94</strong></td><td><strong>0.90</strong></td><td><strong>0.71</strong></td><td><strong>0.87</strong></td></tr>
+          <tr><td rowspan="2">HTER &darr;</td><td>vanilla</td><td><u>0.11</u></td><td>0.19</td><td>0.26</td><td>0.20</td><td>0.19</td></tr>
+          <tr class="ours"><td>vanilla+reasoning</td><td><u>0.11</u></td><td><strong>0.12</strong></td><td><strong>0.22</strong></td><td><strong>0.18</strong></td><td><strong>0.16</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@article{Min_2026,
+  title={Analyzing the effect of reasoning-based supervision on face anti-spoofing},
+  volume={16},
+  ISSN={2045-2322},
+  url={http://dx.doi.org/10.1038/s41598-026-43800-5},
+  DOI={10.1038/s41598-026-43800-5},
+  number={1},
+  journal={Scientific Reports},
+  publisher={Springer Science and Business Media LLC},
+  author={Min, Jimin and Lim, Kyungtae and Kim, Minjun and Kim, Dongsu and Oh, Seoyeon and Kim, Eunkyung and Jang, Haneol},
+  year={2026},
+  month=Mar
+}</code></pre>
+    <p class="is-size-7 has-text-grey mt-3">An earlier preprint of this work appeared on SSRN as &ldquo;Beyond Black Boxes: Explainable Face
+      Anti-Spoofing with Vision-Language Models&rdquo; (<a href="https://doi.org/10.2139/ssrn.5393495">doi:10.2139/ssrn.5393495</a>).
+      Figure reproduced from the Scientific Reports article under its
+      <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a> license.</p>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

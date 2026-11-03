@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Unveiling the Performance Gap Between Deep Text Mining and Human Coders in Environmental Information Extraction</title>
+  <meta name="description" content="A BiLSTM classifier for Korean environmental news reaches over 0.98 accuracy, yet agrees with trained human coders less (F1 = 0.76) than the coders agree with each other (F1 = 0.89), motivating human-in-the-loop validation. International Journal of Human–Computer Interaction 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="text mining, human coders, human-machine agreement, inter-coder agreement, BiLSTM, news classification, Korean environmental news, environmental information extraction, content analysis, human-in-the-loop, International Journal of Human-Computer Interaction, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/text-mining-vs-human-coders/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Unveiling the Performance Gap Between Deep Text Mining and Human Coders in Environmental Information Extraction">
+  <meta property="og:description" content="A BiLSTM classifier of Korean environmental news reaches over 0.98 accuracy but agrees with human coders less (F1 = 0.76) than coders agree with each other (F1 = 0.89). International Journal of Human–Computer Interaction 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/text-mining-vs-human-coders/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Deep Text Mining vs. Human Coders in Environmental Information Extraction">
+  <meta name="twitter:description" content="BiLSTM vs. two trained human coders on Korean environmental news: accuracy above 0.98, but human-machine F1 = 0.76 vs. coder-coder F1 = 0.89.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Unveiling the Performance Gap Between Deep Text Mining and Human Coders in Environmental Information Extraction">
+  <meta name="citation_author" content="Kim, JungJin">
+  <meta name="citation_author_institution" content="Institute of Environmental Technology, Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Lim, Kyungtae">
+  <meta name="citation_author_institution" content="Graduate School of Culture Technology, Korea Advanced Institute of Science and Technology (KAIST)">
+  <meta name="citation_author" content="Adamowski, Jan">
+  <meta name="citation_author_institution" content="Department of Bioresource Engineering, McGill University">
+  <meta name="citation_author" content="Jeong, Hanseok">
+  <meta name="citation_author_institution" content="Institute of Environmental Technology, Seoul National University of Science and Technology">
+  <meta name="citation_author_institution" content="Department of Environmental Engineering, Seoul National University of Science and Technology">
+  <meta name="citation_publication_date" content="2026/05/26">
+  <meta name="citation_journal_title" content="International Journal of Human–Computer Interaction">
+  <meta name="citation_issn" content="1044-7318">
+  <meta name="citation_issn" content="1532-7590">
+  <meta name="citation_publisher" content="Taylor &amp; Francis">
+  <meta name="citation_firstpage" content="1">
+  <meta name="citation_lastpage" content="18">
+  <meta name="citation_doi" content="10.1080/10447318.2026.2669061">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/text-mining-vs-human-coders/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/text-mining-vs-human-coders/#article",
+    "headline": "Unveiling the Performance Gap Between Deep Text Mining and Human Coders in Environmental Information Extraction",
+    "name": "Unveiling the Performance Gap Between Deep Text Mining and Human Coders in Environmental Information Extraction",
+    "url": "https://kaist-mlplab.github.io/text-mining-vs-human-coders/",
+    "datePublished": "2026-05-26",
+    "inLanguage": "en",
+    "abstract": "Automated text mining is increasingly used in government monitoring and policy-oriented workflows, but its value depends on how closely automated labels align with human interpretation. This study compares a BiLSTM classifier with two trained human coders in classifying Korean environmental news across five categories: Climate, Air, Water, Waste/Garbage, and Others. Using a time-separated evaluation (2006–2017 training; 2018–2022 testing), the classifier achieved high accuracy (> 0.98), but lower agreement with human coders (F1 = 0.76) than coder-to-coder agreement (F1 = 0.89). Discrepancies were most evident in low-text or image-dominant articles, where human integrative reasoning captured nuanced environmental information that the classifier missed. Cofusion was highest where semantic overlap was common (e.g., Climate vs. Air), whereas Water exhibited stable agreement. These findings highlight the practical importance of human-in-the-loop validation, encompassing uncertainty-based routing and periodic agreement audits, for accountable and transparent environmental information systems. Although limited to a text-based corpus, the framework provides a foundation for future multimodal and multilingual extensions.",
+    "keywords": ["text mining", "human coders", "human-machine agreement", "inter-coder agreement", "BiLSTM", "news classification", "Korean environmental news", "environmental information extraction", "content analysis", "human-in-the-loop"],
+    "about": [
+      {"@type": "Thing", "name": "Text mining"},
+      {"@type": "Thing", "name": "Human-computer interaction"},
+      {"@type": "Thing", "name": "Environmental information"},
+      {"@type": "Thing", "name": "Content analysis"}
+    ],
+    "author": [
+      {"@type": "Person", "name": "JungJin Kim", "affiliation": {"@type": "Organization", "name": "Seoul National University of Science and Technology"}},
+      {"@type": "Person", "name": "Kyungtae Lim", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Jan Adamowski", "affiliation": {"@type": "Organization", "name": "McGill University"}},
+      {"@type": "Person", "name": "Hanseok Jeong", "affiliation": {"@type": "Organization", "name": "Seoul National University of Science and Technology"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "isPartOf": {"@type": "Periodical", "name": "International Journal of Human–Computer Interaction", "issn": ["1044-7318", "1532-7590"], "publisher": {"@type": "Organization", "name": "Taylor & Francis"}},
+    "sameAs": ["https://doi.org/10.1080/10447318.2026.2669061"],
+    "pagination": "1-18",
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.1080/10447318.2026.2669061"}
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Unveiling the Performance Gap Between Deep Text Mining and Human Coders in Environmental Information Extraction</h1>
+      <p class="subtitle is-5 publication-subtitle">Comparing a BiLSTM text-mining classifier with trained human coders on Korean environmental news</p>
+      <p><span class="tag is-link is-medium venue-badge">International Journal of Human–Computer Interaction 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">JungJin Kim<sup>1</sup>,</span>
+        <span class="author-block">Kyungtae Lim<sup>2</sup>,</span>
+        <span class="author-block">Jan Adamowski<sup>3</sup>,</span>
+        <span class="author-block">Hanseok Jeong<sup>1,4</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Institute of Environmental Technology, Seoul National University of Science and Technology</span>
+        <span class="author-block"><sup>2</sup>Graduate School of Culture Technology, KAIST</span>
+        <span class="author-block"><sup>3</sup>Department of Bioresource Engineering, McGill University</span>
+        <span class="author-block"><sup>4</sup>Department of Environmental Engineering, Seoul National University of Science and Technology</span>
+      </p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://doi.org/10.1080/10447318.2026.2669061">Paper (Int. J. Human–Computer Interaction)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Automated text mining is increasingly used in government monitoring and policy-oriented workflows, but its value depends on
+        how closely automated labels align with human interpretation. This study compares a BiLSTM classifier with two trained human
+        coders in classifying Korean environmental news across five categories: Climate, Air, Water, Waste/Garbage, and Others. Using a
+        time-separated evaluation (2006&ndash;2017 training; 2018&ndash;2022 testing), the classifier achieved high accuracy (&gt; 0.98),
+        but lower agreement with human coders (F1 = 0.76) than coder-to-coder agreement (F1 = 0.89). Discrepancies were most evident in
+        low-text or image-dominant articles, where human integrative reasoning captured nuanced environmental information that the
+        classifier missed. Cofusion was highest where semantic overlap was common (e.g., Climate vs. Air), whereas Water exhibited stable
+        agreement. These findings highlight the practical importance of human-in-the-loop validation, encompassing uncertainty-based
+        routing and periodic agreement audits, for accountable and transparent environmental information systems. Although limited to a
+        text-based corpus, the framework provides a foundation for future multimodal and multilingual extensions.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Text mining</span>
+      <span class="tag">Human coders</span>
+      <span class="tag">Human&ndash;machine agreement</span>
+      <span class="tag">Inter-coder agreement</span>
+      <span class="tag">BiLSTM</span>
+      <span class="tag">News classification</span>
+      <span class="tag">Korean environmental news</span>
+      <span class="tag">Environmental information extraction</span>
+      <span class="tag">Content analysis</span>
+      <span class="tag">Human-in-the-loop</span>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results (from the publisher abstract only) -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Findings</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Setup.</strong> A BiLSTM classifier and two trained human coders label Korean environmental news into five categories
+          (Climate, Air, Water, Waste/Garbage, Others), with a time-separated split: training on 2006&ndash;2017 articles, testing on
+          2018&ndash;2022 articles.</li>
+        <li><strong>High accuracy, lower human agreement.</strong> The classifier achieves accuracy above 0.98, but its agreement with the
+          human coders (F1 = 0.76) is lower than the agreement between the two coders (F1 = 0.89).</li>
+        <li><strong>Where they disagree.</strong> Discrepancies concentrate in low-text or image-dominant articles, and confusion is highest
+          between semantically overlapping categories such as Climate vs. Air, while Water shows stable agreement.</li>
+        <li><strong>Implication.</strong> The authors recommend human-in-the-loop validation, including uncertainty-based routing and
+          periodic agreement audits, for environmental information systems.</li>
+      </ul>
+      <p class="is-size-7 has-text-grey">This summary is based on the publisher&rsquo;s abstract; see the paper for full details.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@article{Kim_2026,
+  title={Unveiling the Performance Gap Between Deep Text Mining and Human Coders in Environmental Information Extraction},
+  ISSN={1532-7590},
+  url={http://dx.doi.org/10.1080/10447318.2026.2669061},
+  DOI={10.1080/10447318.2026.2669061},
+  journal={International Journal of Human–Computer Interaction},
+  publisher={Informa UK Limited},
+  author={Kim, JungJin and Lim, Kyungtae and Adamowski, Jan and Jeong, Hanseok},
+  year={2026},
+  month=May,
+  pages={1–18}
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

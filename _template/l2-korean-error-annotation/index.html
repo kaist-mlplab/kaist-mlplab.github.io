@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Refining Word-Based Grammatical Error Annotation for L2 Korean</title>
+  <meta name="description" content="Refining Korean grammatical error correction (K-GEC) resources: morphologically constrained target reconstruction for the NIKL L2 learner corpus (eojeol accuracy 95.21% to 98.77%), a Korean ERRANT-style m2 edit scheme (agreement F0.5 0.8523 to 0.9304), and a second reference for KoLLA (KoBART+ F0.5 0.2700 single- vs 0.3778 multi-reference). arXiv 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="Korean grammatical error correction, K-GEC, GEC, L2 Korean, Korean learner corpus, NIKL learner corpus, KoLLA, ERRANT, m2 format, error annotation, multi-reference evaluation, postposition errors, verbal ending errors, KoBART, surface realization, Korean NLP, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/l2-korean-error-annotation/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Refining Word-Based Grammatical Error Annotation for L2 Korean">
+  <meta property="og:description" content="Reconstructed NIKL targets, a Korean ERRANT-style m2 annotation scheme, and multi-reference KoLLA evaluation for Korean grammatical error correction. arXiv 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/l2-korean-error-annotation/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Refining Word-Based Grammatical Error Annotation for L2 Korean">
+  <meta name="twitter:description" content="Better targets, Korean ERRANT-style edits, and multi-reference evaluation for Korean GEC. arXiv 2026.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Refining Word-Based Grammatical Error Annotation for L2 Korean">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Lim, Kyungtae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Oh, Wonjun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Nguyen, Benjamin">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Huang, Zihao">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Qiu, Mengyang">
+  <meta name="citation_author_institution" content="Saint Elizabeth University">
+  <meta name="citation_author" content="Song, Jayoung">
+  <meta name="citation_author_institution" content="The Pennsylvania State University">
+  <meta name="citation_publication_date" content="2026/05/28">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2605.30545">
+  <meta name="citation_arxiv_id" content="2605.30545">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/l2-korean-error-annotation/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/l2-korean-error-annotation/#article",
+    "headline": "Refining Word-Based Grammatical Error Annotation for L2 Korean",
+    "name": "Refining Word-Based Grammatical Error Annotation for L2 Korean",
+    "url": "https://kaist-mlplab.github.io/l2-korean-error-annotation/",
+    "datePublished": "2026-05-28",
+    "inLanguage": "en",
+    "abstract": "Korean grammatical error correction (K-GEC) presents a structural mismatch between word-based evaluation and the morpheme-level locus of many learner errors. Postpositions and verbal endings are bound to lexical hosts, but they encode grammatical relations that must be represented in correction and evaluation. This paper refines word-based grammatical error annotation for L2 Korean by addressing three connected problems in existing resources: surface target realization, Korean-specific edit annotation, and single-reference evaluation. We reconstruct target sentences from the National Institute of Korean Language (NIKL) L2 corpus under morphologically constrained realization rules and convert its morpheme-level annotations into word-level m2 edits. We then define a Korean ERRANT-style annotation scheme that preserves the MRU core while distinguishing functional morpheme errors, spelling errors, word boundary errors, and word order errors. We also augment the KoLLA corpus with an additional reference correction, yielding a multi-reference evaluation setting for Korean GEC. Empirical validation shows that the refined NIKL targets yield lower perplexity, the converted m2 files achieve higher agreement with source-target edit representations, and the refined resources improve KoBART-based correction under the same model setting. Multi-reference KoLLA evaluation further reduces the penalty imposed on valid corrections that diverge from a single reference, especially for neural and prompted GEC systems. These results show that Korean GEC evaluation depends not only on correction models, but also on reference data and edit annotations that reflect Korean morphology, spacing, and correction variability.",
+    "keywords": [
+      "Korean grammatical error correction",
+      "L2 Korean",
+      "learner corpus",
+      "NIKL",
+      "KoLLA",
+      "ERRANT",
+      "m2 annotation",
+      "multi-reference evaluation",
+      "KoBART",
+      "prompted GEC"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Grammatical error correction"
+      },
+      {
+        "@type": "Thing",
+        "name": "Learner corpora"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Annotation schemes"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Kyungtae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Wonjun Oh",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Benjamin Nguyen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Zihao Huang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Mengyang Qiu",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Saint Elizabeth University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jayoung Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The Pennsylvania State University"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2605.30545"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2605.30545"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2605.30545"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Refining Word-Based Grammatical Error Annotation for L2 Korean</h1>
+      <p class="subtitle is-5 publication-subtitle">Reconstructed NIKL learner-corpus targets, a Korean ERRANT-style edit scheme, and a multi-reference KoLLA set for Korean grammatical error correction</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Jungyeul Park<sup>1,†,*</sup>,</span>
+        <span class="author-block">Kyungtae Lim<sup>1,†</sup>,</span>
+        <span class="author-block">Wonjun Oh<sup>1,†</sup>,</span>
+        <span class="author-block">Benjamin Nguyen<sup>2</sup>,</span>
+        <span class="author-block">Zihao Huang<sup>2</sup>,</span>
+        <span class="author-block">Mengyang Qiu<sup>3</sup>,</span>
+        <span class="author-block">Jayoung Song<sup>4,*</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Korea Advanced Institute of Science &amp; Technology (KAIST), South Korea</span>
+        <span class="author-block"><sup>2</sup>The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>3</sup>Saint Elizabeth University, USA</span>
+        <span class="author-block"><sup>4</sup>The Pennsylvania State University, USA</span>
+      </p>
+      <p class="publication-notes"><sup>†</sup>Equal contribution &nbsp; <sup>*</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2605.30545">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2605.30545">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Korean grammatical error correction (K-GEC) presents a structural mismatch between word-based evaluation and the morpheme-level locus of many learner errors. Postpositions and verbal endings are bound to lexical hosts, but they encode grammatical relations that must be represented in correction and evaluation. This paper refines word-based grammatical error annotation for L2 Korean by addressing three connected problems in existing resources: surface target realization, Korean-specific edit annotation, and single-reference evaluation. We reconstruct target sentences from the National Institute of Korean Language (NIKL) L2 corpus under morphologically constrained realization rules and convert its morpheme-level annotations into word-level m2 edits. We then define a Korean ERRANT-style annotation scheme that preserves the MRU core while distinguishing functional morpheme errors, spelling errors, word boundary errors, and word order errors. We also augment the KoLLA corpus with an additional reference correction, yielding a multi-reference evaluation setting for Korean GEC. Empirical validation shows that the refined NIKL targets yield lower perplexity, the converted m2 files achieve higher agreement with source-target edit representations, and the refined resources improve KoBART-based correction under the same model setting. Multi-reference KoLLA evaluation further reduces the penalty imposed on valid corrections that diverge from a single reference, especially for neural and prompted GEC systems. These results show that Korean GEC evaluation depends not only on correction models, but also on reference data and edit annotations that reflect Korean morphology, spacing, and correction variability.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean grammatical error correction (K-GEC)</span>
+      <span class="tag">L2 Korean learner corpus</span>
+      <span class="tag">NIKL learner corpus</span>
+      <span class="tag">KoLLA</span>
+      <span class="tag">ERRANT / m2 edit annotation</span>
+      <span class="tag">Multi-reference evaluation</span>
+      <span class="tag">Postposition and verbal-ending errors</span>
+      <span class="tag">KoBART</span>
+      <span class="tag">Prompted GEC with LLMs</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Refining the Resources</h2>
+
+    <div class="content has-text-justified">
+      <p>
+        Many Korean learner errors sit inside the eojeol, in postpositions and verbal endings bound to a lexical host, while GEC is trained
+        and scored on surface words. The paper addresses three connected problems:
+      </p>
+      <ol>
+        <li><strong>Target reconstruction (NIKL).</strong> The NIKL L2 corpus gives corrections only as morpheme sequences, so target sentences must
+          be rebuilt. Contraction and irregular-conjugation rules are applied only to predicates and only before endings that license the
+          alternation (avoiding errors such as 아빠에게 &rarr; *아빠게); the few lemmas with ambiguous conjugation classes (e.g. 묻다
+          &lsquo;bury&rsquo; vs. &lsquo;ask&rsquo;, 22 occurrences) are checked by hand.</li>
+        <li><strong>Korean ERRANT-style edits.</strong> Morpheme-level annotations are converted into word-level m2 edits that keep ERRANT's
+          Missing / Replacement / Unnecessary core but expose bound morphology, e.g. <code>R:NOUN -&gt; NOUN+ADP</code> for a missing particle,
+          with ADP for postpositions and PART for verbal endings. Further subtypes mark spelling (<code>R:SPELL</code>), word order
+          (<code>R:WO</code>), and word boundary (<code>R:WB</code>) errors, assigned by a deterministic classifier.</li>
+        <li><strong>Multi-reference KoLLA.</strong> The 100-essay KoLLA learner corpus receives a second, independently produced reference
+          correction that follows a minimal sentence-level correction principle, alongside the original, more context-enriched layer.</li>
+      </ol>
+      <p><strong>Example (Figure 3).</strong> The prior conversion records the particle fixes but leaves the predicate uncorrected; the refined m2
+        file also corrects the predicate and marks 때 as unnecessary:</p>
+      <pre style="white-space:pre-wrap;text-align:left">S 그래서 온돌은 사용하기 전에 힘들고 편리하지 않지만 사용 후에 온도 나왔을 때 편하다 .
+
+(a) prior:
+A 3 4|||PARTICLE|||전에는|||REQUIRED|||-NONE-|||0
+A 9 10|||PARTICLE|||온도가|||REQUIRED|||-NONE-|||0
+target: *그래서 온돌은 사용하기 전에는 힘들고 편리하지 않지만 사용 후에 온도가 나왔을 때 편하다 .
+
+(b) refined:
+A 3 4|||R:NOUN+ADP -&gt; NOUN+ADP|||전에는|||REQUIRED|||-NONE-|||0
+A 9 10|||R:NOUN -&gt; NOUN+ADP|||온도가|||REQUIRED|||-NONE-|||0
+A 10 11|||R:VERB -&gt; VERB|||올라가면|||REQUIRED|||-NONE-|||0
+A 11 12|||U||||||REQUIRED|||-NONE-|||0
+target: 그래서 온돌은 사용하기 전에는 힘들고 편리하지 않지만 사용 후에 온도가 올라가면 편하다 .
+('So, the ondol is difficult and not convenient before use, but it is comfortable when the temperature rises after use.')</pre>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>More accurate and more fluent targets.</strong> Surface reconstruction accuracy on NIKL rises from 95.21% to 98.77% for all eojeols
+          and from 91.34% to 97.85% for verbs and adjectives; on KLUE, accuracy on contracted or variant eojeols rises from 61.07% to 94.16%.
+          Refined targets have lower perplexity under all four language models (e.g., kanana2-30b-a3b 163.28 &rarr; 153.99).</li>
+        <li><strong>Edits that match the corrections.</strong> Agreement between converted m2 edits and edits extracted from source&ndash;target pairs
+          improves from F0.5 0.8523 to 0.9304 (precision 0.9332, recall 0.9198).</li>
+        <li><strong>Better supervision.</strong> With the same model and training setup, KoBART trained on refined NIKL targets (KoBART+) improves
+          F0.5 from 0.4548 to 0.4900 and GLEU from 49.82 to 50.51.</li>
+        <li><strong>Multiple references matter.</strong> On KoLLA, KoBART+ scores F0.5 0.2700 against the original reference, 0.2980 against the new
+          one, and 0.3778 when either may match. Prompted LLMs also score higher on multi-reference KoLLA than on single-reference NIKL
+          (best: kanana2-30b-a3b, 0.5901 vs. 0.4643).</li>
+      </ul>
+    </div>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 6.</strong> KoBART and KoBART+ (trained on the refined NIKL targets) on KoLLA under single-reference
+          (Reference 1 = original KoLLA correction, Reference 2 = newly added correction) and multi-reference evaluation.
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>Evaluation</th><th>Precision</th><th>Recall</th><th>F0.5</th></tr>
+        </thead>
+        <tbody>
+          <tr class="ours"><td rowspan="3">KoBART+</td><td>Reference 1</td><td>0.2948</td><td>0.2019</td><td>0.2700</td></tr>
+          <tr class="ours"><td>Reference 2</td><td>0.3293</td><td>0.2158</td><td>0.2980</td></tr>
+          <tr class="ours"><td>Multi-reference</td><td>0.3937</td><td>0.3251</td><td>0.3778</td></tr>
+          <tr><td>KoBART</td><td>Multi-reference</td><td>0.3797</td><td>0.3197</td><td>0.3660</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{park2026refiningwordbasedgrammaticalerror,
+      title={Refining Word-Based Grammatical Error Annotation for L2 Korean},
+      author={Jungyeul Park and Kyungtae Lim and Wonjun Oh and Benjamin Nguyen and Zihao Huang and Mengyang Qiu and Jayoung Song},
+      year={2026},
+      eprint={2605.30545},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2605.30545},
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

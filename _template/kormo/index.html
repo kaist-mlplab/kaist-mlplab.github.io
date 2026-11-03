@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>KORMo: Korean Open Reasoning Model for Everyone</title>
+  <meta name="description" content="KORMo-10B is a 10.8B-parameter fully open Korean-English bilingual LLM trained from scratch, with 68.74% of its Korean pretraining data synthetic; all data, code, training recipes, logs, and checkpoints are released. arXiv 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="KORMo, KORMo-10B, Korean LLM, Korean large language model, fully open model, FOM, open-source LLM, bilingual LLM, Korean-English, synthetic data, pretraining from scratch, tokenizer, model collapse, instruction tuning, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/kormo/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="KORMo: Korean Open Reasoning Model for Everyone">
+  <meta property="og:description" content="KORMo-10B: a fully open 10.8B Korean-English LLM trained from scratch on mostly synthetic Korean data, with data, code, recipes, logs, and checkpoints released.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/kormo/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/kormo/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="732">
+  <meta property="og:image:alt" content="English and Korean benchmark average scores of KORMo-10B rising steadily over 2.8T pretraining tokens across Stage 1 and Stage 2.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KORMo: Korean Open Reasoning Model for Everyone">
+  <meta name="twitter:description" content="A fully open 10.8B Korean-English LLM trained from scratch, mostly on synthetic Korean data.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/kormo/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="KORMo: Korean Open Reasoning Model for Everyone">
+  <meta name="citation_author" content="Kim, Minjun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology (SeoulTech)">
+  <meta name="citation_author" content="Lim, Hyeonseok">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology (SeoulTech)">
+  <meta name="citation_author" content="Yoo, Hangyeol">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology (SeoulTech)">
+  <meta name="citation_author" content="Won, Inho">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Song, Seungwoo">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology (SeoulTech)">
+  <meta name="citation_author" content="Cho, Minkyung">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Yuk, Junghun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Choi, Changsu">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology (SeoulTech)">
+  <meta name="citation_author" content="Shin, Dongjae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology (SeoulTech)">
+  <meta name="citation_author" content="Lee, Huije">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Song, Hoyun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Oh, Alice">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2025/10/10">
+  <meta name="citation_technical_report_institution" content="KAIST">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2510.09426">
+  <meta name="citation_arxiv_id" content="2510.09426">
+  <meta name="citation_doi" content="10.48550/arXiv.2510.09426">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/kormo/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/kormo/#article",
+    "headline": "KORMo: Korean Open Reasoning Model for Everyone",
+    "name": "KORMo: Korean Open Reasoning Model for Everyone",
+    "url": "https://kaist-mlplab.github.io/kormo/",
+    "datePublished": "2025-10-10",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/kormo/static/images/teaser.png",
+    "abstract": "This work presents the first large-scale investigation into constructing a fully open bilingual large language model (LLM) for a non-English language, specifically Korean, trained predominantly on synthetic data. We introduce KORMo-10B, a 10.8B-parameter model trained from scratch on a Korean–English corpus in which 68.74% of the Korean portion is synthetic. Through systematic experimentation, we demonstrate that synthetic data, when carefully curated with balanced linguistic coverage and diverse instruction styles, does not cause instability or degradation during large-scale pretraining. Furthermore, the model achieves performance comparable to that of contemporary open-weight multilingual baselines across a wide range of reasoning, knowledge, and instruction-following benchmarks. Our experiments reveal two key findings: (1) synthetic data can reliably sustain long-horizon pretraining without model collapse, and (2) bilingual instruction tuning enables near-native reasoning and discourse coherence in Korean. By fully releasing all components including data, code, training recipes, and logs, this work establishes a transparent framework for developing synthetic data–driven fully open models (FOMs) in low-resource settings and sets a reproducible precedent for future multilingual LLM research. All model checkpoints, datasets, and source codes are publicly available at huggingface.co/kormo-lm.",
+    "keywords": ["Korean large language model", "fully open model", "bilingual LLM", "Korean-English", "synthetic data", "pretraining from scratch", "tokenizer design", "model collapse", "instruction tuning", "open-source LLM"],
+    "about": [
+      {"@type": "Thing", "name": "Large language models"},
+      {"@type": "Thing", "name": "Korean language"},
+      {"@type": "Thing", "name": "Synthetic data"},
+      {"@type": "Thing", "name": "Open-source software"}
+    ],
+    "author": [
+      {"@type": "Person", "name": "Minjun Kim", "affiliation": [{"@type": "Organization", "name": "KAIST"}, {"@type": "Organization", "name": "SeoulTech"}]},
+      {"@type": "Person", "name": "Hyeonseok Lim", "affiliation": [{"@type": "Organization", "name": "KAIST"}, {"@type": "Organization", "name": "SeoulTech"}]},
+      {"@type": "Person", "name": "Hangyeol Yoo", "affiliation": [{"@type": "Organization", "name": "KAIST"}, {"@type": "Organization", "name": "SeoulTech"}]},
+      {"@type": "Person", "name": "Inho Won", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Seungwoo Song", "affiliation": [{"@type": "Organization", "name": "KAIST"}, {"@type": "Organization", "name": "SeoulTech"}]},
+      {"@type": "Person", "name": "Minkyung Cho", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Junghun Yuk", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Changsu Choi", "affiliation": [{"@type": "Organization", "name": "KAIST"}, {"@type": "Organization", "name": "SeoulTech"}]},
+      {"@type": "Person", "name": "Dongjae Shin", "affiliation": [{"@type": "Organization", "name": "KAIST"}, {"@type": "Organization", "name": "SeoulTech"}]},
+      {"@type": "Person", "name": "Huije Lee", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Hoyun Song", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Alice Oh", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "KyungTae Lim", "affiliation": {"@type": "Organization", "name": "KAIST"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "sameAs": ["https://arxiv.org/abs/2510.09426", "https://doi.org/10.48550/arXiv.2510.09426", "https://huggingface.co/KORMo-Team", "https://huggingface.co/kormo-lm", "https://github.com/MLP-Lab/KORMo-tutorial"],
+    "workExample": [
+      {"@type": "SoftwareApplication", "name": "KORMo-10B-sft", "applicationCategory": "Large language model", "url": "https://huggingface.co/KORMo-Team/KORMo-10B-sft"},
+      {"@type": "SoftwareApplication", "name": "KORMo-10B-base", "applicationCategory": "Large language model", "url": "https://huggingface.co/KORMo-Team/KORMo-10B-base"},
+      {"@type": "SoftwareSourceCode", "name": "KORMo tutorial", "codeRepository": "https://github.com/MLP-Lab/KORMo-tutorial"}
+    ],
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "arXiv", "value": "2510.09426"},
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.48550/arXiv.2510.09426"}
+    ],
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://arxiv.org/pdf/2510.09426"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">KORMo: Korean Open Reasoning Model for Everyone</h1>
+      <p class="subtitle is-5 publication-subtitle">A fully open 10.8B Korean&ndash;English bilingual LLM trained from scratch, mostly on synthetic Korean data</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2025</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Minjun Kim<sup>1,4,*</sup>,</span>
+        <span class="author-block">Hyeonseok Lim<sup>1,4,*</sup>,</span>
+        <span class="author-block">Hangyeol Yoo<sup>1,4,*</sup>,</span>
+        <span class="author-block">Inho Won<sup>1,*</sup>,</span>
+        <span class="author-block">Seungwoo Song<sup>1,4</sup>,</span>
+        <span class="author-block">Minkyung Cho<sup>1</sup>,</span>
+        <span class="author-block">Junghun Yuk<sup>1</sup>,</span>
+        <span class="author-block">Changsu Choi<sup>1,4</sup>,</span>
+        <span class="author-block">Dongjae Shin<sup>1,4</sup>,</span>
+        <span class="author-block">Huije Lee<sup>2</sup>,</span>
+        <span class="author-block">Hoyun Song<sup>1</sup>,</span>
+        <span class="author-block">Alice Oh<sup>3</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>1,&dagger;</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>KAIST MLP Lab</span>
+        <span class="author-block"><sup>2</sup>KAIST NLPCL Lab</span>
+        <span class="author-block"><sup>3</sup>KAIST U&amp;I Lab</span>
+        <span class="author-block"><sup>4</sup>SeoulTech</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Core contributors &nbsp; <sup>&dagger;</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2510.09426">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2510.09426">PDF</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/KORMo-Team/KORMo-10B-sft">Model</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/KORMo-Team">Datasets</a>
+        <a class="button is-dark is-rounded" href="https://github.com/MLP-Lab/KORMo-tutorial">Code (tutorial)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="732"
+           alt="Two line charts of KORMo-10B benchmark averages against trained tokens from 0 to 2.8 trillion. (a) English average rises from about 0.36 to about 0.63 by the end of Stage 1 at roughly 1.0T tokens and to about 0.66 by the end of Stage 2. (b) Korean average rises from about 0.25 to about 0.51 in Stage 1, jumps at the start of Stage 2, and reaches about 0.56 to 0.57, without collapse.">
+      </picture>
+      <figcaption>
+        <strong>Figure 7.</strong> Average English (a) and Korean (b) evaluation scores of KORMo-10B during pretraining. Stage 1 (about 1T
+        tokens, mostly web data) and Stage 2 (1.8T tokens of high-quality web text, synthetic data, and short reasoning data) both improve
+        steadily, showing that large amounts of synthetic data sustain long-horizon pretraining without model collapse. The released base
+        model scores 64.20 (English) and 58.15 (Korean) on average.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        This work presents the first large-scale investigation into constructing a fully open bilingual large language model (LLM) for a
+        non-English language, specifically Korean, trained predominantly on synthetic data. We introduce KORMo-10B, a 10.8B-parameter model
+        trained from scratch on a Korean&ndash;English corpus in which 68.74% of the Korean portion is synthetic. Through systematic
+        experimentation, we demonstrate that synthetic data, when carefully curated with balanced linguistic coverage and diverse instruction
+        styles, does not cause instability or degradation during large-scale pretraining. Furthermore, the model achieves performance
+        comparable to that of contemporary open-weight multilingual baselines across a wide range of reasoning, knowledge, and
+        instruction-following benchmarks. Our experiments reveal two key findings: (1) synthetic data can reliably sustain long-horizon
+        pretraining without model collapse, and (2) bilingual instruction tuning enables near-native reasoning and discourse coherence in
+        Korean. By fully releasing all components including data, code, training recipes, and logs, this work establishes a transparent
+        framework for developing synthetic data&ndash;driven fully open models (FOMs) in low-resource settings and sets a reproducible
+        precedent for future multilingual LLM research. All model checkpoints, datasets, and source codes are publicly available at
+        <a href="https://huggingface.co/kormo-lm">huggingface.co/kormo-lm</a>.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean LLM</span>
+      <span class="tag">Fully open model (FOM)</span>
+      <span class="tag">Open-source LLM</span>
+      <span class="tag">Bilingual Korean&ndash;English</span>
+      <span class="tag">Synthetic pretraining data</span>
+      <span class="tag">Pretraining from scratch</span>
+      <span class="tag">Tokenizer design</span>
+      <span class="tag">Model collapse</span>
+      <span class="tag">Instruction tuning</span>
+      <span class="tag">Low-resource languages</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">How KORMo Was Built</h2>
+    <div class="content has-text-justified">
+      <p>
+        KORMo is a fully open model: besides the weights, the authors release data sources, filtering rules, scripts, hyperparameters, logs,
+        and checkpoints. The pipeline:
+      </p>
+      <ol>
+        <li><strong>Proxy experiments.</strong> In a 1B-parameter, 60B-token proxy setting, a 100% synthetic condition is compared with a
+          100% non-synthetic condition across normalization (Pre-LN vs. MixLN), attention masking, next- vs. multi-token prediction, and
+          learning-rate, batch-size, and sequence-length curricula, to check that synthetic data does not destabilize training.</li>
+        <li><strong>Tokenizer from scratch.</strong> A byte-level BPE tokenizer is trained on a mixture of crawled, synthetic, and code data,
+          with compression compared against commercial tokenizers and its vocabulary screened for biased or harmful Korean tokens. KORMo-10B
+          uses a 125,184-token vocabulary.</li>
+        <li><strong>Two-stage pretraining (2.9T tokens).</strong> Stage 1: about 1T tokens of mostly web data (DCLM 960B, Korean Web 36.3B,
+          Korean-CC 6.2B). Stage 2: 1.8T tokens (1.7T English, 0.1T Korean) of high-quality web text, synthetic data, and short reasoning
+          traces. Korean data is kept above 5% of the mix; synthetic Korean data is generated with several model families (e.g. Qwen and
+          GPT-OSS) for diversity, since a single-source synthetic set caused a failed run.</li>
+        <li><strong>Architecture.</strong> Pre-LN transformer decoder with 10.75B parameters, 40 layers, hidden size 4096, 32 attention heads
+          with 8 key/value heads, SwiGLU, RMSNorm, intra-document attention masking, and next-token prediction.</li>
+        <li><strong>Mid-training and post-training.</strong> Long-context extension and reasoning-trace training, followed by Base SFT and
+          Instruction-Following SFT on bilingual data, plus preference-learning datasets (APO, ORPO) for math and reasoning.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Base model on par with larger fully open models.</strong> KORMo-10B (2.9T tokens) averages 64.20 on English benchmarks,
+          close to OLMo2-13B (65.32, 5.5T tokens), and 58.15 on Korean benchmarks, far above OLMo2-13B (39.34) and SmolLM3-3B (47.37).</li>
+        <li><strong>Competitive with open-weight multilingual models.</strong> It scores 1.84 points higher than Kanana1.5-8B in English but
+          2.79 lower in Korean, with a Korean share of about 5.6% versus a reported 10% for Kanana; its English&ndash;Korean gap is about 6
+          points.</li>
+        <li><strong>Strong instruction following after SFT only.</strong> On GPT-4o-judged benchmarks, KORMo-10B reaches MT-Bench 8.32,
+          KO-MT-Bench 8.54, and LogicKor 8.96, for the highest average (8.61) among the compared models, ahead of Gemma3-12B (8.56) and
+          Qwen3-8B (8.50).</li>
+        <li><strong>Weak spots.</strong> Specialist knowledge (MMLU-Pro 40.18, KMMLU 46.48) and fine-grained lexical-semantic discrimination
+          (KoBALT 22.86) remain below the largest multilingual models.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table" style="font-size:0.85rem">
+        <caption>
+          <strong>Table 21 (subset).</strong> Base-model accuracy (%) of fully open and open-weight multilingual models on English and
+          Korean benchmarks; training tokens in parentheses. Averages are over all 14 English and 9 Korean benchmarks in the paper; a
+          representative subset of benchmarks and models is shown (Gemma3-4B omitted; full table in the paper).
+        </caption>
+        <thead>
+          <tr><th>Benchmark</th><th>KORMo-10B<br><small>(2.9T)</small></th><th>SmolLM3-3B<br><small>(10.7T)</small></th><th>OLMo2-7B<br><small>(4T)</small></th><th>OLMo2-13B<br><small>(5.5T)</small></th><th>Kanana1.5-8B<br><small>(3.2T)</small></th><th>Qwen3-8B<br><small>(36T)</small></th><th>Llama3.1-8B<br><small>(15T)</small></th><th>Gemma3-12B<br><small>(12T)</small></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ARC-Challenge</td><td>58.96</td><td>55.55</td><td>59.13</td><td>61.01</td><td>56.48</td><td>63.82</td><td>54.61</td><td>63.82</td></tr>
+          <tr><td>HellaSwag</td><td>60.25</td><td>56.78</td><td>61.52</td><td>65.02</td><td>59.93</td><td>59.54</td><td>60.96</td><td>63.67</td></tr>
+          <tr><td>MMLU</td><td>67.96</td><td>61.37</td><td>62.81</td><td>66.85</td><td>63.73</td><td>76.95</td><td>65.03</td><td>73.58</td></tr>
+          <tr><td>MMLU-Pro</td><td>40.18</td><td>34.94</td><td>27.29</td><td>32.50</td><td>34.93</td><td>56.58</td><td>36.23</td><td>37.07</td></tr>
+          <tr class="ours"><td><strong>English Avg.</strong></td><td>64.20</td><td>60.80</td><td>62.48</td><td>65.32</td><td>62.36</td><td>68.55</td><td>62.65</td><td>67.72</td></tr>
+          <tr><td>HAE-RAE</td><td>68.29</td><td>55.82</td><td>31.62</td><td>37.58</td><td>80.75</td><td>67.19</td><td>53.25</td><td>74.34</td></tr>
+          <tr><td>K2-Eval</td><td>84.89</td><td>75.23</td><td>49.54</td><td>63.43</td><td>84.72</td><td>84.72</td><td>76.62</td><td>85.42</td></tr>
+          <tr><td>KMMLU</td><td>46.48</td><td>38.52</td><td>33.05</td><td>31.24</td><td>48.86</td><td>56.93</td><td>40.75</td><td>51.60</td></tr>
+          <tr><td>KR-Clinical-QA</td><td>77.32</td><td>53.97</td><td>48.33</td><td>46.22</td><td>65.84</td><td>80.00</td><td>63.54</td><td>77.22</td></tr>
+          <tr class="ours"><td><strong>Korean Avg.</strong></td><td>58.15</td><td>47.37</td><td>35.82</td><td>39.34</td><td>60.94</td><td>63.35</td><td>49.60</td><td>60.37</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="is-size-7 has-text-grey">KORMo-10B, SmolLM3, and OLMo2 are fully open models; Kanana1.5, Qwen3, Llama3.1, and Gemma3 are open-weight models.</p>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{kim2025kormokoreanopenreasoning,
+      title={KORMo: Korean Open Reasoning Model for Everyone},
+      author={Minjun Kim and Hyeonseok Lim and Hangyeol Yoo and Inho Won and Seungwoo Song and Minkyung Cho and Junhun Yuk and Changsu Choi and Dongjae Shin and Huige Lee and Hoyun Song and Alice Oh and Kyungtae Lim},
+      year={2025},
+      eprint={2510.09426},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2510.09426},
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

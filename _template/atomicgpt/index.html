@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>AtomicGPT: A domain-adapted large language model for secure on-premises applications in nuclear engineering</title>
+  <meta name="description" content="AtomicGPT is a secure, on-premises nuclear engineering LLM built by domain adaptation of Gemma2-9B, Qwen2.5-7B, and Exaone4-32B on a 29.1M-token public and 84.7M-token private nuclear corpus; AtomicGPT-Exaone4-32B scores 56 / 34.50% / 8.21 on multiple-choice, short-answer, and descriptive benchmarks, surpassing GPT-4. Nuclear Engineering and Technology 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="AtomicGPT, nuclear engineering LLM, nuclear domain language model, domain adaptation, continual pretraining, instruction tuning, on-premises LLM, secure LLM deployment, data security, domain-specific LLM, Gemma2-9B, Qwen2.5-7B, Exaone4-32B, nuclear power plant, KAERI, hallucination, Nuclear Engineering and Technology 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/atomicgpt/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="AtomicGPT: A domain-adapted large language model for secure on-premises applications in nuclear engineering">
+  <meta property="og:description" content="A secure on-premises LLM for nuclear engineering: AtomicGPT-Exaone4-32B scores 56 / 34.50% / 8.21 on multiple-choice, short-answer, and descriptive tasks, above GPT-4. Nuclear Engineering and Technology 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/atomicgpt/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AtomicGPT: A domain-adapted large language model for secure on-premises applications in nuclear engineering">
+  <meta name="twitter:description" content="A secure on-premises LLM for nuclear engineering: AtomicGPT-Exaone4-32B scores 56 / 34.50% / 8.21 on multiple-choice, short-answer, and descriptive tasks, above GPT-4. Nuclear Engineering and Technology 2026.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="AtomicGPT: A domain-adapted large language model for secure on-premises applications in nuclear engineering">
+  <meta name="citation_author" content="Yeom, Seungdon">
+  <meta name="citation_author_institution" content="Korea Atomic Energy Research Institute">
+  <meta name="citation_author_institution" content="Korea University of Science and Technology">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="Korea Advanced Institute of Science and Technology">
+  <meta name="citation_author" content="Yu, Yonggyun">
+  <meta name="citation_author_institution" content="Korea Atomic Energy Research Institute">
+  <meta name="citation_author_institution" content="Korea University of Science and Technology">
+  <meta name="citation_publication_date" content="2026/07/14">
+  <meta name="citation_journal_title" content="Nuclear Engineering and Technology">
+  <meta name="citation_publisher" content="Elsevier BV">
+  <meta name="citation_volume" content="58">
+  <meta name="citation_issue" content="12">
+  <meta name="citation_firstpage" content="104565">
+  <meta name="citation_doi" content="10.1016/j.net.2026.104565">
+  <meta name="citation_issn" content="1738-5733">
+  <meta name="citation_pdf_url" content="https://www.sciencedirect.com/science/article/pii/S1738573326004535/pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/atomicgpt/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/atomicgpt/#article",
+    "headline": "AtomicGPT: A domain-adapted large language model for secure on-premises applications in nuclear engineering",
+    "name": "AtomicGPT: A domain-adapted large language model for secure on-premises applications in nuclear engineering",
+    "url": "https://kaist-mlplab.github.io/atomicgpt/",
+    "datePublished": "2026-07-14",
+    "inLanguage": "en",
+    "abstract": "The specialized knowledge and strict data security requirements in nuclear engineering limit the direct application of cloud-based, general-purpose large language models. We introduce AtomicGPT, a secure, on-premises, nuclear domain-specific language model developed through domain adaptation of small-scale (Gemma2-9B, Qwen2.5-7B) and large-scale (Exaone4-32B) base models. We curated a two-track nuclear corpus: a public foundation corpus (29.1M tokens) and an extended private corpus (84.7M tokens) incorporating internal technical reports to enhance the domain expertise of the 32B model. Furthermore, we established a comprehensive benchmark suite comprising multiple-choice, short-answer, and descriptive tasks. AtomicGPT consistently outperformed its base models in improving factual accuracy and reducing observed hallucination-like errors. AtomicGPT-Gemma2-9B improved from 23 to 40 (+73.9% relative) on the multiple-choice benchmark. Leveraging the extended private corpus, AtomicGPT-Exaone4-32B achieved scores of 56 (multiple-choice), 34.50% (short-answer), and 8.21 (descriptive), surpassing GPT-4 (48, 31.29%, and 7.70) and remaining competitive with GPT-5-class models (GPT-5:59/33.76%/8.48; GPT-5.1:58/38.66%/8.58; GPT-5.2:74/39.38%/8.68). For security-critical nuclear facilities with restricted cloud access, targeted domain adaptation of on-premises models enables strong, domain-specific performance while maintaining strict data security. This study contributes to the application of natural language processing in nuclear engineering and provides empirical evidence for the feasibility of deploying domain-adapted LLMs in heavily regulated and security-sensitive environments.",
+    "keywords": [
+      "nuclear engineering",
+      "domain-specific large language model",
+      "domain adaptation",
+      "on-premises LLM",
+      "data security",
+      "nuclear domain corpus",
+      "LLM benchmark",
+      "hallucination"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Large language models"
+      },
+      {
+        "@type": "Thing",
+        "name": "Nuclear engineering"
+      },
+      {
+        "@type": "Thing",
+        "name": "Domain adaptation"
+      },
+      {
+        "@type": "Thing",
+        "name": "Information security"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Seungdon Yeom",
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "Korea Atomic Energy Research Institute"
+          },
+          {
+            "@type": "Organization",
+            "name": "Korea University of Science and Technology"
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Korea Advanced Institute of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yonggyun Yu",
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "Korea Atomic Energy Research Institute"
+          },
+          {
+            "@type": "Organization",
+            "name": "Korea University of Science and Technology"
+          }
+        ]
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "PublicationIssue",
+      "issueNumber": "12",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "volumeNumber": "58",
+        "isPartOf": {
+          "@type": "Periodical",
+          "name": "Nuclear Engineering and Technology",
+          "issn": "1738-5733",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Elsevier BV"
+          }
+        }
+      }
+    },
+    "sameAs": [
+      "https://doi.org/10.1016/j.net.2026.104565",
+      "https://www.sciencedirect.com/science/article/pii/S1738573326004535"
+    ],
+    "pagination": "104565",
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.1016/j.net.2026.104565"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://www.sciencedirect.com/science/article/pii/S1738573326004535/pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">AtomicGPT: A domain-adapted large language model for secure on-premises applications in nuclear engineering</h1>
+      <p class="subtitle is-5 publication-subtitle">A nuclear-domain language model built by adapting open-weight LLMs (Gemma2-9B, Qwen2.5-7B, Exaone4-32B) for on-premises use in security-sensitive nuclear facilities</p>
+      <p><span class="tag is-link is-medium venue-badge">Nuclear Engineering and Technology 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Seungdon Yeom<sup>1,2</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>3,&dagger;</sup>,</span>
+        <span class="author-block">Yonggyun Yu<sup>1,2,&dagger;</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Korea Atomic Energy Research Institute (KAERI)</span>
+        <span class="author-block"><sup>2</sup>Korea University of Science and Technology (UST)</span>
+        <span class="author-block"><sup>3</sup>Korea Advanced Institute of Science and Technology (KAIST)</span>
+      </p>
+      <p class="publication-notes"><sup>&dagger;</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://doi.org/10.1016/j.net.2026.104565">Paper (Nuclear Engineering and Technology)</a>
+        <a class="button is-dark is-rounded" href="https://www.sciencedirect.com/science/article/pii/S1738573326004535/pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/KAERI-MLP">Models</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        The specialized knowledge and strict data security requirements in nuclear engineering limit the direct application of cloud-based, general-purpose large language models. We introduce AtomicGPT, a secure, on-premises, nuclear domain-specific language model developed through domain adaptation of small-scale (Gemma2-9B, Qwen2.5-7B) and large-scale (Exaone4-32B) base models. We curated a two-track nuclear corpus: a public foundation corpus (29.1M tokens) and an extended private corpus (84.7M tokens) incorporating internal technical reports to enhance the domain expertise of the 32B model. Furthermore, we established a comprehensive benchmark suite comprising multiple-choice, short-answer, and descriptive tasks. AtomicGPT consistently outperformed its base models in improving factual accuracy and reducing observed hallucination-like errors. AtomicGPT-Gemma2-9B improved from 23 to 40 (+73.9% relative) on the multiple-choice benchmark. Leveraging the extended private corpus, AtomicGPT-Exaone4-32B achieved scores of 56 (multiple-choice), 34.50% (short-answer), and 8.21 (descriptive), surpassing GPT-4 (48, 31.29%, and 7.70) and remaining competitive with GPT-5-class models (GPT-5:59/33.76%/8.48; GPT-5.1:58/38.66%/8.58; GPT-5.2:74/39.38%/8.68). For security-critical nuclear facilities with restricted cloud access, targeted domain adaptation of on-premises models enables strong, domain-specific performance while maintaining strict data security. This study contributes to the application of natural language processing in nuclear engineering and provides empirical evidence for the feasibility of deploying domain-adapted LLMs in heavily regulated and security-sensitive environments.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Nuclear engineering LLM</span>
+      <span class="tag">Domain adaptation</span>
+      <span class="tag">On-premises / air-gapped LLM</span>
+      <span class="tag">Data security</span>
+      <span class="tag">Domain-specific corpus</span>
+      <span class="tag">Nuclear QA benchmark</span>
+      <span class="tag">Hallucination reduction</span>
+      <span class="tag">Gemma2 / Qwen2.5 / Exaone4</span>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Findings</h2>
+    <div class="content">
+      <p>As stated in the published abstract:</p>
+      <ul>
+        <li><strong>Two-track nuclear corpus.</strong> A public foundation corpus of 29.1M tokens, plus an extended private corpus of 84.7M tokens
+          that adds internal technical reports, used for the 32B model.</li>
+        <li><strong>Consistent gains over base models.</strong> AtomicGPT-Gemma2-9B improved from 23 to 40 (+73.9% relative) on the multiple-choice benchmark.</li>
+        <li><strong>Above GPT-4 on-premises.</strong> AtomicGPT-Exaone4-32B scored 56 (multiple-choice), 34.50% (short-answer), and 8.21 (descriptive),
+          versus 48, 31.29%, and 7.70 for GPT-4.</li>
+        <li><strong>Competitive with GPT-5-class models.</strong> GPT-5: 59 / 33.76% / 8.48; GPT-5.1: 58 / 38.66% / 8.58; GPT-5.2: 74 / 39.38% / 8.68
+          (multiple-choice / short-answer / descriptive).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@article{Yeom_2026,
+  title={AtomicGPT: A domain-adapted large language model for secure on-premises applications in nuclear engineering},
+  volume={58},
+  ISSN={1738-5733},
+  url={http://dx.doi.org/10.1016/j.net.2026.104565},
+  DOI={10.1016/j.net.2026.104565},
+  number={12},
+  journal={Nuclear Engineering and Technology},
+  publisher={Elsevier BV},
+  author={Yeom, Seungdon and Lim, KyungTae and Yu, Yonggyun},
+  year={2026},
+  month=Dec,
+  pages={104565}
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

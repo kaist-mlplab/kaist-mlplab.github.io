@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>A Linguistically-Informed Annotation Strategy for Korean Semantic Role Labeling</title>
+  <meta name="description" content="A linguistically-informed annotation strategy for Korean semantic role labeling (SRL) in which arguments include their case-marking postpositions, with a conversion of the Sejong verb dictionary into a CoNLL-style SRL dataset; a KoELECTRA sequence labeler reaches 0.954 exact-match F1. LREC-COLING 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="Korean semantic role labeling, Korean SRL, semantic role labeling, predicate-argument structure, Sejong dictionary, Sejong verb dictionary, CoNLL format, Korean PropBank, NIKL SRL, postpositions, case marking, annotation scheme, KoELECTRA, Korean NLP, LREC-COLING 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/korean-srl-annotation/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="A Linguistically-Informed Annotation Strategy for Korean Semantic Role Labeling">
+  <meta property="og:description" content="Korean semantic role labeling: argument-based annotation strategy and a CoNLL-style SRL dataset converted from the Sejong verb dictionary (0.954 exact F1). LREC-COLING 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/korean-srl-annotation/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/korean-srl-annotation/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="251">
+  <meta property="og:image:alt" content="A Korean sentence split into four chunks labeled nominative, accusative, adjunct, and TARGET for semantic role labeling.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A Linguistically-Informed Annotation Strategy for Korean SRL">
+  <meta name="twitter:description" content="Korean semantic role labeling: argument-based annotation strategy and a CoNLL-style SRL dataset converted from the Sejong verb dictionary (0.954 exact F1). LREC-COLING 2024.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/korean-srl-annotation/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="A Linguistically-Informed Annotation Strategy for Korean Semantic Role Labeling">
+  <meta name="citation_author" content="Chen, Yige">
+  <meta name="citation_author_institution" content="The Chinese University of Hong Kong, Hong Kong">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="SeoulTech, South Korea">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="The University of British Columbia, Canada">
+  <meta name="citation_publication_date" content="2024/05">
+  <meta name="citation_conference_title" content="Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)">
+  <meta name="citation_publisher" content="ELRA and ICCL">
+  <meta name="citation_firstpage" content="733">
+  <meta name="citation_lastpage" content="738">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2024.lrec-main.65.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/korean-srl-annotation/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/korean-srl-annotation/#article",
+    "headline": "A Linguistically-Informed Annotation Strategy for Korean Semantic Role Labeling",
+    "name": "A Linguistically-Informed Annotation Strategy for Korean Semantic Role Labeling",
+    "url": "https://kaist-mlplab.github.io/korean-srl-annotation/",
+    "datePublished": "2024-05",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/korean-srl-annotation/static/images/teaser.png",
+    "abstract": "Semantic role labeling is an essential component of semantic and syntactic processing of natural languages, which reveals the predicate-argument structure of the language. Despite its importance, semantic role labeling for the Korean language has not been studied extensively. One notable issue is the lack of uniformity among data annotation strategies across different datasets, which often lack thorough rationales. In this study, we suggest an annotation strategy for Korean semantic role labeling that is in line with the previously proposed linguistic theories as well as the distinct properties of the Korean language. We further propose a simple yet viable conversion strategy from the Sejong verb dictionary to a CoNLL-style dataset for Korean semantic role labeling. Experiment results using a transformer-based sequence labeling model demonstrate the reliability and trainability of the converted dataset.",
+    "keywords": [
+      "Korean semantic role labeling",
+      "semantic role labeling",
+      "SRL",
+      "predicate-argument structure",
+      "Sejong dictionary",
+      "CoNLL format",
+      "Korean PropBank",
+      "annotation scheme",
+      "Korean NLP"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Semantic role labeling"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Linguistic annotation"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Yige Chen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The Chinese University of Hong Kong, Hong Kong"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "SeoulTech, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia, Canada"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)",
+      "publisher": {
+        "@type": "Organization",
+        "name": "ELRA and ICCL"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2024.lrec-main.65/"
+    ],
+    "pagination": "733-738",
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2024.lrec-main.65.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">A Linguistically-Informed Annotation Strategy for Korean Semantic Role Labeling</h1>
+      <p class="subtitle is-5 publication-subtitle">Korean semantic role labeling data converted from the Sejong verb dictionary into CoNLL-style format</p>
+      <p><span class="tag is-link is-medium venue-badge">LREC-COLING 2024</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Yige Chen<sup>1</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>2,‡</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>3</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>The Chinese University of Hong Kong, Hong Kong</span>
+        <span class="author-block"><sup>2</sup>SeoulTech, South Korea</span>
+        <span class="author-block"><sup>3</sup>The University of British Columbia, Canada</span>
+      </p>
+      <p class="publication-notes"><sup>‡</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.lrec-main.65/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.lrec-main.65.pdf">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="251"
+           alt="The Korean sentence &quot;산자부 장관은 이 본부장을 본부장직에서 사직시켰다&quot; (sanjabu jang-gwan-eun i bonbujang-eul bonbujangjig-eseo sajigsikyeossda) split into four chunks: [nom Minister of Industry], [acc Director Lee], [ajt position of general manager], and [TARGET made resign]. Translation: The Minister of Commerce, Industry and Energy resigned Director Lee from his position as Director.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2 (paper).</strong> A Korean sentence split into chunks for semantic role labeling: the nominative subject, the accusative object, an adjunct (<em>ajt</em>) and the target verb. Arguments can span more than one word (eojeol), and each chunk keeps its case-marking postposition (e.g. <em>-eun</em>, <em>-eul</em>, <em>-eseo</em>).
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Semantic role labeling is an essential component of semantic and syntactic processing of natural languages, which reveals the predicate-argument structure of the language. Despite its importance, semantic role labeling for the Korean language has not been studied extensively. One notable issue is the lack of uniformity among data annotation strategies across different datasets, which often lack thorough rationales. In this study, we suggest an annotation strategy for Korean semantic role labeling that is in line with the previously proposed linguistic theories as well as the distinct properties of the Korean language. We further propose a simple yet viable conversion strategy from the Sejong verb dictionary to a CoNLL-style dataset for Korean semantic role labeling. Experiment results using a transformer-based sequence labeling model demonstrate the reliability and trainability of the converted dataset.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean semantic role labeling (SRL)</span>
+      <span class="tag">Predicate-argument structure</span>
+      <span class="tag">Arguments vs. modifiers</span>
+      <span class="tag">Sejong verb dictionary</span>
+      <span class="tag">CoNLL-style dataset</span>
+      <span class="tag">Korean PropBank</span>
+      <span class="tag">Case-marking postpositions</span>
+      <span class="tag">Annotation scheme</span>
+      <span class="tag">Korean NLP</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Annotation Strategy and Conversion</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/sejong-entry.webp" type="image/webp">
+        <img src="static/images/sejong-entry.png" width="1777" height="1277" loading="lazy" style="max-width:520px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="XML entry from the Sejong verb dictionary for the verb 부치다 (buchida) in the sense &quot;be beyond (one&#x27;s capacity)&quot;, showing its subcategorization frame X=N0-이 Y=N1-에|에게 V, the semantic roles of X (THM) and Y (CRT), and the example sentences 그 일은 네 힘에 부친다 and 철수는 나에게 부친다.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1 (paper).</strong> Entry for the lexeme 부치다 (<em>buchida</em>, &ldquo;be beyond (one's capacity)&rdquo;) in the Sejong verb dictionary. Each sense lists its subcategorization frame (<code>frame</code>), the semantic roles of its arguments (<code>sel_rst</code>) and example sentences (<code>eg</code>), which are the input of the conversion.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        Korean is an agglutinative, subject-object-verb (SOV) language in which postpositions attached to a word usually mark its case
+        (e.g. 이/가 <em>i/ga</em> nominative, 을/를 <em>(l-)eul</em> accusative, 에서 <em>eseo</em> locative/ablative). Following Categorial Grammar,
+        the paper defines <em>arguments</em> as syntactically mandatory and semantically necessary constituents that bear case and appear in the
+        predicate's subcategorization frame; every other constituent is a <em>modifier</em>. Two consequences for annotation:
+      </p>
+      <ul>
+        <li>An argument may span several words (eojeol), which the word-level Korean PropBank SRL data (about 186,300 tokens) cannot represent.</li>
+        <li>The case-marking postposition belongs to the argument, whereas the NIKL SRL data (about 2,000,000 tokens) label only the lexical morphemes.</li>
+      </ul>
+      <p>The Sejong verb dictionary is then converted into a CoNLL-style SRL dataset:</p>
+      <ol>
+        <li><strong>Morphological analysis.</strong> Example sentences are POS-tagged with a morpheme-level tagger and merged back into word-level tokens.</li>
+        <li><strong>Dependency parsing.</strong> Stanza adds heads and dependency relations to each word.</li>
+        <li><strong>Chunking.</strong> The segment before the target verb is split into candidate argument chunks, closing a chunk whenever a token ends with a postposition (according to its XPOS tag).</li>
+        <li><strong>Chunk-frame alignment.</strong> Each argument in the subcategorization frame is assigned, left to right, to the first unlabeled chunk carrying the same postposition. Labels use the BIO scheme with argument indices 0 to 3 inherited from the frame.</li>
+      </ol>
+      <p>
+        Sentences with null (phonologically covert) postpositions or with the auxiliary postposition 도 (<em>do</em>, &lsquo;as well&rsquo;),
+        which replaces the case marker, cannot be aligned and are removed from the final dataset. The converted instance of the example
+        sentence from Figure 1 (&ldquo;The task is beyond your strength.&rdquo;) looks like this (Figure 3 in the paper):
+      </p>
+      <pre lang="ko"># text = 그 일은 네 힘에 부친다.
+# target = 부치다
+# frame = X=N0-이 Y=N1-에|에게 V
+# arg="X" tht="THM", (일)|인간
+# arg="Y" tht="CRT", 인간|(힘|능력)
+1  그      그        DET    MM        2  det         B-ARG0
+2  일은    일+은     NOUN   NNG+JX    5  dislocated  I-ARG0
+3  네      네        DET    MM        4  nummod      B-ARG1
+4  힘에    힘+에     NOUN   NNG+JKB   5  obl         I-ARG1
+5  부친다  부치+는다 VERB   VV+EF     0  root        TARGET
+6  .       .         PUNCT  SF        5  punct       O</pre>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Trainable converted data.</strong> A KoELECTRA-Base-v3 sequence labeler trained on 20,437 converted sentences (2-fold cross-validation) reaches exact-match precision 0.946 &plusmn; 0.003, recall 0.971 &plusmn; 0.002 and F1 0.954 &plusmn; 0.003.</li>
+        <li><strong>Multi-word arguments.</strong> Arguments are annotated as BIO spans over chunks, so an argument can cover several eojeol, unlike the word-level Korean PropBank SRL dataset.</li>
+        <li><strong>Case-bearing arguments.</strong> The postposition that carries the case is kept inside the argument span, unlike the NIKL SRL annotation that labels only the lexical part.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Korean SRL on the converted Sejong dataset with KoELECTRA-Base-v3: cross-validation results
+          (mean &plusmn; standard deviation) of exact matches on the test set (Table 2 in the paper).
+        </caption>
+        <thead>
+          <tr><th>Precision</th><th>Recall</th><th>F1</th></tr>
+        </thead>
+        <tbody>
+          <tr class="ours"><td>0.946 &plusmn; 0.003</td><td>0.971 &plusmn; 0.002</td><td>0.954 &plusmn; 0.003</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{chen-etal-2024-linguistically,
+    title = "A Linguistically-Informed Annotation Strategy for {K}orean Semantic Role Labeling",
+    author = "Chen, Yige  and
+      Lim, KyungTae  and
+      Park, Jungyeul",
+    editor = "Calzolari, Nicoletta  and
+      Kan, Min-Yen  and
+      Hoste, Veronique  and
+      Lenci, Alessandro  and
+      Sakti, Sakriani  and
+      Xue, Nianwen",
+    booktitle = "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation ({LREC}-{COLING} 2024)",
+    month = may,
+    year = "2024",
+    address = "Torino, Italia",
+    publisher = "ELRA and ICCL",
+    url = "https://aclanthology.org/2024.lrec-main.65/",
+    pages = "733--738"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

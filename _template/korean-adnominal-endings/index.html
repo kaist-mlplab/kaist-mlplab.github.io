@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Annotating Korean adnominal ending constructions in corpus data: Beyond relative-clause identification</title>
+  <meta name="description" content="A corpus-based typology of the Korean adnominal ending ETM, applied as a construction-sensitive annotation layer to the KLUE dependency treebank: only 39.4% of 13,046 ETM instances are relative-clause-like, so relative clauses cannot be identified from adnominal morphology alone. arXiv 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="Korean adnominal ending, ETM, Korean relative clauses, adnominal constructions, noun-modifying clauses, corpus annotation, treebank annotation, KLUE dependency treebank, Sejong corpus, bound nouns, construction grammar, Korean linguistics, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/korean-adnominal-endings/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Annotating Korean adnominal ending constructions in corpus data: Beyond relative-clause identification">
+  <meta property="og:description" content="A construction-sensitive annotation layer for the Korean adnominal ending ETM on the KLUE treebank: only 39.4% of 13,046 instances are relative-clause-like. arXiv 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/korean-adnominal-endings/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/korean-adnominal-endings/static/images/teaser.png">
+  <meta property="og:image:width" content="2600">
+  <meta property="og:image:height" content="669">
+  <meta property="og:image:alt" content="KLUE dependency tree of a Korean sentence with morphological tags, including the adnominal form nop-eun (VA+ETM).">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Annotating Korean adnominal ending constructions in corpus data: Beyond relative-clause identification">
+  <meta name="twitter:description" content="A construction-sensitive annotation layer for the Korean adnominal ending ETM on the KLUE treebank: only 39.4% of 13,046 instances are relative-clause-like. arXiv 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/korean-adnominal-endings/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Annotating Korean adnominal ending constructions in corpus data: Beyond relative-clause identification">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Park, Chulwoo">
+  <meta name="citation_author_institution" content="Anyang University">
+  <meta name="citation_publication_date" content="2026/07/04">
+  <meta name="citation_publisher" content="arXiv">
+  <meta name="citation_arxiv_id" content="2607.03681">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2607.03681">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/korean-adnominal-endings/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/korean-adnominal-endings/#article",
+    "headline": "Annotating Korean adnominal ending constructions in corpus data: Beyond relative-clause identification",
+    "name": "Annotating Korean adnominal ending constructions in corpus data: Beyond relative-clause identification",
+    "url": "https://kaist-mlplab.github.io/korean-adnominal-endings/",
+    "datePublished": "2026-07-04",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/korean-adnominal-endings/static/images/teaser.png",
+    "abstract": "The Korean adnominal ending ETM occurs in diverse noun-modifying constructions, including relative-clause-like modifiers, adjectival and copular forms, bound-noun constructions, and lexicalized expressions. This paper argues that ETM is not a direct marker of relative-clause structure, but a morphological exponent shared by several adnominal constructions. We propose a corpus-based typology that distinguishes these constructions using predicate type, auxiliary structure, argument-structural compatibility, head-noun restriction, and lexicalized patterns. We operationalize the typology as a construction-sensitive annotation layer for the KLUE dependency treebank, implemented through an ordered rule-based procedure and evaluated by manual validation. Productive relative-clause-like uses account for 39.4% of the analyzed instances; the remainder consists mainly of adjectival, copular, bound-nominal, modal, temporal, and collocational constructions. The findings show that Korean relative-clause-like modification cannot be identified from adnominal morphology alone.",
+    "keywords": [
+      "Korean adnominal ending",
+      "ETM",
+      "Korean relative clauses",
+      "adnominal constructions",
+      "corpus annotation",
+      "treebank annotation",
+      "KLUE dependency treebank",
+      "Sejong corpus",
+      "construction typology"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Relative clauses"
+      },
+      {
+        "@type": "Thing",
+        "name": "Corpus linguistics"
+      },
+      {
+        "@type": "Thing",
+        "name": "Treebank annotation"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Chulwoo Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Anyang University"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "arXiv",
+      "url": "https://arxiv.org/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2607.03681"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2607.03681"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2607.03681"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Annotating Korean adnominal ending constructions in corpus data: Beyond relative-clause identification</h1>
+      <p class="subtitle is-5 publication-subtitle">A construction-sensitive annotation layer for the Korean adnominal ending ETM in the KLUE dependency treebank</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Jungyeul Park<sup>1,&dagger;</sup>,</span>
+        <span class="author-block">Chulwoo Park<sup>2,&dagger;</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>KAIST, South Korea</span>
+        <span class="author-block"><sup>2</sup>Anyang University, South Korea</span>
+      </p>
+      <p class="publication-notes"><sup>&dagger;</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2607.03681">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2607.03681">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2600" height="669"
+           alt="Sejong-style dependency tree from the KLUE treebank for the sentence &#x27;François Hollande, the President of France, announced the highest level of a terror alert in Paris on this day&#x27;. Each eojeol shows Hangul, morpheme segmentation, POS tags, romanization, and gloss; arcs are labeled NP, NP_SBJ, NP_AJT, NP_MOD, NP_OBJ, AP, VP_MOD, and VP, with the root on ballyeonghaetda &#x27;announced&#x27;. The adnominal form nop-eun &#x27;high&#x27; is tagged VA+ETM and attached as VP_MOD.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> An example from the KLUE dependency treebank (sentence meaning: &lsquo;Fran&ccedil;ois Hollande, the President of
+        France, announced the highest level of a terror alert in Paris on this day.&rsquo;). Tokens are eojeol units with Sejong POS tags; the adnominal
+        form <em>nop-eun</em> &lsquo;high&rsquo; (VA+ETM) only receives the broad label <code>VP_MOD</code>, which does not say what kind of adnominal
+        construction it realizes.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        The Korean adnominal ending <code>ETM</code> occurs in diverse noun-modifying constructions, including relative-clause-like modifiers, adjectival and copular forms, bound-noun constructions, and lexicalized expressions. This paper argues that <code>ETM</code> is not a direct marker of relative-clause structure, but a morphological exponent shared by several adnominal constructions. We propose a corpus-based typology that distinguishes these constructions using predicate type, auxiliary structure, argument-structural compatibility, head-noun restriction, and lexicalized patterns. We operationalize the typology as a construction-sensitive annotation layer for the KLUE dependency treebank, implemented through an ordered rule-based procedure and evaluated by manual validation. Productive relative-clause-like uses account for 39.4% of the analyzed instances; the remainder consists mainly of adjectival, copular, bound-nominal, modal, temporal, and collocational constructions. The findings show that Korean relative-clause-like modification cannot be identified from adnominal morphology alone.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean adnominal ending (ETM)</span>
+      <span class="tag">Korean relative clauses</span>
+      <span class="tag">Adnominal / noun-modifying constructions</span>
+      <span class="tag">Corpus annotation</span>
+      <span class="tag">Treebank annotation</span>
+      <span class="tag">KLUE dependency treebank</span>
+      <span class="tag">Sejong corpus</span>
+      <span class="tag">Bound nouns</span>
+      <span class="tag">Construction typology</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Typology and Annotation Procedure</h2>
+    <div class="content has-text-justified">
+      <p>
+        In Sejong-style treebanks such as the KLUE dependency treebank, adnominally marked predicates are grouped under broad labels like
+        <code>vp_mod</code>, while Korean UD spreads them over <code>acl:relcl</code>, <code>amod</code>, <code>advcl</code>, <code>flat</code>,
+        <code>conj</code>, and <code>dep</code>. Neither gives a transparent constructional classification of <code>ETM</code>. The paper adds a
+        separate construction-sensitive layer on top of KLUE: every eojeol in the KLUE training split whose morphological analysis contains
+        <code>ETM</code> is extracted with its morpheme sequence, following nominal head (its dependency head), and local dependents, and the
+        Sejong lexical resource is consulted for predicate class and subcategorization in difficult cases.
+      </p>
+      <p>Labels are assigned by an ordered rule procedure (Algorithm 1) that tests more specific, constructionally restricted patterns before
+        productive relative-clause-like ones, so that expressions such as <em>-e daehan</em> N &lsquo;N concerning&rsquo;, Verb+ETM <em>ttae</em>
+        &lsquo;when&rsquo;, and <em>su itda/eopda</em> &lsquo;can/cannot&rsquo; are not over-analyzed as relative clauses:</p>
+      <ol>
+        <li><code>colloc+etm</code>: lexicalized ETM + noun sequences (collocational or semi-fixed modifiers)</li>
+        <li><code>modif+adj+etm</code>: VA+ETM + noun (adjectival modifier)</li>
+        <li><code>modif+vcp+etm</code>: copular or negative copular adnominal form + noun</li>
+        <li><code>modif+ndaneun+etm</code>: VV + <em>-neundaneun/-ndaneun</em> + noun (content-like or quotative modifier)</li>
+        <li><code>modif+su-iss+etm</code>: <em>su</em> &lsquo;possibility/way&rsquo; + <em>iss/eops</em>+ETM + noun (modal construction)</li>
+        <li><code>modif+etm+ttae</code>: Verb+ETM + <em>ttae</em> &lsquo;time&rsquo; (temporal construction)</li>
+        <li><code>modif+etm+nnb</code>: Verb+ETM + bound noun, e.g. <em>geos</em> &lsquo;thing&rsquo;</li>
+        <li><code>modif+vx+vx+etm</code>: auxiliary complex + ETM + noun</li>
+        <li><code>rc+vv+vx+etm</code>, <code>rc+va+vx+etm</code>, <code>rc+vv+etm</code>: productive relative-clause-like modifiers (verb or adjective with an
+          auxiliary complex, then the canonical VV/XSV+ETM + noun)</li>
+        <li><code>undefined</code>: annotation errors or structurally insufficient cases</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Relative clauses are a minority.</strong> Of 13,046 <code>ETM</code> tokens in the KLUE training data, the three relative-clause-like
+          classes account for 5,135 (39.4%); non-relative and construction-specific classes account for 7,828 (60.0%), and 83 (0.6%) are <code>undefined</code>.</li>
+        <li><strong>Morphology-based identification overgenerates.</strong> Treating every <code>ETM</code> as a relative-clause marker would overgenerate
+          7,911 of 13,046 instances (60.6%); excluding unresolved cases, the overgeneration rate is still 60.4%.</li>
+        <li><strong>Largest classes.</strong> <code>rc+vv+etm</code> (4,816) is the single largest class, followed by adjectival modifiers
+          <code>modif+adj+etm</code> (3,394), bound-noun constructions <code>modif+etm+nnb</code> (2,774), copular modifiers (842), and collocations (563).</li>
+        <li><strong>Reliable automatic labels.</strong> On a category-stratified sample of 85 instances, two annotators agreed on 78 (91.8%; 95% Wilson CI
+          84.0&ndash;96.0%; Cohen&rsquo;s &kappa; = 0.677). Among the 77 instances with two definite judgments, the automatic label was accepted in 70 (90.9%).
+          Errors came mainly from predicate-class ambiguity and the boundary between bound-noun constructions and relative-clause-like modifiers.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 3.</strong> Distribution of <code>ETM</code> types in the KLUE training data. (Table 3 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Type</th><th>Count</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>colloc+etm</code></td><td>563</td></tr>
+          <tr><td><code>modif+adj+etm</code></td><td>3394</td></tr>
+          <tr><td><code>modif+etm+ttae</code></td><td>119</td></tr>
+          <tr><td><code>modif+etm+nnb</code></td><td>2774</td></tr>
+          <tr><td><code>modif+ndaneun+etm</code></td><td>68</td></tr>
+          <tr><td><code>modif+su-iss+etm</code></td><td>65</td></tr>
+          <tr><td><code>modif+vcp+etm</code></td><td>842</td></tr>
+          <tr><td><code>modif+vx+vx+etm</code></td><td>3</td></tr>
+          <tr><td><code>rc+vv+etm</code></td><td>4816</td></tr>
+          <tr><td><code>rc+vv+vx+etm</code></td><td>293</td></tr>
+          <tr><td><code>rc+va+vx+etm</code></td><td>26</td></tr>
+          <tr><td><code>undefined</code></td><td>83</td></tr>
+          <tr><td><strong>Total</strong></td><td><strong>13,046</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{park2026annotatingkoreanadnominalending,
+      title={Annotating Korean adnominal ending constructions in corpus data: Beyond relative-clause identification}, 
+      author={Jungyeul Park and Chulwoo Park},
+      year={2026},
+      eprint={2607.03681},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2607.03681}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

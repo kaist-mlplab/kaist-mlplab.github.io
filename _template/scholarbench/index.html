@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>ScholarBench: A Bilingual Benchmark for Abstraction, Comprehension, and Reasoning Evaluation in Academic Contexts</title>
+  <meta name="description" content="ScholarBench is an English-Korean bilingual LLM benchmark built from academic papers in eight research domains, with 5,309 English and 5,031 Korean examples over five question types; even o3-mini reaches an average score of only 0.543. Findings of EMNLP 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="ScholarBench, academic benchmark, scholarly question answering, LLM evaluation, domain-specific benchmark, bilingual benchmark, Korean LLM benchmark, English-Korean, academic reasoning, summarization, reading comprehension, multiple-choice QA, GPT-4o, o3-mini, Findings of EMNLP 2025, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/scholarbench/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="ScholarBench: A Bilingual Benchmark for Abstraction, Comprehension, and Reasoning Evaluation in Academic Contexts">
+  <meta property="og:description" content="An English-Korean benchmark of 10,340 academic-paper questions across eight research domains; o3-mini averages only 0.543. Findings of EMNLP 2025.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/scholarbench/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/scholarbench/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="1066">
+  <meta property="og:image:alt" content="Taxonomy of the eight ScholarBench academic categories (Business Studies, Chemical Biosciences, Engineering, Physics &amp; Mathematics, Earth &amp; Life Sciences, Medical Science, Socio-Professional Studies, Liberal Arts &amp; Social Sciences) and their question attributes.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ScholarBench: A Bilingual Benchmark for Academic Abstraction, Comprehension, and Reasoning">
+  <meta name="twitter:description" content="An English-Korean benchmark of 10,340 academic-paper questions across eight research domains; o3-mini averages only 0.543. Findings of EMNLP 2025.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/scholarbench/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="ScholarBench: A Bilingual Benchmark for Abstraction, Comprehension, and Reasoning Evaluation in Academic Contexts">
+  <meta name="citation_author" content="Noh, Dongwon">
+  <meta name="citation_author_institution" content="HBNU">
+  <meta name="citation_author" content="Koh, Donghyeok">
+  <meta name="citation_author_institution" content="HBNU">
+  <meta name="citation_author" content="Yuk, Junghun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Kim, Gyuwan">
+  <meta name="citation_author_institution" content="UCSB">
+  <meta name="citation_author" content="Lee, Jae Yong">
+  <meta name="citation_author_institution" content="KISTI">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Park, Cheoneum">
+  <meta name="citation_author_institution" content="HBNU">
+  <meta name="citation_publication_date" content="2025/11">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: EMNLP 2025">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="8750">
+  <meta name="citation_lastpage" content="8782">
+  <meta name="citation_doi" content="10.18653/v1/2025.findings-emnlp.465">
+  <meta name="citation_isbn" content="979-8-89176-335-7">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2025.findings-emnlp.465.pdf">
+  <meta name="citation_arxiv_id" content="2505.16566">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/scholarbench/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/scholarbench/#article",
+    "headline": "ScholarBench: A Bilingual Benchmark for Abstraction, Comprehension, and Reasoning Evaluation in Academic Contexts",
+    "name": "ScholarBench: A Bilingual Benchmark for Abstraction, Comprehension, and Reasoning Evaluation in Academic Contexts",
+    "url": "https://kaist-mlplab.github.io/scholarbench/",
+    "datePublished": "2025-11",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/scholarbench/static/images/teaser.png",
+    "abstract": "Prior benchmarks for evaluating the domain-specific knowledge of large language models (LLMs) lack the scalability to handle complex academic tasks. To address this, we introduce ScholarBench, a benchmark centered on deep expert knowledge and complex academic problem-solving, which evaluates the academic reasoning ability of LLMs and is constructed through a three-step process. ScholarBench targets more specialized and logically complex contexts derived from academic literature, encompassing five distinct problem types. Unlike prior benchmarks, ScholarBench evaluates the abstraction, comprehension, and reasoning capabilities of LLMs across eight distinct research domains. To ensure high-quality evaluation data, we define category-specific example attributes and design questions that are aligned with the characteristic research methodologies and discourse structures of each domain. Additionally, this benchmark operates as an English-Korean bilingual dataset, facilitating simultaneous evaluation for linguistic capabilities of LLMs in both languages. The benchmark comprises 5,031 examples in Korean and 5,309 in English, with even state-of-the-art models like o3-mini achieving an average evaluation score of only 0.543, demonstrating the challenging nature of this benchmark.",
+    "keywords": [
+      "academic benchmark",
+      "scholarly question answering",
+      "LLM evaluation",
+      "domain-specific benchmark",
+      "bilingual benchmark",
+      "English-Korean",
+      "Korean LLM benchmark",
+      "academic reasoning",
+      "summarization",
+      "reading comprehension"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Large language model evaluation"
+      },
+      {
+        "@type": "Thing",
+        "name": "Benchmark datasets"
+      },
+      {
+        "@type": "Thing",
+        "name": "Academic reasoning"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Dongwon Noh",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "HBNU"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Donghyeok Koh",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "HBNU"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Junghun Yuk",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Gyuwan Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "UCSB"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jae Yong Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KISTI"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Cheoneum Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "HBNU"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Findings of the Association for Computational Linguistics: EMNLP 2025",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2025.findings-emnlp.465/",
+      "https://arxiv.org/abs/2505.16566",
+      "https://doi.org/10.18653/v1/2025.findings-emnlp.465",
+      "https://github.com/hbnu-kilab/ScholarBench"
+    ],
+    "pagination": "8750-8782",
+    "workExample": {
+      "@type": "SoftwareSourceCode",
+      "name": "ScholarBench (code and dataset)",
+      "codeRepository": "https://github.com/hbnu-kilab/ScholarBench"
+    },
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.18653/v1/2025.findings-emnlp.465"
+      },
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2505.16566"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2025.findings-emnlp.465.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">ScholarBench: A Bilingual Benchmark for Abstraction, Comprehension, and Reasoning Evaluation in Academic Contexts</h1>
+      <p class="subtitle is-5 publication-subtitle">An English–Korean benchmark of academic-paper questions across eight research domains</p>
+      <p><span class="tag is-link is-medium venue-badge">Findings of EMNLP 2025</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Dongwon Noh<sup>1,*</sup>,</span>
+        <span class="author-block">Donghyeok Koh<sup>1,*</sup>,</span>
+        <span class="author-block">Junghun Yuk<sup>2,*</sup>,</span>
+        <span class="author-block">Gyuwan Kim<sup>3,*</sup>,</span>
+        <span class="author-block">Jae Yong Lee<sup>4</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>2,†</sup>,</span>
+        <span class="author-block">Cheoneum Park<sup>1,†</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>HBNU</span>
+        <span class="author-block"><sup>2</sup>KAIST</span>
+        <span class="author-block"><sup>3</sup>UCSB</span>
+        <span class="author-block"><sup>4</sup>KISTI</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution &nbsp; <sup>†</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.findings-emnlp.465/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.findings-emnlp.465.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2505.16566">arXiv</a>
+        <a class="button is-dark is-rounded" href="https://github.com/hbnu-kilab/ScholarBench">Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="1066"
+           alt="Grid of eight academic categories, each listing its question attributes: Business Studies (e.g. trend analysis, economic forecasting), Chemical Biosciences (e.g. biochemical mechanisms, sample preparation), Engineering (e.g. system evaluation, social impact), Physics & Mathematics (e.g. arithmetic, model and theory validation), Earth & Life Sciences (e.g. genetic analysis techniques), Medical Science (e.g. clinical trial design, side effects), Socio-Professional Studies (e.g. symbolism and meaning analysis), and Liberal Arts & Social Sciences (e.g. political communication, reinterpretation of historical events).">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> Taxonomy of academic categories and question attributes for the English dataset.
+        ScholarBench groups eight categories into four domains (natural sciences, applied sciences, social sciences, humanities)
+        and defines 63 English and 65 Korean question attributes.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Prior benchmarks for evaluating the domain-specific knowledge of large language models (LLMs) lack the scalability to handle complex academic tasks. To address this, we introduce ScholarBench, a benchmark centered on deep expert knowledge and complex academic problem-solving, which evaluates the academic reasoning ability of LLMs and is constructed through a three-step process. ScholarBench targets more specialized and logically complex contexts derived from academic literature, encompassing five distinct problem types. Unlike prior benchmarks, ScholarBench evaluates the abstraction, comprehension, and reasoning capabilities of LLMs across eight distinct research domains. To ensure high-quality evaluation data, we define category-specific example attributes and design questions that are aligned with the characteristic research methodologies and discourse structures of each domain. Additionally, this benchmark operates as an English-Korean bilingual dataset, facilitating simultaneous evaluation for linguistic capabilities of LLMs in both languages. The benchmark comprises 5,031 examples in Korean and 5,309 in English, with even state-of-the-art models like o3-mini achieving an average evaluation score of only 0.543, demonstrating the challenging nature of this benchmark.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Academic benchmark</span>
+      <span class="tag">Scholarly QA</span>
+      <span class="tag">LLM evaluation</span>
+      <span class="tag">Domain-specific knowledge</span>
+      <span class="tag">Bilingual (English–Korean)</span>
+      <span class="tag">Korean LLM benchmark</span>
+      <span class="tag">Academic reasoning</span>
+      <span class="tag">Summarization</span>
+      <span class="tag">Reading comprehension</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Benchmark Construction</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2600" height="908" loading="lazy"
+           alt="Three-step data construction pipeline: Step 1 task design, crawling and filtering of open-access papers by citations and recency; Step 2 GPT-4o generates summary, short-answer, multiple-choice, multiple-select and true/false questions from a paragraph, shown with English and Korean examples; Step 3 GPT-4o regenerates questions with two-shot samples, followed by human review and revision into ScholarBench (En and Ko).">
+      </picture>
+      <figcaption>
+        <strong>Figure 3.</strong> Data construction pipeline. English example questions are generated from
+        <em>Attention Is All You Need</em>; Korean examples from a Korean paper on CNN-LSTM handwritten digit recognition.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        ScholarBench tests three abilities: <strong>abstraction</strong> (summarizing an academic paragraph),
+        <strong>reasoning</strong> (answering from parametric knowledge in a closed-book setting) and
+        <strong>comprehension</strong> (answering when the source paragraph is given, open-book). Every paragraph yields
+        five question types: summarization, short answer, multiple choice, multiple selection, and true/false.
+      </p>
+      <ol>
+        <li><strong>Task design and collection.</strong> Eight academic categories with 63 English and 65 Korean attributes are defined.
+          English sources are 200 articles from 80 open-access journals ranked in the top 10 by Google Scholar H5-index;
+          Korean sources are 1,916 articles from 138 journals selected by KCI citation index.</li>
+        <li><strong>Question generation.</strong> GPT-4o generates the five question types from each source paragraph.</li>
+        <li><strong>Refinement and review.</strong> Two sampled outputs are used as few-shot examples to refine generation, then
+          15 reviewers (11 English, 4 Korean) check the paragraph, verify each answer, and rate quality. Inter-annotator Kappa is
+          0.621 for English and 0.742 for Korean.</li>
+      </ol>
+      <p>
+        Summarization is scored with ROUGE-1/2/L, short answers with BERTScore, and multiple-choice, multiple-selection
+        (2, 3 or 4 correct options: A-2, A-3, A-4) and true/false questions with accuracy.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Size.</strong> 5,309 English and 5,031 Korean examples across eight categories and five question types;
+          18.7% of the questions are parallel English–Korean pairs.</li>
+        <li><strong>Hard for current LLMs.</strong> In the closed-book setting the best average score is 0.543 (o3-mini), followed by
+          GPT-4o (0.534), Llama-70b (0.530) and Qwen-72b (0.529).</li>
+        <li><strong>No single best model.</strong> GPT-4o leads ROUGE-1 (0.417), Mistral-24b leads ROUGE-2/L (0.159 / 0.359),
+          Qwen-72b leads MCQ (0.755) and true/false (0.811), and Qwen-32b-reasoning leads three-answer multiple selection (0.640).</li>
+        <li><strong>Context helps.</strong> With the source paragraph provided (open-book), average scores rise, e.g. GPT-4o from 0.534 to 0.629
+          and o3-mini from 0.543 to 0.609; Qwen-72b reaches 0.900 MCQ accuracy.</li>
+        <li><strong>Bilingual gap.</strong> On the parallel subset, most models score higher in Korean than in English, while some global
+          models show the opposite pattern.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> Overall closed-book results on ScholarBench. R-1/R-2/R-L are ROUGE scores for summarization
+          (the only task given the paragraph), BERTScore is for short answers, and A-2/A-3/A-4 are multiple-selection accuracy with
+          2, 3 or 4 correct options. Avg is the average over all listed metrics. Bold marks the best score per column.
+        </caption>
+        <thead>
+          <tr>
+            <th rowspan="2">Model</th>
+            <th colspan="3">Summarization</th><th>Short Answer</th><th colspan="3">Multiple Selection</th>
+            <th rowspan="2">MCQ</th><th rowspan="2">Boolean</th><th rowspan="2">Avg</th>
+          </tr>
+          <tr>
+            <th>R-1</th><th>R-2</th><th>R-L</th><th>BERTScore</th><th>A-2</th><th>A-3</th><th>A-4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>o3-mini</td><td>0.392</td><td>0.130</td><td>0.320</td><td><strong>0.860</strong></td><td><strong>0.666</strong></td><td>0.518</td><td><strong>0.482</strong></td><td>0.728</td><td>0.786</td><td><strong>0.543</strong></td></tr>
+          <tr><td>o1-mini</td><td>0.409</td><td>0.151</td><td>0.348</td><td>0.857</td><td>0.567</td><td>0.469</td><td>0.436</td><td>0.702</td><td>0.771</td><td>0.523</td></tr>
+          <tr><td>GPT-4o</td><td><strong>0.417</strong></td><td>0.151</td><td>0.356</td><td>0.857</td><td>0.586</td><td>0.497</td><td>0.465</td><td>0.736</td><td>0.743</td><td>0.534</td></tr>
+          <tr><td>Qwen-72b</td><td>0.396</td><td>0.151</td><td>0.345</td><td>0.859</td><td>0.522</td><td>0.468</td><td>0.452</td><td><strong>0.755</strong></td><td><strong>0.811</strong></td><td>0.529</td></tr>
+          <tr><td>Llama-70b</td><td>0.397</td><td>0.146</td><td>0.341</td><td>0.858</td><td>0.578</td><td>0.485</td><td>0.455</td><td>0.746</td><td>0.769</td><td>0.530</td></tr>
+          <tr><td>Bllossom-70b</td><td>0.349</td><td>0.129</td><td>0.299</td><td>0.848</td><td>0.650</td><td>0.463</td><td>0.440</td><td>0.683</td><td>0.724</td><td>0.509</td></tr>
+          <tr><td>Qwen-32b-reasoning</td><td>0.350</td><td>0.116</td><td>0.303</td><td>0.853</td><td>0.539</td><td><strong>0.640</strong></td><td>0.423</td><td>0.721</td><td>0.793</td><td>0.527</td></tr>
+          <tr><td>Exaone-32b</td><td>0.321</td><td>0.094</td><td>0.267</td><td>0.852</td><td>0.590</td><td>0.466</td><td>0.431</td><td>0.713</td><td>0.751</td><td>0.498</td></tr>
+          <tr><td>Exaone-32b-reasoning</td><td>0.316</td><td>0.092</td><td>0.267</td><td>0.847</td><td>0.492</td><td>0.397</td><td>0.359</td><td>0.686</td><td>0.667</td><td>0.458</td></tr>
+          <tr><td>Gemma2-27b</td><td>0.329</td><td>0.117</td><td>0.283</td><td>0.856</td><td>0.577</td><td>0.479</td><td>0.453</td><td>0.707</td><td>0.796</td><td>0.511</td></tr>
+          <tr><td>Mistral-24b</td><td>0.414</td><td><strong>0.159</strong></td><td><strong>0.359</strong></td><td>0.853</td><td>0.584</td><td>0.488</td><td>0.458</td><td>0.694</td><td>0.696</td><td>0.523</td></tr>
+          <tr><td>Gemma2-9b</td><td>0.294</td><td>0.096</td><td>0.248</td><td>0.851</td><td>0.556</td><td>0.520</td><td>0.444</td><td>0.684</td><td>0.774</td><td>0.496</td></tr>
+          <tr><td>Exaone-8b</td><td>0.317</td><td>0.092</td><td>0.265</td><td>0.846</td><td>0.577</td><td>0.417</td><td>0.386</td><td>0.692</td><td>0.756</td><td>0.483</td></tr>
+          <tr><td>Mistral-8b</td><td>0.402</td><td>0.151</td><td>0.350</td><td>0.842</td><td>0.504</td><td>0.374</td><td>0.355</td><td>0.656</td><td>0.582</td><td>0.468</td></tr>
+          <tr><td>Llama-8b</td><td>0.381</td><td>0.136</td><td>0.327</td><td>0.845</td><td>0.501</td><td>0.419</td><td>0.395</td><td>0.658</td><td>0.556</td><td>0.469</td></tr>
+          <tr><td>Bllossom-8b</td><td>0.346</td><td>0.129</td><td>0.301</td><td>0.844</td><td>0.537</td><td>0.419</td><td>0.383</td><td>0.633</td><td>0.581</td><td>0.464</td></tr>
+          <tr><td>Qwen-7b</td><td>0.388</td><td>0.144</td><td>0.338</td><td>0.847</td><td>0.559</td><td>0.452</td><td>0.423</td><td>0.699</td><td>0.756</td><td>0.512</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{noh-etal-2025-scholarbench,
+    title = "{S}cholar{B}ench: A Bilingual Benchmark for Abstraction, Comprehension, and Reasoning Evaluation in Academic Contexts",
+    author = "Noh, Dongwon  and
+      Koh, Donghyeok  and
+      Yuk, Junghun  and
+      Kim, Gyuwan  and
+      Lee, Jae Yong  and
+      Lim, KyungTae  and
+      Park, Cheoneum",
+    editor = "Christodoulopoulos, Christos  and
+      Chakraborty, Tanmoy  and
+      Rose, Carolyn  and
+      Peng, Violet",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {EMNLP} 2025",
+    month = nov,
+    year = "2025",
+    address = "Suzhou, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.findings-emnlp.465/",
+    doi = "10.18653/v1/2025.findings-emnlp.465",
+    pages = "8750--8782",
+    ISBN = "979-8-89176-335-7"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

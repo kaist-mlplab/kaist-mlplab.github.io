@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Sow Posture Analysis and Estrus Prediction Using Closed-Circuit Television Cameras</title>
+  <meta name="description" content="A deep learning method that detects sows and classifies their postures in CCTV footage with YOLOv5, then predicts estrus with a Bi-LSTM over posture and holding-time sequences, reaching 86% estrus prediction accuracy against the 24 hours before the farm manager&#x27;s estrus determination. IEEE Access 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="sow estrus detection, estrus prediction, sow posture analysis, pig farming, precision livestock farming, smart farm, CCTV video analysis, YOLOv5, object detection, Bi-LSTM, time series classification, deep learning, animal behavior, IEEE Access 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/sow-posture-estrus/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Sow Posture Analysis and Estrus Prediction Using Closed-Circuit Television Cameras">
+  <meta property="og:description" content="Sow estrus prediction from CCTV footage: YOLOv5 posture detection plus a Bi-LSTM over posture sequences reaches 86% accuracy. IEEE Access 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/sow-posture-estrus/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Sow Posture Analysis and Estrus Prediction Using Closed-Circuit Television Cameras">
+  <meta name="twitter:description" content="Sow estrus prediction from CCTV footage: YOLOv5 posture detection plus a Bi-LSTM over posture sequences reaches 86% accuracy. IEEE Access 2024.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Sow Posture Analysis and Estrus Prediction Using Closed-Circuit Television Cameras">
+  <meta name="citation_author" content="Song, Sookeun">
+  <meta name="citation_author_institution" content="Department of Computer Engineering, Hanbat National University, Daejeon, South Korea">
+  <meta name="citation_author" content="Kang, Taegeun">
+  <meta name="citation_author_institution" content="Department of Computer Engineering, Hanbat National University, Daejeon, South Korea">
+  <meta name="citation_author" content="Lim, Kyungtae">
+  <meta name="citation_author_institution" content="Department of Applied AI, Seoul National University of Science and Technology, Seoul, South Korea">
+  <meta name="citation_author" content="Kim, Konmin">
+  <meta name="citation_author_institution" content="Gfarm Alliance Agricultural Company Ltd., Sejong, South Korea">
+  <meta name="citation_author" content="Yi, Hyunbean">
+  <meta name="citation_author_institution" content="Department of Computer Engineering, Hanbat National University, Daejeon, South Korea">
+  <meta name="citation_publication_date" content="2024">
+  <meta name="citation_journal_title" content="IEEE Access">
+  <meta name="citation_publisher" content="Institute of Electrical and Electronics Engineers (IEEE)">
+  <meta name="citation_volume" content="12">
+  <meta name="citation_firstpage" content="17460">
+  <meta name="citation_lastpage" content="17466">
+  <meta name="citation_doi" content="10.1109/ACCESS.2024.3357237">
+  <meta name="citation_issn" content="2169-3536">
+  <meta name="citation_pdf_url" content="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=10411845">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/sow-posture-estrus/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/sow-posture-estrus/#article",
+    "headline": "Sow Posture Analysis and Estrus Prediction Using Closed-Circuit Television Cameras",
+    "name": "Sow Posture Analysis and Estrus Prediction Using Closed-Circuit Television Cameras",
+    "url": "https://kaist-mlplab.github.io/sow-posture-estrus/",
+    "datePublished": "2024",
+    "inLanguage": "en",
+    "abstract": "Sow estrus detection is one of the most critical tasks for improving the production performance of pig farms. However, accurately determining the onset of estrus is challenging because it is time consuming to check each sow and their performance, particularly during specific working hours. Moreover, estrus determination criteria are not standardized, as managers rely on their individual experiences. In this study, we proposed a method for predicting sow estrus using deep learning techniques. To detect sows and classify their postures, we used a lightweight deep-learning-based object detection model, You Only Look Once version 5 (YOLOv5). We trained one of the prediction models, Bidirectional Long Short-Term Memory (Bi-LSTM), which is a supervised learning model, using the time series data composed of a combination of each posture and holding time. By setting the ground truth as data from 24 h before the manager’s estrus determination, we achieved an estrus prediction accuracy of 86 %. This study demonstrates the potential of using closed-circuit television (CCTV) footage to predict sow estrus, and the proposed method can contribute to reducing the labor required for sow estrus checks.",
+    "keywords": [
+      "sow estrus detection",
+      "posture analysis",
+      "pig farming",
+      "CCTV video analysis",
+      "YOLOv5",
+      "object detection",
+      "Bi-LSTM",
+      "deep learning"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Precision livestock farming"
+      },
+      {
+        "@type": "Thing",
+        "name": "Computer vision"
+      },
+      {
+        "@type": "Thing",
+        "name": "Object detection"
+      },
+      {
+        "@type": "Thing",
+        "name": "Time series analysis"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Sookeun Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Department of Computer Engineering, Hanbat National University, Daejeon, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Taegeun Kang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Department of Computer Engineering, Hanbat National University, Daejeon, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Kyungtae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Department of Applied AI, Seoul National University of Science and Technology, Seoul, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Konmin Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Gfarm Alliance Agricultural Company Ltd., Sejong, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Hyunbean Yi",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Department of Computer Engineering, Hanbat National University, Daejeon, South Korea"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "PublicationVolume",
+      "volumeNumber": "12",
+      "isPartOf": {
+        "@type": "Periodical",
+        "name": "IEEE Access",
+        "issn": "2169-3536",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Institute of Electrical and Electronics Engineers (IEEE)"
+        }
+      }
+    },
+    "sameAs": [
+      "https://ieeexplore.ieee.org/document/10411845",
+      "https://doi.org/10.1109/ACCESS.2024.3357237"
+    ],
+    "pagination": "17460-17466",
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.1109/ACCESS.2024.3357237"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10411845"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Sow Posture Analysis and Estrus Prediction Using Closed-Circuit Television Cameras</h1>
+      <p class="subtitle is-5 publication-subtitle">Predicting sow estrus from CCTV footage with YOLOv5 posture detection and a Bi-LSTM over posture time series</p>
+      <p><span class="tag is-link is-medium venue-badge">IEEE Access 2024</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Sookeun Song<sup>1</sup>,</span>
+        <span class="author-block">Taegeun Kang<sup>1</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>2</sup>,</span>
+        <span class="author-block">Konmin Kim<sup>3</sup>,</span>
+        <span class="author-block">Hyunbean Yi<sup>1</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Department of Computer Engineering, Hanbat National University</span>
+        <span class="author-block"><sup>2</sup>Department of Applied AI, Seoul National University of Science and Technology</span>
+        <span class="author-block"><sup>3</sup>Gfarm Alliance Agricultural Company Ltd.</span>
+      </p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://ieeexplore.ieee.org/document/10411845">Paper (IEEE Access)</a>
+        <a class="button is-dark is-rounded" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=10411845">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Sow estrus detection is one of the most critical tasks for improving the production performance of pig farms. However, accurately determining the onset of estrus is challenging because it is time consuming to check each sow and their performance, particularly during specific working hours. Moreover, estrus determination criteria are not standardized, as managers rely on their individual experiences. In this study, we proposed a method for predicting sow estrus using deep learning techniques. To detect sows and classify their postures, we used a lightweight deep-learning-based object detection model, You Only Look Once version 5 (YOLOv5). We trained one of the prediction models, Bidirectional Long Short-Term Memory (Bi-LSTM), which is a supervised learning model, using the time series data composed of a combination of each posture and holding time. By setting the ground truth as data from 24 h before the manager&rsquo;s estrus determination, we achieved an estrus prediction accuracy of 86 %. This study demonstrates the potential of using closed-circuit television (CCTV) footage to predict sow estrus, and the proposed method can contribute to reducing the labor required for sow estrus checks.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Sow estrus detection</span>
+      <span class="tag">Posture classification</span>
+      <span class="tag">Pig farming / precision livestock farming</span>
+      <span class="tag">CCTV video analysis</span>
+      <span class="tag">YOLOv5 object detection</span>
+      <span class="tag">Bi-LSTM</span>
+      <span class="tag">Time series classification</span>
+      <span class="tag">Animal behavior monitoring</span>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Findings</h2>
+    <div class="content">
+      <p>As stated in the published abstract:</p>
+      <ul>
+        <li><strong>Two-stage pipeline.</strong> A lightweight YOLOv5 detector finds each sow and classifies its posture in CCTV footage; a Bi-LSTM is
+          trained on time series that combine each posture with its holding time.</li>
+        <li><strong>86% estrus prediction accuracy</strong> when the ground truth is set to the data from the 24 hours before the farm manager&rsquo;s
+          estrus determination.</li>
+        <li><strong>Labor reduction.</strong> The results indicate that ordinary CCTV cameras can support estrus checks that otherwise require managers to
+          inspect each sow based on individual experience.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@article{Song_2024,
+  title={Sow Posture Analysis and Estrus Prediction Using Closed-Circuit Television Cameras},
+  volume={12},
+  ISSN={2169-3536},
+  url={http://dx.doi.org/10.1109/ACCESS.2024.3357237},
+  DOI={10.1109/access.2024.3357237},
+  journal={IEEE Access},
+  publisher={Institute of Electrical and Electronics Engineers (IEEE)},
+  author={Song, Sookeun and Kang, Taegeun and Lim, Kyungtae and Kim, Konmin and Yi, Hyunbean},
+  year={2024},
+  pages={17460–17466}
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

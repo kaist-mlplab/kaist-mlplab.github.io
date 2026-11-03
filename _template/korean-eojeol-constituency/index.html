@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Constituency Structure over Eojeol in Korean Treebanks</title>
+  <meta name="description" content="An eojeol-based constituency representation for Korean treebanks, with morphology and fine-grained POS in a separate non-constituent layer; normalizing the Sejong, Penn Korean, and KAIST treebanks to eojeol terminals gives them a shared, comparable constituency backbone. arXiv 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="Korean constituency treebank, eojeol, Korean syntax, constituency parsing, Sejong treebank, Penn Korean treebank, KAIST treebank, treebank normalization, morphological annotation, Universal Dependencies, UPOS, constituency-dependency alignment, Korean NLP, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/korean-eojeol-constituency/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Constituency Structure over Eojeol in Korean Treebanks">
+  <meta property="og:description" content="An eojeol-based constituency representation that lets the Sejong, Penn Korean, and KAIST treebanks share one constituency backbone, with morphology in a separate layer.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/korean-eojeol-constituency/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/korean-eojeol-constituency/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="761">
+  <meta property="og:image:alt" content="Eojeol-based constituency tree of a Korean sentence from the Sejong treebank after normalization, with UPOS preterminals over eojeol terminals.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Constituency Structure over Eojeol in Korean Treebanks">
+  <meta name="twitter:description" content="Eojeol terminals as a shared constituency backbone for the Sejong, Penn Korean, and KAIST treebanks.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/korean-eojeol-constituency/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Constituency Structure over Eojeol in Korean Treebanks">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Park, Chulwoo">
+  <meta name="citation_author_institution" content="Anyang University">
+  <meta name="citation_publication_date" content="2025/12/27">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2512.22487">
+  <meta name="citation_arxiv_id" content="2512.22487">
+  <meta name="citation_doi" content="10.48550/arXiv.2512.22487">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/korean-eojeol-constituency/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/korean-eojeol-constituency/#article",
+    "headline": "Constituency Structure over Eojeol in Korean Treebanks",
+    "name": "Constituency Structure over Eojeol in Korean Treebanks",
+    "url": "https://kaist-mlplab.github.io/korean-eojeol-constituency/",
+    "datePublished": "2025-12-27",
+    "dateModified": "2026-06-24",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/korean-eojeol-constituency/static/images/teaser.png",
+    "abstract": "The design of Korean constituency treebanks raises a central representational question concerning the choice of terminal units. Although Korean words are morphologically complex, treating morphemes as constituency terminals can obscure the distinction between word-internal morphology and phrase-level syntactic structure, and can create mismatches with eojeol-based dependency resources. This paper argues for an eojeol-based constituency representation, with morphological segmentation and fine-grained POS information encoded in a separate, non-constituent layer. A comparative analysis shows that, under explicit normalization assumptions, the Sejong, Penn Korean, and KAIST treebanks can be compared over a shared eojeol-based constituency backbone. Building on this result, we outline an eojeol-based annotation scheme that preserves interpretable constituency, supports cross-treebank comparison and constituency-dependency alignment, and provides a surface-form terminal layer for future end-to-end Korean constituency parsing.",
+    "keywords": ["Korean constituency treebank", "eojeol", "Korean syntax", "constituency parsing", "Sejong treebank", "Penn Korean treebank", "KAIST treebank", "treebank normalization", "morphological annotation", "constituency-dependency alignment"],
+    "about": [
+      {"@type": "Thing", "name": "Treebanks"},
+      {"@type": "Thing", "name": "Constituency grammar"},
+      {"@type": "Thing", "name": "Korean language"},
+      {"@type": "Thing", "name": "Corpus annotation"}
+    ],
+    "author": [
+      {"@type": "Person", "name": "Jungyeul Park", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Chulwoo Park", "affiliation": {"@type": "Organization", "name": "Anyang University"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "sameAs": ["https://arxiv.org/abs/2512.22487", "https://doi.org/10.48550/arXiv.2512.22487"],
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "arXiv", "value": "2512.22487"},
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.48550/arXiv.2512.22487"}
+    ],
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://arxiv.org/pdf/2512.22487"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Constituency Structure over Eojeol in Korean Treebanks</h1>
+      <p class="subtitle is-5 publication-subtitle">An eojeol-based constituency representation for Korean treebanks, with morphology in a separate annotation layer</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2025</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Jungyeul Park<sup>1</sup>,</span>
+        <span class="author-block">Chulwoo Park<sup>2</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>KAIST</span>
+        <span class="author-block"><sup>2</sup>Anyang University</span>
+      </p>
+      <p class="publication-notes">To appear in <em>Korean Linguistics</em> (John Benjamins).</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2512.22487">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2512.22487">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="761"
+           alt="Eojeol-based constituency tree for the Korean sentence '프랑스의 세계적인 의상 디자이너 엠마누엘 웅가로가 실내 장식용 직물 디자이너로 나섰다.' S splits into NP-SBJ, VP, and PUNCT. NP-SBJ contains an NML (AdjP over PROPN 프랑스의 and ADJ 세계적인, plus NML over NOUN 의상 and NOUN 디자이너) and an NP of PROPN 엠마누엘 and PROPN 웅가로가. VP contains NP-AJT (NML over 실내, 장식용, 직물 and NOUN 디자이너로) and VERB 나섰다. Each leaf is a whole eojeol with a UPOS preterminal.">
+      </picture>
+      <figcaption>
+        <strong>Figure 5.</strong> Eojeol-based constituency structure obtained from the Sejong treebank under eojeol-based normalization,
+        for the sentence &ldquo;프랑스의 세계적인 의상 디자이너 엠마누엘 웅가로가 실내 장식용 직물 디자이너로 나섰다.&rdquo;
+        (&lsquo;World-renowned French costume designer Emanuel Ungaro has stepped into the world of interior textile design.&rsquo;).
+        Every leaf is a surface eojeol, every preterminal is a Universal POS (UPOS) tag, punctuation is an independent terminal, and nominal
+        modification is made explicit with an NML layer.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        The design of Korean constituency treebanks raises a central representational question concerning the choice of terminal units.
+        Although Korean words are morphologically complex, treating morphemes as constituency terminals can obscure the distinction between
+        word-internal morphology and phrase-level syntactic structure, and can create mismatches with eojeol-based dependency resources.
+        This paper argues for an eojeol-based constituency representation, with morphological segmentation and fine-grained POS information
+        encoded in a separate, non-constituent layer. A comparative analysis shows that, under explicit normalization assumptions, the
+        Sejong, Penn Korean, and KAIST treebanks can be compared over a shared eojeol-based constituency backbone. Building on this result,
+        we outline an eojeol-based annotation scheme that preserves interpretable constituency, supports cross-treebank comparison and
+        constituency-dependency alignment, and provides a surface-form terminal layer for future end-to-end Korean constituency parsing.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean constituency treebank</span>
+      <span class="tag">Eojeol (어절)</span>
+      <span class="tag">Korean syntax</span>
+      <span class="tag">Constituency parsing</span>
+      <span class="tag">Sejong treebank</span>
+      <span class="tag">Penn Korean treebank</span>
+      <span class="tag">KAIST treebank</span>
+      <span class="tag">Treebank normalization</span>
+      <span class="tag">UPOS / Universal Dependencies</span>
+      <span class="tag">Constituency&ndash;dependency alignment</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">From Morpheme Terminals to Eojeol Terminals</h2>
+    <p class="mb-4">
+      An <em>eojeol</em> is the orthographic spacing unit of Korean: a lexical stem plus one or more functional morphemes such as case
+      markers or verbal endings. Existing treebanks place morphology at or inside the terminal layer in different ways. The original Sejong
+      tree below keeps one eojeol per leaf but packs the morpheme/POS sequence into the terminal string (e.g. 프랑스/NNP+의/JKG) and enforces
+      strictly binary branching; the Penn Korean treebank adds null elements such as <em>*pro*</em> and canonicalizes functional morphemes;
+      the KAIST treebank splits functional morphemes into separate terminals.
+    </p>
+    <figure>
+      <picture>
+        <source srcset="static/images/sejong-original.webp" type="image/webp">
+        <img src="static/images/sejong-original.png" width="2600" height="759" loading="lazy"
+           alt="Original Sejong treebank constituency tree for the same sentence: strictly binary NP projections, with leaves such as 프랑스/NNP+의/JKG, 세계/NNG+적/XSN+이/VCP+ㄴ/ETM, 웅가로/NNP+가/JKS, and 나서/VV+었/EP+다/EF+./SF that encode the morpheme sequence and Sejong POS tags inside each eojeol terminal.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> The same sentence as it appears in the original Sejong treebank: binary NP &rarr; NP NP expansions,
+        morphology encoded inside each terminal, and the sentence-final period attached to the verb terminal (나서/VV+었/EP+다/EF+./SF).
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>The proposed annotation scheme:</p>
+      <ol>
+        <li><strong>Eojeol terminals.</strong> Phrase structure is built only over surface eojeol (and punctuation tokens); morphemes are
+          never constituency terminals.</li>
+        <li><strong>UPOS preterminals.</strong> Each eojeol is dominated by one Universal POS label reflecting the syntactic role of the
+          whole eojeol, which keeps the token and category interface compatible with eojeol-based (UD-style) dependency treebanks.</li>
+        <li><strong>A parallel morphological layer.</strong> Morphological segmentation with fine-grained Sejong XPOS tags is stored as an
+          aligned, non-constituent annotation that introduces no nodes into the tree.</li>
+        <li><strong>A six-column CoNLL-like format.</strong> ID, surface form, morphological segmentation (XPOS), UPOS, and left/right
+          bracketing columns; the tree is recoverable from columns 2, 4, 5, and 6 alone, so constituency parsing does not need gold morpheme
+          segmentation.</li>
+        <li><strong>Normalization of existing treebanks.</strong> Debinarize Sejong, remove null elements from Penn Korean, and collapse
+          morpheme-level terminals in KAIST, so that all three share the same eojeol yield.</li>
+      </ol>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-narrow is-fullwidth results-table">
+        <caption>
+          <strong>Figure 4 (as text).</strong> Six-column joint annotation format for eojeol-based constituency and morphological analysis
+          (sentence BGAA0001-10012). Columns 5 and 6 hold the opening and closing brackets of a Penn-style tree over the eojeol terminals.
+        </caption>
+        <thead>
+          <tr><th>ID</th><th>Surface form</th><th>Morphological segmentation (XPOS)</th><th>UPOS</th><th>LHS constituency</th><th>RHS</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>BGAA0001-10012</td><td>프랑스의</td><td>프랑스/NNP+의/JKG</td><td>PROPN</td><td style="text-align:left !important">(S (NP-SBJ (NML (AdjP (PROPN</td><td>)</td></tr>
+          <tr><td>BGAA0001-10013</td><td>세계적인</td><td>세계/NNG+적/XSN+이/VCP+ㄴ/ETM</td><td>ADJ</td><td style="text-align:left !important">(ADJ</td><td>))</td></tr>
+          <tr><td>BGAA0001-10014</td><td>의상</td><td>의상/NNG</td><td>NOUN</td><td style="text-align:left !important">(NML (NOUN</td><td>)</td></tr>
+          <tr><td>BGAA0001-10015</td><td>디자이너</td><td>디자이너/NNG</td><td>NOUN</td><td style="text-align:left !important">(NOUN</td><td>)))</td></tr>
+          <tr><td>BGAA0001-10016</td><td>엠마누엘</td><td>엠마누엘/NNP</td><td>PROPN</td><td style="text-align:left !important">(NP (PROPN</td><td>)</td></tr>
+          <tr><td>BGAA0001-10017</td><td>웅가로가</td><td>웅가로/NNP+가/JKS</td><td>PROPN</td><td style="text-align:left !important">(PROPN</td><td>)))</td></tr>
+          <tr><td>BGAA0001-10018</td><td>실내</td><td>실내/NNG</td><td>NOUN</td><td style="text-align:left !important">(VP (NP-AJT (NML (NML (NOUN</td><td>)</td></tr>
+          <tr><td>BGAA0001-10019</td><td>장식용</td><td>장식/NNG+용/XSN</td><td>NOUN</td><td style="text-align:left !important">(NOUN</td><td>))</td></tr>
+          <tr><td>BGAA0001-10020</td><td>직물</td><td>직물/NNG</td><td>NOUN</td><td style="text-align:left !important">(NOUN</td><td>))</td></tr>
+          <tr><td>BGAA0001-10021</td><td>디자이너로</td><td>디자이너/NNG+로/JKB</td><td>NOUN</td><td style="text-align:left !important">(NOUN</td><td>))</td></tr>
+          <tr><td>BGAA0001-10022</td><td>나섰다</td><td>나서/VV+었/EP+다/EF</td><td>VERB</td><td style="text-align:left !important">(VERB</td><td>))</td></tr>
+          <tr><td>BGAA0001-10023</td><td>.</td><td>./SF</td><td>PUNCT</td><td style="text-align:left !important">(PUNCT</td><td>))</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Findings</h2>
+    <div class="content">
+      <ul>
+        <li><strong>A shared backbone.</strong> Under explicit normalization assumptions, the Sejong, Penn Korean, and KAIST treebanks can be
+          compared over a common eojeol-based constituency yield, which can be aligned directly with eojeol-based dependency tokens without
+          reconstructing morpheme boundaries.</li>
+        <li><strong>Smaller yields.</strong> In a small structural validation on five sample sentences per treebank, normalization reduces the
+          average number of terminals from 18.20 to 10.20 (Sejong), 30.20 to 15.20 (Penn Korean), and 18.40 to 10.20 (KAIST).</li>
+        <li><strong>Less annotation-induced structure.</strong> Average nonterminals drop from 34.40 to 18.80 (Sejong, from debinarization),
+          50.80 to 31.60 (Penn Korean, from null-element removal), and 32.80 to 23.20 (KAIST, from collapsing morpheme projections); average
+          depth falls most for Sejong (5.47 &rarr; 4.00).</li>
+        <li><strong>Phrase structure is preserved.</strong> Average branching changes only modestly (e.g. 1.50 &rarr; 1.49 for Sejong), so
+          normalization removes resource-specific material rather than the phrase-structural organization; the authors stress this is not a
+          ranking of treebanks or a parsing evaluation.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> Structural comparison before and after eojeol-based normalization, over five sample sentences per
+          treebank. Terminals and nonterminals: average (total). Depth: average over terminals (maximum). Branching: average over nonterminals
+          (maximum). (Table 2 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Representation</th><th>Avg. terminals (total)</th><th>Avg. nonterminals (total)</th><th>Avg. depth (max)</th><th>Avg. branching (max)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Original Sejong</td><td>18.20 (91)</td><td>34.40 (172)</td><td>5.47 (8)</td><td>1.50 (4)</td></tr>
+          <tr class="ours"><td>Normalized Sejong</td><td>10.20 (51)</td><td>18.80 (94)</td><td>4.00 (7)</td><td>1.49 (6)</td></tr>
+          <tr><td>Original Penn Korean</td><td>30.20 (151)</td><td>50.80 (254)</td><td>6.89 (12)</td><td>1.57 (6)</td></tr>
+          <tr class="ours"><td>Normalized Penn Korean</td><td>15.20 (76)</td><td>31.60 (158)</td><td>6.42 (11)</td><td>1.45 (5)</td></tr>
+          <tr><td>Original KAIST</td><td>18.40 (92)</td><td>32.80 (164)</td><td>5.65 (11)</td><td>1.53 (4)</td></tr>
+          <tr class="ours"><td>Normalized KAIST</td><td>10.20 (51)</td><td>23.20 (116)</td><td>5.12 (8)</td><td>1.40 (4)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{park2026constituencystructureeojeolkorean,
+      title={Constituency Structure over Eojeol in Korean Treebanks},
+      author={Jungyeul Park and Chulwoo Park},
+      year={2026},
+      eprint={2512.22487},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2512.22487},
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

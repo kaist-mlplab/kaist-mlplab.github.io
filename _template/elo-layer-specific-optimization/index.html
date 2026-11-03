@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>ELO: Efficient Layer-Specific Optimization for Continual Pretraining of Multilingual LLMs</title>
+  <meta name="description" content="ELO speeds up continual pretraining of multilingual LLMs for a target language by detaching and training only the first and last decoder layers, then reinserting and briefly aligning them: up to 6.46x faster than full fine-tuning with up to 6.2% better target-language qualitative scores. EACL 2026 Industry, KAIST MLP Lab.">
+  <meta name="keywords" content="ELO, efficient layer-specific optimization, continual pretraining, CPT, multilingual LLM, language adaptation, target language, Korean LLM, Japanese LLM, layer detachment, layer alignment, parameter-efficient training, LoRA, chat vector, catastrophic forgetting, training efficiency, EACL 2026 Industry, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/elo-layer-specific-optimization/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="ELO: Efficient Layer-Specific Optimization for Continual Pretraining of Multilingual LLMs">
+  <meta property="og:description" content="Train only the detached first and last layers for target-language continual pretraining: up to 6.46x faster than full fine-tuning while preserving English. EACL 2026 Industry Track.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/elo-layer-specific-optimization/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/elo-layer-specific-optimization/static/images/teaser.png">
+  <meta property="og:image:width" content="1852">
+  <meta property="og:image:height" content="1246">
+  <meta property="og:image:alt" content="ELO detaches the first and last decoder layers plus frozen embedding and LM head into a small model, trains the layers on the target language, and replaces them in the original model.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ELO: Efficient Layer-Specific Optimization for Multilingual LLMs">
+  <meta name="twitter:description" content="Efficient layer-specific continual pretraining for adding Korean and Japanese to multilingual LLMs. EACL 2026 Industry.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/elo-layer-specific-optimization/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="ELO: Efficient Layer-Specific Optimization for Continual Pretraining of Multilingual LLMs">
+  <meta name="citation_author" content="Yoo, Hangyeol">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Choi, ChangSu">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author_institution" content="LG CNS">
+  <meta name="citation_author" content="Kim, Minjun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Song, Seohyun">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Song, SeungWoo">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Won, Inho">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Park, Jongyoul">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Park, Cheoneum">
+  <meta name="citation_author_institution" content="Hanbat National University">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/03">
+  <meta name="citation_conference_title" content="Proceedings of the 19th Conference of the European Chapter of the Association for Computational Linguistics (Volume 5: Industry Track)">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="752">
+  <meta name="citation_lastpage" content="763">
+  <meta name="citation_doi" content="10.18653/v1/2026.eacl-industry.55">
+  <meta name="citation_isbn" content="979-8-89176-384-5">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2026.eacl-industry.55.pdf">
+  <meta name="citation_arxiv_id" content="2601.03648">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/elo-layer-specific-optimization/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/elo-layer-specific-optimization/#article",
+    "headline": "ELO: Efficient Layer-Specific Optimization for Continual Pretraining of Multilingual LLMs",
+    "name": "ELO: Efficient Layer-Specific Optimization for Continual Pretraining of Multilingual LLMs",
+    "url": "https://kaist-mlplab.github.io/elo-layer-specific-optimization/",
+    "datePublished": "2026-03",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/elo-layer-specific-optimization/static/images/teaser.png",
+    "abstract": "We propose an efficient layer-specific optimization (ELO) method designed to enhance continual pretraining (CP) for specific languages in multilingual large language models (MLLMs). This approach addresses the common challenges of high computational cost and degradation of source language performance associated with traditional CP. The ELO method consists of two main stages: (1) ELO Pretraining, where a small subset of specific layers, identified in our experiments as the critically important first and last layers, are detached from the original MLLM and trained with the target language. This significantly reduces not only the number of trainable parameters but also the total parameters computed during the forward pass, minimizing GPU memory consumption and accelerating the training process. (2) Layer Alignment, where the newly trained layers are reintegrated into the original model, followed by a brief full fine-tuning step on a small dataset to align the parameters. Experimental results demonstrate that the ELO method achieves a training speedup of up to 6.46 times compared to existing methods, while improving target language performance by up to 6.2% on qualitative benchmarks and effectively preserving source language (English) capabilities.",
+    "keywords": [
+      "continual pretraining",
+      "multilingual LLM",
+      "language adaptation",
+      "Korean LLM",
+      "Japanese LLM",
+      "layer-specific training",
+      "layer alignment",
+      "parameter-efficient training",
+      "LoRA",
+      "chat vector",
+      "training efficiency"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Continual pretraining"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multilingual large language models"
+      },
+      {
+        "@type": "Thing",
+        "name": "Efficient training"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Hangyeol Yoo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "ChangSu Choi",
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "Seoul National University of Science and Technology"
+          },
+          {
+            "@type": "Organization",
+            "name": "LG CNS"
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "Minjun Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Seohyun Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "SeungWoo Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Inho Won",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jongyoul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Cheoneum Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Hanbat National University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Proceedings of the 19th Conference of the European Chapter of the Association for Computational Linguistics (Volume 5: Industry Track)",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2026.eacl-industry.55/",
+      "https://arxiv.org/abs/2601.03648",
+      "https://doi.org/10.18653/v1/2026.eacl-industry.55"
+    ],
+    "pagination": "752-763",
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.18653/v1/2026.eacl-industry.55"
+      },
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2601.03648"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2026.eacl-industry.55.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">ELO: Efficient Layer-Specific Optimization for Continual Pretraining of Multilingual LLMs</h1>
+      <p class="subtitle is-5 publication-subtitle">Continual pretraining of only the detached first and last layers to add a target language to a multilingual LLM, up to 6.46&times; faster than full fine-tuning</p>
+      <p><span class="tag is-link is-medium venue-badge">EACL 2026 Industry</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Hangyeol Yoo<sup>1,*</sup>,</span>
+        <span class="author-block">ChangSu Choi<sup>1,2,*,&dagger;</sup>,</span>
+        <span class="author-block">Minjun Kim<sup>3</sup>,</span>
+        <span class="author-block">Seohyun Song<sup>1</sup>,</span>
+        <span class="author-block">SeungWoo Song<sup>1</sup>,</span>
+        <span class="author-block">Inho Won<sup>3</sup>,</span>
+        <span class="author-block">Jongyoul Park<sup>1</sup>,</span>
+        <span class="author-block">Cheoneum Park<sup>4</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>3,&Dagger;</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Seoul National University of Science and Technology</span>
+        <span class="author-block"><sup>2</sup>LG CNS</span>
+        <span class="author-block"><sup>3</sup>Korea Advanced Institute of Science and Technology (KAIST)</span>
+        <span class="author-block"><sup>4</sup>Hanbat National University</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution &nbsp; <sup>&dagger;</sup>Work done during an internship at LG CNS &nbsp; <sup>&Dagger;</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.eacl-industry.55/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.eacl-industry.55.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2601.03648">arXiv</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1852" height="1246"
+           alt="Three-part diagram. Left: the original model with token embedding, a stack of decoder layers and LM head. Middle: the small ELO model built from the frozen token embedding and LM head plus two detached layers (the first and last), which are trained. Right: the trained layers replace the first and last layers of the original model, after which the whole model is aligned.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> The ELO training process. The first and last decoder layers are detached from the original model together with the token embedding and LM head (kept frozen) to form a small ELO model; only the two layers are pretrained on target-language data and then replace the corresponding layers of the original model, followed by a brief full fine-tuning (layer alignment) on 1 GB of data.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        We propose an efficient layer-specific optimization (ELO) method designed to enhance continual pretraining (CP) for specific languages in multilingual large language models (MLLMs). This approach addresses the common challenges of high computational cost and degradation of source language performance associated with traditional CP. The ELO method consists of two main stages: (1) ELO Pretraining, where a small subset of specific layers, identified in our experiments as the critically important first and last layers, are detached from the original MLLM and trained with the target language. This significantly reduces not only the number of trainable parameters but also the total parameters computed during the forward pass, minimizing GPU memory consumption and accelerating the training process. (2) Layer Alignment, where the newly trained layers are reintegrated into the original model, followed by a brief full fine-tuning step on a small dataset to align the parameters. Experimental results demonstrate that the ELO method achieves a training speedup of up to 6.46 times compared to existing methods, while improving target language performance by up to 6.2% on qualitative benchmarks and effectively preserving source language (English) capabilities.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Continual pretraining (CP)</span>
+      <span class="tag">Language adaptation</span>
+      <span class="tag">Multilingual LLMs</span>
+      <span class="tag">Korean LLM</span>
+      <span class="tag">Japanese LLM</span>
+      <span class="tag">Layer-specific training</span>
+      <span class="tag">Training efficiency</span>
+      <span class="tag">LoRA comparison</span>
+      <span class="tag">Chat vector</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        Continual pretraining (CP) is the usual way to strengthen a multilingual LLM in a specific language, but it is expensive and tends to
+        hurt English. LoRA and selective layer tuning reduce the number of <em>trainable</em> parameters, yet the forward pass still runs through
+        the whole model, so the speedup over full fine-tuning (FFT) is small. ELO instead trains a much smaller, separate model:
+      </p>
+      <ol>
+        <li><strong>ELO pretraining.</strong> Detach the first and last decoder layers (&lambda; = {&ell;<sub>1</sub>, &ell;<sub>n</sub>}) together with
+          the token embedding and LM head into a small ELO model. Only the two layers are trained, on 9 GB of data with an English : target-language
+          ratio of 1 : 9, so both the trainable and the computed parameters shrink.</li>
+        <li><strong>Layer replacement and alignment.</strong> Put the trained layers back into the original model and run a brief full fine-tuning
+          on an additional 1 GB of data to align them with the untouched layers, which keep their English knowledge.</li>
+        <li><strong>Bilingual instruction tuning.</strong> Add a chat vector (instruction-tuned minus pretrained weights) and fine-tune on 31K
+          instruction samples in a 1 : 1 target-language / English ratio.</li>
+      </ol>
+      <p>
+        Korean and Japanese are the target languages, with Llama 3.1-8B, Mistral-7B-v0.3 and Qwen2-7B as base models. Evaluation uses MMLU and
+        MT-Bench for English, KoBEST and LogicKor for Korean, and MARC-ja and MT-Bench(ja) for Japanese (MT-Bench and LogicKor judged by GPT-4 on a
+        10-point scale).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>5.26&ndash;6.46&times; faster than FFT.</strong> With 10 GB of pretraining data, ELO cuts total training time by 5.88&times; on
+          average (e.g. Llama 3.1: 3.5 h vs. 19.8 h for Korean).</li>
+        <li><strong>Better target-language generation.</strong> ELO models outperform FFT on LogicKor (Llama 3.1: 7.76 vs. 7.31, +6.2%; Qwen2: 7.22 vs.
+          6.95), and Llama3.1-ELO improves LogicKor by 22.2% over Llama3.1-8B-Instruct.</li>
+        <li><strong>English preserved.</strong> The average MMLU gap between the instruct models and ELO is 2.42%, while KoBEST improves over the
+          instruct models by 8.55% to 23.57%.</li>
+        <li><strong>Faster than LoRA at scale.</strong> On Llama3.1-8B, ELO is 5.29&times; faster than LoRA and 6.04&times; faster than FFT with 50 GB of data,
+          and 10.72&times; / 12.23&times; faster with 200 GB.</li>
+        <li><strong>First and last layers matter.</strong> Training layers (1, 32) gives LogicKor 7.76, while (8, 24) gives 5.00 and (16, 17) 5.47.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Korean as the target language: total training time and scores of the official instruct models, full fine-tuning (FFT)
+          and ELO. MMLU and KoBEST are quantitative; MT-Bench and LogicKor are GPT-4-judged scores out of 10. Bold as in the paper (best per model group).
+          (Subset of Table 1 in the paper: Korean block only; the Japanese block and data sizes are in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>Total time</th><th>MMLU (en)</th><th>KoBEST (ko)</th><th>MT-Bench (en)</th><th>LogicKor (ko)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Llama3.1-8B-Instruct</td><td>-</td><td><strong>68.07</strong></td><td>56.02</td><td><strong>6.96</strong></td><td>6.03</td></tr>
+          <tr><td>Llama3.1-FFT</td><td>19.8 h</td><td>67.51</td><td><strong>66.08</strong></td><td>6.70</td><td>7.31</td></tr>
+          <tr class="ours"><td>Llama3.1-ELO (ours)</td><td>3.5 h</td><td>66.69</td><td>60.81</td><td>6.79</td><td><strong>7.76</strong></td></tr>
+          <tr><td>Mistral-7B-Instruct-v0.3</td><td>-</td><td><strong>59.69</strong></td><td>49.01</td><td>6.72</td><td>4.49</td></tr>
+          <tr><td>Mistral-FFT</td><td>31.0 h</td><td>57.47</td><td><strong>61.68</strong></td><td>6.61</td><td>6.50</td></tr>
+          <tr class="ours"><td>Mistral-ELO (ours)</td><td>4.8 h</td><td>58.90</td><td>60.56</td><td><strong>6.97</strong></td><td><strong>6.59</strong></td></tr>
+          <tr><td>Qwen2-7B-Instruct</td><td>-</td><td>69.89</td><td>60.17</td><td><strong>7.67</strong></td><td>6.90</td></tr>
+          <tr><td>Qwen2-FFT</td><td>20.5 h</td><td><strong>70.23</strong></td><td><strong>72.37</strong></td><td>7.11</td><td>6.95</td></tr>
+          <tr class="ours"><td>Qwen2-ELO (ours)</td><td>3.9 h</td><td>70.11</td><td>71.57</td><td>7.25</td><td><strong>7.22</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{yoo-etal-2026-elo,
+    title = &quot;{ELO}: Efficient Layer-Specific Optimization for Continual Pretraining of Multilingual {LLM}s&quot;,
+    author = &quot;Yoo, Hangyeol  and
+      Choi, ChangSu  and
+      Kim, Minjun  and
+      Song, Seohyun  and
+      Song, SeungWoo  and
+      Won, Inho  and
+      Park, Jongyoul  and
+      Park, Cheoneum  and
+      Lim, KyungTae&quot;,
+    editor = {Matusevych, Yevgen  and
+      Eryi{\u{g}}it, G{\&quot;u}l{\c{s}}en  and
+      Aletras, Nikolaos},
+    booktitle = &quot;Proceedings of the 19th Conference of the {E}uropean Chapter of the {A}ssociation for {C}omputational {L}inguistics (Volume 5: Industry Track)&quot;,
+    month = mar,
+    year = &quot;2026&quot;,
+    address = &quot;Rabat, Morocco&quot;,
+    publisher = &quot;Association for Computational Linguistics&quot;,
+    url = &quot;https://aclanthology.org/2026.eacl-industry.55/&quot;,
+    doi = &quot;10.18653/v1/2026.eacl-industry.55&quot;,
+    pages = &quot;752--763&quot;,
+    ISBN = &quot;979-8-89176-384-5&quot;
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

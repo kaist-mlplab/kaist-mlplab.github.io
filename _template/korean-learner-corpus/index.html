@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Enriching the Korean learner corpus for grammatical error correction and writing assessment</title>
+  <meta name="description" content="KoLLA v2.0 extends the KoLLA Korean learner corpus (100 essays, 1,418 sentences) with a second human correction per sentence and rubric-based essay scores (Cohen&#x27;s kappa 0.84), making it the first multi-reference Korean GEC and essay-scoring resource; multi-reference evaluation raises KoBART GEC F0.5 from 0.2709 to 0.3946. Language Resources and Evaluation 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="KoLLA, KoLLA v2.0, Korean learner corpus, Korean L2 writing, Korean as a foreign language, grammatical error correction, GEC, multi-reference GEC, automated essay scoring, AES, rubric-based scoring, error annotation, M2 format, ERRANT, postposition errors, particle errors, heritage learners, Language Resources and Evaluation 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/korean-learner-corpus/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Enriching the Korean learner corpus for grammatical error correction and writing assessment">
+  <meta property="og:description" content="KoLLA v2.0: the first Korean learner corpus with multi-reference GEC annotations and rubric-based essay scores. Language Resources and Evaluation 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/korean-learner-corpus/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/korean-learner-corpus/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="414">
+  <meta property="og:image:alt" content="KoLLA v2.0 M2 example: one Korean learner sentence with corrections from two annotators that differ.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Enriching the Korean learner corpus for grammatical error correction and writing assessment">
+  <meta name="twitter:description" content="KoLLA v2.0: the first Korean learner corpus with multi-reference GEC annotations and rubric-based essay scores. Language Resources and Evaluation 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/korean-learner-corpus/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Enriching the Korean learner corpus for grammatical error correction and writing assessment">
+  <meta name="citation_author" content="Song, Jayoung">
+  <meta name="citation_author_institution" content="Department of Asian Studies, The Pennsylvania State University, University Park, USA">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="Graduate School of Culture Technology, Korea Advanced Institute of Science &amp; Technology, Daejeon, South Korea">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="Culture Technology Research Institute, Korea Advanced Institute of Science &amp; Technology, Daejeon, South Korea">
+  <meta name="citation_publication_date" content="2026/01/08">
+  <meta name="citation_journal_title" content="Language Resources and Evaluation">
+  <meta name="citation_publisher" content="Springer">
+  <meta name="citation_volume" content="60">
+  <meta name="citation_issue" content="1">
+  <meta name="citation_firstpage" content="15">
+  <meta name="citation_doi" content="10.1007/s10579-025-09882-9">
+  <meta name="citation_issn" content="1574-0218">
+  <meta name="citation_pdf_url" content="https://link.springer.com/content/pdf/10.1007/s10579-025-09882-9.pdf">
+  <meta name="citation_arxiv_id" content="2505.00261">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/korean-learner-corpus/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/korean-learner-corpus/#article",
+    "headline": "Enriching the Korean learner corpus for grammatical error correction and writing assessment",
+    "name": "Enriching the Korean learner corpus for grammatical error correction and writing assessment",
+    "url": "https://kaist-mlplab.github.io/korean-learner-corpus/",
+    "datePublished": "2026-01-08",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/korean-learner-corpus/static/images/teaser.png",
+    "abstract": "Despite growing global interest in Korean language education, learner corpora tailored to Korean L2 writing remain scarce. This paper introduces KoLLA v2.0, the first Korean learner corpus to incorporate both multi-reference GEC annotations and rubric-based essay scoring. We extend the original KoLLA dataset by adding a second human correction for each sentence, creating the first multi-reference GEC resource for Korean. This design captures the variability of valid corrections in an agglutinative and morphologically complex language, enabling fairer and more realistic evaluation of GEC systems. In parallel, we enrich the corpus with rubric-based scores based on criteria from the Korean National Language Institute, providing standardized, multi-dimensional assessments of grammatical accuracy, coherence, and lexical diversity. These enhancements position KoLLA v2.0 as a standardized resource for research in Korean L2 learning and instruction, and as a benchmark for evaluating automated error correction and essay scoring systems.",
+    "keywords": [
+      "Korean learner corpus",
+      "Grammatical error correction",
+      "Multi-reference GEC",
+      "Rubric-based scoring",
+      "KoLLA corpus",
+      "Automated essay scoring",
+      "Korean L2 writing",
+      "Error annotation"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Learner corpora"
+      },
+      {
+        "@type": "Thing",
+        "name": "Grammatical error correction"
+      },
+      {
+        "@type": "Thing",
+        "name": "Automated essay scoring"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Jayoung Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Department of Asian Studies, The Pennsylvania State University, University Park, USA"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Graduate School of Culture Technology, Korea Advanced Institute of Science & Technology, Daejeon, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Culture Technology Research Institute, Korea Advanced Institute of Science & Technology, Daejeon, South Korea"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "PublicationIssue",
+      "issueNumber": "1",
+      "isPartOf": {
+        "@type": "PublicationVolume",
+        "volumeNumber": "60",
+        "isPartOf": {
+          "@type": "Periodical",
+          "name": "Language Resources and Evaluation",
+          "issn": "1574-0218",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Springer"
+          }
+        }
+      }
+    },
+    "sameAs": [
+      "https://link.springer.com/article/10.1007/s10579-025-09882-9",
+      "https://doi.org/10.1007/s10579-025-09882-9",
+      "https://arxiv.org/abs/2505.00261"
+    ],
+    "pagination": "15",
+    "workExample": [
+      {
+        "@type": "Dataset",
+        "name": "KoLLA v2.0",
+        "url": "https://zenodo.org/records/15287128",
+        "identifier": "https://doi.org/10.5281/zenodo.15287128",
+        "license": "https://www.gnu.org/licenses/gpl-3.0.html"
+      }
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.1007/s10579-025-09882-9"
+      },
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2505.00261"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://link.springer.com/content/pdf/10.1007/s10579-025-09882-9.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Enriching the Korean learner corpus for grammatical error correction and writing assessment</h1>
+      <p class="subtitle is-5 publication-subtitle">KoLLA v2.0: the first Korean L2 learner corpus with multi-reference grammatical error correction (GEC) annotations and rubric-based essay scores</p>
+      <p><span class="tag is-link is-medium venue-badge">Language Resources and Evaluation 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Jayoung Song<sup>1,*</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>2,*</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>3,&dagger;</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Department of Asian Studies, The Pennsylvania State University</span>
+        <span class="author-block"><sup>2</sup>Graduate School of Culture Technology, KAIST</span>
+        <span class="author-block"><sup>3</sup>Culture Technology Research Institute, KAIST</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>These authors contributed equally &nbsp; <sup>&dagger;</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://link.springer.com/article/10.1007/s10579-025-09882-9">Paper (Language Resources and Evaluation)</a>
+        <a class="button is-dark is-rounded" href="https://link.springer.com/content/pdf/10.1007/s10579-025-09882-9.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2505.00261">arXiv</a>
+        <a class="button is-dark is-rounded" href="https://zenodo.org/records/15287128">Dataset</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="414" style="max-width:760px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="M2-format example from KoLLA v2.0. Source sentence: 비행기 음식이 안 막였습니다 (word positions 0 to 4). Annotator 0: edit at tokens 1-2 R:NOUN+ADP to NOUN+ADP, 음식이 corrected to 음식을, and edit at tokens 3-4 R:SPELL corrected to 먹었습니다 (&#x27;I didn&#x27;t eat the airplane food&#x27;). Annotator 1: edit at tokens 3-4 R:SPELL corrected to 맞았습니다 (&#x27;The airplane food didn&#x27;t agree with me&#x27;).">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Example from the Korean M2 file. For the learner sentence &ldquo;비행기 음식이 안 막였습니다.&rdquo;, Annotator 0 corrects it to <em>I didn&rsquo;t eat the airplane food</em> (particle fix 음식이&rarr;음식을 plus spelling fix &rarr;먹었습니다), while Annotator 1 corrects it to <em>The airplane food didn&rsquo;t agree with me</em> (spelling fix &rarr;맞았습니다). Both are valid, which is why KoLLA v2.0 keeps two references per sentence. Index numbers mark word positions and are added for illustration only.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Despite growing global interest in Korean language education, learner corpora tailored to Korean L2 writing remain scarce. This paper introduces KoLLA v2.0, the first Korean learner corpus to incorporate both multi-reference GEC annotations and rubric-based essay scoring. We extend the original KoLLA dataset by adding a second human correction for each sentence, creating the first multi-reference GEC resource for Korean. This design captures the variability of valid corrections in an agglutinative and morphologically complex language, enabling fairer and more realistic evaluation of GEC systems. In parallel, we enrich the corpus with rubric-based scores based on criteria from the Korean National Language Institute, providing standardized, multi-dimensional assessments of grammatical accuracy, coherence, and lexical diversity. These enhancements position KoLLA v2.0 as a standardized resource for research in Korean L2 learning and instruction, and as a benchmark for evaluating automated error correction and essay scoring systems.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean learner corpus (KoLLA)</span>
+      <span class="tag">Grammatical error correction (GEC)</span>
+      <span class="tag">Multi-reference GEC</span>
+      <span class="tag">Automated essay scoring (AES)</span>
+      <span class="tag">Rubric-based scoring</span>
+      <span class="tag">Korean as a second language (L2)</span>
+      <span class="tag">Error annotation / M2 format</span>
+      <span class="tag">Postposition (particle) errors</span>
+      <span class="tag">Heritage learners</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Corpus Construction</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2000" height="973" loading="lazy" style="max-width:760px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Algorithm 1, error annotation procedure. Given a source and target sentence: if the associated content word is correct, then an unnecessary ADP or PART is labeled R:POS_i+ADP to POS_j, a missing ADP or PART is labeled R:POS_i to POS_j+ADP, and an incorrect ADP or PART is labeled R:POS+ADP_i to POS+ADP_j; if the content word is incorrect, the label is R:SPELL. If a word boundary error occurs, words that should be separate get M:WB and words that should be merged get U:WB. If two words appear in swapped order, the label is R:WO.">
+      </picture>
+      <figcaption>
+        <strong>Algorithm 1.</strong> Error annotation procedure of KoLLA v2.0: the ERRANT-style Missing / Replacement / Unnecessary scheme extended for Korean with postposition and verbal-ending errors (ADP, PART), spelling (R:SPELL), word boundary (M:WB, U:WB), and word order (R:WO) labels.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        KoLLA v2.0 reuses the 100 learner essays of the original KoLLA corpus (Lee et al., 2012), written by American university students in four
+        subgroups of 25 essays each: foreign beginners (FB), foreign intermediates (FI), heritage beginners (HB), and heritage intermediates (HI).
+        The learner texts are unchanged; two new annotation layers are added.
+      </p>
+      <ol>
+        <li><strong>Sentence segmentation.</strong> The essays are split into 1,418 sentences with two references each (2,836 references in total;
+          the paper elsewhere gives 1,419 sentences for the original KoLLA segmentation), since GEC works at the sentence level while essay scoring works at the essay level.</li>
+        <li><strong>Multi-reference GEC.</strong> Each sentence keeps its original KoLLA correction and receives a second correction written by a trained
+          linguist (M.A. in Korean Language Education) who preserves the learner&rsquo;s meaning and avoids unnecessary rewriting, giving two references per sentence.</li>
+        <li><strong>Korean error typology.</strong> Errors are labeled at the word (eojeol) level in the M2 format, following ERRANT&rsquo;s Missing / Replacement /
+          Unnecessary framework extended for Korean (Algorithm 1): postposition and verbal-ending errors, spelling, word boundary, and word order.
+          Preprocessing normalized frequent particle and compound-verb variants, lowering segmentation misalignment errors to under 5%.</li>
+        <li><strong>Rubric-based essay scoring.</strong> Two raters with M.A. degrees in Korean Language Education scored every essay with a Korean L1 writing
+          rubric based on Korean National Language Institute criteria: 10 criteria in three categories (lexis and grammar; organization; content), each
+          scored 0&ndash;3, for a maximum of 30 points. Raters were calibrated with two training sessions on 15 sample essays and 20% of the data before
+          scoring all essays independently.</li>
+      </ol>
+      <p>
+        The released dataset contains one M2 file with both references for every sentence and four CSV files (FB, FI, HB, HI) with both raters&rsquo; scores
+        on the 10 rubric dimensions for 25 essays each.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Reliable essay scores.</strong> Inter-rater agreement (Cohen&rsquo;s &kappa;) is 0.8401 overall: 0.8253 (FB), 0.8752 (FI),
+          0.7971 (HB), and 0.7721 (HI).</li>
+        <li><strong>Valid corrections diverge.</strong> Treating the original corrections as reference and the new ones as hypothesis gives an M2 F1 of only
+          0.3881 (708 true positives, 1,173 false positives, 1,060 false negatives), showing how much single-reference evaluation can miss.</li>
+        <li><strong>Multi-reference evaluation is fairer.</strong> For a KoBART GEC system, F0.5 rises from 0.2709 with the original reference only to 0.3946
+          with both references (precision 0.2974 &rarr; 0.4170, recall 0.1997 &rarr; 0.3248).</li>
+        <li><strong>Spelling dominates learner errors.</strong> R:SPELL is the most frequent error type in every subgroup (0.3729 FB, 0.3975 FI, 0.4620 HB,
+          0.4818 HI), followed by postposition errors such as particle omission (R:NOUN &rarr; NOUN+ADP).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 4.</strong> KoBART-based GEC system evaluated with the M2 scorer against the original single reference and against both references
+          (sentence-level best match). (Table 4 in the paper, Appendix B.)
+        </caption>
+        <thead>
+          <tr><th>Evaluation setting</th><th>TP</th><th>FP</th><th>FN</th><th>Precision</th><th>Recall</th><th>F0.5</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Single reference (original only)</td><td>353</td><td>834</td><td>1415</td><td>0.2974</td><td>0.1997</td><td>0.2709</td></tr>
+          <tr class="ours"><td>Multi-reference (original + proposed)</td><td>495</td><td>692</td><td>1029</td><td>0.4170</td><td>0.3248</td><td>0.3946</td></tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@article{Song_2026,
+  title={Enriching the Korean learner corpus for grammatical error correction and writing assessment},
+  volume={60},
+  ISSN={1574-0218},
+  url={http://dx.doi.org/10.1007/s10579-025-09882-9},
+  DOI={10.1007/s10579-025-09882-9},
+  number={1},
+  journal={Language Resources and Evaluation},
+  publisher={Springer Science and Business Media LLC},
+  author={Song, Jayoung and Lim, KyungTae and Park, Jungyeul},
+  year={2026},
+  month=Jan
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

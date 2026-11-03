@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Enhancing Korean Dependency Parsing with Morphosyntactic Features</title>
+  <meta name="description" content="UniDive for Korean integrates Universal Dependencies (UD) and UniMorph-derived morphosyntactic features in a refined Korean GSD treebank; adding the features raises dependency parsing LAS by 14.09 points for UDPipe (50.24 to 64.33) and by 2.6 points for the Bllossom-3B LLM (84.37 to 86.97). arXiv 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="Korean dependency parsing, Universal Dependencies, UD, UniMorph, UniDive, morphosyntactic features, morphological features, Korean GSD treebank, K-UD, K-UniMorph, UDPipe, Bllossom, LLM dependency parsing, instruction tuning, agglutinative language, Korean NLP, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/korean-dependency-morphosyntax/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Enhancing Korean Dependency Parsing with Morphosyntactic Features">
+  <meta property="og:description" content="UniDive for Korean: a refined Korean UD treebank with UniMorph-derived features; morphosyntactic features raise LAS by 14.09 (UDPipe) and 2.6 (Bllossom-3B). arXiv 2025.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/korean-dependency-morphosyntax/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Enhancing Korean Dependency Parsing with Morphosyntactic Features">
+  <meta name="twitter:description" content="Korean UniDive: UD + UniMorph features raise dependency parsing LAS by up to 14.09 points. arXiv 2025.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Enhancing Korean Dependency Parsing with Morphosyntactic Features">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Chen, Yige">
+  <meta name="citation_author_institution" content="The Chinese University of Hong Kong">
+  <meta name="citation_author" content="Kim, Kyuwon">
+  <meta name="citation_author_institution" content="Seoul National University">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Park, Chulwoo">
+  <meta name="citation_author_institution" content="Anyang University">
+  <meta name="citation_publication_date" content="2025/03/26">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2503.21029">
+  <meta name="citation_arxiv_id" content="2503.21029">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/korean-dependency-morphosyntax/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/korean-dependency-morphosyntax/#article",
+    "headline": "Enhancing Korean Dependency Parsing with Morphosyntactic Features",
+    "name": "Enhancing Korean Dependency Parsing with Morphosyntactic Features",
+    "url": "https://kaist-mlplab.github.io/korean-dependency-morphosyntax/",
+    "datePublished": "2025-03-26",
+    "inLanguage": "en",
+    "abstract": "This paper introduces UniDive for Korean, an integrated framework that bridges Universal Dependencies (UD) and Universal Morphology (UniMorph) to enhance the representation and processing of Korean morphosyntax. Korean's rich inflectional morphology and flexible word order pose challenges for existing frameworks, which often treat morphology and syntax separately, leading to inconsistencies in linguistic analysis. UniDive unifies syntactic and morphological annotations by preserving syntactic dependencies while incorporating UniMorph-derived features, improving consistency in annotation. We construct an integrated dataset and apply it to dependency parsing, demonstrating that enriched morphosyntactic features enhance parsing accuracy, particularly in distinguishing grammatical relations influenced by morphology. Our experiments, conducted with both encoder-only and decoder-only models, confirm that explicit morphological information contributes to more accurate syntactic analysis.",
+    "keywords": [
+      "Korean dependency parsing",
+      "Universal Dependencies",
+      "UniMorph",
+      "UniDive",
+      "morphosyntactic features",
+      "Korean GSD treebank",
+      "UDPipe",
+      "LLM dependency parsing",
+      "agglutinative languages"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Dependency parsing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Universal Dependencies"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Morphology (linguistics)"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yige Chen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The Chinese University of Hong Kong"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Kyuwon Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Chulwoo Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Anyang University"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2503.21029",
+      "https://github.com/jungyeul/k-unidive"
+    ],
+    "workExample": [
+      {
+        "@type": "SoftwareSourceCode",
+        "name": "Korean UniDive (k-unidive)",
+        "codeRepository": "https://github.com/jungyeul/k-unidive"
+      }
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2503.21029"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2503.21029"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Enhancing Korean Dependency Parsing with Morphosyntactic Features</h1>
+      <p class="subtitle is-5 publication-subtitle">UniDive for Korean: combining Universal Dependencies with UniMorph-derived features improves dependency parsing</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2025</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Jungyeul Park<sup>1</sup>,</span>
+        <span class="author-block">Yige Chen<sup>2</sup>,</span>
+        <span class="author-block">Kyuwon Kim<sup>3</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>4</sup>,</span>
+        <span class="author-block">Chulwoo Park<sup>5</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>2</sup>The Chinese University of Hong Kong, Hong Kong</span>
+        <span class="author-block"><sup>3</sup>Seoul National University, South Korea</span>
+        <span class="author-block"><sup>4</sup>KAIST, South Korea</span>
+        <span class="author-block"><sup>5</sup>Anyang University, South Korea</span>
+      </p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2503.21029">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2503.21029">PDF</a>
+        <a class="button is-dark is-rounded" href="https://github.com/jungyeul/k-unidive">Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        This paper introduces UniDive for Korean, an integrated framework that bridges Universal Dependencies (UD) and Universal Morphology (UniMorph) to enhance the representation and processing of Korean morphosyntax. Korean&#x27;s rich inflectional morphology and flexible word order pose challenges for existing frameworks, which often treat morphology and syntax separately, leading to inconsistencies in linguistic analysis. UniDive unifies syntactic and morphological annotations by preserving syntactic dependencies while incorporating UniMorph-derived features, improving consistency in annotation. We construct an integrated dataset and apply it to dependency parsing, demonstrating that enriched morphosyntactic features enhance parsing accuracy, particularly in distinguishing grammatical relations influenced by morphology. Our experiments, conducted with both encoder-only and decoder-only models, confirm that explicit morphological information contributes to more accurate syntactic analysis.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean dependency parsing</span>
+      <span class="tag">Universal Dependencies (UD)</span>
+      <span class="tag">UniMorph</span>
+      <span class="tag">UniDive</span>
+      <span class="tag">Morphosyntactic features</span>
+      <span class="tag">Korean GSD treebank</span>
+      <span class="tag">UDPipe</span>
+      <span class="tag">LLM-based parsing (instruction tuning)</span>
+      <span class="tag">Agglutinative languages</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Building Korean UniDive</h2>
+
+    <div class="content has-text-justified">
+      <p>
+        UniDive represents lexical words as dependency nodes while functional morphemes contribute features instead of separate syntactic
+        units. The Korean UniDive dataset is built from the UD Korean GSD treebank:
+      </p>
+      <ol>
+        <li><strong>Treebank refinement.</strong> POS and morphological analyses in Korean GSD are corrected with POS tagging and named-entity
+          recognition plus expert verification, following Sejong guidelines; dependency structures are not changed. The most frequent UPOS
+          corrections are ADV &rarr; NOUN (3,607 tokens), NOUN &rarr; PROPN (2,654), and VERB &rarr; ADJ (1,065); the most frequent XPOS
+          correction is XR+XSA+ETM &rarr; NNG+XSA+ETM (321).</li>
+        <li><strong>UniMorph-derived features.</strong> Each word is analyzed at the morpheme level and receives features by deterministic rules
+          over morphemes and POS tags: Aspect, Case, Evident, Mood, NumType, Number, Person, Person[psor], Polite, PronType, Tense, VerbForm,
+          and Voice (e.g., 이/가 &rarr; Case=Nom, 에게 &rarr; Case=Dat). Compared with K-UniMorph, new values include comitative, vocative,
+          comparative, and allative case, hearsay and non-firsthand evidentiality, and causative-passive, reciprocal, and reflexive voice.</li>
+        <li><strong>Parsing experiments.</strong> An encoder-based parser (UDPipe 1) and a decoder-only LLM (Bllossom-3B, a Korean-adapted
+          Llama 3.2 3B, instruction-tuned on the treebank) are trained on the standard GSD splits, each with and without the features.</li>
+      </ol>
+      <p><strong>Instruction-tuning example (Figure 1).</strong> The LLM receives the instruction and the CoNLL-U-style input and generates the
+        head and relation columns:</p>
+      <pre style="white-space:pre;overflow-x:auto;text-align:left">[instruction]: 아래의 문장을 의존구조문법에 맞게 분석해줘
+('Please parse the following sentence as a formal dependency parsing')
+[output]:
+1 학교     학교      NOUN  NNG      _          5  nsubj
+2 분위기나 분위기+나 NOUN  NNG+JC   Case=Disj  1  flat
+3 경관이   경관+이   NOUN  NNG+JKS  Case=Nom   1  conj
+4 굉장히   굉장히    ADV   MAG      _          5  advmod
+5 좋다     좋+다     ADJ   VA+EF    Mood=Ind   0  root
+6 .        .         PUNCT SF       _          5  punct
+('The school atmosphere and scenery are very good.')</pre>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Large gain for the encoder-based parser.</strong> With morphosyntactic features, UDPipe 1 improves from 61.05 to 71.41 UAS and
+          from 50.24 to 64.33 LAS (+14.09 LAS).</li>
+        <li><strong>Smaller but consistent gain for the LLM parser.</strong> Instruction-tuned Bllossom-3B improves from 88.30 to 89.16 UAS and from
+          84.37 to 86.97 LAS (+2.6 LAS); the authors attribute the smaller gain to morphosyntax the LLM already captures in pretraining.</li>
+        <li><strong>Morphology disambiguates relations.</strong> Explicit case features reduce subject&ndash;object confusion in non-canonical word
+          orders, and verbal features (tense, aspect, modality) help analyze complex predicates with auxiliaries and honorifics.</li>
+        <li><strong>Beyond Korean.</strong> Preliminary experiments on the UD Turkish Penn Treebank also show improved parsing accuracy with
+          morphosyntactic features. The experiments use gold features; predicting them in context is left for future work.</li>
+      </ul>
+    </div>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 3.</strong> Korean dependency parsing on the Korean UniDive data (standard Korean GSD splits) with and without UniMorph-derived morphosyntactic (MS)
+          features. UAS / LAS: unlabeled / labeled attachment score.
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>Setting</th><th>UAS</th><th>LAS</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="2">UDPipe 1</td><td>Without MS features</td><td>61.05</td><td>50.24</td></tr>
+          <tr class="ours"><td>With MS features</td><td>71.41</td><td>64.33</td></tr>
+          <tr><td rowspan="2">Bllossom-3B</td><td>Without MS features</td><td>88.30</td><td>84.37</td></tr>
+          <tr class="ours"><td>With MS features</td><td>89.16</td><td>86.97</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{park2025enhancingkoreandependencyparsing,
+      title={Enhancing Korean Dependency Parsing with Morphosyntactic Features},
+      author={Jungyeul Park and Yige Chen and Kyuwon Kim and KyungTae Lim and Chulwoo Park},
+      year={2025},
+      eprint={2503.21029},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2503.21029},
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

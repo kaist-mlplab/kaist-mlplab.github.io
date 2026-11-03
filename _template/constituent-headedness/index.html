@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Learning Constituent Headedness</title>
+  <meta name="description" content="Constituent heads learned from aligned constituency-dependency treebanks reach 98.54% (English) and 100.00% (Chinese) head accuracy versus 67.89% and 92.42% for Collins-style percolation rules, and raise constituency-to-dependency conversion UAS from 51.39 to 94.99 on English. arXiv 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="constituent headedness, head finding, head percolation rules, Collins head rules, head-driven binarization, constituency parsing, dependency parsing, constituency-to-dependency conversion, Penn Treebank, Penn Chinese Treebank, Sinica Treebank, French Treebank, cross-lingual transfer, treebank conversion, syntax, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/constituent-headedness/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Learning Constituent Headedness">
+  <meta property="og:description" content="Learning constituent heads from aligned constituency and dependency annotations: near-ceiling head accuracy and much more faithful constituency-to-dependency conversion than Collins-style rules. arXiv 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/constituent-headedness/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Learning Constituent Headedness">
+  <meta name="twitter:description" content="Learned constituent heads beat Collins-style percolation rules: 98.54% vs 67.89% head accuracy on English. arXiv 2026.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Learning Constituent Headedness">
+  <meta name="citation_author" content="Qi, Zeyao">
+  <meta name="citation_author_institution" content="The Chinese University of Hong Kong">
+  <meta name="citation_author" content="Chen, Yige">
+  <meta name="citation_author_institution" content="The Chinese University of Hong Kong">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Pan, Haihua">
+  <meta name="citation_author_institution" content="The Chinese University of Hong Kong">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/03/16">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2603.14755">
+  <meta name="citation_arxiv_id" content="2603.14755">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/constituent-headedness/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/constituent-headedness/#article",
+    "headline": "Learning Constituent Headedness",
+    "name": "Learning Constituent Headedness",
+    "url": "https://kaist-mlplab.github.io/constituent-headedness/",
+    "datePublished": "2026-03-16",
+    "inLanguage": "en",
+    "abstract": "Headedness is widely used as an organizing device in syntactic analysis, yet constituency treebanks rarely encode it explicitly and most processing pipelines recover it procedurally via percolation rules. We treat this notion of constituent headedness as an explicit representational layer and learn it as a supervised prediction task over aligned constituency and dependency annotations, inducing supervision by defining each constituent head as the dependency span head. On aligned English and Chinese data, the resulting models achieve near-ceiling intrinsic accuracy and substantially outperform Collins-style rule-based percolation. Predicted heads yield comparable parsing accuracy under head-driven binarization, consistent with the induced binary training targets being largely equivalent across head choices, while increasing the fidelity of deterministic constituency-to-dependency conversion and transferring across resources and languages under simple label-mapping interfaces.",
+    "keywords": [
+      "constituent headedness",
+      "head finding",
+      "head percolation rules",
+      "head-driven binarization",
+      "constituency-to-dependency conversion",
+      "Penn Treebank",
+      "Penn Chinese Treebank",
+      "cross-lingual transfer"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Constituency parsing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Dependency grammar"
+      },
+      {
+        "@type": "Thing",
+        "name": "Treebanks"
+      },
+      {
+        "@type": "Thing",
+        "name": "Syntax"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Zeyao Qi",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The Chinese University of Hong Kong"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yige Chen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The Chinese University of Hong Kong"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Haihua Pan",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The Chinese University of Hong Kong"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2603.14755"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2603.14755"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2603.14755"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Learning Constituent Headedness</h1>
+      <p class="subtitle is-5 publication-subtitle">Predicting the head child of every constituent from aligned constituency and dependency treebanks instead of hand-written head-percolation rules</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Zeyao Qi<sup>1,†</sup>,</span>
+        <span class="author-block">Yige Chen<sup>1,†</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>2</sup>,</span>
+        <span class="author-block">Haihua Pan<sup>1,*</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>2,*</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>The Chinese University of Hong Kong</span>
+        <span class="author-block"><sup>2</sup>Korea Advanced Institute of Science &amp; Technology (KAIST)</span>
+      </p>
+      <p class="publication-notes"><sup>†</sup>Equally contributed authors &nbsp; <sup>*</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2603.14755">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2603.14755">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Headedness is widely used as an organizing device in syntactic analysis, yet constituency treebanks rarely encode it explicitly and most processing pipelines recover it procedurally via percolation rules. We treat this notion of constituent headedness as an explicit representational layer and learn it as a supervised prediction task over aligned constituency and dependency annotations, inducing supervision by defining each constituent head as the dependency span head. On aligned English and Chinese data, the resulting models achieve near-ceiling intrinsic accuracy and substantially outperform Collins-style rule-based percolation. Predicted heads yield comparable parsing accuracy under head-driven binarization, consistent with the induced binary training targets being largely equivalent across head choices, while increasing the fidelity of deterministic constituency-to-dependency conversion and transferring across resources and languages under simple label-mapping interfaces.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Constituent headedness</span>
+      <span class="tag">Head finding</span>
+      <span class="tag">Head-percolation rules (Collins)</span>
+      <span class="tag">Head-driven binarization</span>
+      <span class="tag">Constituency-to-dependency conversion</span>
+      <span class="tag">Penn Treebank / Penn Chinese Treebank</span>
+      <span class="tag">Cross-lingual transfer</span>
+      <span class="tag">Treebank processing</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+
+    <div class="content has-text-justified">
+      <p>
+        Headedness is treated as an explicit layer over a constituency tree: a function that picks exactly one head child for every
+        nonterminal. Instead of hand-written percolation tables, gold heads are induced from treebanks where constituency and dependency
+        annotations exist for the same sentences:
+      </p>
+      <ol>
+        <li><strong>Dependency span head.</strong> For each constituent, find the unique token in its yield whose dependency governor lies outside
+          the constituent (its attachment point). Sentences where this token is not unique are excluded.</li>
+        <li><strong>Gold head child.</strong> The head child is the child that dominates that token. This criterion is independent of phrase labels,
+          word order, and language-specific rules.</li>
+        <li><strong>Head prediction.</strong> A BERT-base encoder with a two-layer MLP reads only the parent label and the ordered child labels
+          (no words) and selects one child, a constrained k-way classification over gold trees.</li>
+        <li><strong>Downstream tests.</strong> The predicted heads drive (i) head-driven binarization for a fixed Stanza constituency parser and
+          (ii) a deterministic constituency-to-dependency conversion; the only thing that changes between conditions is the head source
+          (Collins-style rules in Stanford CoreNLP versus learned heads).</li>
+      </ol>
+      <p>
+        Experiments use aligned subsets of the Penn Treebank (English) and the Penn Chinese Treebank 5.1; transfer is tested on the Sinica
+        Treebank and the French Treebank through deterministic label mappings, without retraining.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Near-ceiling head accuracy.</strong> Learned heads reach 98.54% on English and 100.00% on Chinese, compared with 67.89% and 92.42%
+          for Collins-style percolation rules.</li>
+        <li><strong>Parsing stays stable.</strong> Under head-driven binarization, labeled bracket F1 is 96.32 vs. 96.24 (English) and 94.20 vs. 93.84
+          (Chinese); the differences are not significant (p = 0.636 and 0.497). The two binarized training sets share most brackets
+          (bracketing F1 95.31 and 97.63) even though only 38.75% and 68.71% of trees have identical spines.</li>
+        <li><strong>Much more faithful conversion.</strong> Constituency-to-dependency conversion UAS rises from 51.39 to 94.99 on English and from
+          77.73 to 92.22 on Chinese.</li>
+        <li><strong>Transfer depends on head conventions.</strong> Head accuracy is 69.41 for CTB &rarr; Sinica, 64.70 for CTB &rarr; FTB, and 54.95
+          for PTB &rarr; FTB. PPs explain the gap: PTB PPs are 97.98% head-final, while FTB and CTB PPs are almost always head-initial, so
+          PTB &rarr; FTB PP accuracy is 0.09% versus 89.81% for CTB &rarr; FTB.</li>
+      </ul>
+    </div>
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Tables 1&ndash;3 (combined).</strong> Rule-based (Collins-style percolation) versus learned constituent headedness on aligned
+          English (Penn Treebank) and Chinese (Penn Chinese Treebank) data: head prediction accuracy (Table 1), parsing labeled bracket F1 under
+          head-driven binarization (Table 2), and UAS of deterministic constituency-to-dependency conversion (Table 3).
+        </caption>
+        <thead>
+          <tr><th>Language</th><th>Heads</th><th>Head accuracy (%)</th><th>Parsing F1</th><th>Conversion UAS</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="2">English</td><td>Rule-based</td><td>67.89</td><td>96.24</td><td>51.39</td></tr>
+          <tr class="ours"><td>Learned</td><td>98.54</td><td>96.32</td><td>94.99</td></tr>
+          <tr><td rowspan="2">Chinese</td><td>Rule-based</td><td>92.42</td><td>93.84</td><td>77.73</td></tr>
+          <tr class="ours"><td>Learned</td><td>100.00</td><td>94.20</td><td>92.22</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{qi2026learningconstituentheadedness,
+      title={Learning Constituent Headedness},
+      author={Zeyao Qi and Yige Chen and KyungTae Lim and Haihua Pan and Jungyeul Park},
+      year={2026},
+      eprint={2603.14755},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2603.14755},
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

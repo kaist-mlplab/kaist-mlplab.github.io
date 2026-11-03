@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Semantic Hardness Is Not Visual Hardness: Sign-Aware Hard Negative Mining for Sign Language Retrieval</title>
+  <meta name="description" content="Sign-Aware Hard Negative Mining (SAN) builds hard negative captions from visually confusable signs in the sign embedding space, raising fine-grained video-to-text R@1 on PHOENIX-2014T from 16.8% to 49.1% (GFSLT-VLP) while preserving coarse-grained retrieval. ACL 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="sign language retrieval, SLRet, hard negative mining, sign-aware hard negatives, SAN, visually confusable signs, sign confusability, contrastive learning, video-text retrieval, fine-grained retrieval, PHOENIX-2014T, German Sign Language, CiCo, GFSLT-VLP, ACL 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/sign-aware-hard-negatives/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Semantic Hardness Is Not Visual Hardness: Sign-Aware Hard Negative Mining for Sign Language Retrieval">
+  <meta property="og:description" content="Hard negatives for sign language retrieval should be visually confusable signs, not semantically similar words: SAN lifts fine-grained V2T R@1 from 16.8% to 49.1% on PHOENIX-2014T. ACL 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/sign-aware-hard-negatives/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/sign-aware-hard-negatives/static/images/teaser.png">
+  <meta property="og:image:width" content="1866">
+  <meta property="og:image:height" content="956">
+  <meta property="og:image:alt" content="Sign videos for Europe, October and Scandinavia next to a 3D sign embedding space where SAN negatives lie inside the visually confusable region around the query sign.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sign-Aware Hard Negative Mining (SAN) for Sign Language Retrieval">
+  <meta name="twitter:description" content="Mining hard negatives by visual confusability of signs for fine-grained sign language retrieval. ACL 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/sign-aware-hard-negatives/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Semantic Hardness Is Not Visual Hardness: Sign-Aware Hard Negative Mining for Sign Language Retrieval">
+  <meta name="citation_author" content="Lee, Junmyeong">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Hur, Chan">
+  <meta name="citation_author_institution" content="ETRI">
+  <meta name="citation_author" content="Choi, ChangSu">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Cho, Sukmin">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Gaim, Fitsum">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Hwang, Eui Jun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Song, Hoyun">
+  <meta name="citation_author_institution" content="KAIST InnoCORE PRISM-AI Center">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/07">
+  <meta name="citation_conference_title" content="Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="28262">
+  <meta name="citation_lastpage" content="28277">
+  <meta name="citation_doi" content="10.18653/v1/2026.acl-long.1302">
+  <meta name="citation_isbn" content="979-8-89176-390-6">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2026.acl-long.1302.pdf">
+  <meta name="citation_arxiv_id" content="2607.09263">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/sign-aware-hard-negatives/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/sign-aware-hard-negatives/#article",
+    "headline": "Semantic Hardness Is Not Visual Hardness: Sign-Aware Hard Negative Mining for Sign Language Retrieval",
+    "name": "Semantic Hardness Is Not Visual Hardness: Sign-Aware Hard Negative Mining for Sign Language Retrieval",
+    "url": "https://kaist-mlplab.github.io/sign-aware-hard-negatives/",
+    "datePublished": "2026-07",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/sign-aware-hard-negatives/static/images/teaser.png",
+    "abstract": "Sign Language Retrieval (SLRet) enables efficient access to sign language content but remains fragile in fine-grained scenarios where visually similar signs must be distinguished. We show that this limitation does not stem from model capacity, but from ineffective hard negative supervision. Specifically, we formulate fine-grained retrieval failures as a negative distribution mismatch: semantically distinct yet visually confusable signs are rarely treated as hard negatives, while existing text-based mining strategies fail to capture such visual ambiguity. To address this issue, we propose Sign-Aware Hard Negative Mining (SAN), which constructs hard negatives based on visual confusability in the sign embedding space rather than linguistic similarity. Experiments on PHOENIX-2014T demonstrate that SAN substantially improves fine-grained retrieval performance while preserving coarse-grained accuracy, highlighting the importance of aligning negative supervision with visual ambiguity in sign language retrieval.",
+    "keywords": [
+      "sign language retrieval",
+      "SLRet",
+      "hard negative mining",
+      "visually confusable signs",
+      "sign confusability",
+      "contrastive learning",
+      "video-text retrieval",
+      "fine-grained retrieval",
+      "PHOENIX-2014T",
+      "German Sign Language"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Sign language retrieval"
+      },
+      {
+        "@type": "Thing",
+        "name": "Hard negative mining"
+      },
+      {
+        "@type": "Thing",
+        "name": "Contrastive learning"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Junmyeong Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Chan Hur",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "ETRI"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "ChangSu Choi",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Sukmin Cho",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Fitsum Gaim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Eui Jun Hwang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Hoyun Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST InnoCORE PRISM-AI Center"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2026.acl-long.1302/",
+      "https://arxiv.org/abs/2607.09263",
+      "https://doi.org/10.18653/v1/2026.acl-long.1302",
+      "https://github.com/joonmy/SAN"
+    ],
+    "pagination": "28262-28277",
+    "workExample": {
+      "@type": "SoftwareSourceCode",
+      "name": "SAN: Sign-Aware Hard Negative Mining (code)",
+      "codeRepository": "https://github.com/joonmy/SAN",
+      "programmingLanguage": "Python"
+    },
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.18653/v1/2026.acl-long.1302"
+      },
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2607.09263"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2026.acl-long.1302.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Semantic Hardness Is Not Visual Hardness: Sign-Aware Hard Negative Mining for Sign Language Retrieval</h1>
+      <p class="subtitle is-5 publication-subtitle">Mining hard negatives by visual confusability of signs, not text similarity, for fine-grained sign language retrieval</p>
+      <p><span class="tag is-link is-medium venue-badge">ACL 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Junmyeong Lee<sup>1</sup>,</span>
+        <span class="author-block">Chan Hur<sup>4</sup>,</span>
+        <span class="author-block">ChangSu Choi<sup>2</sup>,</span>
+        <span class="author-block">Sukmin Cho<sup>1</sup>,</span>
+        <span class="author-block">Fitsum Gaim<sup>1</sup>,</span>
+        <span class="author-block">Eui Jun Hwang<sup>1</sup>,</span>
+        <span class="author-block">Hoyun Song<sup>3,*</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>2,3,*</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>School of Computing, KAIST</span>
+        <span class="author-block"><sup>2</sup>Graduate School of Culture Technology, KAIST</span>
+        <span class="author-block"><sup>3</sup>InnoCORE PRISM-AI Center, KAIST</span>
+        <span class="author-block"><sup>4</sup>ETRI Medical Informatics Laboratory</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.acl-long.1302/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.acl-long.1302.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2607.09263">arXiv</a>
+        <a class="button is-dark is-rounded" href="https://github.com/joonmy/SAN">Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1866" height="956"
+           alt="Left: video frames of the German signs for Europe (query), October (similarity 0.98, mined by SAN) and Scandinavia (0.93, mined by a text-based baseline). Right: a 3D sign embedding space in which the SAN negatives (green) cluster in a shaded visually confusable region around the query sign, while baseline negatives (red) mostly lie far away.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Fine-grained ambiguity in sign language retrieval. Semantically distinct words often correspond to visually similar signs, forming true hard negatives. For the query <em>Europe</em>, a text-based miner picks the related word <em>Scandinavia</em>, whose sign is visually distinct; SAN picks <em>October</em>, a semantically unrelated word whose sign is nearly identical (sign-feature similarity 0.98).
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Sign Language Retrieval (SLRet) enables efficient access to sign language content but remains fragile in fine-grained scenarios where visually similar signs must be distinguished. We show that this limitation does not stem from model capacity, but from ineffective hard negative supervision. Specifically, we formulate fine-grained retrieval failures as a negative distribution mismatch: semantically distinct yet visually confusable signs are rarely treated as hard negatives, while existing text-based mining strategies fail to capture such visual ambiguity. To address this issue, we propose Sign-Aware Hard Negative Mining (SAN), which constructs hard negatives based on visual confusability in the sign embedding space rather than linguistic similarity. Experiments on PHOENIX-2014T demonstrate that SAN substantially improves fine-grained retrieval performance while preserving coarse-grained accuracy, highlighting the importance of aligning negative supervision with visual ambiguity in sign language retrieval.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Sign language retrieval (SLRet)</span>
+      <span class="tag">Hard negative mining</span>
+      <span class="tag">Sign confusability</span>
+      <span class="tag">Contrastive learning</span>
+      <span class="tag">Video-text retrieval</span>
+      <span class="tag">Fine-grained retrieval</span>
+      <span class="tag">PHOENIX-2014T</span>
+      <span class="tag">German Sign Language (DGS)</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2600" height="1042" loading="lazy"
+           alt="Three-step SAN pipeline. Step 1: a sign encoder and a text encoder produce sign and word features whose similarity matrix, after row-wise softmax and a threshold alpha, yields reliable sign-word pairs. Step 2: sign-sign similarity above a threshold beta between different words builds a negative word table. Step 3: words in the original German caption are replaced with mined words to form hard negative captions.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> Overview of Sign-Aware Hard Negative Mining (SAN): (1) reliable sign&ndash;word pair mining,
+        (2) visually similar negative word mining, and (3) hard negative caption generation by keyword substitution
+        (e.g. <em>deutschland liegt morgen &hellip;</em> &rarr; <em>norden liegt &uuml;bermorgen &hellip;</em>).
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        Sign language retrieval (SLRet) models are trained with a video&ndash;text contrastive (InfoNCE) objective, where the negatives
+        in a mini-batch are usually easy to tell apart. Existing hard-negative methods swap words in the caption using text-based
+        similarity (FastText, RoBERTa, an LLM), but semantically close words are often signed very differently, while unrelated
+        words can share almost the same hand shape, location and movement. The paper calls this a <em>negative distribution mismatch</em>.
+        SAN instead picks negatives that are close in the <em>sign</em> embedding space:
+      </p>
+      <ol>
+        <li><strong>Reliable sign&ndash;word pairs.</strong> A pretrained retrieval model computes the sign&ndash;word similarity matrix of
+          each video&ndash;caption pair; after a row-wise softmax, only sign&ndash;word matches with probability above &alpha; = 0.7 are kept.</li>
+        <li><strong>Visually similar negative words.</strong> For each reliable pair, other pairs whose sign features have cosine
+          similarity above &beta; = 0.7 but a different word become negative candidates for that word.</li>
+        <li><strong>Hard negative captions.</strong> Words in the original caption are replaced by sampled candidates
+          (two words per caption, five hard negative captions per instance during training).</li>
+        <li><strong>Training.</strong> A fine-grained contrastive loss over the original caption and its hard negatives is added to
+          the standard loss: L = L<sub>coarse</sub> + &lambda; &middot; L<sub>fine</sub>, with &lambda; = 0.4.</li>
+      </ol>
+      <p>
+        Experiments use PHOENIX-2014T (German Sign Language weather forecasts; 7,096 / 519 / 642 train / validation / test pairs)
+        with CiCo and GFSLT-VLP backbones. Besides the standard (coarse-grained) test set, the paper builds a fine-grained stress test in
+        which each test caption must be retrieved among 40 single-word-substituted hard negative captions.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Large fine-grained gains.</strong> Fine-grained video-to-text R@1 rises from 17.9% to 39.4% with CiCo (+21.5) and
+          from 16.8% to 49.1% with GFSLT-VLP (+32.3), nearly tripling the baseline.</li>
+        <li><strong>Visual negatives beat text-based negatives.</strong> On GFSLT-VLP, SAN (49.1%) surpasses FastText (43.8%), GPT-4o-mini
+          (37.7%) and RoBERTa (29.5%) in fine-grained V2T R@1; with CiCo, SAN reaches 39.4% vs. 33.8% (FastText), 30.7% (GPT-4o-mini) and 25.6% (RoBERTa).</li>
+        <li><strong>Coarse-grained retrieval is largely kept.</strong> On GFSLT-VLP, text-based mining with FastText lowers coarse V2T R@1
+          from 69.4% to 64.3%, while SAN keeps 67.4%.</li>
+        <li><strong>SAN negatives are harder.</strong> Evaluated on each method's own negative set, the model reaches 53.7% (RoBERTa) and
+          47.5% (GPT-4o-mini) but only 31.8% on SAN-mined negatives, and SAN negatives have higher sign-prototype cosine similarity to their targets.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Retrieval on PHOENIX-2014T under the fine-grained stress test and the standard coarse-grained test
+          (subset: R@1 and MRR; R@5/R@10 are in the paper). &empty; = no hard negatives. Bold marks the best value per backbone and column,
+          as in the paper. (Table 1 in the paper.)
+        </caption>
+        <thead>
+          <tr>
+            <th rowspan="2">Model</th><th rowspan="2">Hard negatives</th>
+            <th colspan="2">Fine-grained V2T</th><th colspan="2">Coarse T2V</th><th colspan="2">Coarse V2T</th>
+          </tr>
+          <tr><th>R@1</th><th>MRR</th><th>R@1</th><th>MRR</th><th>R@1</th><th>MRR</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="5">CiCo</td><td>&empty;</td><td>17.9</td><td>35.0</td><td><strong>69.2</strong></td><td><strong>77.3</strong></td><td><strong>70.1</strong></td><td><strong>78.2</strong></td></tr>
+          <tr><td>FastText</td><td>33.8</td><td>51.8</td><td>67.3</td><td>75.4</td><td>67.0</td><td>75.4</td></tr>
+          <tr><td>RoBERTa</td><td>25.6</td><td>43.2</td><td>67.1</td><td>75.7</td><td>63.6</td><td>73.1</td></tr>
+          <tr><td>GPT-4o-mini</td><td>30.7</td><td>49.1</td><td>67.5</td><td>75.9</td><td>67.6</td><td>75.8</td></tr>
+          <tr class="ours"><td>SAN (ours)</td><td><strong>39.4</strong></td><td><strong>54.4</strong></td><td>68.1</td><td>76.6</td><td>67.8</td><td>76.2</td></tr>
+          <tr><td rowspan="5">GFSLT-VLP</td><td>&empty;</td><td>16.8</td><td>33.9</td><td>67.9</td><td>77.5</td><td><strong>69.4</strong></td><td><strong>77.9</strong></td></tr>
+          <tr><td>FastText</td><td>43.8</td><td>61.3</td><td>68.6</td><td>77.7</td><td>64.3</td><td>73.4</td></tr>
+          <tr><td>RoBERTa</td><td>29.5</td><td>47.9</td><td>68.0</td><td>77.1</td><td>65.2</td><td>74.3</td></tr>
+          <tr><td>GPT-4o-mini</td><td>37.7</td><td>56.4</td><td><strong>70.9</strong></td><td><strong>79.1</strong></td><td>66.6</td><td>76.2</td></tr>
+          <tr class="ours"><td>SAN (ours)</td><td><strong>49.1</strong></td><td><strong>64.1</strong></td><td>70.2</td><td>78.7</td><td>67.4</td><td>75.5</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{lee-etal-2026-semantic,
+    title = &quot;Semantic Hardness Is Not Visual Hardness: Sign-Aware Hard Negative Mining for Sign Language Retrieval&quot;,
+    author = &quot;Lee, Junmyeong  and
+      Hur, Chan  and
+      Choi, ChangSu  and
+      Cho, Sukmin  and
+      Gaim, Fitsum  and
+      Hwang, Eui Jun  and
+      Song, Hoyun  and
+      Lim, KyungTae&quot;,
+    editor = &quot;Liakata, Maria  and
+      Moreira, Viviane P.  and
+      Zhang, Jiajun  and
+      Jurgens, David&quot;,
+    booktitle = &quot;Proceedings of the 64th Annual Meeting of the {A}ssociation for {C}omputational {L}inguistics (Volume 1: Long Papers)&quot;,
+    month = jul,
+    year = &quot;2026&quot;,
+    address = &quot;San Diego, California, United States&quot;,
+    publisher = &quot;Association for Computational Linguistics&quot;,
+    url = &quot;https://aclanthology.org/2026.acl-long.1302/&quot;,
+    doi = &quot;10.18653/v1/2026.acl-long.1302&quot;,
+    pages = &quot;28262--28277&quot;,
+    ISBN = &quot;979-8-89176-390-6&quot;
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

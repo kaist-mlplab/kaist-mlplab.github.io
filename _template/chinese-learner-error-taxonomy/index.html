@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>A Layered Taxonomy for Chinese Learner Grammatical Error Annotation</title>
+  <meta name="description" content="A layered taxonomy for annotating grammatical errors in Chinese learner writing: orthographic edits get op:orth:subtype labels, other edits an op:dom:pos core label with optional pedagogical extensions; on 4,426 MuCGEC edits orthographic screening covers 24.0%, and five LLMs applying it agree 97.1% on the orthographic decision. arXiv 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="Chinese grammatical error correction, CGEC, grammatical error annotation, error taxonomy, learner corpus, Chinese as a second language, CSL, L2 Chinese, ERRANT, ChERRANT, MuCGEC, annotation scheme, LLM annotation agreement, arXiv 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/chinese-learner-error-taxonomy/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="A Layered Taxonomy for Chinese Learner Grammatical Error Annotation">
+  <meta property="og:description" content="A two-route, layered error taxonomy for Chinese learner writing, tested on 4,426 MuCGEC edits and with five LLM annotators. arXiv 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/chinese-learner-error-taxonomy/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/chinese-learner-error-taxonomy/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="1529">
+  <meta property="og:image:alt" content="Annotation flow of the layered Chinese learner error taxonomy.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A Layered Taxonomy for Chinese Learner Grammatical Error Annotation">
+  <meta name="twitter:description" content="A two-route, layered error taxonomy for Chinese learner writing, tested on 4,426 MuCGEC edits and with five LLM annotators. arXiv 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/chinese-learner-error-taxonomy/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="A Layered Taxonomy for Chinese Learner Grammatical Error Annotation">
+  <meta name="citation_author" content="Qiu, Mengyang">
+  <meta name="citation_author_institution" content="Saint Elizabeth University">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/09/02">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2609.02153">
+  <meta name="citation_arxiv_id" content="2609.02153">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/chinese-learner-error-taxonomy/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/chinese-learner-error-taxonomy/#article",
+    "headline": "A Layered Taxonomy for Chinese Learner Grammatical Error Annotation",
+    "name": "A Layered Taxonomy for Chinese Learner Grammatical Error Annotation",
+    "url": "https://kaist-mlplab.github.io/chinese-learner-error-taxonomy/",
+    "datePublished": "2026-09-02",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/chinese-learner-error-taxonomy/static/images/teaser.png",
+    "abstract": "Grammatical error annotation in Chinese learner writing requires labels that are both consistent and linguistically meaningful. This paper proposes a layered scheme linking computational Chinese grammatical error correction (CGEC) with pedagogical error analysis. The scheme first identifies character- and punctuation-level orthographic errors, labeling them by edit operation and subtype. Other errors receive a three-layer core label combining edit operation, linguistic domain, and part of speech, with optional Chinese-specific extensions for aspect, modality, comparison, argument structure, and complements. Drawing on CGEC resources, learner-error taxonomies, and Mandarin grammar, the taxonomy is evaluated through a coverage analysis of automatically extracted MuCGEC edits and a preliminary consistency study in which five large language models apply it to a sample. The results support the layered approach while identifying category boundaries requiring further refinement.",
+    "keywords": [
+      "Chinese grammatical error correction",
+      "CGEC",
+      "grammatical error annotation",
+      "error taxonomy",
+      "learner corpus research",
+      "L2 Chinese",
+      "ChERRANT",
+      "MuCGEC",
+      "pedagogical feedback",
+      "LLM annotation consistency"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Grammatical error correction"
+      },
+      {
+        "@type": "Thing",
+        "name": "Learner corpora"
+      },
+      {
+        "@type": "Thing",
+        "name": "Mandarin Chinese"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Mengyang Qiu",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Saint Elizabeth University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2609.02153"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2609.02153"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2609.02153"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">A Layered Taxonomy for Chinese Learner Grammatical Error Annotation</h1>
+      <p class="subtitle is-5 publication-subtitle">A layered error annotation scheme linking Chinese grammatical error correction (CGEC) with pedagogical error analysis</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Mengyang Qiu<sup>1</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>2</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Saint Elizabeth University, USA</span>
+        <span class="author-block"><sup>2</sup>KAIST, South Korea</span>
+      </p>
+      <p class="publication-notes"></p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2609.02153">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2609.02153">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="1529"
+           alt="Flowchart: an edit defined relative to a selected target hypothesis is first tested for ORTH. If yes, it receives an orthographic label OP:ORTH:SUBTYPE with subtypes phon, shape, complex, order, punc. If no, the annotator determines the operation (M, R, U, WO), assigns POS (VERB, NOUN, PART, ADV, ..., X), applies the domain rule (every M, U, or WO is STRUCT; R with a content item is LEX-CONT; R with a closed-class item is LEX-FUNC), yielding the core label OP:DOM:POS, optionally followed by a pedagogical extension.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Annotation flow. Orthographic edits receive <code>op:orth:subtype</code> (subtypes phon, shape, complex, order, punc).
+        All other edits receive the core label <code>op:dom:pos</code>: operation M (missing), R (replacement), U (unnecessary) or WO (word order); a part-of-speech tag;
+        and a domain set by a deterministic rule (every non-orthographic M, U, or WO &rarr; STRUCT; R with a content item &rarr; LEX-CONT; R with a closed-class item &rarr; LEX-FUNC),
+        optionally followed by a pedagogical extension.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Grammatical error annotation in Chinese learner writing requires labels that are both consistent and linguistically meaningful. This paper
+        proposes a layered scheme linking computational Chinese grammatical error correction (CGEC) with pedagogical error analysis. The scheme
+        first identifies character- and punctuation-level orthographic errors, labeling them by edit operation and subtype. Other errors receive a
+        three-layer core label combining edit operation, linguistic domain, and part of speech, with optional Chinese-specific extensions for aspect,
+        modality, comparison, argument structure, and complements. Drawing on CGEC resources, learner-error taxonomies, and Mandarin grammar, the
+        taxonomy is evaluated through a coverage analysis of automatically extracted MuCGEC edits and a preliminary consistency study in which five
+        large language models apply it to a sample. The results support the layered approach while identifying category boundaries requiring
+        further refinement.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Chinese GEC (CGEC)</span>
+      <span class="tag">Error annotation</span>
+      <span class="tag">Error taxonomy</span>
+      <span class="tag">Learner corpus</span>
+      <span class="tag">L2 Chinese / CSL</span>
+      <span class="tag">ERRANT / ChERRANT</span>
+      <span class="tag">MuCGEC</span>
+      <span class="tag">Pedagogical feedback</span>
+      <span class="tag">LLM annotators</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">The Taxonomy</h2>
+    <div class="content has-text-justified">
+      <p>Every edit is defined relative to a selected correction (target hypothesis) and follows one of two routes.</p>
+      <ol>
+        <li><strong>Edit operation.</strong> Missing (M), Replacement (R), Unnecessary (U), and Word Order (WO) as a separate top-level operation, plus an orthographic-only Character Order (CO) operation.</li>
+        <li><strong>Orthographic route</strong> (<code>op:orth:subtype</code>): wrong-character spellings, internal character reversals, and punctuation errors, e.g.
+          *做业 &rarr; 作业 <em>zu&ograve;y&egrave;</em> &lsquo;homework&rsquo; (phon), *自已 &rarr; 自己 <em>z&igrave;j&#464;</em> &lsquo;oneself&rsquo; (shape), *亚州 &rarr; 亚洲 <em>Y&agrave;zh&#333;u</em> &lsquo;Asia&rsquo; (complex),
+          *么什 &rarr; 什么 <em>sh&eacute;nme</em> &lsquo;what&rsquo; (order). The homophonous particles 的/地/得 <em>de</em> are not orthographic, because their correction concerns grammatical function.</li>
+        <li><strong>Non-orthographic core</strong> (<code>op:dom:pos</code>): a linguistic domain (LEX-CONT for content-word choice, LEX-FUNC for choosing the wrong item from a closed functional
+          inventory, STRUCT for phrase and clause structure such as 把 <em>b&#462;</em>, 被 <em>b&egrave;i</em>, 比 <em>b&#464;</em> constructions and complements) and a POS tag
+          (VERB, NOUN, ADJ, ADV, PART, AUX, PREP, CLF, CONJ, or X).</li>
+        <li><strong>Optional pedagogical extensions</strong>: a family code and item, e.g. <code>M:STRUCT:PART</code> + <code>ASP:le</code> for a missing aspect marker 了 <em>le</em>;
+          families cover aspect, modality, structural particles, comparison, argument structure, complements, and more.</li>
+      </ol>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption><strong>Table 1.</strong> Inventory of orthographic labels.</caption>
+        <thead><tr><th>Label</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>R:ORTH:phon</td><td style="white-space:normal;text-align:left !important">Phonological identity or close similarity without salient visual similarity</td></tr>
+          <tr><td>R:ORTH:shape</td><td style="white-space:normal;text-align:left !important">Visual similarity with different pronunciation</td></tr>
+          <tr><td>R:ORTH:complex</td><td style="white-space:normal;text-align:left !important">Both phonological and visual similarity are salient</td></tr>
+          <tr><td>CO:ORTH:order</td><td style="white-space:normal;text-align:left !important">Correct characters in the wrong internal order within one word</td></tr>
+          <tr><td>R:ORTH:punc</td><td style="white-space:normal;text-align:left !important">Wrong punctuation form or choice</td></tr>
+          <tr><td>M:ORTH:punc</td><td style="white-space:normal;text-align:left !important">Missing punctuation mark</td></tr>
+          <tr><td>U:ORTH:punc</td><td style="white-space:normal;text-align:left !important">Redundant punctuation mark</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Coverage on MuCGEC.</strong> Of 4,426 first-reference MuCGEC development edits (extracted with a linguistically informed ChERRANT extension), Replacement accounts for 55.9%,
+          Missing for 27.4%, and Unnecessary for 16.7%; orthographic screening identifies <strong>24.0%</strong> (11.9% similarity-typed character substitutions, 12.1% punctuation).</li>
+        <li><strong>Extensions are relevant.</strong> A cautious count of single-token function-word edits places another 17.6% in the extension inventory (e.g. 的/地/得 triggers 5.1%, modal auxiliaries 2.2%);
+          of the 185 edits labeled as <em>de</em>-particle errors, 168 are insertions or deletions and only 17 replacements.</li>
+        <li><strong>Consistency with five LLMs.</strong> On 391 sampled edits, pairwise agreement is 97.1% for the orthographic decision (&kappa; = 0.883) and 91.6% for the non-orthographic operation,
+          but falls to 84.5% for extension codes (&kappa; = 0.736) and 69.9% for the exact composite label, rising to 86.1% with partial credit.</li>
+        <li><strong>Within-model variation.</strong> Repeated runs of the same model match on approximately four fifths of composite labels; disagreements cluster around R vs. M,
+          LEX-CONT vs. LEX-FUNC for some adverbs, use of POS X, and whether an extension applies.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 5.</strong> Agreement among five LLMs applying the taxonomy to 391 MuCGEC edits, per layer. The last column compares the most common model label with
+          an expert reference on a deliberately varied 115-item subset (difficult cases overrepresented).
+        </caption>
+        <thead><tr><th>Layer</th><th>Pairwise (%)</th><th>&kappa;</th><th>&alpha;</th><th>Panel label vs. expert (%)</th></tr></thead>
+        <tbody>
+          <tr><td>Orthographic screening decision</td><td>97.1</td><td>0.883</td><td>0.883</td><td>99.1</td></tr>
+          <tr><td>Orthographic label (operation and subtype)</td><td>92.7</td><td>0.898</td><td>0.898</td><td>100.0</td></tr>
+          <tr><td>Non-orthographic edit operation</td><td>91.6</td><td>0.878</td><td>0.878</td><td>85.6</td></tr>
+          <tr><td>Linguistic domain</td><td>89.8</td><td>0.823</td><td>0.823</td><td>82.7</td></tr>
+          <tr><td>Part of speech</td><td>84.6</td><td>0.820</td><td>0.820</td><td>76.1</td></tr>
+          <tr><td>Extension code</td><td>84.5</td><td>0.736</td><td>0.737</td><td>75.7</td></tr>
+          <tr><td>Composite label (exact, code level)</td><td>69.9</td><td>0.688</td><td>0.689</td><td>53.8</td></tr>
+          <tr><td>Composite (partial credit)</td><td>86.1</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{qiu2026layeredtaxonomychineselearner,
+      title={A Layered Taxonomy for Chinese Learner Grammatical Error Annotation}, 
+      author={Mengyang Qiu and Jungyeul Park},
+      year={2026},
+      eprint={2609.02153},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2609.02153}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

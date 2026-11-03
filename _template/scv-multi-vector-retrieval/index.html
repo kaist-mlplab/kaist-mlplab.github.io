@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>SCV: Light and Effective Multi-Vector Retrieval with Sequence Compressive Vectors</title>
+  <meta name="description" content="SCV is a multi-vector dense retriever that compresses document tokens into span-level vectors and searches coarse-to-fine with a single model, reaching 0.86 ms/query on MS MARCO, 207 times faster than ColBERT, with a 30 GB index. COLING 2025 Industry Track, KAIST MLP Lab.">
+  <meta name="keywords" content="SCV, sequence compressive vectors, multi-vector retrieval, late interaction, ColBERT, CITADEL, dense retrieval, neural information retrieval, span representation, coarse-to-fine search, retrieval latency, index compression, retrieval-augmented generation, RAG, MS MARCO, BEIR, COLING 2025 Industry Track, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/scv-multi-vector-retrieval/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="SCV: Light and Effective Multi-Vector Retrieval with Sequence Compressive Vectors">
+  <meta property="og:description" content="Multi-vector retrieval with span-compressed document vectors: 0.86 ms/query, 207x faster than ColBERT, 30 GB index. COLING 2025 Industry Track.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/scv-multi-vector-retrieval/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/scv-multi-vector-retrieval/static/images/teaser.png">
+  <meta property="og:image:width" content="1827">
+  <meta property="og:image:height" content="1023">
+  <meta property="og:image:alt" content="SCV architecture: query tokens go through a query encoder, document tokens through the SCV encoder into fewer span vectors, and MaxSim scores between query vectors and span vectors are summed.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SCV: Light and Effective Multi-Vector Retrieval with Sequence Compressive Vectors">
+  <meta name="twitter:description" content="Multi-vector retrieval with span-compressed document vectors: 0.86 ms/query, 207x faster than ColBERT, 30 GB index. COLING 2025 Industry Track.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/scv-multi-vector-retrieval/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="SCV: Light and Effective Multi-Vector Retrieval with Sequence Compressive Vectors">
+  <meta name="citation_author" content="Park, Cheoneum">
+  <meta name="citation_author_institution" content="Hanbat National University">
+  <meta name="citation_author" content="Jeong, Seohyeong">
+  <meta name="citation_author_institution" content="SK Telecom">
+  <meta name="citation_author" content="Kim, Minsang">
+  <meta name="citation_author_institution" content="SK Telecom">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Lee, Yong-Hun">
+  <meta name="citation_author_institution" content="SK Telecom">
+  <meta name="citation_publication_date" content="2025/01">
+  <meta name="citation_conference_title" content="Proceedings of the 31st International Conference on Computational Linguistics: Industry Track">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="760">
+  <meta name="citation_lastpage" content="770">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2025.coling-industry.63.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/scv-multi-vector-retrieval/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/scv-multi-vector-retrieval/#article",
+    "headline": "SCV: Light and Effective Multi-Vector Retrieval with Sequence Compressive Vectors",
+    "name": "SCV: Light and Effective Multi-Vector Retrieval with Sequence Compressive Vectors",
+    "url": "https://kaist-mlplab.github.io/scv-multi-vector-retrieval/",
+    "datePublished": "2025-01",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/scv-multi-vector-retrieval/static/images/teaser.png",
+    "abstract": "Recent advances in language models (LMs) has driven progress in information retrieval (IR), effectively extracting semantically relevant information. However, they face challenges in balancing computational costs with deeper query-document interactions. To tackle this, we present two mechanisms: 1) a light and effective multi-vector retrieval with sequence compression vectors, dubbed SCV and 2) coarse-to-fine vector search. The strengths of SCV stems from its application of span compressive vectors for scoring. By employing a non-linear operation to examine every token in the document, we abstract these into a span-level representation. These vectors effectively reduce the document’s dimensional representation, enabling the model to engage comprehensively with tokens across the entire collection of documents, rather than the subset retrieved by Approximate Nearest Neighbor. Therefore, our framework performs a coarse single vector search during the inference stage and conducts a fine-grained multi-vector search end-to-end. This approach effectively reduces the cost required for search. We empirically show that SCV achieves the fastest latency compared to other state-of-the-art models and can obtain competitive performance on both in-domain and out-of-domain benchmark datasets.",
+    "keywords": [
+      "multi-vector retrieval",
+      "sequence compressive vectors",
+      "late interaction",
+      "ColBERT",
+      "dense retrieval",
+      "neural information retrieval",
+      "span representation",
+      "coarse-to-fine search",
+      "retrieval latency",
+      "retrieval-augmented generation",
+      "MS MARCO",
+      "BEIR"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Information retrieval"
+      },
+      {
+        "@type": "Thing",
+        "name": "Dense retrieval"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multi-vector retrieval"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Cheoneum Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Hanbat National University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Seohyeong Jeong",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "SK Telecom"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Minsang Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "SK Telecom"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yong-Hun Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "SK Telecom"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Proceedings of the 31st International Conference on Computational Linguistics: Industry Track",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2025.coling-industry.63/"
+    ],
+    "pagination": "760-770",
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2025.coling-industry.63.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">SCV: Light and Effective Multi-Vector Retrieval with Sequence Compressive Vectors</h1>
+      <p class="subtitle is-5 publication-subtitle">Compressing document tokens into span vectors for fast multi-vector dense retrieval with coarse-to-fine search</p>
+      <p><span class="tag is-link is-medium venue-badge">COLING 2025 Industry</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Cheoneum Park<sup>1,*</sup>,</span>
+        <span class="author-block">Seohyeong Jeong<sup>2</sup>,</span>
+        <span class="author-block">Minsang Kim<sup>2</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>3</sup>,</span>
+        <span class="author-block">Yong-Hun Lee<sup>2</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Hanbat National University</span>
+        <span class="author-block"><sup>2</sup>SK Telecom</span>
+        <span class="author-block"><sup>3</sup>Seoul National University of Science and Technology</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.coling-industry.63/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.coling-industry.63.pdf">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1827" height="1023" style="max-width:760px;margin:0 auto;display:block"
+           alt="Architecture diagram: query tokens q1 to qn pass through a query encoder into green query vectors; document tokens d1 to dm pass through the SCV encoder into a smaller number of pink span vectors; each query vector takes a MaxSim over the span vectors and the MaxSim scores are summed.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Sequence Compressive Vectors (SCV) architecture overview. Document tokens are compressed into fewer span vectors,
+        and each query token is matched to its most similar span (MaxSim); the per-token maxima are summed into the relevance score.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Recent advances in language models (LMs) has driven progress in information retrieval (IR), effectively extracting semantically relevant information. However, they face challenges in balancing computational costs with deeper query-document interactions. To tackle this, we present two mechanisms: 1) a light and effective multi-vector retrieval with sequence compression vectors, dubbed SCV and 2) coarse-to-fine vector search. The strengths of SCV stems from its application of span compressive vectors for scoring. By employing a non-linear operation to examine every token in the document, we abstract these into a span-level representation. These vectors effectively reduce the document’s dimensional representation, enabling the model to engage comprehensively with tokens across the entire collection of documents, rather than the subset retrieved by Approximate Nearest Neighbor. Therefore, our framework performs a coarse single vector search during the inference stage and conducts a fine-grained multi-vector search end-to-end. This approach effectively reduces the cost required for search. We empirically show that SCV achieves the fastest latency compared to other state-of-the-art models and can obtain competitive performance on both in-domain and out-of-domain benchmark datasets.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Multi-vector retrieval</span>
+      <span class="tag">Late interaction (ColBERT)</span>
+      <span class="tag">Dense retrieval</span>
+      <span class="tag">Span representation</span>
+      <span class="tag">Index compression</span>
+      <span class="tag">Coarse-to-fine search</span>
+      <span class="tag">Retrieval latency</span>
+      <span class="tag">RAG retriever</span>
+      <span class="tag">MS MARCO / BEIR</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="1780" height="1161" loading="lazy" style="max-width:720px;margin:0 auto;display:block"
+           alt="SCV encoder for the sentence 'Sejong the Great was the inventor of Hangul': a passage encoder produces token vectors, overlapping sliding windows of three tokens are combined into span vectors for 'Sejong the Great', 'Great was the', and 'inventor of Hangul'.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> SCV encoder for span representation (window width W = 3 in this example): contextual token vectors from the
+        passage encoder are pooled over overlapping sliding windows into one vector per span.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        Token-level multi-vector retrievers such as ColBERT index every document token, which makes indexes large and search slow, and usually
+        need an approximate-nearest-neighbour (ANN) stage. SCV keeps late interaction but over far fewer vectors:
+      </p>
+      <ol>
+        <li><strong>Span compression.</strong> A sliding window of width <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi></mrow><annotation encoding="application/x-tex">W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span></span></span></span> with overlap rate <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>a</mi><mi>t</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">\mathit{rate}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord"><span class="mord mathit">rate</span></span></span></span></span> turns a document of
+          <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span> tokens into <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mo>=</mo><mfrac><mrow><mi>m</mi><mo>−</mo><mi>W</mi></mrow><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mrow><mi>r</mi><mi>a</mi><mi>t</mi><mi>e</mi></mrow><mo stretchy="false">)</mo><mi>W</mi></mrow></mfrac><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">l = \frac{m-W}{(1-\mathit{rate})W} + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.3923em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8723em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">1</span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathit mtight">rate</span></span><span class="mclose mtight">)</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">W</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mbin mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">W</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> spans. Each span vector combines start and end token features, their
+          product, sum- and max-pooled token vectors, and an attention-selected salient word, passed through a feed-forward layer with GELU.</li>
+        <li><strong>Late-interaction scoring.</strong> Query tokens are matched to document spans with MaxSim:
+          <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>Q</mi><mo separator="true">,</mo><mi>S</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><munder><mrow><mi>max</mi><mo>⁡</mo></mrow><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><mi>l</mi></mrow></munder><msubsup><mi>h</mi><msub><mi>q</mi><mi>i</mi></msub><mi mathvariant="normal">⊤</mi></msubsup><msub><mi>h</mi><msub><mi>s</mi><mi>k</mi></msub></msub></mrow><annotation encoding="application/x-tex">f(Q, S) = \sum_{i=1}^{n} \max_{k=1,\dots,l} h_{q_i}^{\top} h_{s_k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">Q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.9291em;vertical-align:-1.2777em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4306em;"><span style="top:-2.3479em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">1</span><span class="mpunct mtight">,</span><span class="minner mtight">…</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">max</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8882em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">⊤</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3831em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2559em;"><span></span></span></span></span></span></span></span></span></span></span></li>
+        <li><strong>Multi-task training.</strong> The span loss is trained jointly with a token-level loss and a single-vector [CLS] loss
+          (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">L</mi><mo>=</mo><msub><mi mathvariant="script">L</mi><mrow><mi>S</mi><mi>C</mi><mi>V</mi></mrow></msub><mo>+</mo><msub><mi mathvariant="script">L</mi><mrow><mi>t</mi><mi>o</mi><mi>k</mi></mrow></msub><mo>+</mo><mi>α</mi><msub><mi mathvariant="script">L</mi><mrow><mi>c</mi><mi>l</mi><mi>s</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\mathcal{L} = \mathcal{L}_{SCV} + \mathcal{L}_{tok} + \alpha \mathcal{L}_{cls}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal">L</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">SC</span><span class="mord mathnormal mtight" style="margin-right:0.22222em;">V</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mord"><span class="mord mathcal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mord mathnormal mtight">s</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>), using in-batch, pre-batch, and BM25 hard negatives,
+          plus about 180k GPT-4-generated questions for MS MARCO passages.</li>
+        <li><strong>Coarse-to-fine search.</strong> At inference the same model first retrieves the top-N documents (N = 10k) with its single
+          [CLS] vector, then rescores them with span-level MaxSim, without an external ANN module. A cross-encoder can optionally rerank the results.</li>
+      </ol>
+      <p>
+        The backbone is DistilBERT-base; span width is 8 in training (16 for indexing MS MARCO), overlap rate 0.2, and output dimension 128.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Fastest multi-vector retriever.</strong> SCV answers a query in 0.86 ms on GPU, about 207&times; faster than ColBERT (178 ms),
+          4.6&times; faster than CITADEL (3.95 ms), 3.7&times; faster than CITADEL+ (3.21 ms), and about 1.5&times; faster than the single-vector DPR-768 (1.28 ms).</li>
+        <li><strong>Compact index.</strong> The SCV index is 30 GB, close to DPR-768 (26 GB) and about 5.13&times; smaller than ColBERT (154 GB).</li>
+        <li><strong>Competitive accuracy.</strong> On TREC DL 2019, SCV reaches 0.645 nDCG@10 with only BM25 hard negatives (DPR-768: 0.611);
+          on 13 BEIR datasets it averages 0.436 nDCG@10 (ColBERT: 0.453) and beats ColBERT on ArguAna, NFCorpus, and Touch&eacute;.</li>
+        <li><strong>Strong reranking pipeline.</strong> SCV with a MiniLM cross-encoder reaches 0.744 nDCG@10 on TREC DL 2019, above monoBERT (0.723),
+          SimLM (0.741), and ListT5 (0.718), and close to RankLLaMA-7B (0.756) with a 220M-parameter pipeline.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable results-table" style="margin:0 auto">
+        <caption>
+          <strong>Table 1.</strong> In-domain evaluation on TREC DL 2019 with index size and search latency (query encoding plus search).
+          Bold follows the paper.
+        </caption>
+        <thead>
+          <tr><th rowspan="2">Model</th><th colspan="2">TREC DL 19</th><th rowspan="2">Index (GB)</th><th rowspan="2">Latency (ms/query)</th></tr>
+          <tr><th>nDCG@10</th><th>R@1k</th></tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="5"><em>Models trained with only BM25 hard negatives</em></td></tr>
+          <tr><td>BM25</td><td>0.506</td><td>0.739</td><td>0.67</td><td>&times;</td></tr>
+          <tr><td>DPR-768</td><td>0.611</td><td>0.742</td><td>26</td><td>1.28</td></tr>
+          <tr><td>COIL-tok</td><td>0.660</td><td>0.809</td><td>52.5</td><td>46.8</td></tr>
+          <tr><td>ColBERT</td><td>0.694</td><td>0.830</td><td>154</td><td>178</td></tr>
+          <tr><td>CITADEL</td><td>0.687</td><td>0.829</td><td>78.3</td><td>3.95</td></tr>
+          <tr class="ours"><td>SCV (ours)</td><td>0.645</td><td>0.712</td><td>30</td><td><strong>0.86</strong></td></tr>
+          <tr><td colspan="5"><em>Models trained with further methods</em></td></tr>
+          <tr><td>coCondenser</td><td>0.674</td><td>0.820</td><td>26</td><td>1.28</td></tr>
+          <tr><td>ColBERT-v2</td><td><strong>0.744</strong></td><td><strong>0.882</strong></td><td>29</td><td>122</td></tr>
+          <tr><td>ColBERT-PLAID</td><td>0.744</td><td>0.882</td><td><strong>22.1</strong></td><td>55</td></tr>
+          <tr><td>CITADEL+</td><td>0.703</td><td>0.830</td><td>26.7</td><td>3.21</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{park-etal-2025-scv,
+    title = "{SCV}: Light and Effective Multi-Vector Retrieval with Sequence Compressive Vectors",
+    author = "Park, Cheoneum  and
+      Jeong, Seohyeong  and
+      Kim, Minsang  and
+      Lim, KyungTae  and
+      Lee, Yong-Hun",
+    editor = "Rambow, Owen  and
+      Wanner, Leo  and
+      Apidianaki, Marianna  and
+      Al-Khalifa, Hend  and
+      Eugenio, Barbara Di  and
+      Schockaert, Steven  and
+      Darwish, Kareem  and
+      Agarwal, Apoorv",
+    booktitle = "Proceedings of the 31st International Conference on Computational Linguistics: Industry Track",
+    month = jan,
+    year = "2025",
+    address = "Abu Dhabi, UAE",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.coling-industry.63/",
+    pages = "760--770"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

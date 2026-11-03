@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>When the Misidentified Adverbial Phrase Functions as a Complement</title>
+  <meta name="description" content="A Korean dataset with token-level complement and adjunct labels for verbal predicates, which reclassifies phrases misidentified as adverbial adjuncts in Korean treebanks as complements; sequence labelers trained on it reach up to 0.7762 exact and 0.8144 partial F1. Findings of EMNLP 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="Korean predicate-argument structure, complements and adjuncts, argument vs. adjunct, adverbial phrase, subcategorization frame, Sejong dictionary, KLUE dependency treebank, Korean treebank, semantic role labeling, sequence labeling, Korean linguistics, Korean NLP, Findings of EMNLP 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/korean-adverbial-complement/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="When the Misidentified Adverbial Phrase Functions as a Complement">
+  <meta property="og:description" content="Complements vs. adjuncts in Korean: a token-level dataset built from the KLUE dependency treebank and Sejong subcategorization frames. Findings of EMNLP 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/korean-adverbial-complement/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/korean-adverbial-complement/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="1503">
+  <meta property="og:image:alt" content="Three examples projecting Sejong subcategorization frames onto Korean sentences: a perfect match and two kinds of partial match.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="When the Misidentified Adverbial Phrase Functions as a Complement">
+  <meta name="twitter:description" content="Complements vs. adjuncts in Korean: a token-level dataset built from the KLUE dependency treebank and Sejong subcategorization frames. Findings of EMNLP 2024.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/korean-adverbial-complement/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="When the Misidentified Adverbial Phrase Functions as a Complement">
+  <meta name="citation_author" content="Chen, Yige">
+  <meta name="citation_author_institution" content="The Chinese University of Hong Kong, Hong Kong">
+  <meta name="citation_author" content="Kim, Kyuwon">
+  <meta name="citation_author_institution" content="Seoul National University, South Korea">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="SeoulTech, South Korea">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="The University of British Columbia, Canada">
+  <meta name="citation_author" content="Park, Chulwoo">
+  <meta name="citation_author_institution" content="Anyang University, South Korea">
+  <meta name="citation_publication_date" content="2024/11">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: EMNLP 2024">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="12326">
+  <meta name="citation_lastpage" content="12336">
+  <meta name="citation_doi" content="10.18653/v1/2024.findings-emnlp.718">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2024.findings-emnlp.718.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/korean-adverbial-complement/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/korean-adverbial-complement/#article",
+    "headline": "When the Misidentified Adverbial Phrase Functions as a Complement",
+    "name": "When the Misidentified Adverbial Phrase Functions as a Complement",
+    "url": "https://kaist-mlplab.github.io/korean-adverbial-complement/",
+    "datePublished": "2024-11",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/korean-adverbial-complement/static/images/teaser.png",
+    "abstract": "This study investigates the predicate-argument structure in Korean language processing. Despite the importance of distinguishing mandatory arguments and optional modifiers in sentences, research in this area has been limited. We introduce a dataset with token-level annotations which labels mandatory and optional elements as complements and adjuncts, respectively. Particularly, we reclassify certain Korean phrases, previously misidentified as adverbial phrases, as complements, addressing misuses of the term adjunct in existing Korean treebanks. Utilizing a Korean dependency treebank, we develop an automatic labeling technique for complements and adjuncts. Experiments using the proposed dataset yield satisfying results, demonstrating that the dataset is trainable and reliable.",
+    "keywords": [
+      "Korean predicate-argument structure",
+      "complements",
+      "adjuncts",
+      "adverbial phrase",
+      "subcategorization frame",
+      "Sejong dictionary",
+      "KLUE dependency treebank",
+      "sequence labeling",
+      "Korean NLP"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Predicate-argument structure"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Linguistic annotation"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Yige Chen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The Chinese University of Hong Kong, Hong Kong"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Kyuwon Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "SeoulTech, South Korea"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia, Canada"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Chulwoo Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Anyang University, South Korea"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Findings of the Association for Computational Linguistics: EMNLP 2024",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2024.findings-emnlp.718/",
+      "https://doi.org/10.18653/v1/2024.findings-emnlp.718",
+      "https://github.com/universalkorean/adverbial-phrase"
+    ],
+    "pagination": "12326-12336",
+    "workExample": {
+      "@type": "Dataset",
+      "name": "Korean complement/adjunct (adverbial-phrase) dataset",
+      "url": "https://github.com/universalkorean/adverbial-phrase",
+      "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.18653/v1/2024.findings-emnlp.718"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2024.findings-emnlp.718.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">When the Misidentified Adverbial Phrase Functions as a Complement</h1>
+      <p class="subtitle is-5 publication-subtitle">A Korean dataset that labels complements and adjuncts of verbal predicates, built from the KLUE dependency treebank and the Sejong dictionary</p>
+      <p><span class="tag is-link is-medium venue-badge">Findings of EMNLP 2024</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Yige Chen<sup>1</sup>,</span>
+        <span class="author-block">Kyuwon Kim<sup>2</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>3,*</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>4,*</sup>,</span>
+        <span class="author-block">Chulwoo Park<sup>5</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>The Chinese University of Hong Kong, Hong Kong</span>
+        <span class="author-block"><sup>2</sup>Seoul National University, South Korea</span>
+        <span class="author-block"><sup>3</sup>SeoulTech, South Korea</span>
+        <span class="author-block"><sup>4</sup>The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>5</sup>Anyang University, South Korea</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.findings-emnlp.718/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.findings-emnlp.718.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://github.com/universalkorean/adverbial-phrase">Dataset</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="1503"
+           alt="Three examples of projecting a Sejong subcategorization frame onto a Korean sentence. (a) Perfect match for 제출하다 (jechulhada, to submit): frame X=N0-이, Y=N1-을, Z=N2-에|에게|로 maps to A 씨는 (AGT), 전치 6주 진단서를 (THM) and 경찰에 (GOL). (b) Partial match for 마치다 (machida, to finish): only 고소인 진술을 (THM) appears because the subject is elided. (c) Partial match for 부르다 (buleuda, to call/summon): 경찰은 (AGT) and 김현중을 (THM) match the frame, 조만간 is an adverb (ADV), and 피고소인 신분으로 is an adjunct (AJT).">
+      </picture>
+      <figcaption>
+        <strong>Figure 1 (paper).</strong> Projecting subcategorization frames from the Sejong dictionary onto sentences of the KLUE dependency treebank. (a) In a perfect match every frame argument is found; note that the dative 경찰에 (<em>gyeongchal-e</em>, &lsquo;to the police&rsquo;), labeled an adjunct (NP_AJT) in the treebank, is a required argument of 제출하다 and is therefore a complement. (b) A partial match caused by subject ellipsis. (c) A partial match where the phrase 피고소인 신분으로 (&lsquo;with defendant status&rsquo;) has no slot in the frame and is labeled an adjunct; the adverb 조만간 (&lsquo;soon&rsquo;) is not an argument candidate.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        This study investigates the predicate-argument structure in Korean language processing. Despite the importance of distinguishing mandatory arguments and optional modifiers in sentences, research in this area has been limited. We introduce a dataset with token-level annotations which labels mandatory and optional elements as complements and adjuncts, respectively. Particularly, we reclassify certain Korean phrases, previously misidentified as adverbial phrases, as complements, addressing misuses of the term adjunct in existing Korean treebanks. Utilizing a Korean dependency treebank, we develop an automatic labeling technique for complements and adjuncts. Experiments using the proposed dataset yield satisfying results, demonstrating that the dataset is trainable and reliable.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean predicate-argument structure</span>
+      <span class="tag">Complements vs. adjuncts</span>
+      <span class="tag">Adverbial phrases</span>
+      <span class="tag">Subcategorization frames</span>
+      <span class="tag">Sejong dictionary</span>
+      <span class="tag">KLUE dependency treebank</span>
+      <span class="tag">Korean treebanks</span>
+      <span class="tag">Categorial Grammar</span>
+      <span class="tag">Sequence labeling</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        Following Categorial Grammar, the paper makes a binary distinction between <em>complements</em> (syntactically obligatory elements that
+        act as arguments) and <em>adjuncts</em> (optional modifiers). Existing Korean treebanks label every phrase with a non-subject, non-object
+        postposition as adverbial and treat it as an adjunct, although many such phrases (e.g. datives) are selected by the predicate and are
+        therefore complements. The dataset is built automatically:
+      </p>
+      <ol>
+        <li><strong>Source data.</strong> The 10,000 training sentences of the KLUE dependency treebank (TTA-style dependency relations with canonical forms and XPOS tags).</li>
+        <li><strong>Predicate detection.</strong> Verbal predicates are located by their XPOS tag and kept if their canonical form has an entry in the Sejong verb dictionary.</li>
+        <li><strong>Frame matching.</strong> For each predicate, its syntactic daughters in the dependency tree are compared with the postpositions of the arguments in each Sejong subcategorization frame, and the best-fitting frame is selected.</li>
+        <li><strong>Labeling.</strong> Daughters whose postposition appears in the frame are labeled complements (COMP); daughters whose postposition is not in the frame are adjuncts (AJT). Daughters without postpositions, such as adverbs and clausal constructions, are neither (ADV/O).</li>
+      </ol>
+      <p>
+        The resulting token-level BIO annotation uses eight classes: O, TARGET, B-/I-COMP, B-/I-AJT and B-/I-ADV. It is released under
+        CC BY-SA 4.0.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Coverage.</strong> Of 22,964 predicate instances, 3,577 are perfect matches and 10,128 are partial matches with a Sejong frame (8,610 with all sentence arguments paired, 1,430 with all frame arguments paired, 88 both); 9,259 have no match.</li>
+        <li><strong>Complements dominate.</strong> Across 32,223 sentence-frame pairs with a perfect or partial match, the dataset contains 21,155 complements and 6,757 adjuncts.</li>
+        <li><strong>Reclassified adverbial phrases.</strong> Phrases such as the dative 경찰에 (&lsquo;to the police&rsquo;) or 점수 차 승리로 (&lsquo;with decisive score margins&rsquo;), labeled adjuncts (NP_AJT) in the treebank, are complements in the new dataset.</li>
+        <li><strong>Trainable and reliable.</strong> With 2-fold cross-validation, KLUE-BERT-base reaches the highest exact F1 (0.7762) and XLM-RoBERTa-base the highest partial F1 (0.8144) for complement/adjunct detection.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Complement/adjunct sequence labeling on the constructed dataset: cross-validation mean &plusmn; standard deviation of
+          exact and partial F1 for four pretrained encoders (Table 2 in the paper).
+        </caption>
+        <thead>
+          <tr><th></th><th>KoELECTRA-Base-v3</th><th>KLUE-BERT-base</th><th>KR-BERT-char16424</th><th>XLM-RoBERTa-base</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Exact F1</td><td>0.7631 &plusmn; 0.0049</td><td>0.7762 &plusmn; 0.0092</td><td>0.7427 &plusmn; 0.0059</td><td>0.7634 &plusmn; 0.0024</td></tr>
+          <tr><td>Partial F1</td><td>0.8012 &plusmn; 0.0057</td><td>0.8125 &plusmn; 0.0097</td><td>0.7850 &plusmn; 0.0079</td><td>0.8144 &plusmn; 0.0034</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{chen-etal-2024-misidentified,
+    title = "When the Misidentified Adverbial Phrase Functions as a Complement",
+    author = "Chen, Yige  and
+      Kim, Kyuwon  and
+      Lim, KyungTae  and
+      Park, Jungyeul  and
+      Park, Chulwoo",
+    editor = "Al-Onaizan, Yaser  and
+      Bansal, Mohit  and
+      Chen, Yun-Nung",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {EMNLP} 2024",
+    month = nov,
+    year = "2024",
+    address = "Miami, Florida, USA",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.findings-emnlp.718/",
+    doi = "10.18653/v1/2024.findings-emnlp.718",
+    pages = "12326--12336"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

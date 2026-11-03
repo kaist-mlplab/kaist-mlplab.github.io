@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Enhanced Conditional Generation of Double Perovskite by Knowledge-Guided Language Model Feedback</title>
+  <meta name="description" content="A multi-agent LLM framework that generates double perovskite compositions from natural-language conditions using LLM, domain-knowledge, and ML-surrogate text gradients; knowledge-guided feedback reaches over 98% compositional validity and up to 54% stable or metastable candidates versus 43% for LLM-only and 27% for prior GAN-based results. arXiv 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="double perovskite, materials discovery, generative materials design, multi-agent system, LLM agents, text gradient, TextGrad, knowledge-guided machine learning, tolerance factor, DFT, energy above hull, surrogate model, out-of-distribution, CrabNet, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/double-perovskite-generation/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Enhanced Conditional Generation of Double Perovskite by Knowledge-Guided Language Model Feedback">
+  <meta property="og:description" content="Multi-agent LLM generation of double perovskites with knowledge-informed text gradients: up to 54% stable or metastable candidates vs. 43% LLM-only and 27% GAN-based.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/double-perovskite-generation/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/double-perovskite-generation/static/images/teaser.png">
+  <meta property="og:image:width" content="1286">
+  <meta property="og:image:height" content="1344">
+  <meta property="og:image:alt" content="Multi-agent feedback loop with LLM-based, knowledge-informed, and ML-based text gradients for double perovskite composition generation.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Knowledge-guided LLM feedback for double perovskite generation">
+  <meta name="twitter:description" content="Multi-agent LLM framework with domain-knowledge text gradients: up to 54% stable or metastable double perovskites.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/double-perovskite-generation/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Enhanced Conditional Generation of Double Perovskite by Knowledge-Guided Language Model Feedback">
+  <meta name="citation_author" content="Lee, Inhyo">
+  <meta name="citation_author_institution" content="Department of Mechanical Engineering, KAIST">
+  <meta name="citation_author" content="Lee, Junhyeong">
+  <meta name="citation_author_institution" content="Department of Mechanical Engineering, KAIST">
+  <meta name="citation_author" content="Park, Jongwon">
+  <meta name="citation_author_institution" content="Department of Mechanical Engineering, KAIST">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="Graduate School of Culture Technology, KAIST">
+  <meta name="citation_author" content="Ryu, Seunghwa">
+  <meta name="citation_author_institution" content="Department of Mechanical Engineering, KAIST">
+  <meta name="citation_author_institution" content="KAIST InnoCORE PRISM-AI Center">
+  <meta name="citation_publication_date" content="2025/11/27">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2511.22307">
+  <meta name="citation_arxiv_id" content="2511.22307">
+  <meta name="citation_doi" content="10.48550/arXiv.2511.22307">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/double-perovskite-generation/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/double-perovskite-generation/#article",
+    "headline": "Enhanced Conditional Generation of Double Perovskite by Knowledge-Guided Language Model Feedback",
+    "name": "Enhanced Conditional Generation of Double Perovskite by Knowledge-Guided Language Model Feedback",
+    "url": "https://kaist-mlplab.github.io/double-perovskite-generation/",
+    "datePublished": "2025-11-27",
+    "dateModified": "2025-12-02",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/double-perovskite-generation/static/images/teaser.png",
+    "abstract": "Double perovskites (DPs) are promising candidates for sustainable energy technologies due to their compositional tunability and compatibility with low-energy fabrication, yet their vast design space poses a major challenge for conditional materials discovery. This work introduces a multi-agent, text gradient-driven framework that performs DP composition generation under natural-language conditions by integrating three complementary feedback sources: LLM-based self-evaluation, DP-specific domain knowledge-informed feedback, and ML surrogate-based feedback. Analogous to how knowledge-informed machine learning improves the reliability of conventional data-driven models, our framework incorporates domain-informed text gradients to guide the generative process toward physically meaningful regions of the DP composition space. Systematic comparison of three incremental configurations, (i) pure LLM generation, (ii) LLM generation with LLM reasoning-based feedback, and (iii) LLM generation with domain knowledge-guided feedback, shows that iterative guidance from knowledge-informed gradients improves stability-condition satisfaction without additional training data, achieving over 98% compositional validity and up to 54% stable or metastable candidates, surpassing both the LLM-only baseline (43%) and prior GAN-based results (27%). Analyses of ML-based gradients further reveal that they enhance performance in in-distribution (ID) regions but become unreliable in out-of-distribution (OOD) regimes. Overall, this work provides the first systematic analysis of multi-agent, knowledge-guided text gradients for DP discovery and establishes a generalizable blueprint for MAS-driven generative materials design aimed at advancing sustainable technologies.",
+    "keywords": ["double perovskite", "generative materials design", "multi-agent system", "large language models", "text gradient", "knowledge-guided machine learning", "tolerance factor", "density functional theory", "surrogate model", "out-of-distribution"],
+    "about": [
+      {"@type": "Thing", "name": "Materials discovery"},
+      {"@type": "Thing", "name": "Perovskites"},
+      {"@type": "Thing", "name": "Large language model agents"},
+      {"@type": "Thing", "name": "Density functional theory"}
+    ],
+    "author": [
+      {"@type": "Person", "name": "Inhyo Lee", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Junhyeong Lee", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Jongwon Park", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "KyungTae Lim", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Seunghwa Ryu", "affiliation": {"@type": "Organization", "name": "KAIST"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "sameAs": ["https://arxiv.org/abs/2511.22307", "https://doi.org/10.48550/arXiv.2511.22307"],
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "arXiv", "value": "2511.22307"},
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.48550/arXiv.2511.22307"}
+    ],
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://arxiv.org/pdf/2511.22307"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Enhanced Conditional Generation of Double Perovskite by Knowledge-Guided Language Model Feedback</h1>
+      <p class="subtitle is-5 publication-subtitle">A multi-agent LLM framework that generates double perovskite compositions with LLM, domain-knowledge, and ML-surrogate text gradients</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2025</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Inhyo Lee<sup>1,&dagger;</sup>,</span>
+        <span class="author-block">Junhyeong Lee<sup>1,&dagger;</sup>,</span>
+        <span class="author-block">Jongwon Park<sup>1</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>2,*</sup>,</span>
+        <span class="author-block">Seunghwa Ryu<sup>1,3,*</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Department of Mechanical Engineering, KAIST</span>
+        <span class="author-block"><sup>2</sup>Graduate School of Culture Technology, KAIST</span>
+        <span class="author-block"><sup>3</sup>KAIST InnoCORE PRISM-AI Center</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2511.22307">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2511.22307">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1286" height="1344" style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="(a) A stability map of the double perovskite composition space where an initial design moves along an LLM-based gradient, a knowledge-informed gradient, and an ML-driven gradient toward different regions. (b) A Formula Proposal Agent proposes composition x; LLM-based, knowledge-informed, and ML-based evaluator agents produce losses L_LLM, L_DK, and L_ML; matching text gradient agents feed the sum of their gradients back to the proposer. (c) End-to-end workflow: user query, condition extractor, the multi-agent feedback loop, and a POSCAR formatter for DFT calculation. Example: for the query 'lead-free halide double perovskite that is thermodynamically stable', the proposed Cs2CuInI6 gets an LLM gradient suggesting replacing Cu with Ag, a knowledge-informed gradient reporting a new tolerance factor of 4.545 and suggesting replacing iodide with bromide, and an ML gradient predicting instability and suggesting Cs2AgInI6.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Overall architecture of the multi-agent LLM framework for condition-aware double perovskite (DP)
+        composition generation. (a) The LLM agent explores the DP composition space by following text gradients: LLM-based (green),
+        domain-knowledge-enriched (blue), and ML-informed (red). (b) The Formula Proposal Agent proposes a composition, Evaluator Agents
+        estimate text-based losses for the given condition, and Text Gradient Agents suggest the update direction. (c) End-to-end workflow
+        from a natural-language query to a POSCAR structure for DFT validation.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Double perovskites (DPs) are promising candidates for sustainable energy technologies due to their compositional tunability and
+        compatibility with low-energy fabrication, yet their vast design space poses a major challenge for conditional materials discovery.
+        This work introduces a multi-agent, text gradient-driven framework that performs DP composition generation under natural-language
+        conditions by integrating three complementary feedback sources: LLM-based self-evaluation, DP-specific domain knowledge-informed
+        feedback, and ML surrogate-based feedback. Analogous to how knowledge-informed machine learning improves the reliability of
+        conventional data-driven models, our framework incorporates domain-informed text gradients to guide the generative process toward
+        physically meaningful regions of the DP composition space. Systematic comparison of three incremental configurations, (i) pure LLM
+        generation, (ii) LLM generation with LLM reasoning-based feedback, and (iii) LLM generation with domain knowledge-guided feedback,
+        shows that iterative guidance from knowledge-informed gradients improves stability-condition satisfaction without additional
+        training data, achieving over 98% compositional validity and up to 54% stable or metastable candidates, surpassing both the LLM-only
+        baseline (43%) and prior GAN-based results (27%). Analyses of ML-based gradients further reveal that they enhance performance in
+        in-distribution (ID) regions but become unreliable in out-of-distribution (OOD) regimes. Overall, this work provides the first
+        systematic analysis of multi-agent, knowledge-guided text gradients for DP discovery and establishes a generalizable blueprint for
+        MAS-driven generative materials design aimed at advancing sustainable technologies.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Double perovskite</span>
+      <span class="tag">Generative materials design</span>
+      <span class="tag">Multi-agent LLM system</span>
+      <span class="tag">Text gradients</span>
+      <span class="tag">Knowledge-guided machine learning</span>
+      <span class="tag">Tolerance factor</span>
+      <span class="tag">DFT</span>
+      <span class="tag">Energy above hull</span>
+      <span class="tag">Surrogate model / OOD</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="1289" height="1363" loading="lazy" style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="(a) Agent graph: user query and condition extractor feed the Formula Proposal Agent and Database Comparator; LLM-based, knowledge-informed, and ML-based evaluators and text gradient agents form feedback paths; POSCAR Matcher (Cases 1 and 2) or POSCAR Formatter (Case 3) prepares DFT calculation. (b) The proposal agent prompt with conditions, history buffer, and gradients; the database comparator checks the Materials Project database of 1,494 known DPs plus newly discovered ones. (c) LLM-based evaluator and text gradient prompts. (d) Knowledge-informed evaluator computing the new tolerance factor tau = r_X/r_B − n_A(n_A − (r_A/r_B)/ln(r_A/r_B)), stable if tau < 4.18, using Shannon ionic radii from a scientific paper. (e) ML-based evaluator calling a stable/unstable surrogate classifier on the DP composition.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> The multi-agent feedback framework with LLM-based (green), knowledge-informed (blue), and ML-based (red)
+        evaluators and text-gradient agents added stepwise across Cases 1&ndash;3 and the ML extension.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>All agents are implemented with LangChain and LangGraph on the o3-mini reasoning model. Three incremental configurations are compared:</p>
+      <ol>
+        <li><strong>Case 1: zero-shot LLM generation.</strong> A Formula Proposal Agent proposes a DP composition for the extracted conditions;
+          a Database Comparator rejects compositions already among the 1,494 known DPs in the Materials Project, and a POSCAR Matcher adapts the
+          structure of the most similar known DP.</li>
+        <li><strong>Case 2: + LLM-based feedback.</strong> An LLM-based Evaluator checks the conditions using pretrained knowledge, and an
+          LLM-based Text Gradient Agent writes natural-language suggestions (which elements to change) for the next iteration.</li>
+        <li><strong>Case 3: + knowledge-informed feedback.</strong> A Knowledge-Informed Evaluator computes the new tolerance factor
+          &tau; = r<sub>X</sub>/r<sub>B</sub> &minus; n<sub>A</sub>(n<sub>A</sub> &minus; (r<sub>A</sub>/r<sub>B</sub>)/ln(r<sub>A</sub>/r<sub>B</sub>))
+          from Shannon ionic radii, and a matching text-gradient agent steers the composition toward &tau; &lt; 4.18, the empirical stability
+          threshold.</li>
+        <li><strong>+ ML extension.</strong> In each case, a CrabNet stability classifier trained on Materials Project DPs can add an ML-based
+          evaluator and text gradient.</li>
+        <li><strong>Evaluation.</strong> Five natural-language queries (stable halide, chalcogenide, and oxide DPs; lead-free halide DPs;
+          rare-earth-containing oxide DPs) with 30 generated DPs each (150 per case). Stability is checked with DFT (VASP, PBE): negative
+          formation energy and energy above hull of 0 eV/atom is stable, below 0.05 eV/atom metastable.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Knowledge-guided feedback yields more stable candidates.</strong> The fraction of stable or metastable DPs rises from
+          about 43% (Case 1) to 48% (Case 2) and 54% (Case 3), compared with about 27% reported for an earlier GAN-based approach. Case 3
+          reaches an average energy above hull of about 0.09 eV/atom, roughly 30% lower than Cases 1 and 2.</li>
+        <li><strong>All generated compositions have negative formation energy</strong>, and iterative feedback lowers it further; e.g. in
+          Case 2 (query 1) from &minus;0.77 eV/atom for the initial Rb<sub>2</sub>CuInI<sub>6</sub> to &minus;2.55 eV/atom for the final
+          Rb<sub>2</sub>AgSbF<sub>6</sub>.</li>
+        <li><strong>Strict constraints have a cost.</strong> Case 3 averages about 6.1 rejections per accepted DP versus 0.6 in Case 2 (27.7
+          for chalcogenides), and about 98.5% of its outputs meet the element and perovskite-type conditions versus 100% in Cases 1&ndash;2.
+          It also explores wider chemistry (Na, K, Li at the A-site; Tl, Cd, Pb, Ba, Sr at B/B&prime;).</li>
+        <li><strong>ML gradients help only in-distribution.</strong> The surrogate reaches weighted F1 of about 0.85&ndash;0.88 on
+          in-distribution queries but about 0.4&ndash;0.5 out of distribution (Top-10 ElMD about 1.6); for the OOD chalcogenide query,
+          Case 2 + ML averages 0.38 eV/atom energy above hull, nearly twice Case 3 without ML (0.19 eV/atom).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Summary of Cases 1&ndash;3</strong> over all five queries (150 DPs per case), as reported in the text of Section 2.3 for
+          Figures 3 and 4 (approximate values, as stated in the paper).
+        </caption>
+        <thead>
+          <tr><th>Configuration</th><th>Stable or metastable DPs</th><th>Element and perovskite-type conditions met</th><th>Avg. rejections per accepted DP</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>GAN-based prior work</td><td>~27%</td><td>&ndash;</td><td>&ndash;</td></tr>
+          <tr><td>Case 1: LLM only</td><td>~43%</td><td>100%</td><td>&ndash;</td></tr>
+          <tr><td>Case 2: + LLM feedback</td><td>~48%</td><td>100%</td><td>~0.6</td></tr>
+          <tr class="ours"><td>Case 3: + knowledge-informed feedback</td><td><strong>~54%</strong></td><td>~98.5%</td><td>~6.1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{lee2025enhancedconditionalgenerationdouble,
+      title={Enhanced Conditional Generation of Double Perovskite by Knowledge-Guided Language Model Feedback},
+      author={Inhyo Lee and Junhyeong Lee and Jongwon Park and KyungTae Lim and Seunghwa Ryu},
+      year={2025},
+      eprint={2511.22307},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2511.22307},
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

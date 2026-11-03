@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Multilingual Grammatical Error Annotation: Combining Language-Agnostic Framework with Language-Specific Flexibility</title>
+  <meta name="description" content="A two-tier framework for multilingual grammatical error annotation: a language-agnostic Missing/Replacement/Unnecessary core plus structured language-specific extensions, with errant reimplemented on stanza (English F0.5 0.5503 vs. 0.5501 for the original) and applied to English, German, Czech, Korean, and Chinese. BEA 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="multilingual grammatical error annotation, grammatical error correction, GEC, GEC evaluation, errant, ERRANT, error typology, M2 format, stanza, Universal Dependencies, MultiGEC, Korean GEC, Chinese GEC, Czech, German, learner corpora, BEA 2025, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/multilingual-error-annotation/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Multilingual Grammatical Error Annotation: Combining Language-Agnostic Framework with Language-Specific Flexibility">
+  <meta property="og:description" content="A language-agnostic + language-specific framework for grammatical error annotation, with errant reimplemented on stanza for English, German, Czech, Korean, and Chinese. BEA 2025.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/multilingual-error-annotation/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/multilingual-error-annotation/static/images/teaser.png">
+  <meta property="og:image:width" content="1710">
+  <meta property="og:image:height" content="556">
+  <meta property="og:image:alt" content="M2 annotation comparison: original errant labels M:OTHER and R:VERB:FORM, our implementation labels M:PRON and R:VERB -&gt; AUX VERB.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Multilingual Grammatical Error Annotation (BEA 2025)">
+  <meta name="twitter:description" content="A language-agnostic + language-specific framework for grammatical error annotation, with errant reimplemented on stanza for English, German, Czech, Korean, and Chinese. BEA 2025.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/multilingual-error-annotation/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Multilingual Grammatical Error Annotation: Combining Language-Agnostic Framework with Language-Specific Flexibility">
+  <meta name="citation_author" content="Qiu, Mengyang">
+  <meta name="citation_author_institution" content="Trent University">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author" content="Nguyen, Tran Minh">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author" content="Huang, Zihao">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author" content="Li, Zelong">
+  <meta name="citation_author_institution" content="University College London">
+  <meta name="citation_author" content="Gu, Yang">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author" content="Gao, Qingyu">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author" content="Liu, Siliang">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="Open Writing Evaluation">
+  <meta name="citation_author_institution" content="University College London">
+  <meta name="citation_publication_date" content="2025/07">
+  <meta name="citation_conference_title" content="Proceedings of the 20th Workshop on Innovative Use of NLP for Building Educational Applications (BEA 2025)">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="202">
+  <meta name="citation_lastpage" content="212">
+  <meta name="citation_doi" content="10.18653/v1/2025.bea-1.15">
+  <meta name="citation_isbn" content="979-8-89176-270-1">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2025.bea-1.15.pdf">
+  <meta name="citation_arxiv_id" content="2506.07719">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/multilingual-error-annotation/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://kaist-mlplab.github.io/multilingual-error-annotation/#article",
+  "headline": "Multilingual Grammatical Error Annotation: Combining Language-Agnostic Framework with Language-Specific Flexibility",
+  "name": "Multilingual Grammatical Error Annotation: Combining Language-Agnostic Framework with Language-Specific Flexibility",
+  "url": "https://kaist-mlplab.github.io/multilingual-error-annotation/",
+  "datePublished": "2025-07",
+  "inLanguage": "en",
+  "image": "https://kaist-mlplab.github.io/multilingual-error-annotation/static/images/teaser.png",
+  "abstract": "Grammatical Error Correction (GEC) relies on accurate error annotation and evaluation, yet existing frameworks, such as errant, face limitations when extended to typologically diverse languages. In this paper, we introduce a standardized, modular framework for multilingual grammatical error annotation. Our approach combines a language-agnostic foundation with structured language-specific extensions, enabling both consistency and flexibility across languages. We reimplement errant using stanza to support broader multilingual coverage, and demonstrate the framework’s adaptability through applications to English, German, Czech, Korean, and Chinese, ranging from general-purpose annotation to more customized linguistic refinements. This work supports scalable and interpretable GEC annotation across languages and promotes more consistent evaluation in multilingual settings. The complete codebase and annotation tools can be accessed at https://github.com/open-writing-evaluation/jp_errant_bea.",
+  "keywords": [
+    "grammatical error annotation",
+    "grammatical error correction",
+    "GEC evaluation",
+    "errant",
+    "error typology",
+    "M2 format",
+    "stanza",
+    "Universal Dependencies",
+    "multilingual GEC",
+    "Korean and Chinese GEC"
+  ],
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Grammatical error correction"
+    },
+    {
+      "@type": "Thing",
+      "name": "Error annotation"
+    },
+    {
+      "@type": "Thing",
+      "name": "Multilingual natural language processing"
+    },
+    {
+      "@type": "Thing",
+      "name": "Educational applications of NLP"
+    }
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Mengyang Qiu",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "name": "Trent University"
+        },
+        {
+          "@type": "Organization",
+          "name": "Open Writing Evaluation"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "Tran Minh Nguyen",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Open Writing Evaluation"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Zihao Huang",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Open Writing Evaluation"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Zelong Li",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "University College London"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Yang Gu",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Open Writing Evaluation"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Qingyu Gao",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Open Writing Evaluation"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Siliang Liu",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Open Writing Evaluation"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Jungyeul Park",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "name": "Open Writing Evaluation"
+        },
+        {
+          "@type": "Organization",
+          "name": "University College London"
+        }
+      ]
+    }
+  ],
+  "publisher": {
+    "@type": "ResearchOrganization",
+    "name": "KAIST Multimodal Language Processing Lab",
+    "url": "https://kaist-mlplab.github.io/"
+  },
+  "isPartOf": {
+    "@type": "Periodical",
+    "name": "Proceedings of the 20th Workshop on Innovative Use of NLP for Building Educational Applications (BEA 2025)",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Association for Computational Linguistics"
+    }
+  },
+  "sameAs": [
+    "https://aclanthology.org/2025.bea-1.15/",
+    "https://arxiv.org/abs/2506.07719",
+    "https://doi.org/10.18653/v1/2025.bea-1.15",
+    "https://github.com/open-writing-evaluation/jp_errant_bea"
+  ],
+  "pagination": "202-212",
+  "workExample": {
+    "@type": "SoftwareSourceCode",
+    "name": "jp_errant_bea (code)",
+    "codeRepository": "https://github.com/open-writing-evaluation/jp_errant_bea",
+    "programmingLanguage": "Python"
+  },
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "DOI",
+      "value": "10.18653/v1/2025.bea-1.15"
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "arXiv",
+      "value": "2506.07719"
+    }
+  ],
+  "encoding": {
+    "@type": "MediaObject",
+    "encodingFormat": "application/pdf",
+    "contentUrl": "https://aclanthology.org/2025.bea-1.15.pdf"
+  }
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Multilingual Grammatical Error Annotation: Combining Language-Agnostic Framework with Language-Specific Flexibility</h1>
+      <p class="subtitle is-5 publication-subtitle">A two-tier grammatical error typology and a stanza-based reimplementation of errant for multilingual GEC annotation in English, German, Czech, Korean, and Chinese</p>
+      <p><span class="tag is-link is-medium venue-badge">BEA 2025</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Mengyang Qiu<sup>1,2</sup>,</span>
+        <span class="author-block">Tran Minh Nguyen<sup>2</sup>,</span>
+        <span class="author-block">Zihao Huang<sup>2</sup>,</span>
+        <span class="author-block">Zelong Li<sup>3</sup>,</span>
+        <span class="author-block">Yang Gu<sup>2</sup>,</span>
+        <span class="author-block">Qingyu Gao<sup>2</sup>,</span>
+        <span class="author-block">Siliang Liu<sup>2</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>2,3</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Trent University, Canada</span>
+        <span class="author-block"><sup>2</sup>Open Writing Evaluation, France</span>
+        <span class="author-block"><sup>3</sup>University College London, UK</span>
+        <span class="author-block"><sup>4</sup>The University of British Columbia, Canada</span>
+      </p>
+
+      <div class="publication-links" style="margin-top:1.25rem">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.bea-1.15/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.bea-1.15.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2506.07719">arXiv</a>
+        <a class="button is-dark is-rounded" href="https://github.com/open-writing-evaluation/jp_errant_bea">Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1710" height="556" style="max-width:640px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Two M2 annotations of the learner sentence &#x27;Volleyball is a sport play every place ...&#x27;. Original errant: A 4 4 M:OTHER &#x27;that is&#x27; and A 4 5 R:VERB:FORM &#x27;played&#x27;. Our implementation: A 4 4 M:PRON &#x27;that&#x27; and A 4 5 R:VERB -&gt; AUX VERB &#x27;is played&#x27;.">
+      </picture>
+      <figcaption>
+        <strong>Figure 3.</strong> Differences between the original errant and our stanza-based implementation on the
+        learner sentence <em>Volleyball is a sport play every place ...</em>. errant labels the insertion of <em>that is</em> as
+        <code>M:OTHER</code> and the verb fix as <code>R:VERB:FORM</code> (<em>played</em>); our implementation labels the missing
+        relative pronoun as <code>M:PRON</code> (<em>that</em>) and the passive verb fix as <code>R:VERB &rarr; AUX VERB</code>
+        (<em>is played</em>), making the categories more specific.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Grammatical Error Correction (GEC) relies on accurate error annotation and evaluation, yet existing frameworks, such as errant, face limitations when extended to typologically diverse languages. In this paper, we introduce a standardized, modular framework for multilingual grammatical error annotation. Our approach combines a language-agnostic foundation with structured language-specific extensions, enabling both consistency and flexibility across languages. We reimplement errant using stanza to support broader multilingual coverage, and demonstrate the framework’s adaptability through applications to English, German, Czech, Korean, and Chinese, ranging from general-purpose annotation to more customized linguistic refinements. This work supports scalable and interpretable GEC annotation across languages and promotes more consistent evaluation in multilingual settings. The complete codebase and annotation tools can be accessed at <a href="https://github.com/open-writing-evaluation/jp_errant_bea">https://github.com/open-writing-evaluation/jp_errant_bea</a>.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Grammatical error correction (GEC)</span>
+      <span class="tag">GEC evaluation</span>
+      <span class="tag">errant / ERRANT</span>
+      <span class="tag">Error typology</span>
+      <span class="tag">M2 format</span>
+      <span class="tag">stanza</span>
+      <span class="tag">Universal Dependencies (UD)</span>
+      <span class="tag">Multilingual GEC (MultiGEC)</span>
+      <span class="tag">Korean &amp; Chinese GEC</span>
+      <span class="tag">Learner corpora</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="1847" height="1275" style="max-width:560px;width:100%;height:auto;display:block;margin:0 auto" loading="lazy"
+           alt="Algorithm 1, pseudo-code for classifying a Replacement edit from source S to target T: if phonetic similarity exceeds alpha1 and shape similarity exceeds alpha2 return R:SPELL:PHONOGRAPHIC; else if only phonetic similarity exceeds alpha1 return R:SPELL:PHONETIC; else if only shape similarity exceeds alpha2 return R:SPELL:SHAPE; else if the bags of words of S and T are equal return R:WO; else if merging tokens of S and T without spaces gives the same string return R:WB; otherwise return R.">
+      </picture>
+      <figcaption>
+        <strong>Algorithm 1.</strong> Classification routine for Replacement errors in the language-specific layer: spelling errors by phonetic and/or visual similarity (thresholds &alpha;<sub>1</sub>, &alpha;<sub>2</sub>), word order (<code>R:WO</code>: same bag of words), and word boundary (<code>R:WB</code>: same string after removing spaces).
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        The framework splits grammatical error annotation into two tiers so that annotations stay comparable across languages
+        while still capturing language-specific phenomena:
+      </p>
+      <ol>
+        <li><strong>Language-agnostic core (MRU).</strong> Every edit is one of three operations&mdash;Missing (M), Replacement (R),
+          or Unnecessary (U)&mdash;refined with Universal POS tags (e.g. <code>M:NOUN</code>, <code>U:DET</code>). Replacements use an
+          explicit <code>R:P1 &rarr; P2</code> pattern that records the POS of both the original and the corrected tokens.</li>
+        <li><strong>Structured language-specific extensions.</strong> Reusable templates for spelling (<code>R:SPELL:PHONETIC</code>,
+          <code>R:SPELL:SHAPE</code>, <code>R:SPELL:PHONOGRAPHIC</code>), word order (<code>R:WO</code>) and word boundary
+          (<code>R:WB</code>) errors (e.g. <em>their &rarr; there</em>, <em>You can help me &rarr; Can you help me</em>,
+          <em>ice cream &rarr; icecream</em>). Phonetic similarity uses a pronunciation representation (a pronouncing dictionary for
+          English, pinyin for Chinese, romanization otherwise); shape similarity compares rendered character images.</li>
+        <li><strong>UD-consistent preprocessing with stanza.</strong> errant is reimplemented on top of stanza (tokenization, POS
+          tagging, dependency parsing; over 70 languages) instead of spaCy, so every language is analyzed under the same Universal
+          Dependencies scheme. English-specific labels such as <code>NOUN:POSS</code> are kept by porting errant's classifier to
+          UPOS and dependency relations.</li>
+        <li><strong>Graded customization.</strong> German and Czech use the core without language-specific modules; Korean adds
+          word-boundary subtypes <code>WB:M</code> (missing space) and <code>WB:U</code> (extraneous space) and errors in functional
+          morphemes (postpositions <code>ADP</code>, verbal endings <code>PART</code>, honorific suffixes <code>HON</code>); Chinese
+          re-annotates the Chinese GSD treebank with LTP-style word boundaries and retrains stanza on it.</li>
+      </ol>
+      <p>
+        Annotations are written in the standard M2 format, so the output can be scored with the usual errant-style precision, recall
+        and F<sub>0.5</sub>. Code: <a href="https://github.com/open-writing-evaluation/jp_errant_bea">open-writing-evaluation/jp_errant_bea</a>.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Faithful English reimplementation.</strong> Scoring outputs of the T5 GEC system, the stanza-based reimplementation
+          reproduces errant almost exactly: F<sub>0.5</sub> 0.5503 vs. 0.5501 (precision 0.6139 vs. 0.6123, recall 0.3890 vs. 0.3911).</li>
+        <li><strong>Czech and German without language-specific modules.</strong> Operation counts stay close to the existing
+          annotations: Czech (first 1,000 development sentences) 4,897 edits vs. 4,915 in Náplava et al. (2022)
+          (Missing 695 vs. 693, Replacement 3,672 vs. 3,707, Unnecessary 530 vs. 515); German 6,270 vs. 6,385 in Boyd (2018)
+          (1,310 / 4,348 / 612 vs. 1,341 / 4,406 / 638).</li>
+        <li><strong>More explicit categories.</strong> Instead of language-specific tags such as <code>DIACR</code> (989 in Czech) or
+          generic <code>OTHER</code> (834 in Czech, 670 in German), the most frequent labels become explicit POS transitions, e.g.
+          <code>NOUN &rarr; NOUN</code> (760 Czech, 814 German) and <code>VERB &rarr; VERB</code> (465 Czech). A Czech word order edit
+          (<em>nemohla jsem &rarr; jsem nemohla</em>) is labeled <code>R:VERB AUX -&gt; AUX VERB</code> instead of a generic
+          <code>R:WO</code>.</li>
+        <li><strong>Korean and Chinese refinements.</strong> In Korean, <em>음식이 &rarr; 음식을</em> (food.NOM &rarr; food.ACC) is labeled
+          <code>R:NOUN -&gt; NOUN:ADP</code> as a case-marker correction. In Chinese, LTP-based segmentation keeps
+          <em>为什么</em> (&lsquo;why&rsquo;) as one token, avoiding the misleading GSD-based edit <em>什么 出现 了</em>
+          (&lsquo;what has occurred&rsquo;).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> GEC results for English using T5 outputs, scored with the original errant and with our stanza-based
+          reimplementation (TP/FP/FN = true positives / false positives / false negatives). (Table 1 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Annotator</th><th>TP</th><th>FP</th><th>FN</th><th>Prec</th><th>Rec</th><th>F<sub>0.5</sub></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>errant</td><td>2589</td><td>1639</td><td>4030</td><td>0.6123</td><td>0.3911</td><td>0.5501</td></tr>
+          <tr class="ours"><td>Ours</td><td>2565</td><td>1613</td><td>4028</td><td>0.6139</td><td>0.3890</td><td>0.5503</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{qiu-etal-2025-multilingual,
+    title = "Multilingual Grammatical Error Annotation: Combining Language-Agnostic Framework with Language-Specific Flexibility",
+    author = "Qiu, Mengyang  and
+      Nguyen, Tran Minh  and
+      Huang, Zihao  and
+      Li, Zelong  and
+      Gu, Yang  and
+      Gao, Qingyu  and
+      Liu, Siliang  and
+      Park, Jungyeul",
+    editor = {Kochmar, Ekaterina  and
+      Alhafni, Bashar  and
+      Bexte, Marie  and
+      Burstein, Jill  and
+      Horbach, Andrea  and
+      Laarmann-Quante, Ronja  and
+      Tack, Ana{\"i}s  and
+      Yaneva, Victoria  and
+      Yuan, Zheng},
+    booktitle = "Proceedings of the 20th Workshop on Innovative Use of {NLP} for Building Educational Applications ({BEA} 2025)",
+    month = jul,
+    year = "2025",
+    address = "Vienna, Austria",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.bea-1.15/",
+    doi = "10.18653/v1/2025.bea-1.15",
+    pages = "202--212",
+    ISBN = "979-8-89176-270-1"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

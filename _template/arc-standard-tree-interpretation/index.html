@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>A tree interpretation of arc standard dependency derivation</title>
+  <meta name="description" content="Arc-standard transition derivations over projective dependency trees can be read as incrementally building lexicalized ordered trees with contiguous yields; such a tree exists if and only if the dependency tree is projective, and a Stanza parser trained on these trees recovers PTB dependencies at 95.94 UAS / 94.90 LAS. arXiv 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="arc-standard, transition-based dependency parsing, shift-reduce parsing, projectivity, ordered dependency tree, dependency to constituency, constituency parsing, pseudo-projective parsing, tree linearization, Stanza, Penn Treebank, arXiv 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/arc-standard-tree-interpretation/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="A tree interpretation of arc standard dependency derivation">
+  <meta property="og:description" content="Arc-standard dependency derivations implicitly construct recoverable constituency-style ordered trees; existence of such a tree characterizes projectivity. arXiv 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/arc-standard-tree-interpretation/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/arc-standard-tree-interpretation/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="642">
+  <meta property="og:image:alt" content="A dependency graph for &#x27;book me the morning flight&#x27; and its ordered dependency tree representation.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A tree interpretation of arc standard dependency derivation">
+  <meta name="twitter:description" content="Arc-standard dependency derivations implicitly construct recoverable constituency-style ordered trees; existence of such a tree characterizes projectivity. arXiv 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/arc-standard-tree-interpretation/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="A tree interpretation of arc standard dependency derivation">
+  <meta name="citation_author" content="Huang, Zihao">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Lee, Ai Ka">
+  <meta name="citation_author_institution" content="The University of British Columbia">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/03/29">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2603.27459">
+  <meta name="citation_arxiv_id" content="2603.27459">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/arc-standard-tree-interpretation/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/arc-standard-tree-interpretation/#article",
+    "headline": "A tree interpretation of arc standard dependency derivation",
+    "name": "A tree interpretation of arc standard dependency derivation",
+    "url": "https://kaist-mlplab.github.io/arc-standard-tree-interpretation/",
+    "datePublished": "2026-03-29",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/arc-standard-tree-interpretation/static/images/teaser.png",
+    "abstract": "Arc-standard derivations over projective dependency trees can be interpreted as the incremental construction of lexicalized ordered trees with contiguous yields. Each SHIFT, LEFTARC, and RIGHTARC transition corresponds to a deterministic tree update, and the resulting ordered tree uniquely determines the dependency arcs introduced by the derivation. We show that this representation is not an arbitrary encoding: a single-headed dependency tree admits such a contiguous ordered representation if and only if it is projective. The proposal is therefore derivational rather than conversion-based, since the ordered object is defined over the transition sequence itself rather than obtained by transforming a completed dependency graph. This gives a tree-theoretic interpretation of arc-standard parsing, in which projective dependency derivations implicitly construct recoverable constituency-style ordered trees. For non-projective inputs, the interpretation can be used through pseudo-projective lifting and inverse decoding. A small implementation study confirms that the mapped derivations are executable in an existing neural transition-based parser.",
+    "keywords": [
+      "arc-standard",
+      "transition-based dependency parsing",
+      "projectivity",
+      "ordered dependency tree",
+      "dependency-constituency correspondence",
+      "constituency parsing",
+      "pseudo-projective parsing",
+      "Penn Treebank"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Dependency parsing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Constituency parsing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Transition-based parsing"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Zihao Huang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Ai Ka Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "The University of British Columbia"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2603.27459"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2603.27459"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2603.27459"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">A tree interpretation of arc standard dependency derivation</h1>
+      <p class="subtitle is-5 publication-subtitle">Projective arc-standard derivations build constituency-style ordered trees from which the dependency arcs are recoverable</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Zihao Huang<sup>1</sup>,</span>
+        <span class="author-block">Ai Ka Lee<sup>1</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>2,*</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>The University of British Columbia, Vancouver, Canada</span>
+        <span class="author-block"><sup>2</sup>Korea Advanced Institute of Science &amp; Technology (KAIST), Daejeon, South Korea</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2603.27459">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2603.27459">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="642"
+           alt="Left: dependency graph of &#x27;book me the morning flight&#x27; with arcs ROOT to book, book to me (IOBJ), book to flight (DOBJ), flight to the (DET), and flight to morning (COMPOUND). Right: the equivalent ordered tree with ROOT dominating book, an IOBJ node over me, and a DOBJ node over DET (the), COMPOUND (morning), and flight.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> A dependency graph (a) and its ordered dependency tree representation (b). <em>book</em> heads the IOBJ (<em>me</em>) and
+        DOBJ (<em>flight</em>) dependents, and <em>flight</em> heads the DET (<em>the</em>) and COMPOUND (<em>morning</em>) dependents. In the ordered tree every
+        subtree covers a contiguous span of the sentence, dependents appear on the same side of their head as in the surface string, and each internal node is anchored by one lexical head.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Arc-standard derivations over projective dependency trees can be interpreted as the incremental construction of lexicalized ordered
+        trees with contiguous yields. Each S<small>HIFT</small>, L<small>EFT</small>A<small>RC</small>, and R<small>IGHT</small>A<small>RC</small> transition corresponds to a deterministic tree update, and the resulting ordered tree
+        uniquely determines the dependency arcs introduced by the derivation. We show that this representation is not an arbitrary encoding: a
+        single-headed dependency tree admits such a contiguous ordered representation if and only if it is projective. The proposal is therefore
+        derivational rather than conversion-based, since the ordered object is defined over the transition sequence itself rather than obtained by
+        transforming a completed dependency graph. This gives a tree-theoretic interpretation of arc-standard parsing, in which projective
+        dependency derivations implicitly construct recoverable constituency-style ordered trees. For non-projective inputs, the interpretation
+        can be used through pseudo-projective lifting and inverse decoding. A small implementation study confirms that the mapped derivations
+        are executable in an existing neural transition-based parser.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Arc-standard</span>
+      <span class="tag">Transition-based parsing</span>
+      <span class="tag">Shift-reduce</span>
+      <span class="tag">Projectivity</span>
+      <span class="tag">Ordered dependency tree</span>
+      <span class="tag">Dependency vs. constituency</span>
+      <span class="tag">Pseudo-projective lifting</span>
+      <span class="tag">Stanza</span>
+      <span class="tag">PTB-WSJ</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        Each arc-standard transition over a stack&ndash;buffer configuration is reinterpreted as a deterministic update of partial ordered trees:
+      </p>
+      <ul>
+        <li><strong>SHIFT</strong> creates a singleton tree anchored at the next buffer token and pushes it onto the stack.</li>
+        <li><strong>LEFTARC</strong> (stack [&hellip; <em>t<sub>i</sub></em> <em>t<sub>j</sub></em>], arc <em>j</em>&nbsp;&rarr;&nbsp;<em>i</em>) attaches <em>t<sub>i</sub></em> as a left dependent subtree of the head-anchored tree <em>t<sub>j</sub></em>.</li>
+        <li><strong>RIGHTARC</strong> (arc <em>i</em>&nbsp;&rarr;&nbsp;<em>j</em>) attaches <em>t<sub>j</sub></em> as a right dependent subtree of <em>t<sub>i</sub></em>.</li>
+      </ul>
+      <p>The paper proves three properties:</p>
+      <ol>
+        <li><strong>Projective characterization (Theorem 1).</strong> A single-headed dependency tree admits a rooted ordered representation with leaves in surface order and contiguous subtree yields if and only if it is projective: crossing arcs would force subtree yields to interleave.</li>
+        <li><strong>Transition correspondence (Theorem 2).</strong> Every arc-standard derivation of a projective tree yields a well-defined ordered tree; each step keeps contiguous yields and a unique lexical anchor.</li>
+        <li><strong>Recoverability (Theorem 3).</strong> The dependency arcs are uniquely recoverable from the final ordered tree, since each combination preserves the head's anchor and adds one dependent subtree.</li>
+      </ol>
+      <p>
+        Non-projective trees are handled in practice by pseudo-projective lifting before derivation and inverse decoding after recovery; the formal claim is specific to the projective case.
+        In the implementation study, the native actions of the Stanza transition-based constituency parser are replaced by SHIFT, LEFTARC, and RIGHTARC; the parser predicts the unlabeled ordered tree,
+        arcs are recovered deterministically, and the Stanza graph-based component assigns only the dependency labels.
+      </p>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption><strong>Table 2.</strong> Arc-standard transition sequence and stack evolution for the running example <em>book me the morning flight</em> (Appendix A of the paper). <em>t&prime;</em> marks a tree that has absorbed a dependent.</caption>
+        <thead><tr><th>Step</th><th>Stack</th><th>Buffer</th><th>Action</th><th>Relation added</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>[root]</td><td>[book, me, the, morning, flight]</td><td>SHIFT</td><td></td></tr>
+          <tr><td>1</td><td>[root, t<sub>book</sub>]</td><td>[me, the, morning, flight]</td><td>SHIFT</td><td></td></tr>
+          <tr><td>2</td><td>[root, t<sub>book</sub>, t<sub>me</sub>]</td><td>[the, morning, flight]</td><td>RIGHTARC</td><td>book &rarr; me</td></tr>
+          <tr><td>3</td><td>[root, t&prime;<sub>book</sub>]</td><td>[the, morning, flight]</td><td>SHIFT</td><td></td></tr>
+          <tr><td>4</td><td>[root, t&prime;<sub>book</sub>, t<sub>the</sub>]</td><td>[morning, flight]</td><td>SHIFT</td><td></td></tr>
+          <tr><td>5</td><td>[root, t&prime;<sub>book</sub>, t<sub>the</sub>, t<sub>morning</sub>]</td><td>[flight]</td><td>SHIFT</td><td></td></tr>
+          <tr><td>6</td><td>[root, t&prime;<sub>book</sub>, t<sub>the</sub>, t<sub>morning</sub>, t<sub>flight</sub>]</td><td>[]</td><td>LEFTARC</td><td>flight &rarr; morning</td></tr>
+          <tr><td>7</td><td>[root, t&prime;<sub>book</sub>, t<sub>the</sub>, t&prime;<sub>flight</sub>]</td><td>[]</td><td>LEFTARC</td><td>flight &rarr; the</td></tr>
+          <tr><td>8</td><td>[root, t&prime;<sub>book</sub>, t&Prime;<sub>flight</sub>]</td><td>[]</td><td>RIGHTARC</td><td>book &rarr; flight</td></tr>
+          <tr><td>9</td><td>[root, t&Prime;<sub>book</sub>]</td><td>[]</td><td>RIGHTARC</td><td>root &rarr; book</td></tr>
+          <tr><td>10</td><td>[root]</td><td>[]</td><td>DONE</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Executable in an existing parser.</strong> With the mapped transitions in the Stanza constituency parser, dependencies recovered from predicted ordered trees on PTB&ndash;WSJ (Stanford Dependencies) reach <strong>95.94 UAS / 94.90 LAS</strong>.</li>
+        <li><strong>Usable as a target for other tree parsers.</strong> Parsing the same ordered trees with an existing in-order parser (Liu and Zhang, 2017) yields 96.76 UAS / 95.92 LAS, and a linearization parser (Vinyals et al., 2015) yields 96.68 UAS / 95.44 LAS.</li>
+        <li><strong>Not a new architecture.</strong> The authors present these numbers only to show that the derivation-induced ordered tree is computationally usable as a tree representation from which dependency arcs are recovered deterministically.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable results-table">
+        <caption><strong>Dependency recovery from predicted ordered trees on PTB&ndash;WSJ</strong> (Table 1 in the paper; the other two rows are reported in Section 5).</caption>
+        <thead><tr><th>Parser for the ordered tree</th><th>UAS</th><th>LAS</th></tr></thead>
+        <tbody>
+          <tr class="ours"><td>Stanza transition system with mapped SHIFT / LEFTARC / RIGHTARC</td><td>95.94</td><td>94.90</td></tr>
+          <tr><td>In-order parser (Liu and Zhang, 2017)</td><td>96.76</td><td>95.92</td></tr>
+          <tr><td>Linearization parser (Vinyals et al., 2015)</td><td>96.68</td><td>95.44</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{huang2026treeinterpretationarcstandard,
+      title={A tree interpretation of arc standard dependency derivation}, 
+      author={Zihao Huang and Ai Ka Lee and Jungyeul Park},
+      year={2026},
+      eprint={2603.27459},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2603.27459}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

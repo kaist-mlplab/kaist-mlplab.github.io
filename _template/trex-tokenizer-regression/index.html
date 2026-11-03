@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>TReX: Tokenizer Regression for Optimal Data Mixture</title>
+  <meta name="description" content="TReX fits a regression model on small proxy tokenizers to predict tokenizer compression from the multilingual data mixture, and its predicted mixture outperforms LLaMA3-based and uniform mixtures by up to 12% in in- and out-of-distribution compression efficiency. EACL 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="TReX, tokenizer, tokenizer training, multilingual tokenizer, data mixture optimization, language ratio, tokenizer compression, normalized sequence length, BPE, proxy tokenizers, regression, LightGBM, RegMix, FineWeb2, multilingual LLM, EACL 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/trex-tokenizer-regression/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="TReX: Tokenizer Regression for Optimal Data Mixture">
+  <meta property="og:description" content="Regression-based search for the optimal multilingual data mixture for tokenizer training: up to 12% better compression than LLaMA3-based and uniform mixtures. EACL 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/trex-tokenizer-regression/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/trex-tokenizer-regression/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="964">
+  <meta property="og:image:alt" content="TReX overview: sample data mixtures, train proxy tokenizers, fit a regression model, and search for the optimal mixture.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TReX: Tokenizer Regression for Optimal Data Mixture">
+  <meta name="twitter:description" content="Tokenizer regression for finding the optimal multilingual data mixture. EACL 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/trex-tokenizer-regression/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="TReX: Tokenizer Regression for Optimal Data Mixture">
+  <meta name="citation_author" content="Won, Inho">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Yoo, Hangyeol">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Cho, Minkyung">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author_institution" content="Upstage AI">
+  <meta name="citation_author" content="Song, Hoyun">
+  <meta name="citation_author_institution" content="KAIST InnoCORE PRISM-AI Center">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/03">
+  <meta name="citation_conference_title" content="Proceedings of the 19th Conference of the European Chapter of the Association for Computational Linguistics (Volume 1: Long Papers)">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="6353">
+  <meta name="citation_lastpage" content="6370">
+  <meta name="citation_doi" content="10.18653/v1/2026.eacl-long.298">
+  <meta name="citation_isbn" content="979-8-89176-380-7">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2026.eacl-long.298.pdf">
+  <meta name="citation_arxiv_id" content="2601.13588">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/trex-tokenizer-regression/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/trex-tokenizer-regression/#article",
+    "headline": "TReX: Tokenizer Regression for Optimal Data Mixture",
+    "name": "TReX: Tokenizer Regression for Optimal Data Mixture",
+    "url": "https://kaist-mlplab.github.io/trex-tokenizer-regression/",
+    "datePublished": "2026-03",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/trex-tokenizer-regression/static/images/teaser.png",
+    "abstract": "Building effective tokenizers for multilingual Large Language Models (LLMs) requires careful control over language-specific data mixtures. While a tokenizer’s compression performance critically affects the efficiency of LLM training and inference, existing approaches rely on heuristics or costly large-scale searches to determine optimal language ratios. We introduce Tokenizer Regression for Optimal Data MiXture (TReX), a regression-based framework that efficiently predicts the optimal data mixture for tokenizer training. TReX trains small-scale proxy tokenizers on random mixtures, gathers their compression statistics, and learns to predict compression performance from data mixtures. This learned model enables scalable mixture search before large-scale tokenizer training, mitigating the accuracy-cost trade-off in multilingual tokenizer design. Tokenizers trained with TReX’s predicted mixtures outperform mixtures based on LLaMA3 and uniform distributions by up to 12% in both in- and out-of-distribution compression efficiency, demonstrating strong scalability, robustness, and practical effectiveness.",
+    "keywords": [
+      "tokenizer",
+      "multilingual tokenizer",
+      "data mixture optimization",
+      "language ratios",
+      "tokenizer compression",
+      "normalized sequence length",
+      "proxy tokenizers",
+      "regression",
+      "LightGBM",
+      "multilingual LLM"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Tokenization"
+      },
+      {
+        "@type": "Thing",
+        "name": "Data mixture optimization"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multilingual large language models"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Inho Won",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Hangyeol Yoo",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Minkyung Cho",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "KAIST"
+          },
+          {
+            "@type": "Organization",
+            "name": "Upstage AI"
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "Hoyun Song",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST InnoCORE PRISM-AI Center"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Proceedings of the 19th Conference of the European Chapter of the Association for Computational Linguistics (Volume 1: Long Papers)",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2026.eacl-long.298/",
+      "https://arxiv.org/abs/2601.13588",
+      "https://doi.org/10.18653/v1/2026.eacl-long.298",
+      "https://github.com/HanGyeol-Yoo/TReX"
+    ],
+    "pagination": "6353-6370",
+    "workExample": {
+      "@type": "SoftwareSourceCode",
+      "name": "TReX (code)",
+      "codeRepository": "https://github.com/HanGyeol-Yoo/TReX",
+      "programmingLanguage": "Python"
+    },
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.18653/v1/2026.eacl-long.298"
+      },
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2601.13588"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2026.eacl-long.298.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">TReX: Tokenizer Regression for Optimal Data Mixture</h1>
+      <p class="subtitle is-5 publication-subtitle">Predicting the best multilingual data mixture for tokenizer training with a regression model fitted on small proxy tokenizers</p>
+      <p><span class="tag is-link is-medium venue-badge">EACL 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Inho Won<sup>1,*</sup>,</span>
+        <span class="author-block">Hangyeol Yoo<sup>2,*</sup>,</span>
+        <span class="author-block">Minkyung Cho<sup>1</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>1,3</sup>,</span>
+        <span class="author-block">Hoyun Song<sup>4,&dagger;</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>1,4,&dagger;</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>KAIST CT</span>
+        <span class="author-block"><sup>2</sup>Seoul National University of Science and Technology</span>
+        <span class="author-block"><sup>3</sup>Upstage AI</span>
+        <span class="author-block"><sup>4</sup>KAIST InnoCORE PRISM-AI Center</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution &nbsp; <sup>&dagger;</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.eacl-long.298/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.eacl-long.298.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2601.13588">arXiv</a>
+        <a class="button is-dark is-rounded" href="https://github.com/HanGyeol-Yoo/TReX">Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="964"
+           alt="Four-panel diagram. (1) Data mixtures over languages such as French, Chinese, Greek and Japanese are sampled from a Dirichlet distribution. (2) A proxy tokenizer is trained on each mixture and its compression is measured (e.g. 0.888, 0.970, 0.883). (3) A tree-based regression model is fitted from mixtures to compressions. (4) The model predicts compression for many possible mixtures, and the minimum gives the optimal data mixture w*.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> TReX overview: (1) N data mixtures are sampled, (2) a small proxy tokenizer is trained for each mixture and its compression C is measured, (3) a regression model is fitted with the mixture w as input and C as the target, and (4) the model predicts C for candidate mixtures to identify the optimum.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Building effective tokenizers for multilingual Large Language Models (LLMs) requires careful control over language-specific data mixtures. While a tokenizer’s compression performance critically affects the efficiency of LLM training and inference, existing approaches rely on heuristics or costly large-scale searches to determine optimal language ratios. We introduce Tokenizer Regression for Optimal Data MiXture (TReX), a regression-based framework that efficiently predicts the optimal data mixture for tokenizer training. TReX trains small-scale proxy tokenizers on random mixtures, gathers their compression statistics, and learns to predict compression performance from data mixtures. This learned model enables scalable mixture search before large-scale tokenizer training, mitigating the accuracy-cost trade-off in multilingual tokenizer design. Tokenizers trained with TReX’s predicted mixtures outperform mixtures based on LLaMA3 and uniform distributions by up to 12% in both in- and out-of-distribution compression efficiency, demonstrating strong scalability, robustness, and practical effectiveness.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Multilingual tokenizer</span>
+      <span class="tag">Data mixture optimization</span>
+      <span class="tag">Language ratios</span>
+      <span class="tag">Tokenizer compression</span>
+      <span class="tag">Normalized sequence length (NSL)</span>
+      <span class="tag">Proxy tokenizers</span>
+      <span class="tag">Regression (LightGBM)</span>
+      <span class="tag">Multilingual LLMs</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        A tokenizer's compression is measured as the Normalized Sequence Length (NSL): the number of tokens it produces on a test corpus
+        divided by the number produced by a reference tokenizer (GPT-4o); lower is better. For a fixed corpus size S and vocabulary size V,
+        the goal is the language mixture w (weights over k languages summing to 1) that minimizes this score. Instead of hand-tuned
+        ratios or repeated large-scale training, TReX learns the mapping from mixture to compression:
+      </p>
+      <ol>
+        <li><strong>Sample mixtures.</strong> Draw N = 512 language mixtures from a Dirichlet distribution based on each language's data size
+          (19 languages of FineWeb2-HQ).</li>
+        <li><strong>Train proxy tokenizers.</strong> Train one small tokenizer per mixture (S = 1 GB, V = 64K) and measure its compression.</li>
+        <li><strong>Fit a regression model.</strong> Fit LightGBM on 480 (mixture, compression) pairs, keeping 32 for evaluation.</li>
+        <li><strong>Search.</strong> Predict compression for a very large number of candidate mixtures (over 50M within a few seconds)
+          and train the final large tokenizer (S = 30 GB, V = 200K) on the best one.</li>
+      </ol>
+      <p>
+        This relies on <em>rank invariance</em>: the ranking of mixtures by compression stays stable when the corpus and vocabulary grow.
+        Across 1GB&ndash;64K, 5GB&ndash;64K, 10GB&ndash;100K and 30GB&ndash;200K settings, all pairwise Spearman correlations are at least 0.96
+        (0.974 between the smallest and largest settings).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Accurate prediction.</strong> On unseen mixtures the regression model reaches a MAPE of 1.989 (less than 2% average error)
+          and a Spearman rank correlation of 0.979.</li>
+        <li><strong>Best compression.</strong> The TReX mixture gives the lowest compression score both in-distribution (0.871 on FineWeb2-HQ vs. 0.883
+          for the GPT-4o-vocabulary mixture and 0.970 for language buckets, a 10.21% improvement over the latter) and out-of-distribution
+          (0.877 on FLORES-200 vs. 0.904 for the uniform mixture and 0.997 for language buckets).</li>
+        <li><strong>Non-Latin scripts.</strong> On the five non-Latin languages the average score is 0.814, vs. 0.848 (uniform) and 0.863 (LLaMA3
+          mixture), although TReX assigns only 28.2% of the data to them (LLaMA3 mixture: 36.8%).</li>
+        <li><strong>Training cost.</strong> For a 13B model on 3T tokens, the TReX tokenizer gives the shortest estimated training time (8,009.6 hours),
+          more than 1,000 hours less than the language-bucket mixture; finding the mixture costs 52.2% less time than AdaptMix.</li>
+        <li><strong>Domain-specific use.</strong> Optimizing for medical text from the Pile, the regression model reaches a MAPE of 0.921.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> Compression score C (NSL relative to the GPT-4o tokenizer; lower is better) of large-scale tokenizers
+          (S = 30 GB, V = 200K) trained with different data mixtures, averaged over all 19 languages (subset: the &ldquo;All Languages&rdquo; row;
+          per-language scores are in the paper). Uniform = equal weights; Language buckets = mixture of Abagyan et al.; GPT-4o / LLaMA3 =
+          language proportions in those tokenizers' vocabularies. Bold marks the best score. (Table 2 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Data mixture</th><th>In-distribution (FineWeb2-HQ) &darr;</th><th>Out-of-distribution (FLORES-200) &darr;</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Uniform (w<sup>uni</sup>)</td><td>0.888</td><td>0.904</td></tr>
+          <tr><td>Language buckets (w<sup>LB</sup>)</td><td>0.970</td><td>0.997</td></tr>
+          <tr><td>GPT-4o vocabulary (w<sup>gpt</sup>)</td><td>0.883</td><td>0.907</td></tr>
+          <tr><td>LLaMA3 vocabulary (w<sup>llama</sup>)</td><td>0.907</td><td>0.906</td></tr>
+          <tr class="ours"><td>TReX (ours)</td><td><strong>0.871</strong></td><td><strong>0.877</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{won-etal-2026-trex,
+    title = &quot;{TR}e{X}: Tokenizer Regression for Optimal Data Mixture&quot;,
+    author = &quot;Won, Inho  and
+      Yoo, Hangyeol  and
+      Cho, Minkyung  and
+      Park, Jungyeul  and
+      Song, Hoyun  and
+      Lim, KyungTae&quot;,
+    editor = &quot;Demberg, Vera  and
+      Inui, Kentaro  and
+      Marquez, Llu{\&#x27;i}s&quot;,
+    booktitle = &quot;Proceedings of the 19th Conference of the {E}uropean Chapter of the {A}ssociation for {C}omputational {L}inguistics (Volume 1: Long Papers)&quot;,
+    month = mar,
+    year = &quot;2026&quot;,
+    address = &quot;Rabat, Morocco&quot;,
+    publisher = &quot;Association for Computational Linguistics&quot;,
+    url = &quot;https://aclanthology.org/2026.eacl-long.298/&quot;,
+    doi = &quot;10.18653/v1/2026.eacl-long.298&quot;,
+    pages = &quot;6353--6370&quot;,
+    ISBN = &quot;979-8-89176-380-7&quot;
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

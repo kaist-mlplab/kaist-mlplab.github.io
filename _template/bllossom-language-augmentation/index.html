@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Optimizing Language Augmentation for Multilingual Large Language Models: A Case Study on Korean</title>
+  <meta name="description" content="Bllossom enhances Korean in the multilingual Llama2 LLM with three strategies: adding 7,478 Korean tokens to the vocabulary, Korean-English bilingual pretraining on 33 GB, and instruction tuning on a culturally adapted Korean LIMA dataset; it reaches the best 8-task average (58.9) among the compared 13B Korean LLMs. LREC-COLING 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="Bllossom, Korean LLM, Korean large language model, multilingual large language models, MLLM, less-resourced languages, low-resource languages, vocabulary expansion, tokenizer expansion, bilingual pretraining, continual pretraining, instruction tuning, Korean LIMA, LIMA, Llama2, LoRA, LREC-COLING 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/bllossom-language-augmentation/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Optimizing Language Augmentation for Multilingual Large Language Models: A Case Study on Korean">
+  <meta property="og:description" content="Bllossom: vocabulary expansion, bilingual pretraining and Korean LIMA instruction tuning to augment Korean in Llama2. LREC-COLING 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/bllossom-language-augmentation/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/bllossom-language-augmentation/static/images/teaser.png">
+  <meta property="og:image:width" content="1651">
+  <meta property="og:image:height" content="1396">
+  <meta property="og:image:alt" content="Bllossom architecture: Llama2 vocabulary merged with KoBERT vocabulary, bilingual pretraining data, and Korean/English LIMA instruction tuning with a LoRA adapter.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Optimizing Language Augmentation for Multilingual LLMs: A Case Study on Korean (Bllossom)">
+  <meta name="twitter:description" content="Bllossom: vocabulary expansion, bilingual pretraining and Korean LIMA instruction tuning to augment Korean in Llama2. LREC-COLING 2024.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/bllossom-language-augmentation/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Optimizing Language Augmentation for Multilingual Large Language Models: A Case Study on Korean">
+  <meta name="citation_author" content="Choi, ChangSu">
+  <meta name="citation_author_institution" content="SeoulTech">
+  <meta name="citation_author" content="Jeong, Yongbin">
+  <meta name="citation_author_institution" content="Teddysum">
+  <meta name="citation_author" content="Park, Seoyoon">
+  <meta name="citation_author_institution" content="Yonsei University">
+  <meta name="citation_author" content="Won, Inho">
+  <meta name="citation_author_institution" content="SeoulTech">
+  <meta name="citation_author" content="Lim, HyeonSeok">
+  <meta name="citation_author_institution" content="SeoulTech">
+  <meta name="citation_author" content="Kim, SangMin">
+  <meta name="citation_author_institution" content="SeoulTech">
+  <meta name="citation_author" content="Kang, Yejee">
+  <meta name="citation_author_institution" content="Teddysum">
+  <meta name="citation_author" content="Yoon, Chanhyuk">
+  <meta name="citation_author_institution" content="Teddysum">
+  <meta name="citation_author" content="Park, Jaewan">
+  <meta name="citation_author_institution" content="Teddysum">
+  <meta name="citation_author" content="Lee, Yiseul">
+  <meta name="citation_author_institution" content="Teddysum">
+  <meta name="citation_author" content="Lee, HyeJin">
+  <meta name="citation_author_institution" content="KISTI">
+  <meta name="citation_author" content="Hahm, Younggyun">
+  <meta name="citation_author_institution" content="Teddysum">
+  <meta name="citation_author" content="Kim, Hansaem">
+  <meta name="citation_author_institution" content="Yonsei University">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="SeoulTech">
+  <meta name="citation_publication_date" content="2024/05">
+  <meta name="citation_conference_title" content="Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)">
+  <meta name="citation_publisher" content="ELRA and ICCL">
+  <meta name="citation_firstpage" content="12514">
+  <meta name="citation_lastpage" content="12526">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2024.lrec-main.1095.pdf">
+  <meta name="citation_arxiv_id" content="2403.10882">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/bllossom-language-augmentation/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/bllossom-language-augmentation/#article",
+    "headline": "Optimizing Language Augmentation for Multilingual Large Language Models: A Case Study on Korean",
+    "name": "Optimizing Language Augmentation for Multilingual Large Language Models: A Case Study on Korean",
+    "url": "https://kaist-mlplab.github.io/bllossom-language-augmentation/",
+    "datePublished": "2024-05",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/bllossom-language-augmentation/static/images/teaser.png",
+    "abstract": "Large language models (LLMs) use pretraining to predict the subsequent word; however, their expansion requires significant computing resources. Numerous big tech companies and research institutes have developed multilingual LLMs (MLLMs) to meet current demands, overlooking less-resourced languages (LRLs). This study proposed three strategies to enhance the performance of LRLs based on the publicly available MLLMs. First, the MLLM vocabularies of LRLs were expanded to enhance expressiveness. Second, bilingual data were used for pretraining to align the high- and less-resourced languages. Third, a high-quality small-scale instruction dataset was constructed and instruction-tuning was performed to augment the LRL. The experiments employed the Llama2 model and Korean was used as the LRL, which was quantitatively evaluated against other developed LLMs across eight tasks. Furthermore, a qualitative assessment was performed based on human evaluation and GPT4. Experimental results showed that our proposed Bllossom model exhibited superior performance in qualitative analyses compared to previously proposed Korean monolingual models.",
+    "keywords": [
+      "Bllossom",
+      "Korean LLM",
+      "multilingual large language models",
+      "less-resourced languages",
+      "vocabulary expansion",
+      "bilingual pretraining",
+      "instruction tuning",
+      "Korean LIMA",
+      "Llama2",
+      "LoRA"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Large language models"
+      },
+      {
+        "@type": "Thing",
+        "name": "Korean language"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multilingual NLP"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "ChangSu Choi",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "SeoulTech"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yongbin Jeong",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Teddysum"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Seoyoon Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Yonsei University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Inho Won",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "SeoulTech"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "HyeonSeok Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "SeoulTech"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "SangMin Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "SeoulTech"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yejee Kang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Teddysum"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Chanhyuk Yoon",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Teddysum"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jaewan Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Teddysum"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yiseul Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Teddysum"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "HyeJin Lee",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KISTI"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Younggyun Hahm",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Teddysum"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Hansaem Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Yonsei University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "SeoulTech"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)",
+      "publisher": {
+        "@type": "Organization",
+        "name": "ELRA and ICCL"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2024.lrec-main.1095/",
+      "https://arxiv.org/abs/2403.10882",
+      "https://github.com/MLP-Lab/Bllossom"
+    ],
+    "pagination": "12514-12526",
+    "workExample": {
+      "@type": "SoftwareSourceCode",
+      "name": "Bllossom (LREC-COLING 2024 code and model card)",
+      "codeRepository": "https://github.com/MLP-Lab/Bllossom"
+    },
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2403.10882"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2024.lrec-main.1095.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Optimizing Language Augmentation for Multilingual Large Language Models: A Case Study on Korean</h1>
+      <p class="subtitle is-5 publication-subtitle">Bllossom: Korean vocabulary expansion, bilingual pretraining and Korean LIMA instruction tuning for Llama2</p>
+      <p><span class="tag is-link is-medium venue-badge">LREC-COLING 2024</span></p>
+
+      <p class="publication-authors" style="font-size:0.95rem">
+        <span class="author-block">ChangSu Choi<sup>1,‡</sup>,</span>
+        <span class="author-block">Yongbin Jeong<sup>3,‡</sup>,</span>
+        <span class="author-block">Seoyoon Park<sup>2,‡</sup>,</span>
+        <span class="author-block">Inho Won<sup>1</sup>,</span>
+        <span class="author-block">HyeonSeok Lim<sup>1</sup>,</span>
+        <span class="author-block">SangMin Kim<sup>1</sup>,</span>
+        <span class="author-block">Yejee Kang<sup>3</sup>,</span>
+        <span class="author-block">Chanhyuk Yoon<sup>3</sup>,</span>
+        <span class="author-block">Jaewan Park<sup>3</sup>,</span>
+        <span class="author-block">Yiseul Lee<sup>3</sup>,</span>
+        <span class="author-block">HyeJin Lee<sup>4</sup>,</span>
+        <span class="author-block">Younggyun Hahm<sup>3</sup>,</span>
+        <span class="author-block">Hansaem Kim<sup>2</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>1,†</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>SeoulTech</span>
+        <span class="author-block"><sup>2</sup>Yonsei University</span>
+        <span class="author-block"><sup>3</sup>Teddysum</span>
+        <span class="author-block"><sup>4</sup>KISTI</span>
+      </p>
+      <p class="publication-notes"><sup>‡</sup>These authors contributed equally &nbsp; <sup>†</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.lrec-main.1095/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.lrec-main.1095.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2403.10882">arXiv</a>
+        <a class="button is-dark is-rounded" href="https://github.com/MLP-Lab/Bllossom">Code</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/Bllossom">Models (Bllossom)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1651" height="1396" style="max-width:560px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Diagram of the Bllossom model. The embedding layer combines the Llama2 vocabulary with the KoBERT vocabulary (1, vocabulary expansion). English and Korean pretraining data are used for (2) bilingual pretraining, and English and Korean LIMA data for (3) instruction tuning (SFT). The LM head, embedding tokens and a LoRA adapter on the query, key and value projections are trainable, while the rest of the LLM is frozen.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1 (paper).</strong> Architecture of Bllossom. (1) The Llama2 vocabulary (32,000 tokens) is merged with the KoBERT vocabulary, adding 7,478 Korean tokens; (2) the model is pretrained on English and Korean data; (3) it is instruction-tuned on English and Korean LIMA data. Red parts (embeddings, LM head, LoRA adapter on query/key/value) are trained and blue parts are frozen, so 5.977% of the Llama2 parameters are updated.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Large language models (LLMs) use pretraining to predict the subsequent word; however, their expansion requires significant computing resources. Numerous big tech companies and research institutes have developed multilingual LLMs (MLLMs) to meet current demands, overlooking less-resourced languages (LRLs). This study proposed three strategies to enhance the performance of LRLs based on the publicly available MLLMs. First, the MLLM vocabularies of LRLs were expanded to enhance expressiveness. Second, bilingual data were used for pretraining to align the high- and less-resourced languages. Third, a high-quality small-scale instruction dataset was constructed and instruction-tuning was performed to augment the LRL. The experiments employed the Llama2 model and Korean was used as the LRL, which was quantitatively evaluated against other developed LLMs across eight tasks. Furthermore, a qualitative assessment was performed based on human evaluation and GPT4. Experimental results showed that our proposed Bllossom model exhibited superior performance in qualitative analyses compared to previously proposed Korean monolingual models.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Bllossom</span>
+      <span class="tag">Korean LLM</span>
+      <span class="tag">Less-resourced languages</span>
+      <span class="tag">Vocabulary expansion</span>
+      <span class="tag">Bilingual pretraining</span>
+      <span class="tag">Instruction tuning</span>
+      <span class="tag">Korean LIMA</span>
+      <span class="tag">Llama2</span>
+      <span class="tag">LoRA</span>
+      <span class="tag">GPT-4 preference evaluation</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        Llama2 saw only 0.06% Korean data during pretraining, and its SentencePiece tokenizer falls back to UTF-8 bytes for most Korean
+        syllables: the phrase 햄버거를 먹는 공룡 (&ldquo;a dinosaur eating a hamburger&rdquo;) becomes 21 tokens, mostly byte tokens such as
+        <code>&lt;0xED&gt;</code>, whereas the expanded tokenizer produces 8. Bllossom augments Korean in three steps:
+      </p>
+      <ol>
+        <li><strong>Vocabulary expansion.</strong> The Llama2 vocabulary (32,000 entries) is merged with the morpheme-aware KoBERT vocabulary (8,002 entries), giving 39,478 entries; the 7,478 new embeddings are randomly initialized.</li>
+        <li><strong>Bilingual pretraining.</strong> The expanded model is further pretrained with causal language modeling on 33.09 GB of Korean and English text (22.41 GB public Korean news/web data, 0.76 GB Korean Wikipedia, 9.92 GB English Wikipedia) for one epoch, to link Korean with the model's mostly English knowledge.</li>
+        <li><strong>Korean LIMA instruction tuning.</strong> The 1,030 English LIMA examples are machine-translated, reviewed by native speakers, and adapted to Korean culture (named entities replaced, topics changed); the model is tuned on Korean (and English) LIMA data.</li>
+      </ol>
+      <p>
+        Training uses LoRA on the attention query/key/value projections plus the expanded embeddings (5.977% of the parameters), which fits on
+        a single A6000 GPU. Models are compared on eight Korean benchmarks (KLUE NLI, STS and YNAT; Ko-SBI; KoBEST BoolQ, HellaSwag, SentiNeg and
+        COPA) and by human and GPT-4 preference on 300 LIMA test prompts translated into Korean.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Best 8-task average.</strong> Bllossom-ko reaches an average of 58.9, above Llama2-ko without vocabulary expansion (57.1, +1.8 points) and the Polyglot-Ko based monolingual models (56.2, 53.8, 52.1).</li>
+        <li><strong>Vocabulary expansion helps sentence-pair tasks.</strong> On NLI and STS, Bllossom-ko outperforms Llama2-ko by 9.15 points; Llama2-ko is better on SBI by 8.8 points.</li>
+        <li><strong>Bilingual pretraining.</strong> Bllossom-ko (58.9) and Bllossom-bi (58.6) score similarly, but Bllossom-bi is 11.6 points better on SBI and avoids answering in Korean when queried in English.</li>
+        <li><strong>GPT-4 preference.</strong> Bllossom&rsquo;s answers were preferred in 94% of comparisons against Ko-Platypus2, 86% against Komt and 75% against Kullm; GPT-4 itself was preferred over Bllossom in 84%.</li>
+        <li><strong>Bilingual SFT.</strong> Bllossom-bi-biSFT wins against Bllossom-bi-koSFT in 67% (Korean) and 95% (English) of LIMA test comparisons.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Korean LLM benchmark results: accuracy (ACC) or F1 on eight Korean tasks and their average.
+          All models are 12.8B/13B. Bold marks the best score per column as in the paper (Table 6 in the paper).
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>NLI<br>ACC</th><th>STS<br>ACC</th><th>SBI<br>F1</th><th>YNAT<br>ACC</th><th>BoolQ<br>F1</th><th>H-Swag<br>F1</th><th>S-Neg<br>F1</th><th>COPA<br>F1</th><th>AVG</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>polyglot-ko-12.8b</td><td>35.5</td><td>50.1</td><td>48.6</td><td>31.0</td><td>59.4</td><td><strong>48.8</strong></td><td><strong>95.7</strong></td><td><strong>81.0</strong></td><td>56.2</td></tr>
+          <tr><td>KoAlpaca-Polyglot-12.8b</td><td>38.0</td><td>42.7</td><td>48.4</td><td>26.0</td><td>66.4</td><td>44.4</td><td>84.8</td><td>80.0</td><td>53.8</td></tr>
+          <tr><td>kullm-polyglot-12.8b-v2</td><td>33.9</td><td>44.8</td><td>52.5</td><td>24.6</td><td>44.2</td><td>48.3</td><td>89.8</td><td>79.3</td><td>52.1</td></tr>
+          <tr><td>Llama2</td><td>44.0</td><td>45.8</td><td>56.0</td><td>25.4</td><td>73.8</td><td>40.7</td><td>78.1</td><td>60.9</td><td>53.1</td></tr>
+          <tr><td>Ko-Platypus2-13B</td><td>50.5</td><td>59.9</td><td>37.1</td><td>28.9</td><td>72.0</td><td>41.4</td><td>85.1</td><td>63.8</td><td>54.8</td></tr>
+          <tr><td>Komt-Llama-2-13b-hf</td><td>33.4</td><td>51.6</td><td>48.7</td><td>24.2</td><td>52.6</td><td>39.7</td><td>62.4</td><td>64.2</td><td>47.1</td></tr>
+          <tr class="ours"><td>Llama2-koSFT (ours)</td><td>44.5</td><td>50.6</td><td>38.5</td><td>23.1</td><td>71.7</td><td>41.2</td><td>77.3</td><td>60.5</td><td>50.9</td></tr>
+          <tr class="ours"><td>Llama2-ko (ours)</td><td>41.5</td><td>47.4</td><td>61.7</td><td>32.6</td><td>72.8</td><td>43.5</td><td>89.1</td><td>68.4</td><td>57.1</td></tr>
+          <tr class="ours"><td>Bllossom-ko (ours)</td><td>49.4</td><td>57.8</td><td>52.9</td><td>33.1</td><td>73.0</td><td>48.6</td><td>87.9</td><td>69.0</td><td><strong>58.9</strong></td></tr>
+          <tr class="ours"><td>Bllossom-bi (ours)</td><td>48.8</td><td>46.6</td><td><strong>64.5</strong></td><td>32.8</td><td>74.0</td><td>38.0</td><td>93.2</td><td>71.2</td><td>58.6</td></tr>
+          <tr class="ours"><td>Bllossom-bi-koSFT (ours)</td><td><strong>49.6</strong></td><td><strong>54.9</strong></td><td>55.0</td><td>33.9</td><td><strong>74.2</strong></td><td>40.0</td><td>92.0</td><td>68.4</td><td>58.5</td></tr>
+          <tr class="ours"><td>Bllossom-bi-biSFT (ours)</td><td>45.7</td><td>46.4</td><td>63.4</td><td><strong>36.0</strong></td><td>69.4</td><td>39.1</td><td>89.9</td><td>70.0</td><td>57.5</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{choi-etal-2024-optimizing,
+    title = "Optimizing Language Augmentation for Multilingual Large Language Models: A Case Study on {K}orean",
+    author = "Choi, ChangSu  and
+      Jeong, Yongbin  and
+      Park, Seoyoon  and
+      Won, Inho  and
+      Lim, HyeonSeok  and
+      Kim, SangMin  and
+      Kang, Yejee  and
+      Yoon, Chanhyuk  and
+      Park, Jaewan  and
+      Lee, Yiseul  and
+      Lee, HyeJin  and
+      Hahm, Younggyun  and
+      Kim, Hansaem  and
+      Lim, KyungTae",
+    editor = "Calzolari, Nicoletta  and
+      Kan, Min-Yen  and
+      Hoste, Veronique  and
+      Lenci, Alessandro  and
+      Sakti, Sakriani  and
+      Xue, Nianwen",
+    booktitle = "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation ({LREC}-{COLING} 2024)",
+    month = may,
+    year = "2024",
+    address = "Torino, Italia",
+    publisher = "ELRA and ICCL",
+    url = "https://aclanthology.org/2024.lrec-main.1095/",
+    pages = "12514--12526"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

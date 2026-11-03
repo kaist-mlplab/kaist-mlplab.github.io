@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Reformulation and Equivalence of Bock&#x27;s Algorithm for Exact Dependency Parsing</title>
+  <meta name="description" content="A reformulation of Bock&#x27;s 1971 matrix-based arborescence algorithm is proved operationally equivalent to the original and to corrected Tarjan (Chu-Liu/Edmonds), and on identical scores returns the same Penn Treebank parses as CL/E inside a biaffine dependency parser. arXiv 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="Bock&#x27;s algorithm, minimum directed spanning tree, minimum-cost arborescence, maximum spanning tree, Chu-Liu/Edmonds, Edmonds&#x27; algorithm, Tarjan, exact decoding, graph-based dependency parsing, biaffine parser, structured hinge loss, Stanza, Penn Treebank, Chinese Treebank, arXiv 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/bock-algorithm-reformulation/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Reformulation and Equivalence of Bock&#x27;s Algorithm for Exact Dependency Parsing">
+  <meta property="og:description" content="Bock&#x27;s algorithm as an exact alternative to Chu-Liu/Edmonds for dependency parsing: proofs of equivalence and PTB/CTB experiments with structured training. arXiv 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/bock-algorithm-reformulation/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Reformulation and Equivalence of Bock&#x27;s Algorithm for Exact Dependency Parsing">
+  <meta name="twitter:description" content="Bock&#x27;s algorithm as an exact alternative to Chu-Liu/Edmonds for dependency parsing: proofs of equivalence and PTB/CTB experiments with structured training. arXiv 2026.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Reformulation and Equivalence of Bock&#x27;s Algorithm for Exact Dependency Parsing">
+  <meta name="citation_author" content="Wang, Yuxi">
+  <meta name="citation_author_institution" content="UBC">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/10/31">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2611.00939">
+  <meta name="citation_arxiv_id" content="2611.00939">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/bock-algorithm-reformulation/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/bock-algorithm-reformulation/#article",
+    "headline": "Reformulation and Equivalence of Bock's Algorithm for Exact Dependency Parsing",
+    "name": "Reformulation and Equivalence of Bock's Algorithm for Exact Dependency Parsing",
+    "url": "https://kaist-mlplab.github.io/bock-algorithm-reformulation/",
+    "datePublished": "2026-10-31",
+    "inLanguage": "en",
+    "abstract": "Bock's algorithm provides a matrix-based alternative to Chu–Liu/Edmonds (CL/E) for exact dependency parsing. We present a reformulation that retains original node and arc identities through component labels, column adjustments, and star-and-bar transfers. In exact arithmetic, we prove operational equivalence to original Bock under matching scan and tie rules, and establish correspondence with corrected Tarjan under a prescribed component schedule. A separate analysis establishes optimal-value equivalence with Dozat-derived CL/E under the stated score and single-root conventions. We integrate reformulated Bock into a biaffine dependency parser and evaluate decoding and structured training on the Penn Treebank and Chinese Treebank. These results establish Bock as an alternative exact oracle for dependency parsing and structured training, while distinguishing equality of optimal values from identity of returned trees and training trajectories.",
+    "keywords": [
+      "Bock's algorithm",
+      "minimum directed spanning tree",
+      "minimum-cost arborescence",
+      "Chu-Liu/Edmonds",
+      "Tarjan's algorithm",
+      "exact inference",
+      "graph-based dependency parsing",
+      "biaffine parser",
+      "structured hinge loss",
+      "Penn Treebank",
+      "Chinese Treebank"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Dependency parsing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Minimum spanning arborescence"
+      },
+      {
+        "@type": "Thing",
+        "name": "Combinatorial optimization"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Yuxi Wang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "UBC"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2611.00939"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2611.00939"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2611.00939"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Reformulation and Equivalence of Bock&#x27;s Algorithm for Exact Dependency Parsing</h1>
+      <p class="subtitle is-5 publication-subtitle">An executable reformulation of Bock&rsquo;s 1971 minimum-cost arborescence algorithm, proved equivalent to the original procedure and to Chu&ndash;Liu/Edmonds, used as an exact decoder and training oracle in a biaffine dependency parser</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Yuxi Wang<sup>1</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>2,*</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>UBC, Canada</span>
+        <span class="author-block"><sup>2</sup>KAIST, South Korea</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Corresponding author</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2611.00939">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2611.00939">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Bock's algorithm provides a matrix-based alternative to Chu&ndash;Liu/Edmonds (CL/E) for exact dependency parsing. We present
+        a reformulation that retains original node and arc identities through component labels, column adjustments, and star-and-bar
+        transfers. In exact arithmetic, we prove operational equivalence to original Bock under matching scan and tie rules, and establish
+        correspondence with corrected Tarjan under a prescribed component schedule. A separate analysis establishes optimal-value
+        equivalence with Dozat-derived CL/E under the stated score and single-root conventions. We integrate reformulated Bock into a
+        biaffine dependency parser and evaluate decoding and structured training on the Penn Treebank and Chinese Treebank. These results
+        establish Bock as an alternative exact oracle for dependency parsing and structured training, while distinguishing equality of
+        optimal values from identity of returned trees and training trajectories.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Bock&#x27;s algorithm</span>
+      <span class="tag">Minimum directed spanning tree</span>
+      <span class="tag">Arborescence</span>
+      <span class="tag">Chu-Liu/Edmonds (CL/E)</span>
+      <span class="tag">Tarjan&#x27;s algorithm</span>
+      <span class="tag">Exact decoding</span>
+      <span class="tag">Graph-based dependency parsing</span>
+      <span class="tag">Biaffine parser</span>
+      <span class="tag">Structured hinge loss</span>
+      <span class="tag">PTB / CTB</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        An arc-factored dependency parser scores every head&ndash;dependent arc <em>i</em>&nbsp;&rarr;&nbsp;<em>j</em> with <em>S</em>[<em>i</em>,&nbsp;<em>j</em>]
+        and decodes the highest-scoring single-root tree. Bock's procedure (1971) solves the same problem as a
+        <em>minimum-cost</em> rooted arborescence on the cost matrix <em>C</em>[<em>i</em>,&nbsp;<em>j</em>]&nbsp;=&nbsp;&minus;<em>S</em>[<em>i</em>,&nbsp;<em>j</em>].
+        Unlike Chu&ndash;Liu/Edmonds, it never builds contracted graphs: it keeps the original matrix and node indices and represents
+        contracted circuits by shared labels. The reformulation (Algorithm&nbsp;1 in the paper) separates its interleaved Algol control flow into explicit phases:
+      </p>
+      <ol>
+        <li><strong>Candidate search.</strong> For the current column <em>K</em> and its active component <em>H</em>, pick the first arc
+          entering <em>H</em> from outside that minimizes the adjusted cost <em>C</em>[<em>i</em>,&nbsp;<em>j</em>]&nbsp;&minus;&nbsp;<em>U</em><sub>1</sub>[<em>j</em>] (dependents scanned in increasing order, then heads).</li>
+        <li><strong>Column adjustment.</strong> Add that minimum to <em>U</em><sub>1</sub> for every processed column in <em>H</em>, so the chosen candidate has adjusted cost zero.</li>
+        <li><strong>Backward trace.</strong> Follow starred (provisional) predecessors from the candidate's head, collecting visited components in an explicit
+          <code>TRACE</code> set (the original marks them by temporarily negating <code>SPAN</code> labels) and writing the candidate into empty bar entries.</li>
+        <li><strong>Contraction.</strong> If the trace returns to <em>H</em>, a circuit has formed: every vertex in <code>TRACE</code> receives the active label
+          (the original assigns a fresh label) and the search repeats.</li>
+        <li><strong>Star-and-bar transfer.</strong> Otherwise install the candidate as a star; each displaced star is replaced using the barred arc reference stored at its dependent, until no star is displaced.</li>
+      </ol>
+      <p>
+        <strong>Worked example (from the paper).</strong> Nodes 0, 1, 2 with root 0 and arcs 0&rarr;1, 0&rarr;2, 1&rarr;2, 2&rarr;1 of costs 50, 60, 10, 20.
+        At <em>K</em>&nbsp;=&nbsp;1 the procedure stars 2&rarr;1; at <em>K</em>&nbsp;=&nbsp;2 selecting 1&rarr;2 closes the circuit 1&rarr;2&rarr;1, which is contracted.
+        The renewed search compares adjusted costs 50&nbsp;&minus;&nbsp;20&nbsp;=&nbsp;30 (0&rarr;1) and 60&nbsp;&minus;&nbsp;10&nbsp;=&nbsp;50 (0&rarr;2), selects 0&rarr;1, and the transfer
+        yields the arborescence 0&rarr;1&rarr;2 of cost 50&nbsp;+&nbsp;10&nbsp;=&nbsp;60.
+      </p>
+      <p><strong>Formal results.</strong></p>
+      <ul>
+        <li><strong>Faithfulness to original Bock:</strong> in exact arithmetic, with the same scan order and first-minimum tie rule, the reformulation returns the same predecessor array and objective value as the original Algol procedure (or both report infeasibility).</li>
+        <li><strong>Theorem&nbsp;1 (coupled Bock&ndash;Tarjan executions):</strong> under a prescribed component schedule and common original-arc tie order, Bock's starred arc set equals the branching returned by corrected Tarjan recovery at every completed column prefix, so the final arborescences coincide even when the optimum is not unique.</li>
+        <li><strong>Theorem&nbsp;2 (single-root parsing equivalence):</strong> the Dozat-derived CL/E used in Stanza (root reweighting) and Bock single-root inference (enumerating the sole root child) both solve the single-root parsing objective and attain the same optimal score.</li>
+        <li><strong>Complexity:</strong> the reformulation runs in O(<em>n</em><sup>3</sup>) time with O(<em>n</em><sup>2</sup>) storage, matching the original Bock procedure and the Dozat-derived CL/E bound for rooted arborescences; the implemented single-root Bock procedure is O(<em>n</em><sup>4</sup>) in the worst case.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Identical decoding on identical scores.</strong> For the three PTB local cross-entropy models (one per seed), CL/E, original Bock, and reformulated Bock
+          return identical heads, relation labels, and tree-score values on every development and test sentence, and hence identical UAS, LAS, and complete-match scores.</li>
+        <li><strong>PTB structured training.</strong> Hinge training with reformulated Bock exceeds CL/E hinge by 0.08 points in both mean UAS and LAS
+          (95.72 / 94.79 vs. 95.64 / 94.71), and matches local CE's mean LAS (94.79).</li>
+        <li><strong>CTB structured training.</strong> Bock hinge exceeds local CE by 0.86 points in mean LAS and 1.52 points in mean LCM, and exceeds CL/E hinge by 0.78 and 2.01 points,
+          but with larger variation across seeds (standard deviations of 1.08 LAS and 2.14 LCM).</li>
+        <li><strong>No accuracy ordering between decoders.</strong> The paired LAS difference between Bock and CL/E hinge changes sign across seeds; the authors conclude the results compare
+          complete training and model-selection procedures and establish no accuracy ordering between the inference algorithms on identical scores.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Test scores (%) of Stanza's biaffine parser with BERT fine-tuning, mean &plusmn; sample standard deviation over three seeds.
+          LCM = labeled complete match. Local CE uses CL/E for development selection and decoding; each hinge condition uses its own decoder for
+          loss-augmented training inference, development selection, and final decoding. Bock = reformulated implementation. (Table 1 in the paper.)
+        </caption>
+        <thead>
+          <tr><th rowspan="2">Training</th><th colspan="3">PTB</th><th colspan="3">CTB</th></tr>
+          <tr><th>UAS</th><th>LAS</th><th>LCM</th><th>UAS</th><th>LAS</th><th>LCM</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Local CE</td><td>95.71 &plusmn; 0.12</td><td>94.79 &plusmn; 0.10</td><td>55.39 &plusmn; 0.62</td><td>90.07 &plusmn; 0.44</td><td>88.94 &plusmn; 0.49</td><td>39.72 &plusmn; 0.94</td></tr>
+          <tr><td>Hinge (CL/E)</td><td>95.64 &plusmn; 0.10</td><td>94.71 &plusmn; 0.10</td><td>54.42 &plusmn; 0.59</td><td>90.12 &plusmn; 0.24</td><td>89.02 &plusmn; 0.26</td><td>39.23 &plusmn; 1.08</td></tr>
+          <tr class="ours"><td>Hinge (Bock)</td><td>95.72 &plusmn; 0.05</td><td>94.79 &plusmn; 0.08</td><td>54.55 &plusmn; 0.85</td><td>90.88 &plusmn; 0.98</td><td>89.80 &plusmn; 1.08</td><td>41.24 &plusmn; 2.14</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{wang2026reformulationequivalencebocksalgorithm,
+      title={Reformulation and Equivalence of Bock&#x27;s Algorithm for Exact Dependency Parsing}, 
+      author={Yuxi Wang and Jungyeul Park},
+      year={2026},
+      eprint={2611.00939},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2611.00939}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

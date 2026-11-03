@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>MentalBench: A DSM-Grounded Benchmark for Evaluating Psychiatric Diagnostic Capability of Large Language Models</title>
+  <meta name="description" content="MentalBench is a benchmark of 24,750 synthetic clinical cases built on MentalKG, a psychiatrist-validated knowledge graph of DSM-5 criteria and differential diagnosis rules for 23 psychiatric disorders; the best LLM reaches only 62.69% overall accuracy. arXiv 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="MentalBench, MentalKG, psychiatric diagnosis, DSM-5, differential diagnosis, mental health LLM, clinical decision support, medical LLM benchmark, knowledge graph, synthetic clinical cases, diagnostic calibration, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/mentalbench/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="MentalBench: A DSM-Grounded Benchmark for Evaluating Psychiatric Diagnostic Capability of LLMs">
+  <meta property="og:description" content="24,750 DSM-5-grounded clinical cases for 23 psychiatric disorders; the best LLM reaches only 62.69% overall accuracy.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/mentalbench/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/mentalbench/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="516">
+  <meta property="og:image:alt" content="Four MentalBench case types for Major Depressive Disorder and the MDD versus Bipolar II differential diagnosis.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MentalBench: DSM-grounded psychiatric diagnosis benchmark for LLMs">
+  <meta name="twitter:description" content="24,750 clinical cases, 23 disorders, built on a psychiatrist-validated DSM-5 knowledge graph. Best overall accuracy: 62.69%.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/mentalbench/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="MentalBench: A DSM-Grounded Benchmark for Evaluating Psychiatric Diagnostic Capability of Large Language Models">
+  <meta name="citation_author" content="Song, Hoyun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Kang, Migyeong">
+  <meta name="citation_author_institution" content="Sungkyunkwan University">
+  <meta name="citation_author" content="Shin, Jisu">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Kim, Jihyun">
+  <meta name="citation_author_institution" content="Sungkyunkwan University">
+  <meta name="citation_author" content="Park, Chanbi">
+  <meta name="citation_author_institution" content="Dongguk University Medical Center">
+  <meta name="citation_author" content="Yoo, Hangyeol">
+  <meta name="citation_author_institution" content="Seoultech">
+  <meta name="citation_author" content="An, Jihyun">
+  <meta name="citation_author_institution" content="Samsung Medical Center">
+  <meta name="citation_author" content="Oh, Alice">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Han, Jinyoung">
+  <meta name="citation_author_institution" content="Sungkyunkwan University">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/02/13">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2602.12871">
+  <meta name="citation_arxiv_id" content="2602.12871">
+  <meta name="citation_doi" content="10.48550/arXiv.2602.12871">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/mentalbench/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/mentalbench/#article",
+    "headline": "MentalBench: A DSM-Grounded Benchmark for Evaluating Psychiatric Diagnostic Capability of Large Language Models",
+    "name": "MentalBench: A DSM-Grounded Benchmark for Evaluating Psychiatric Diagnostic Capability of Large Language Models",
+    "url": "https://kaist-mlplab.github.io/mentalbench/",
+    "datePublished": "2026-02-13",
+    "dateModified": "2026-05-18",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/mentalbench/static/images/teaser.png",
+    "abstract": "Large language models (LLMs) have attracted growing interest as supportive tools for psychiatric assessment and clinical decision support. However, existing mental health benchmarks largely rely on social media data or supportive dialogue settings, limiting their ability to assess whether models can apply formal diagnostic criteria and differential diagnostic rules. In this paper, we introduce MentalBench, a benchmark for evaluating whether LLMs can make DSM-grounded psychiatric diagnostic decisions under varying levels of clinical ambiguity. At the core of MentalBench is MentalKG, a psychiatrist-built and validated knowledge graph encoding DSM-5 diagnostic criteria and differential diagnostic rules for 23 psychiatric disorders. Using MentalKG as an expert-curated logical backbone, we generate 24,750 synthetic clinical cases that systematically vary in information completeness and diagnostic complexity, enabling DSM-grounded evaluation. Our experiments show that although state-of-the-art LLMs perform well on noise-free queries that probe DSM-5 knowledge, they struggle to calibrate their confidence when distinguishing between disorders with overlapping symptoms. These findings raise concerns about the reliability of LLMs as psychiatric decision-support tools and highlight the need for more evaluation that reflects the diverse challenges in real-world psychiatric diagnosis.",
+    "keywords": ["psychiatric diagnosis", "DSM-5", "differential diagnosis", "mental health LLM", "clinical decision support", "medical LLM benchmark", "knowledge graph", "synthetic clinical cases", "diagnostic calibration"],
+    "about": [
+      {"@type": "Thing", "name": "Psychiatric diagnosis"},
+      {"@type": "Thing", "name": "Large language models"},
+      {"@type": "Thing", "name": "Benchmark datasets"},
+      {"@type": "Thing", "name": "Knowledge graphs"}
+    ],
+    "author": [
+      {"@type": "Person", "name": "Hoyun Song", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Migyeong Kang", "affiliation": {"@type": "Organization", "name": "Sungkyunkwan University"}},
+      {"@type": "Person", "name": "Jisu Shin", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Jihyun Kim", "affiliation": {"@type": "Organization", "name": "Sungkyunkwan University"}},
+      {"@type": "Person", "name": "Chanbi Park", "affiliation": {"@type": "Organization", "name": "Dongguk University Medical Center"}},
+      {"@type": "Person", "name": "Hangyeol Yoo", "affiliation": {"@type": "Organization", "name": "Seoultech"}},
+      {"@type": "Person", "name": "Jihyun An", "affiliation": {"@type": "Organization", "name": "Samsung Medical Center"}},
+      {"@type": "Person", "name": "Alice Oh", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Jinyoung Han", "affiliation": {"@type": "Organization", "name": "Sungkyunkwan University"}},
+      {"@type": "Person", "name": "KyungTae Lim", "affiliation": {"@type": "Organization", "name": "KAIST"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "sameAs": ["https://arxiv.org/abs/2602.12871", "https://doi.org/10.48550/arXiv.2602.12871", "https://github.com/HoyunS/MentalBench", "https://huggingface.co/datasets/hysong/MentalBench"],
+    "workExample": [
+      {"@type": "SoftwareSourceCode", "name": "MentalBench (code)", "codeRepository": "https://github.com/HoyunS/MentalBench", "programmingLanguage": "Python"},
+      {"@type": "Dataset", "name": "MentalBench", "url": "https://huggingface.co/datasets/hysong/MentalBench"}
+    ],
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "arXiv", "value": "2602.12871"},
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.48550/arXiv.2602.12871"}
+    ],
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://arxiv.org/pdf/2602.12871"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">MentalBench: A DSM-Grounded Benchmark for Evaluating Psychiatric Diagnostic Capability of Large Language Models</h1>
+      <p class="subtitle is-5 publication-subtitle">24,750 synthetic clinical cases for 23 psychiatric disorders, built on a psychiatrist-validated DSM-5 knowledge graph</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Hoyun Song<sup>1,*</sup>,</span>
+        <span class="author-block">Migyeong Kang<sup>2,*</sup>,</span>
+        <span class="author-block">Jisu Shin<sup>1</sup>,</span>
+        <span class="author-block">Jihyun Kim<sup>2</sup>,</span>
+        <span class="author-block">Chanbi Park<sup>3</sup>,</span>
+        <span class="author-block">Hangyeol Yoo<sup>4</sup>,</span>
+        <span class="author-block">Jihyun An<sup>5</sup>,</span>
+        <span class="author-block">Alice Oh<sup>1</sup>,</span>
+        <span class="author-block">Jinyoung Han<sup>2,&dagger;</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>1,&dagger;</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>KAIST</span>
+        <span class="author-block"><sup>2</sup>Sungkyunkwan University</span>
+        <span class="author-block"><sup>3</sup>Dongguk University Medical Center</span>
+        <span class="author-block"><sup>4</sup>Seoultech</span>
+        <span class="author-block"><sup>5</sup>Samsung Medical Center</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution &nbsp; <sup>&dagger;</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2602.12871">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2602.12871">PDF</a>
+        <a class="button is-dark is-rounded" href="https://github.com/HoyunS/MentalBench">Code</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/datasets/hysong/MentalBench">Dataset</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="516"
+           alt="Four case types. Left: the Major Depressive Disorder node (minimum duration 2 weeks, functional impairment required) yields Type I, a professional summary listing tearfulness, emptiness, decreased appetite, and a specific suicide plan, and, with information incompleteness added, Type II, a narrative patient self-report with one symptom missing. Right: the MDD versus Bipolar II differential-diagnosis node (key difference: meeting criteria for a hypomanic episode) yields Type III, overlapping symptoms without the discriminatory rule so both MDD and Bipolar II are correct, and Type IV, which adds the discriminating evidence (brief bursts of energy that never last) so only MDD is correct.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> The four MentalBench case types. Types I&ndash;II test <em>information incompleteness</em>: a complete
+        professional summary versus a colloquial patient self-report that keeps only the minimum evidence. Types III&ndash;IV test
+        <em>diagnostic complexity</em> through differential diagnosis: without the discriminating evidence (Type III) several diagnoses remain
+        consistent, while with it (Type IV) the model must narrow down to a single diagnosis.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Large language models (LLMs) have attracted growing interest as supportive tools for psychiatric assessment and clinical decision
+        support. However, existing mental health benchmarks largely rely on social media data or supportive dialogue settings, limiting their
+        ability to assess whether models can apply formal diagnostic criteria and differential diagnostic rules. In this paper, we introduce
+        MentalBench, a benchmark for evaluating whether LLMs can make DSM-grounded psychiatric diagnostic decisions under varying levels of
+        clinical ambiguity. At the core of MentalBench is MentalKG, a psychiatrist-built and validated knowledge graph encoding DSM-5
+        diagnostic criteria and differential diagnostic rules for 23 psychiatric disorders. Using MentalKG as an expert-curated logical
+        backbone, we generate 24,750 synthetic clinical cases that systematically vary in information completeness and diagnostic complexity,
+        enabling DSM-grounded evaluation. Our experiments show that although state-of-the-art LLMs perform well on noise-free queries that
+        probe DSM-5 knowledge, they struggle to calibrate their confidence when distinguishing between disorders with overlapping symptoms.
+        These findings raise concerns about the reliability of LLMs as psychiatric decision-support tools and highlight the need for more
+        evaluation that reflects the diverse challenges in real-world psychiatric diagnosis.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Psychiatric diagnosis</span>
+      <span class="tag">DSM-5</span>
+      <span class="tag">Differential diagnosis</span>
+      <span class="tag">Mental health LLM</span>
+      <span class="tag">Clinical decision support</span>
+      <span class="tag">Medical LLM benchmark</span>
+      <span class="tag">Knowledge graph (MentalKG)</span>
+      <span class="tag">Synthetic clinical cases</span>
+      <span class="tag">Diagnostic calibration</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Benchmark Construction</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2600" height="777" loading="lazy"
+           alt="Four-stage pipeline from the DSM-5 knowledge graph. [1] Seed generation: Type I fully satisfies the diagnostic criteria, Type II partially satisfies them, Type III adds the condition but not the key differences or rules, Type IV adds condition, key differences, and rules; seeds are manually reviewed by experts. [2] Profile augmentation: demographics (age, gender, occupation, marital status) and sub-symptoms such as initial insomnia, early awakening, and hypersomnia form patient profiles with diagnosis, symptom subtypes, and duration. [3] Data synthesis with three LLMs into a professional summary (Type I), patient self-report (Type II), and differential-diagnosis cases with multiple answers (Type III) or a single answer (Type IV). [4] Option selection: four answer options such as Bipolar I, Bipolar II, MDD, PTSD.">
+      </picture>
+      <figcaption>
+        <strong>Figure 3.</strong> Overview of the clinical case generation pipeline for constructing MentalBench: seed generation from
+        MentalKG, profile augmentation, multi-model data synthesis, and option selection.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <ol>
+        <li><strong>MentalKG.</strong> Mental health experts turn DSM-5 text into a knowledge graph of diagnostic criteria (minimum duration,
+          functional impairment, symptom subtypes) and differential-diagnosis rules (additional conditions, key differences) for 23
+          psychiatric disorders.</li>
+        <li><strong>Seed generation.</strong> Clinical profiles are sampled from MentalKG: Type 1 seeds satisfy all DSM-5 requirements,
+          Type 2 seeds keep only the minimum evidence, Type 3 seeds omit the discriminating evidence of a differential-diagnosis pair, and
+          Type 4 seeds include it. Two experts validate the seeds (5 seeds per disease for Types 1, 3, 4; 10 for Type 2).</li>
+        <li><strong>Profile augmentation.</strong> Each seed becomes 5 cases with varied symptom subtypes and a demographic identity drawn
+          from 300 combinations of age, gender, occupation, and marital status.</li>
+        <li><strong>Data synthesis.</strong> Three different LLMs write the cases (third-person chart summaries for Type 1, first-person
+          narratives for Types 2&ndash;4) to avoid single-generator bias, yielding 24,750 cases: 1,725 Type 1, 3,450 Type 2, 6,525 Type 3,
+          and 13,050 Type 4.</li>
+        <li><strong>Options and validation.</strong> Each case has 4 options with symptom-overlapping distractors from MentalKG; Type 3 has a
+          two-diagnosis answer set. Two experts rated 220 sampled cases on a 5-point scale: overall linguistic naturalness 4.94 / 4.91,
+          diagnostic validity 4.70 / 4.36, and clinical realism 4.83 / 4.87.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Hard even for frontier models.</strong> The best overall accuracy is 62.69 (Claude Sonnet-4.5), followed by GPT 5.1
+          (62.17); on Type 3 and Type 4 accuracy often drops below 20.</li>
+        <li><strong>Narratives hurt smaller models.</strong> Moving from structured charts (Type 1) to patient narratives (Type 2) costs
+          models under 30B an average of 10.58 points, versus 3.74 points for larger models.</li>
+        <li><strong>Opposite calibration failures.</strong> Open-source models score higher on ambiguous Type 3 than on clear-cut Type 4
+          (average gap +22.74) because they over-diagnose and fail to apply exclusion rules; proprietary models show the reverse (average gap
+          &minus;39.60), under-diagnosing when several diagnoses are consistent.</li>
+        <li><strong>Domain fine-tuning is not enough.</strong> MentaLLaMA 7B and 13B, fine-tuned from Llama-2 for mental health, reach only
+          19.65 and 23.45 overall. Underrepresented disorders such as the ADHD and schizophrenia-spectrum cluster collapse most from Type 1 to
+          Type 2.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> Accuracy (%, exact match) on the four MentalBench case types. Overall is the average weighted by the number
+          of cases per type. (Table 2 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>Type 1</th><th>Type 2</th><th>Type 3</th><th>Type 4</th><th>Overall</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Qwen 2.5 7B</td><td>85.85</td><td>76.87</td><td>50.70</td><td>11.59</td><td>36.12</td></tr>
+          <tr><td>Qwen 2.5 14B</td><td>94.15</td><td>82.26</td><td>44.78</td><td>31.83</td><td>46.55</td></tr>
+          <tr><td>Qwen 2.5 32B</td><td>92.87</td><td>83.04</td><td>49.20</td><td>30.89</td><td>47.08</td></tr>
+          <tr><td>Qwen 2.5 72B</td><td>93.85</td><td>83.10</td><td>52.75</td><td>18.25</td><td>41.66</td></tr>
+          <tr><td>Qwen 3 8B</td><td>89.74</td><td>77.77</td><td>55.40</td><td>2.53</td><td>33.09</td></tr>
+          <tr><td>Qwen 3 14B</td><td>90.78</td><td>75.48</td><td>52.26</td><td>14.09</td><td>38.14</td></tr>
+          <tr><td>Qwen 3 32B</td><td>90.20</td><td>83.13</td><td>48.03</td><td>27.37</td><td>44.86</td></tr>
+          <tr><td>Qwen 3 235B</td><td>85.33</td><td>84.17</td><td>54.19</td><td>28.63</td><td>47.06</td></tr>
+          <tr><td>Gemma 3 4B</td><td>79.65</td><td>64.90</td><td>34.04</td><td>18.41</td><td>33.34</td></tr>
+          <tr><td>Gemma 3 12B</td><td>92.81</td><td>78.32</td><td>48.28</td><td>15.79</td><td>38.50</td></tr>
+          <tr><td>Gemma 3 27B</td><td>92.87</td><td>84.09</td><td>52.51</td><td>9.20</td><td>36.85</td></tr>
+          <tr><td>Llama-3.1 8B</td><td>84.99</td><td>71.01</td><td>40.12</td><td>14.18</td><td>33.60</td></tr>
+          <tr><td>Llama-3.1 70B</td><td>91.94</td><td>80.81</td><td>39.75</td><td>34.97</td><td>47.09</td></tr>
+          <tr><td>MentaLLaMA 7B</td><td>30.90</td><td>30.67</td><td>2.19</td><td>25.98</td><td>19.65</td></tr>
+          <tr><td>MentaLLaMA 13B</td><td>52.17</td><td>46.75</td><td>18.10</td><td>16.17</td><td>23.45</td></tr>
+          <tr><td>GPT 4o</td><td>74.61</td><td>79.97</td><td>40.25</td><td>48.30</td><td>52.43</td></tr>
+          <tr><td>GPT 5-mini</td><td>71.01</td><td>88.46</td><td>9.01</td><td>77.72</td><td>60.63</td></tr>
+          <tr><td>GPT 5.1</td><td>94.38</td><td>90.43</td><td>22.48</td><td>70.30</td><td>62.17</td></tr>
+          <tr><td>Claude Haiku-4.5</td><td>94.20</td><td>87.39</td><td>29.87</td><td>65.00</td><td>60.89</td></tr>
+          <tr><td>Claude Sonnet-4.5</td><td>94.32</td><td>91.16</td><td>14.99</td><td>74.84</td><td>62.69</td></tr>
+          <tr><td>Gemini 2.5-flash</td><td>93.39</td><td>85.27</td><td>27.94</td><td>60.96</td><td>57.90</td></tr>
+          <tr><td>Gemini 2.5-pro</td><td>93.91</td><td>88.20</td><td>35.16</td><td>59.82</td><td>59.65</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{song2026mentalbenchdsmgroundedbenchmarkevaluating,
+      title={MentalBench: A DSM-Grounded Benchmark for Evaluating Psychiatric Diagnostic Capability of Large Language Models},
+      author={Hoyun Song and Migyeong Kang and Jisu Shin and Jihyun Kim and Chanbi Park and Hangyeol Yoo and Jihyun An and Alice Oh and Jinyoung Han and KyungTae Lim},
+      year={2026},
+      eprint={2602.12871},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2602.12871},
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

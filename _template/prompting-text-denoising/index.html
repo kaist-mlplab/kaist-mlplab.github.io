@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Frustratingly Simple Prompting-based Text Denoising</title>
+  <meta name="description" content="Prompting gpt-3.5-turbo-instruct to repair encoding errors and anonymization placeholders in the ASAP essay dataset, with ERRANT used to keep only those edits, raises automated essay scoring QWK from 0.6047 to 0.6143 with roberta-base. ICLR 2024 Tiny Paper, KAIST MLP Lab.">
+  <meta name="keywords" content="text denoising, prompting, automated essay scoring, AES, ASAP dataset, data cleaning, LLM data cleaning, encoding errors, GPT-3.5, gpt-3.5-turbo-instruct, ERRANT, quadratic weighted kappa, QWK, RoBERTa, ICLR 2024 Tiny Paper, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/prompting-text-denoising/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Frustratingly Simple Prompting-based Text Denoising">
+  <meta property="og:description" content="Simple prompting-based denoising of the ASAP essay dataset improves automated essay scoring (QWK 0.6047 to 0.6143). ICLR 2024 Tiny Paper.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/prompting-text-denoising/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Frustratingly Simple Prompting-based Text Denoising (ICLR 2024 Tiny Paper)">
+  <meta name="twitter:description" content="Simple prompting-based denoising of the ASAP essay dataset improves automated essay scoring (QWK 0.6047 to 0.6143). ICLR 2024 Tiny Paper.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Frustratingly Simple Prompting-based Text Denoising">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="Department of Linguistics, The University of British Columbia">
+  <meta name="citation_author" content="Qiu, Mengyang">
+  <meta name="citation_author_institution" content="Department of Psychology, Trent University">
+  <meta name="citation_publication_date" content="2024">
+  <meta name="citation_conference_title" content="The Second Tiny Papers Track at ICLR 2024">
+  <meta name="citation_pdf_url" content="https://openreview.net/pdf?id=XlJRjhIkNi">
+  <meta name="citation_arxiv_id" content="2402.15931">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/prompting-text-denoising/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://kaist-mlplab.github.io/prompting-text-denoising/#article",
+  "headline": "Frustratingly Simple Prompting-based Text Denoising",
+  "name": "Frustratingly Simple Prompting-based Text Denoising",
+  "url": "https://kaist-mlplab.github.io/prompting-text-denoising/",
+  "datePublished": "2024",
+  "inLanguage": "en",
+  "abstract": "This paper introduces a novel perspective on the automated essay scoring (AES) task, challenging the conventional view of the ASAP dataset as a static entity. Employing simple text denoising techniques using prompting, we explore the dynamic potential within the dataset. While acknowledging the previous emphasis on building regression systems, our paper underscores how making minor changes to a dataset through text denoising can enhance the final results.",
+  "keywords": [
+    "text denoising",
+    "prompting",
+    "automated essay scoring",
+    "ASAP dataset",
+    "data cleaning with LLMs",
+    "encoding errors",
+    "ERRANT",
+    "quadratic weighted kappa",
+    "RoBERTa"
+  ],
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Automated essay scoring"
+    },
+    {
+      "@type": "Thing",
+      "name": "Data cleaning"
+    },
+    {
+      "@type": "Thing",
+      "name": "Large language models"
+    },
+    {
+      "@type": "Thing",
+      "name": "Educational applications of NLP"
+    }
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Jungyeul Park",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Department of Linguistics, The University of British Columbia"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Mengyang Qiu",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Department of Psychology, Trent University"
+      }
+    }
+  ],
+  "publisher": {
+    "@type": "ResearchOrganization",
+    "name": "KAIST Multimodal Language Processing Lab",
+    "url": "https://kaist-mlplab.github.io/"
+  },
+  "isPartOf": {
+    "@type": "Periodical",
+    "name": "The Second Tiny Papers Track at ICLR 2024",
+    "publisher": {
+      "@type": "Organization",
+      "name": "OpenReview.net"
+    }
+  },
+  "sameAs": [
+    "https://openreview.net/forum?id=XlJRjhIkNi",
+    "https://arxiv.org/abs/2402.15931"
+  ],
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "arXiv",
+      "value": "2402.15931"
+    }
+  ],
+  "encoding": {
+    "@type": "MediaObject",
+    "encodingFormat": "application/pdf",
+    "contentUrl": "https://openreview.net/pdf?id=XlJRjhIkNi"
+  }
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Frustratingly Simple Prompting-based Text Denoising</h1>
+      <p class="subtitle is-5 publication-subtitle">Prompting an LLM to repair encoding errors and anonymization placeholders in the ASAP essay dataset improves automated essay scoring</p>
+      <p><span class="tag is-link is-medium venue-badge">ICLR 2024 Tiny Paper</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Jungyeul Park<sup>1</sup>,</span>
+        <span class="author-block">Mengyang Qiu<sup>2</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Department of Linguistics, The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>2</sup>Department of Psychology, Trent University, Canada</span>
+      </p>
+
+      <div class="publication-links" style="margin-top:1.25rem">
+        <a class="button is-dark is-rounded" href="https://openreview.net/forum?id=XlJRjhIkNi">Paper (OpenReview)</a>
+        <a class="button is-dark is-rounded" href="https://openreview.net/pdf?id=XlJRjhIkNi">PDF</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2402.15931">arXiv</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <div class="box" style="max-width:720px;margin:0 auto;font-family:monospace;font-size:0.95rem;overflow-x:auto">
+        <p><strong style="font-family:inherit">ORIGINAL TEXT:</strong> people get @CAPS2 addicted that they don&lt;U+0092&gt;t exercize and become obeast, ...</p>
+        <p class="mt-2"><strong style="font-family:inherit">CLEANED TEXT:</strong> people get too addicted that they don&rsquo;t exercize and become obeast, ...</p>
+      </div>
+      <figcaption>
+        <strong>Figure 1.</strong> Example of text denoising on the ASAP essay data: the Unicode symbol U+0092 is replaced with &rsquo;, and the
+        anonymization placeholder <code>@CAPS2</code> is substituted with an arbitrary word (<em>too</em>). The learner's own spelling errors
+        (<em>exercize</em>, <em>obeast</em>) are deliberately kept.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        This paper introduces a novel perspective on the automated essay scoring (AES) task, challenging the conventional view of the ASAP dataset as a static entity. Employing simple text denoising techniques using prompting, we explore the dynamic potential within the dataset. While acknowledging the previous emphasis on building regression systems, our paper underscores how making minor changes to a dataset through text denoising can enhance the final results.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Text denoising</span>
+      <span class="tag">Prompting LLMs</span>
+      <span class="tag">Automated essay scoring (AES)</span>
+      <span class="tag">ASAP dataset</span>
+      <span class="tag">Data cleaning</span>
+      <span class="tag">Encoding errors</span>
+      <span class="tag">ERRANT</span>
+      <span class="tag">QWK</span>
+      <span class="tag">RoBERTa regression</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        English automated essay scoring (AES) systems almost all rely on the ASAP dataset (Kaggle, 2012), which is usually treated as fixed. In ASAP,
+        personally identifying information was replaced with placeholders starting with <code>@</code> (e.g. <code>@PERSON1</code>), and more than 5% of
+        sentences show encoding problems where UTF-8 symbols are not displayed correctly. The paper treats these as noise and cleans them with prompting:
+      </p>
+      <ol>
+        <li><strong>Prompting.</strong> Sentences containing encoding errors or non-word entities are sent to <code>gpt-3.5-turbo-instruct</code> with two
+          prompts: &ldquo;Copy the sentence by replacing utf8 encoding error characters into the correct ascii symbols&rdquo; and &ldquo;Copy the sentence
+          by replacing @words into the real words&rdquo;. Processing all 12,978 ASAP entries cost $6.87.</li>
+        <li><strong>Restoring the original text with ERRANT.</strong> The LLM also tends to fix grammar and spelling, which would change what is being
+          scored. ERRANT aligns the original and GPT output into an M2 annotation, and only the edits that fix encoding or replace <code>@</code>
+          entities are applied; all other corrections (e.g. <em>exercize &rarr; exercise</em>) are discarded.</li>
+        <li><strong>Scoring.</strong> <code>roberta-base</code> is trained as a linear regression model on original or cleaned essays with prompt-based
+          8-fold cross-validation over ASAP's eight essay prompts (one prompt as test, one as dev, the rest for training). For a fair comparison, all
+          evaluations are run on the original text, and results are reported as quadratic weighted kappa (QWK).</li>
+      </ol>
+    </div>
+
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Better essay scores from cleaner training data.</strong> Averaged over the eight prompts, QWK rises from 0.6047 (original text) to
+          0.6143 (cleaned text), with evaluation always on the original text.</li>
+        <li><strong>Lower perplexity.</strong> Token-level perplexity drops from 65.535 to 51.097 and sentence-level perplexity from 532.571 to
+          520.023 after denoising.</li>
+        <li><strong>Consistent across error metrics.</strong> MSE falls from 0.0295 to 0.0287 and RMSD from 0.1676 to 0.1645; fixing only the encoding
+          errors already gives QWK 0.6103.</li>
+        <li><strong>Gains vary by prompt.</strong> The cleaned data helps most for prompt 1 (QWK 0.6187 &rarr; 0.7344) but hurts prompt 2
+          (0.6308 &rarr; 0.5485), so per-prompt effects need care in experimental design.</li>
+        <li><strong>Cheap.</strong> The whole denoising pass over 12,978 ASAP entries cost $6.87 in API usage.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> Prompt-by-prompt QWK of roberta-base regression on ASAP (prompt <em>k</em> = test set). Encoding fixed = only encoding
+          errors corrected; Cleaned&prime; = trained and evaluated on cleaned text; Cleaned = trained on cleaned text and evaluated on the original text
+          (the fair comparison reported in Table 1). (Table 2 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Training text</th><th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th><th>P7</th><th>P8</th><th>Average</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Original</td><td>0.6187</td><td>0.6308</td><td>0.6962</td><td>0.6626</td><td>0.7158</td><td>0.5924</td><td>0.4622</td><td>0.4586</td><td>0.6047</td></tr>
+          <tr><td>Encoding fixed</td><td>0.6517</td><td>0.5855</td><td>0.6872</td><td>0.6290</td><td>0.7485</td><td>0.6174</td><td>0.4692</td><td>0.4943</td><td>0.6103</td></tr>
+          <tr><td>Cleaned&prime;</td><td>0.7193</td><td>0.5414</td><td>0.6906</td><td>0.6454</td><td>0.7374</td><td>0.6187</td><td>0.4441</td><td>0.4442</td><td>0.6052</td></tr>
+          <tr class="ours"><td>Cleaned</td><td>0.7344</td><td>0.5485</td><td>0.6978</td><td>0.6540</td><td>0.7416</td><td>0.6156</td><td>0.4637</td><td>0.4589</td><td>0.6143</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{
+park2024frustratingly,
+title={Frustratingly Simple Prompting-based Text Denoising},
+author={Jungyeul Park and Mengyang Qiu},
+booktitle={The Second Tiny Papers Track at ICLR 2024},
+year={2024},
+url={https://openreview.net/forum?id=XlJRjhIkNi}
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Better heads do not guarantee better binarized constituency parsing</title>
+  <meta name="description" content="A negative result on punctuation-aware tree binarization for constituency parsing: learned dependency-induced heads raise head accuracy from 67.89 to 98.54 on PTB but do not give consistent parsing gains, and they underperform rule-based heads in macro-average punctuation-sensitive F1. arXiv 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="tree binarization, binarized constituency parsing, constituency parsing, head finding, head percolation rules, dependency-induced heads, punctuation, punctuation-aware parsing, debinarization, JP-EVALB, evalb, PARSEVAL, Penn Treebank, Chinese Treebank, Berkeley Neural Parser, negative result, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/heads-binarized-parsing/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Better heads do not guarantee better binarized constituency parsing">
+  <meta property="og:description" content="Negative result: dependency-induced heads raise PTB head accuracy from 67.89 to 98.54 but do not improve punctuation-aware binarized constituency parsing. arXiv 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/heads-binarized-parsing/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/heads-binarized-parsing/static/images/teaser.png">
+  <meta property="og:image:width" content="1515">
+  <meta property="og:image:height" content="3205">
+  <meta property="og:image:alt" content="Three constituency trees for &#x27;The little boy likes red tomatoes .&#x27;: original, standard binarization, and punctuation-aware binarization.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Better heads do not guarantee better binarized constituency parsing">
+  <meta name="twitter:description" content="Negative result: dependency-induced heads raise PTB head accuracy from 67.89 to 98.54 but do not improve punctuation-aware binarized constituency parsing. arXiv 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/heads-binarized-parsing/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Better heads do not guarantee better binarized constituency parsing">
+  <meta name="citation_author" content="Qi, Zeyao">
+  <meta name="citation_author" content="Chen, Yige">
+  <meta name="citation_author" content="Klinger, Eitan">
+  <meta name="citation_author" content="Wadhwa, Vivaan">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="Korea Advanced Institute of Science &amp; Technology">
+  <meta name="citation_publication_date" content="2026/05/27">
+  <meta name="citation_publisher" content="arXiv">
+  <meta name="citation_arxiv_id" content="2605.28131">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2605.28131">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/heads-binarized-parsing/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/heads-binarized-parsing/#article",
+    "headline": "Better heads do not guarantee better binarized constituency parsing",
+    "name": "Better heads do not guarantee better binarized constituency parsing",
+    "url": "https://kaist-mlplab.github.io/heads-binarized-parsing/",
+    "datePublished": "2026-05-27",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/heads-binarized-parsing/static/images/teaser.png",
+    "abstract": "We revisit punctuation-aware tree binarization for constituency parsing and ask whether dependency-induced headedness improves binary parser supervision. Although learned heads substantially outperform rule-based heads in intrinsic head prediction, they do not yield consistent parsing gains after debinarization. In particular, punctuation-conditioned evaluation shows that learned headedness underperforms rule-based binarization in macro-average punctuation-sensitive F1, despite a small overall gain on CTB. Similar instability appears under cross-treebank transfer. These results suggest that linguistically grounded headedness is not necessarily parser-optimal when used as a binarization control signal. The paper presents a negative result: better head prediction does not imply better punctuation-sensitive constituency parsing.",
+    "keywords": [
+      "tree binarization",
+      "constituency parsing",
+      "head finding",
+      "dependency-induced heads",
+      "punctuation-aware parsing",
+      "JP-EVALB",
+      "Penn Treebank",
+      "Chinese Treebank",
+      "negative result"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Constituency parsing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Syntactic headedness"
+      },
+      {
+        "@type": "Thing",
+        "name": "Punctuation"
+      },
+      {
+        "@type": "Thing",
+        "name": "Treebanks"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Zeyao Qi"
+      },
+      {
+        "@type": "Person",
+        "name": "Yige Chen"
+      },
+      {
+        "@type": "Person",
+        "name": "Eitan Klinger"
+      },
+      {
+        "@type": "Person",
+        "name": "Vivaan Wadhwa"
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Korea Advanced Institute of Science & Technology"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "arXiv",
+      "url": "https://arxiv.org/"
+    },
+    "sameAs": [
+      "https://arxiv.org/abs/2605.28131"
+    ],
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "arXiv",
+        "value": "2605.28131"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://arxiv.org/pdf/2605.28131"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Better heads do not guarantee better binarized constituency parsing</h1>
+      <p class="subtitle is-5 publication-subtitle">Dependency-induced learned heads improve head accuracy but not punctuation-aware binarized constituency parsing</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Zeyao Qi,</span>
+        <span class="author-block">Yige Chen,</span>
+        <span class="author-block">Eitan Klinger,</span>
+        <span class="author-block">Vivaan Wadhwa,</span>
+        <span class="author-block">Jungyeul Park<sup>*</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block">The Chinese University of Hong Kong, Ma Liu Shui, Hong Kong</span><br>
+        <span class="author-block">The University of British Columbia, Vancouver, Canada</span><br>
+        <span class="author-block">Korea Advanced Institute of Science &amp; Technology, Daejeon, South Korea</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Corresponding author. Affiliations are listed as printed in the paper, which does not map them to individual authors.</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2605.28131">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2605.28131">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1515" height="3205" style="max-width:420px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Three trees for &#x27;The little boy likes red tomatoes .&#x27;. (a) Original tree: S with children NP (The little boy), VP (likes, NP red tomatoes), and the final period. (b) Standard binarization: S splits into NP and @S, and @S groups VP with the period, so the punctuation attaches near the root. (c) Punctuation-aware binarization: S splits into @S and the period, and @S groups NP and VP, keeping the period as a right boundary of the clause.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Standard binarization may construct binary structure after punctuation has been excluded, whereas
+        punctuation-aware binarization preserves the boundary relation before binary branching is imposed. (a) Original tree with punctuation;
+        (b) standard binarization, where the period ends up grouped with the VP under @S; (c) punctuation-aware binarization, where @S first groups
+        NP and VP and the period closes the sentence.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        We revisit punctuation-aware tree binarization for constituency parsing and ask whether dependency-induced headedness improves binary parser supervision. Although learned heads substantially outperform rule-based heads in intrinsic head prediction, they do not yield consistent parsing gains after debinarization. In particular, punctuation-conditioned evaluation shows that learned headedness underperforms rule-based binarization in macro-average punctuation-sensitive <em>F</em><sub>1</sub>, despite a small overall gain on CTB. Similar instability appears under cross-treebank transfer. These results suggest that linguistically grounded headedness is not necessarily parser-optimal when used as a binarization control signal. The paper presents a negative result: better head prediction does not imply better punctuation-sensitive constituency parsing.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Tree binarization</span>
+      <span class="tag">Constituency parsing</span>
+      <span class="tag">Head finding / head percolation</span>
+      <span class="tag">Dependency-induced heads</span>
+      <span class="tag">Punctuation-aware parsing</span>
+      <span class="tag">JP-EVALB</span>
+      <span class="tag">Penn Treebank (PTB)</span>
+      <span class="tag">Chinese Treebank (CTB)</span>
+      <span class="tag">Negative result</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        Binarized trees are parser training targets, not just a reversible encoding: different binary trees can debinarize to the same original
+        tree while exposing different composition orders and intermediate categories to the learner. The paper tests whether more accurate heads
+        give better binary targets under a fixed parser and evaluation:
+      </p>
+      <ol>
+        <li><strong>Punctuation-aware binarization.</strong> Punctuation stays in the local child sequence as boundary structure before branching is
+          imposed: right-boundary punctuation (commas, periods) groups with material to its left, (X &alpha; &beta; p) &rArr; (X (@X &alpha; &beta;) p),
+          and left-boundary punctuation (opening quotes, parentheses) is treated dually. Debinarization removes only the @-prefixed nodes, so the
+          transformation is exactly reversible.</li>
+        <li><strong>Head-driven binary conversion.</strong> @X intermediate nodes are introduced until each node is binary, keeping the designated head
+          child as the projection anchor of X.</li>
+        <li><strong>Two head sources.</strong> Rule-based Collins-style head percolation (as implemented in Stanford CoreNLP) versus a learned,
+          unlexicalized Transformer head selector trained on dependency-induced gold heads (the child dominating the dependency head of the span).</li>
+        <li><strong>Same parser, same evaluation.</strong> The Berkeley Neural Parser is trained on each set of binary targets (PTB 3 and CTB 5.1), and
+          predicted trees are debinarized before scoring with standard evalb and with JP-EVALB, which keeps punctuation-bearing constituents.
+          Three conditions are compared: R<sub>&empty;</sub> (rule-based, no punctuation awareness), R<sub>p</sub> (rule-based, punctuation-aware),
+          and L<sub>p</sub> (learned heads, punctuation-aware).</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Learned heads are far more accurate.</strong> Intrinsic head accuracy against dependency-induced gold heads rises from 67.89 to 98.54
+          on PTB and from 92.42 to 100.00 on CTB (rule-based vs. learned; Table 1).</li>
+        <li><strong>But parsing does not consistently improve.</strong> With JP-EVALB, learned heads give 95.35 vs. 95.43 for rule-based punctuation-aware
+          binarization on PTB, and only 92.56 vs. 92.40 on CTB (Table 2).</li>
+        <li><strong>Punctuation-sensitive evaluation reverses the CTB gain.</strong> Macro-average punctuation-conditioned <em>F</em><sub>1</sub> is lowest
+          for learned heads on both treebanks: PTB 92.63 / 92.43 / 92.27 and CTB 94.22 / 93.99 / 93.50 for R<sub>&empty;</sub> / R<sub>p</sub> / L<sub>p</sub> (Table 3).</li>
+        <li><strong>Cross-treebank transfer is unstable.</strong> Heads transferred from a CTB-trained selector reach 79.03 on Sinica; on FTB they give 86.82,
+          below rule-based 88.65 and learned 88.92 (Table 4). Intrinsic transfer accuracy is 69.41 (CTB&rarr;Sinica), 54.95 (PTB&rarr;FTB), and 64.70 (CTB&rarr;FTB).</li>
+        <li><strong>Conclusion.</strong> Head accuracy is not binarization utility: linguistically grounded heads can yield binary spines that are less
+          regular or less aligned with punctuation-bearing constituency structure.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> Parsing accuracy (labeled bracket <em>F</em><sub>1</sub>) after deterministic debinarization. R<sub>&empty;</sub>:
+          rule-based binarization without punctuation awareness; R<sub>p</sub>: rule-based punctuation-aware; L<sub>p</sub>: learned-head
+          punctuation-aware. evalb excludes punctuation; JP-EVALB retains punctuation-bearing constituents. (Table 2 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Treebank</th><th>Binarization</th><th>EVALB</th><th>JP-EVALB</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="3">PTB</td><td>R<sub>&empty;</sub></td><td>95.50</td><td>94.92</td></tr>
+          <tr><td>R<sub>p</sub></td><td>95.97</td><td>95.43</td></tr>
+          <tr class="ours"><td>L<sub>p</sub></td><td>95.88</td><td>95.35</td></tr>
+          <tr><td rowspan="3">CTB</td><td>R<sub>&empty;</sub></td><td>92.17</td><td>90.29</td></tr>
+          <tr><td>R<sub>p</sub></td><td>94.26</td><td>92.40</td></tr>
+          <tr class="ours"><td>L<sub>p</sub></td><td>94.46</td><td>92.56</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{qi2026betterheadsguaranteebetter,
+      title={Better heads do not guarantee better binarized constituency parsing}, 
+      author={Zeyao Qi and Yige Chen and Eitan Klinger and Vivaan Wadhwa and Jungyeul Park},
+      year={2026},
+      eprint={2605.28131},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2605.28131}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

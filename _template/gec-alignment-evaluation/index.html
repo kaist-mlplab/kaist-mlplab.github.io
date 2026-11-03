@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Refined Evaluation for End-to-End Grammatical Error Correction Using an Alignment-Based Approach</title>
+  <meta name="description" content="jp-errant aligns gold and system sentences in linear time so that grammatical error correction (GEC) can be evaluated end-to-end from raw text; it reproduces errant (F0.5 0.5582 vs. 0.5582 for GECToR) and extends evaluation to Chinese and Korean. COLING 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="grammatical error correction, GEC evaluation, errant, jp-errant, end-to-end evaluation, sentence alignment, sentence boundary detection, Gale-Church algorithm, M2 scorer, F0.5, stanza, multilingual GEC, Chinese GEC, Korean GEC, KAGAS, ChERRANT, W&amp;I BEA-2019, COLING 2025">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/gec-alignment-evaluation/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Refined Evaluation for End-to-End Grammatical Error Correction Using an Alignment-Based Approach">
+  <meta property="og:description" content="Alignment-based errant (jp-errant) for evaluating GEC end-to-end from raw text, with Chinese and Korean results. COLING 2025.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/gec-alignment-evaluation/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/gec-alignment-evaluation/static/images/teaser.png">
+  <meta property="og:image:width" content="1826">
+  <meta property="og:image:height" content="1353">
+  <meta property="og:image:alt" content="Three-step jp-errant example with gold and stanza m2 files: preparation with different sentence boundaries, sentence alignment into one sentence, and re-indexing of the edit from positions 0-1 to 3-4.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Refined Evaluation for End-to-End Grammatical Error Correction">
+  <meta name="twitter:description" content="Alignment-based errant (jp-errant) for evaluating GEC end-to-end from raw text, with Chinese and Korean results. COLING 2025.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/gec-alignment-evaluation/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Refined Evaluation for End-to-End Grammatical Error Correction Using an Alignment-Based Approach">
+  <meta name="citation_author" content="Wang, Junrui">
+  <meta name="citation_author_institution" content="Department of Linguistics, The University of British Columbia, Canada">
+  <meta name="citation_author" content="Qiu, Mengyang">
+  <meta name="citation_author_institution" content="Department of Psychology, Trent University, Canada">
+  <meta name="citation_author_institution" content="Open Writing Evaluation, France">
+  <meta name="citation_author" content="Gu, Yang">
+  <meta name="citation_author_institution" content="Open Writing Evaluation, France">
+  <meta name="citation_author" content="Huang, Zihao">
+  <meta name="citation_author_institution" content="Open Writing Evaluation, France">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="Department of Linguistics, The University of British Columbia, Canada">
+  <meta name="citation_author_institution" content="Open Writing Evaluation, France">
+  <meta name="citation_publication_date" content="2025/01">
+  <meta name="citation_conference_title" content="Proceedings of the 31st International Conference on Computational Linguistics">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="774">
+  <meta name="citation_lastpage" content="785">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2025.coling-main.52.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/gec-alignment-evaluation/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/gec-alignment-evaluation/#article",
+    "headline": "Refined Evaluation for End-to-End Grammatical Error Correction Using an Alignment-Based Approach",
+    "name": "Refined Evaluation for End-to-End Grammatical Error Correction Using an Alignment-Based Approach",
+    "url": "https://kaist-mlplab.github.io/gec-alignment-evaluation/",
+    "datePublished": "2025-01",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/gec-alignment-evaluation/static/images/teaser.png",
+    "abstract": "We propose a refined alignment-based method to assess end-to-end grammatical error correction (GEC) systems, aiming to reproduce and improve results from existing evaluation tools, such as errant, even when applied to raw text input—reflecting real-world language learners’ writing scenarios. Our approach addresses challenges arising from sentence boundary detection deviations in text preprocessing, a factor overlooked by current GEC evaluation metrics. We demonstrate its effectiveness by replicating results through a re-implementation of errant, utilizing stanza for error annotation and simulating end-to-end evaluation from raw text. Additionally, we propose a potential multilingual errant, presenting Chinese and Korean GEC results. Previously, Chinese and Korean errant were implemented independently for each language, with different annotation formats. Our approach generates consistent error annotations across languages, establishing a basis for standardized grammatical error annotation and evaluation in multilingual GEC contexts.",
+    "keywords": [
+      "grammatical error correction",
+      "GEC evaluation",
+      "errant",
+      "jp-errant",
+      "sentence alignment",
+      "sentence boundary detection",
+      "end-to-end evaluation",
+      "M2",
+      "multilingual GEC",
+      "Chinese GEC",
+      "Korean GEC"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Grammatical error correction"
+      },
+      {
+        "@type": "Thing",
+        "name": "Evaluation metrics"
+      },
+      {
+        "@type": "Thing",
+        "name": "Sentence alignment"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Junrui Wang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Department of Linguistics, The University of British Columbia, Canada"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Mengyang Qiu",
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "Department of Psychology, Trent University, Canada"
+          },
+          {
+            "@type": "Organization",
+            "name": "Open Writing Evaluation, France"
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "name": "Yang Gu",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Open Writing Evaluation, France"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Zihao Huang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Open Writing Evaluation, France"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Jungyeul Park",
+        "affiliation": [
+          {
+            "@type": "Organization",
+            "name": "Department of Linguistics, The University of British Columbia, Canada"
+          },
+          {
+            "@type": "Organization",
+            "name": "Open Writing Evaluation, France"
+          }
+        ]
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Proceedings of the 31st International Conference on Computational Linguistics",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2025.coling-main.52/"
+    ],
+    "pagination": "774-785",
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2025.coling-main.52.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Refined Evaluation for End-to-End Grammatical Error Correction Using an Alignment-Based Approach</h1>
+      <p class="subtitle is-5 publication-subtitle">jp-errant: sentence alignment lets errant-style GEC evaluation run on raw text with mismatched sentence boundaries, in English, Chinese, and Korean</p>
+      <p><span class="tag is-link is-medium venue-badge">COLING 2025</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Junrui Wang<sup>1,*</sup>,</span>
+        <span class="author-block">Mengyang Qiu<sup>2,3,†</sup>,</span>
+        <span class="author-block">Yang Gu<sup>3</sup>,</span>
+        <span class="author-block">Zihao Huang<sup>3</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>1,3,†</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Department of Linguistics, The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>2</sup>Department of Psychology, Trent University, Canada</span>
+        <span class="author-block"><sup>3</sup>Open Writing Evaluation, France</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Currently at TikTok, Canada &nbsp; <sup>†</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.coling-main.52/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.coling-main.52.pdf">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1826" height="1353" style="max-width:720px;margin:0 auto;display:block"
+           alt="Three-step example. 1. Preparation: the gold m2 splits 'Kate Ashby ,' and 'how are you ? I hope you are well .' with an edit A 0 1 R:ADV How, while the stanza m2 splits 'Kate Ashby , how are you ?' and 'I hope you are well .'. 2. Sentence alignment: both become one sentence 'Kate Ashby , how are you ? I hope you are well .'. 3. Re-indexing: the gold edit becomes A 3 4 R:ADV How and redundant noop edits are removed.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> Procedure example of <code>jp-errant</code>. The gold m2 file and the m2 file whose sentence boundaries were
+        detected by <code>stanza</code> from raw text disagree; after sentence alignment both sides cover the same text, and the gold edit
+        (capitalizing <em>how</em> &rarr; <em>How</em>) is re-indexed from token positions 0&ndash;1 to 3&ndash;4.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        We propose a refined alignment-based method to assess end-to-end grammatical error correction (GEC) systems, aiming to reproduce and improve results from existing evaluation tools, such as <code>errant</code>, even when applied to raw text input&mdash;reflecting real-world language learners&rsquo; writing scenarios. Our approach addresses challenges arising from sentence boundary detection deviations in text preprocessing, a factor overlooked by current GEC evaluation metrics. We demonstrate its effectiveness by replicating results through a re-implementation of <code>errant</code>, utilizing <code>stanza</code> for error annotation and simulating end-to-end evaluation from raw text. Additionally, we propose a potential multilingual <code>errant</code>, presenting Chinese and Korean GEC results. Previously, Chinese and Korean <code>errant</code> were implemented independently for each language, with different annotation formats. Our approach generates consistent error annotations across languages, establishing a basis for standardized grammatical error annotation and evaluation in multilingual GEC contexts.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Grammatical error correction (GEC)</span>
+      <span class="tag">GEC evaluation</span>
+      <span class="tag">errant / M2</span>
+      <span class="tag">Sentence alignment</span>
+      <span class="tag">Sentence boundary detection</span>
+      <span class="tag">End-to-end evaluation</span>
+      <span class="tag">Multilingual GEC</span>
+      <span class="tag">Korean GEC</span>
+      <span class="tag">Chinese GEC</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <figure>
+      <picture>
+        <source srcset="static/images/alignment.webp" type="image/webp">
+        <img src="static/images/alignment.png" width="2600" height="299" loading="lazy"
+           alt="Alignment example: before alignment the system output has one sentence 'Mike McConnell 07/06/2000 14:57 John , Hello from South America .' while the gold has three sentences; after alignment the three gold sentences are concatenated into one pair matching the system sentence.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Example of the sentence alignment algorithm (&#8851; is a sentence delimiter): one system sentence corresponds
+        to three gold sentences, which are concatenated into a single aligned pair.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        <code>errant</code>, the de facto standard GEC metric, compares gold and system edits sentence by sentence and therefore assumes both
+        sides share the same sentence boundaries. When a GEC system works on raw learner text, its sentence splitter often disagrees with the
+        gold segmentation. The paper borrows sentence alignment from machine translation to remove this assumption:
+      </p>
+      <ol>
+        <li><strong>Joint-preprocessing alignment.</strong> Gold and system sentences are compared with all spaces removed. Matching pairs are
+          aligned directly; otherwise the shorter side is extended with its next sentence until the two match. Near-matches caused by different
+          tokenization (e.g. <em>can&rsquo;t</em> vs. <em>ca n&rsquo;t</em>) are accepted with a Jaro-Winkler similarity extended with a suffix scale.
+          The algorithm runs in linear time, O(m + n), instead of the cubic time of length-based MT aligners.</li>
+        <li><strong>Re-indexing.</strong> When sentences are concatenated, edit offsets are shifted by the token counts of the preceding sentences
+          and redundant empty (noop) edits are removed, so the m2 files stay valid.</li>
+        <li><strong>jp-errant.</strong> <code>errant</code> is re-implemented on top of this alignment, replacing spaCy with <code>stanza</code> for
+          POS tagging and parsing, keeping the English error classifier, and producing generic Missing/Unnecessary/Replacement edits for other languages.</li>
+      </ol>
+      <p>
+        As a reference, the authors also extend the Gale-Church aligner to m:n alignments (up to 11 sentences). On the Write &amp; Improve
+        development set the proposed aligner reaches a similarity of 1.0 at every CEFR level (A, B, C), versus 0.993&ndash;0.997 for the extended
+        Gale-Church algorithm; 91.86% of aligned pairs are 1:1.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Reproduces errant.</strong> With gold sentence boundaries on the W&amp;I development set, <code>jp-errant</code> matches the
+          original <code>errant</code>: overall F0.5 0.5582 vs. 0.5582 for GECToR and 0.5503 vs. 0.5501 for T5.</li>
+        <li><strong>Evaluates raw-text output.</strong> With system-detected (<code>stanza</code>) sentence boundaries, which the original
+          <code>errant</code> cannot score, overall F0.5 is 0.5444 for GECToR and 0.5269 for T5.</li>
+        <li><strong>Korean.</strong> Without any Korean-specific error classifier, <code>jp-errant</code> gives F0.5 0.5334 (gold boundaries) and
+          0.5482 (system boundaries), versus 0.3019 with KAGAS, whose error detection and annotation have known limitations.</li>
+        <li><strong>Chinese.</strong> <code>jp-errant</code> and ChERRANT agree closely (F0.5 0.2379 vs. 0.242 with gold boundaries); only about 4.56%
+          of the errors fall into Chinese-specific types.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable results-table" style="margin:0 auto">
+        <caption>
+          <strong>Table 4 (subset).</strong> GEC results on the W&amp;I development set (all proficiency levels) for GECToR and T5, scored by the
+          original <code>errant</code> and by <code>jp-errant</code> with gold (GOLD) or system-detected (SYS) sentence boundaries.
+          Per-level (A, B, C) results and TP/FP/FN counts are in the paper.
+        </caption>
+        <thead>
+          <tr><th rowspan="2">Setting</th><th colspan="3">GECToR</th><th colspan="3">T5</th></tr>
+          <tr><th>Prec</th><th>Rec</th><th>F0.5</th><th>Prec</th><th>Rec</th><th>F0.5</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>GOLD + errant</td><td>0.6097</td><td>0.4174</td><td>0.5582</td><td>0.6123</td><td>0.3911</td><td>0.5501</td></tr>
+          <tr class="ours"><td>GOLD + jp-errant</td><td>0.6093</td><td>0.4180</td><td>0.5582</td><td>0.6139</td><td>0.3890</td><td>0.5503</td></tr>
+          <tr class="ours"><td>SYS + jp-errant</td><td>0.5955</td><td>0.4053</td><td>0.5444</td><td>0.5882</td><td>0.3719</td><td>0.5269</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{wang-etal-2025-refined,
+    title = "Refined Evaluation for End-to-End Grammatical Error Correction Using an Alignment-Based Approach",
+    author = "Wang, Junrui  and
+      Qiu, Mengyang  and
+      Gu, Yang  and
+      Huang, Zihao  and
+      Park, Jungyeul",
+    editor = "Rambow, Owen  and
+      Wanner, Leo  and
+      Apidianaki, Marianna  and
+      Al-Khalifa, Hend  and
+      Eugenio, Barbara Di  and
+      Schockaert, Steven",
+    booktitle = "Proceedings of the 31st International Conference on Computational Linguistics",
+    month = jan,
+    year = "2025",
+    address = "Abu Dhabi, UAE",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.coling-main.52/",
+    pages = "774--785"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

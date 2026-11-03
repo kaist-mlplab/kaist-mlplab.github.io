@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Can LLMs Truly Plan? A Comprehensive Evaluation of Planning Capabilities</title>
+  <meta name="description" content="Multi-Plan is a benchmark of 204 travel-planning scenarios in Korean, English and mathematically structured form; reasoning models such as o3-mini and Gemini-2.5-Pro reach about 82-83% exact-match accuracy, language barely matters, and mathematical formats improve accuracy for 9 of 11 models. Findings of EMNLP 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="Multi-Plan, LLM planning, planning benchmark, travel planning, itinerary planning, constraint satisfaction, reasoning models, multilingual evaluation, Korean, mathematical representation, structured input format, Natural Plan, o3-mini, Gemini-2.5-Pro, Findings of EMNLP 2025, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/llm-planning-evaluation/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Can LLMs Truly Plan? A Comprehensive Evaluation of Planning Capabilities">
+  <meta property="og:description" content="Multi-Plan: 204 multilingual, multi-format travel-planning scenarios for evaluating LLM planning. Reasoning models lead; math-structured inputs help most models. Findings of EMNLP 2025.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/llm-planning-evaluation/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Can LLMs Truly Plan? A Comprehensive Evaluation of Planning Capabilities">
+  <meta name="twitter:description" content="Multilingual, multi-format travel-planning benchmark for LLM planning. Findings of EMNLP 2025.">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Can LLMs Truly Plan? A Comprehensive Evaluation of Planning Capabilities">
+  <meta name="citation_author" content="Jung, Gayeon">
+  <meta name="citation_author_institution" content="Yonsei University">
+  <meta name="citation_author" content="Lim, HyeonSeok">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Kim, Minjun">
+  <meta name="citation_author_institution" content="Seoul National University of Science and Technology">
+  <meta name="citation_author" content="Lim, Joon-ho">
+  <meta name="citation_author_institution" content="Tutorus Labs">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Kim, Hansaem">
+  <meta name="citation_author_institution" content="Yonsei University">
+  <meta name="citation_publication_date" content="2025/11">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: EMNLP 2025">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="13069">
+  <meta name="citation_lastpage" content="13084">
+  <meta name="citation_doi" content="10.18653/v1/2025.findings-emnlp.702">
+  <meta name="citation_isbn" content="979-8-89176-335-7">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2025.findings-emnlp.702.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/llm-planning-evaluation/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/llm-planning-evaluation/#article",
+    "headline": "Can LLMs Truly Plan? A Comprehensive Evaluation of Planning Capabilities",
+    "name": "Can LLMs Truly Plan? A Comprehensive Evaluation of Planning Capabilities",
+    "url": "https://kaist-mlplab.github.io/llm-planning-evaluation/",
+    "datePublished": "2025-11",
+    "inLanguage": "en",
+    "abstract": "The existing assessments of planning capabilities of large language models (LLMs) remain largely limited to single-language or specific representation formats. To address this gap, we introduce the Multi-Plan benchmark comprising 204 multilingual and multi-format travel planning scenarios. In experimental results obtained with state-of-the-art LLMs, the Multi-Plan benchmark effectively highlights the performance disparities among models, notably showing superior results for reasoning-specialized models. Interestingly, language differences exhibited minimal impact, whereas mathematically structured representations significantly improved planning accuracy for most models, underscoring the crucial role of the input format. These findings enhance our understanding of planning abilities of LLMs, offer valuable insights for future research, and emphasize the need for more sophisticated AI evaluation methods. This dataset is publicly available at http://huggingface.co/datasets/Bllossom/Multi-Plan.",
+    "keywords": [
+      "LLM planning",
+      "planning benchmark",
+      "travel planning",
+      "itinerary planning",
+      "constraint satisfaction",
+      "reasoning models",
+      "multilingual evaluation",
+      "Korean",
+      "mathematical representation",
+      "input format"
+    ],
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Planning with large language models"
+      },
+      {
+        "@type": "Thing",
+        "name": "Benchmark datasets"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multilingual evaluation"
+      }
+    ],
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Gayeon Jung",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Yonsei University"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "HyeonSeok Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Minjun Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Seoul National University of Science and Technology"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Joon-ho Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Tutorus Labs"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "KyungTae Lim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Hansaem Kim",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Yonsei University"
+        }
+      }
+    ],
+    "publisher": {
+      "@type": "ResearchOrganization",
+      "name": "KAIST Multimodal Language Processing Lab",
+      "url": "https://kaist-mlplab.github.io/"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Findings of the Association for Computational Linguistics: EMNLP 2025",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Association for Computational Linguistics"
+      }
+    },
+    "sameAs": [
+      "https://aclanthology.org/2025.findings-emnlp.702/",
+      "https://doi.org/10.18653/v1/2025.findings-emnlp.702",
+      "https://huggingface.co/datasets/Bllossom/Multi-Plan"
+    ],
+    "pagination": "13069-13084",
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.18653/v1/2025.findings-emnlp.702"
+      }
+    ],
+    "encoding": {
+      "@type": "MediaObject",
+      "encodingFormat": "application/pdf",
+      "contentUrl": "https://aclanthology.org/2025.findings-emnlp.702.pdf"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Can LLMs Truly Plan? A Comprehensive Evaluation of Planning Capabilities</h1>
+      <p class="subtitle is-5 publication-subtitle">Multi-Plan: a travel-planning benchmark in Korean, English and mathematically structured form for evaluating LLM planning</p>
+      <p><span class="tag is-link is-medium venue-badge">Findings of EMNLP 2025</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Gayeon Jung<sup>&dagger;</sup>,</span>
+        <span class="author-block">HyeonSeok Lim<sup>&sect;</sup>,</span>
+        <span class="author-block">Minjun Kim<sup>&sect;</sup>,</span>
+        <span class="author-block">Joon-ho Lim<sup>&para;</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>&Dagger;,*</sup>,</span>
+        <span class="author-block">Hansaem Kim<sup>&dagger;,*</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>&dagger;</sup>Yonsei University</span>
+        <span class="author-block"><sup>&sect;</sup>Seoul National University of Science and Technology</span>
+        <span class="author-block"><sup>&para;</sup>Tutorus Labs</span>
+        <span class="author-block"><sup>&Dagger;</sup>Korea Advanced Institute of Science and Technology (KAIST)</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.findings-emnlp.702/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2025.findings-emnlp.702.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/datasets/Bllossom/Multi-Plan">Dataset</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        The existing assessments of planning capabilities of large language models (LLMs) remain largely limited to single-language or specific representation formats. To address this gap, we introduce the Multi-Plan benchmark comprising 204 multilingual and multi-format travel planning scenarios. In experimental results obtained with state-of-the-art LLMs, the Multi-Plan benchmark effectively highlights the performance disparities among models, notably showing superior results for reasoning-specialized models. Interestingly, language differences exhibited minimal impact, whereas mathematically structured representations significantly improved planning accuracy for most models, underscoring the crucial role of the input format. These findings enhance our understanding of planning abilities of LLMs, offer valuable insights for future research, and emphasize the need for more sophisticated AI evaluation methods. This dataset is publicly available at <a href="https://huggingface.co/datasets/Bllossom/Multi-Plan">huggingface.co/datasets/Bllossom/Multi-Plan</a>.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">LLM planning</span>
+      <span class="tag">Planning benchmark</span>
+      <span class="tag">Travel / itinerary planning</span>
+      <span class="tag">Constraint satisfaction</span>
+      <span class="tag">Reasoning models</span>
+      <span class="tag">Multilingual evaluation</span>
+      <span class="tag">Korean</span>
+      <span class="tag">Mathematical representation</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Benchmark -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">The Multi-Plan Benchmark</h2>
+    <div class="content has-text-justified">
+      <p>
+        Existing planning benchmarks use formal languages such as PDDL or English-only natural language. Multi-Plan, inspired by Natural Plan,
+        poses the same practical travel-planning problems in three forms so that language and input format effects can be separated:
+      </p>
+      <ol>
+        <li><strong>Korean.</strong> Three annotators wrote 204 Korean travel-planning requests with templates for city selection, durations and
+          constraints, designed so that each scenario has a unique optimal plan, balanced over 3&ndash;6 cities and over Europe, Asia and the Americas.</li>
+        <li><strong>English.</strong> The Korean requests were translated with DeepL and reviewed by annotators.</li>
+        <li><strong>Math.</strong> Claude 3.5 Sonnet (few-shot) rewrote each request into variables, constraints and flight connections, keeping context in
+          natural language; the outputs were reviewed by humans.</li>
+      </ol>
+      <p>
+        Models are prompted with one randomly selected solved example and must output the itinerary in the same format. A plan is counted as correct
+        only if the visited cities, date ranges, stay durations and flights extracted by regular expressions exactly match the answer.
+      </p>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-narrow is-fullwidth example-table" style="font-size:0.9rem">
+        <caption style="caption-side: top; text-align: left; color: #4a4a4a; font-size: 0.9rem; padding-bottom: 0.5rem;">
+          <strong>Table 1.</strong> One Multi-Plan scenario in its English and mathematically structured forms (the Korean form states the same request),
+          with the correct plan. (Example from Table 1 in the paper.)
+        </caption>
+        <thead><tr><th style="width:50%">English request</th><th>Math request</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>I am planning to visit three European cities over a total of 14 days. When traveling between cities, I will use only non-stop flights.
+              Each transfer can be completed within a single day, and the flights do not reduce the time spent in any city. I would like to stay in
+              Florence for 6 days and meet a friend there sometime between day 9 and day 14. I also want to spend 5 days in Barcelona and 5 days in
+              Helsinki. Direct flights are available on the following routes: Barcelona &harr; Florence and Helsinki &harr; Barcelona. Using only these
+              direct flights, please create a 14-day itinerary that covers all three cities.</td>
+            <td><strong>Variable definitions:</strong> H: Helsinki, B: Barcelona, F: Florence; a<sub>H</sub>, d<sub>H</sub>: arrival and departure date in Helsinki
+              (likewise for B and F).<br>
+              <strong>Constraints:</strong> d<sub>H</sub> &minus; a<sub>H</sub> + 1 = 5, d<sub>B</sub> &minus; a<sub>B</sub> + 1 = 5, d<sub>F</sub> &minus; a<sub>F</sub> + 1 = 6,
+              max(d<sub>H</sub>, d<sub>B</sub>, d<sub>F</sub>) &minus; min(a<sub>H</sub>, a<sub>B</sub>, a<sub>F</sub>) + 1 = 14, [a<sub>F</sub>, d<sub>F</sub>] &cap; [9, 14] &ne; &empty;.<br>
+              <strong>Direct flights:</strong> (B &harr; F), (H &harr; B). Travel between cities takes at most one day and does not affect the duration of stays.
+              Plan an itinerary visiting all three cities using direct flights.</td>
+          </tr>
+          <tr>
+            <td colspan="2"><strong>Correct plan:</strong> Days 1&ndash;5: Visit Helsinki for 5 days; Day 5: Fly from Helsinki to Barcelona; Days 5&ndash;9: Visit
+              Barcelona for 5 days; Day 9: Fly from Barcelona to Florence; Days 9&ndash;14: Visit Florence for 6 days.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Reasoning models lead.</strong> o3-mini and Gemini-2.5-Pro average 82.03% and 83.01% exact-match accuracy, Claude-3.7-Sonnet thinking
+          50.16%, while no general (non-reasoning) closed model exceeds about 37%.</li>
+        <li><strong>Language matters little.</strong> English scenarios are only about 0.71% more accurate than Korean on average, and most models differ by
+          less than 2% between the two languages.</li>
+        <li><strong>Mathematical structure helps.</strong> 9 of 11 closed models are more accurate with mathematically structured inputs than with Korean,
+          with gains above 8% for GPT-4o, Claude-3.7-Sonnet thinking and Gemini-2.0-Flash.</li>
+        <li><strong>Open-source models lag.</strong> Most small open models score near 0%; Qwen3-32B is the strongest (25.98% Korean, 46.57% English,
+          26.47% Math), close to Claude-3.7-Sonnet standard.</li>
+        <li><strong>More cities, more errors.</strong> All models are most accurate on three-city itineraries, and seven models are least accurate on Asian itineraries.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> Exact-match accuracy of closed-source models on Multi-Plan for the Korean, English and mathematically structured versions.
+          &ldquo;Reasoning&rdquo; marks models prompted with a reasoning-oriented instruction. (Table 2 in the paper; open-source results are in Table 3.)
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>Reasoning</th><th>Korean</th><th>English</th><th>Math</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>o3-mini</td><td>&#10003;</td><td>82.84%</td><td>82.84%</td><td>80.39%</td></tr>
+          <tr><td>GPT-4o</td><td>&#10007;</td><td>3.43%</td><td>3.43%</td><td>14.22%</td></tr>
+          <tr><td>GPT-4-turbo</td><td>&#10007;</td><td>10.78%</td><td>10.78%</td><td>17.65%</td></tr>
+          <tr><td>GPT-4</td><td>&#10007;</td><td>15.20%</td><td>15.20%</td><td>21.08%</td></tr>
+          <tr><td>Claude-3.7-Sonnet thinking</td><td>&#10003;</td><td>46.57%</td><td>48.53%</td><td>55.39%</td></tr>
+          <tr><td>Claude-3.7-Sonnet standard</td><td>&#10007;</td><td>29.41%</td><td>30.39%</td><td>37.27%</td></tr>
+          <tr><td>Claude-3.5-Haiku</td><td>&#10007;</td><td>8.33%</td><td>8.33%</td><td>11.27%</td></tr>
+          <tr><td>Claude-3-Opus</td><td>&#10007;</td><td>27.45%</td><td>27.45%</td><td>25.00%</td></tr>
+          <tr><td>Gemini-2.5-Pro</td><td>&#10003;</td><td>82.35%</td><td>83.82%</td><td>82.84%</td></tr>
+          <tr><td>Gemini-2.0-Flash</td><td>&#10007;</td><td>11.76%</td><td>9.80%</td><td>21.08%</td></tr>
+          <tr><td>Gemini-1.5-Pro</td><td>&#10007;</td><td>6.37%</td><td>11.76%</td><td>7.84%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{jung-etal-2025-llms,
+    title = &quot;Can {LLM}s Truly Plan? A Comprehensive Evaluation of Planning Capabilities&quot;,
+    author = &quot;Jung, Gayeon  and
+      Lim, HyeonSeok  and
+      Kim, Minjun  and
+      Lim, Joon-ho  and
+      Lim, KyungTae  and
+      Kim, Hansaem&quot;,
+    editor = &quot;Christodoulopoulos, Christos  and
+      Chakraborty, Tanmoy  and
+      Rose, Carolyn  and
+      Peng, Violet&quot;,
+    booktitle = &quot;Findings of the {A}ssociation for {C}omputational {L}inguistics: {EMNLP} 2025&quot;,
+    month = nov,
+    year = &quot;2025&quot;,
+    address = &quot;Suzhou, China&quot;,
+    publisher = &quot;Association for Computational Linguistics&quot;,
+    url = &quot;https://aclanthology.org/2025.findings-emnlp.702/&quot;,
+    doi = &quot;10.18653/v1/2025.findings-emnlp.702&quot;,
+    pages = &quot;13069--13084&quot;,
+    ISBN = &quot;979-8-89176-335-7&quot;
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

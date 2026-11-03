@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>An Untold Story of Preprocessing Task Evaluation: An Alignment-based Joint Evaluation Approach</title>
+  <meta name="description" content="The jp-algorithm jointly evaluates tokenization and sentence boundary detection by aligning system and gold sentences and tokens, counting true positives on aligned units; its counts match the CoNLL 2018 evaluation script on six English UD corpora while working on plain text. LREC-COLING 2024, KAIST MLP Lab.">
+  <meta name="keywords" content="tokenization evaluation, sentence boundary detection, SBD, sentence segmentation, word segmentation, preprocessing evaluation, jp-algorithm, alignment-based evaluation, sentence alignment, word alignment, F1, Universal Dependencies, CoNLL 2018 evaluation script, nltk, stanza, LREC-COLING 2024, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/preprocessing-joint-evaluation/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="An Untold Story of Preprocessing Task Evaluation: An Alignment-based Joint Evaluation Approach">
+  <meta property="og:description" content="An alignment-based algorithm that jointly evaluates tokenization and sentence boundary detection, counting true positives on aligned sentences and tokens. LREC-COLING 2024.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/preprocessing-joint-evaluation/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/preprocessing-joint-evaluation/static/images/teaser.png">
+  <meta property="og:image:width" content="2000">
+  <meta property="og:image:height" content="694">
+  <meta property="og:image:alt" content="Input, system, gold, and sentence-aligned results for &#x27;Click here To view it.&#x27;, where two system sentences are merged to align with one gold sentence.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alignment-based Joint Evaluation of Tokenization and SBD (LREC-COLING 2024)">
+  <meta name="twitter:description" content="An alignment-based algorithm that jointly evaluates tokenization and sentence boundary detection, counting true positives on aligned sentences and tokens. LREC-COLING 2024.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/preprocessing-joint-evaluation/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="An Untold Story of Preprocessing Task Evaluation: An Alignment-based Joint Evaluation Approach">
+  <meta name="citation_author" content="Jo, Eunkyul Leah">
+  <meta name="citation_author_institution" content="Department of Computer Science, The University of British Columbia">
+  <meta name="citation_author_institution" content="Faculté des Sciences et Ingénierie, Sorbonne Université">
+  <meta name="citation_author" content="Park, Angela Yoonseo">
+  <meta name="citation_author_institution" content="Department of Linguistics, The University of British Columbia">
+  <meta name="citation_author" content="Zhang, Grace Tianjiao">
+  <meta name="citation_author_institution" content="Department of Computer Science, The University of British Columbia">
+  <meta name="citation_author" content="Wang, Izia Xiaoxiao">
+  <meta name="citation_author_institution" content="Linguistik Zentrum Zürich, Universität Zürich">
+  <meta name="citation_author" content="Wang, Junrui">
+  <meta name="citation_author_institution" content="Department of Linguistics, The University of British Columbia">
+  <meta name="citation_author" content="Mao, MingJia">
+  <meta name="citation_author_institution" content="Department of Linguistics, The University of British Columbia">
+  <meta name="citation_author" content="Park, Jungyeul">
+  <meta name="citation_author_institution" content="Department of Linguistics, The University of British Columbia">
+  <meta name="citation_publication_date" content="2024/05">
+  <meta name="citation_conference_title" content="Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)">
+  <meta name="citation_publisher" content="ELRA and ICCL">
+  <meta name="citation_firstpage" content="1327">
+  <meta name="citation_lastpage" content="1338">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2024.lrec-main.119.pdf">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/preprocessing-joint-evaluation/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://kaist-mlplab.github.io/preprocessing-joint-evaluation/#article",
+  "headline": "An Untold Story of Preprocessing Task Evaluation: An Alignment-based Joint Evaluation Approach",
+  "name": "An Untold Story of Preprocessing Task Evaluation: An Alignment-based Joint Evaluation Approach",
+  "url": "https://kaist-mlplab.github.io/preprocessing-joint-evaluation/",
+  "datePublished": "2024-05",
+  "inLanguage": "en",
+  "image": "https://kaist-mlplab.github.io/preprocessing-joint-evaluation/static/images/teaser.png",
+  "abstract": "A preprocessing task such as tokenization and sentence boundary detection (SBD) has commonly been considered as NLP challenges that have already been solved. This perception is due to their generally good performance and the presence of pre-tokenized data. However, it’s important to note that the low error rates of current methods are mainly specific to certain tasks, and rule-based tokenization can be difficult to use across different systems. Despite being subtle, these limitations are significant in the context of the NLP pipeline. In this paper, we introduce a novel evaluation algorithm for the preprocessing task, including both tokenization and SBD results. This algorithm aims to enhance the reliability of evaluations by reevaluating the counts of true positive cases for F1 measures in both preprocessing tasks jointly. It achieves this through an alignment-based approach inspired by sentence and word alignments used in machine translation. Our evaluation algorithm not only allows for precise counting of true positive tokens and sentence boundaries but also combines these two evaluation tasks into a single organized pipeline. To illustrate and clarify the intricacies of this calculation and integration, we provide detailed pseudo-code configurations for implementation. Additionally, we offer empirical evidence demonstrating how sentence and word alignment can improve evaluation reliability and present case studies to further support our approach.",
+  "keywords": [
+    "tokenization",
+    "sentence boundary detection",
+    "preprocessing evaluation",
+    "alignment-based evaluation",
+    "sentence alignment",
+    "word alignment",
+    "F1 measure",
+    "Universal Dependencies",
+    "CoNLL 2018 evaluation script",
+    "nltk and stanza"
+  ],
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Tokenization"
+    },
+    {
+      "@type": "Thing",
+      "name": "Sentence boundary detection"
+    },
+    {
+      "@type": "Thing",
+      "name": "Evaluation metrics"
+    },
+    {
+      "@type": "Thing",
+      "name": "Natural language processing pipelines"
+    }
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Eunkyul Leah Jo",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "name": "Department of Computer Science, The University of British Columbia"
+        },
+        {
+          "@type": "Organization",
+          "name": "Faculté des Sciences et Ingénierie, Sorbonne Université"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "Angela Yoonseo Park",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Department of Linguistics, The University of British Columbia"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Grace Zhang",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Department of Computer Science, The University of British Columbia"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Izia Xiaoxiao Wang",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Linguistik Zentrum Zürich, Universität Zürich"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Junrui Wang",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Department of Linguistics, The University of British Columbia"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "MingJia Mao",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Department of Linguistics, The University of British Columbia"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Jungyeul Park",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Department of Linguistics, The University of British Columbia"
+      }
+    }
+  ],
+  "publisher": {
+    "@type": "ResearchOrganization",
+    "name": "KAIST Multimodal Language Processing Lab",
+    "url": "https://kaist-mlplab.github.io/"
+  },
+  "isPartOf": {
+    "@type": "Periodical",
+    "name": "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)",
+    "publisher": {
+      "@type": "Organization",
+      "name": "ELRA and ICCL"
+    }
+  },
+  "sameAs": [
+    "https://aclanthology.org/2024.lrec-main.119/",
+    "https://github.com/jungyeul/jp-preprocessing"
+  ],
+  "pagination": "1327-1338",
+  "workExample": {
+    "@type": "SoftwareSourceCode",
+    "name": "jp-preprocessing (code)",
+    "codeRepository": "https://github.com/jungyeul/jp-preprocessing",
+    "programmingLanguage": "Python"
+  },
+  "encoding": {
+    "@type": "MediaObject",
+    "encodingFormat": "application/pdf",
+    "contentUrl": "https://aclanthology.org/2024.lrec-main.119.pdf"
+  }
+}
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">An Untold Story of Preprocessing Task Evaluation: An Alignment-based Joint Evaluation Approach</h1>
+      <p class="subtitle is-5 publication-subtitle">Joint, alignment-based evaluation of tokenization and sentence boundary detection that counts true positives on aligned sentences and tokens</p>
+      <p><span class="tag is-link is-medium venue-badge">LREC-COLING 2024</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Eunkyul Leah Jo<sup>1,2,*</sup>,</span>
+        <span class="author-block">Angela Yoonseo Park<sup>3,*</sup>,</span>
+        <span class="author-block">Grace Zhang<sup>1,*</sup>,</span>
+        <span class="author-block">Izia Xiaoxiao Wang<sup>4,*</sup>,</span>
+        <span class="author-block">Junrui Wang<sup>3,*</sup>,</span>
+        <span class="author-block">MingJia Mao<sup>3,*</sup>,</span>
+        <span class="author-block">Jungyeul Park<sup>3</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Department of Computer Science, The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>2</sup>Faculté des Sciences et Ingénierie, Sorbonne Université, France</span>
+        <span class="author-block"><sup>3</sup>Department of Linguistics, The University of British Columbia, Canada</span>
+        <span class="author-block"><sup>4</sup>Linguistik Zentrum Zürich, Universität Zürich, Schweiz</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equally contributed authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.lrec-main.119/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2024.lrec-main.119.pdf">PDF</a>
+        <a class="button is-dark is-rounded" href="https://github.com/jungyeul/jp-preprocessing">Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2000" height="694"
+           alt="Example of the evaluation-by-alignment procedure. Input file: &#x27;Click here To view it. He makes some good observations on a few of the picture&#x27;s.&#x27; System result: three sentences, &#x27;Click here&#x27;, &#x27;To view it .&#x27;, and &#x27;He makes some good observations on a few of the picture &#x27;s .&#x27;. Gold file: two sentences, &#x27;Click here To view it .&#x27; and the second sentence. Sentence-aligned result: the two system sentences &#x27;Click here&#x27; and &#x27;To view it .&#x27; are merged (marked ~~~) and aligned with the single gold sentence; the second sentences align one to one.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> Intermediate results of the evaluation-by-alignment algorithm. The system splits <em>Click here To view it.</em>
+        into two sentences (<em>Click here</em> / <em>To view it.</em>); sentence alignment merges them (&sim;&sim;&sim;) so that they are compared with
+        the single gold sentence instead of being counted as a partial match. &#8852; marks a token boundary and &#8851; a sentence boundary.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        A preprocessing task such as tokenization and sentence boundary detection (SBD) has commonly been considered as NLP challenges that have already been solved. This perception is due to their generally good performance and the presence of pre-tokenized data. However, it’s important to note that the low error rates of current methods are mainly specific to certain tasks, and rule-based tokenization can be difficult to use across different systems. Despite being subtle, these limitations are significant in the context of the NLP pipeline. In this paper, we introduce a novel evaluation algorithm for the preprocessing task, including both tokenization and SBD results. This algorithm aims to enhance the reliability of evaluations by reevaluating the counts of true positive cases for F1 measures in both preprocessing tasks jointly. It achieves this through an alignment-based approach inspired by sentence and word alignments used in machine translation. Our evaluation algorithm not only allows for precise counting of true positive tokens and sentence boundaries but also combines these two evaluation tasks into a single organized pipeline. To illustrate and clarify the intricacies of this calculation and integration, we provide detailed pseudo-code configurations for implementation. Additionally, we offer empirical evidence demonstrating how sentence and word alignment can improve evaluation reliability and present case studies to further support our approach.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Tokenization</span>
+      <span class="tag">Sentence boundary detection (SBD)</span>
+      <span class="tag">Preprocessing evaluation</span>
+      <span class="tag">Alignment-based evaluation</span>
+      <span class="tag">Sentence &amp; word alignment</span>
+      <span class="tag">F1 / true positive counting</span>
+      <span class="tag">Universal Dependencies</span>
+      <span class="tag">CoNLL 2018 eval script</span>
+      <span class="tag">nltk / stanza</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">The jp-algorithm</h2>
+    <div class="content has-text-justified">
+      <p>
+        Tokenization and sentence boundary detection (SBD) are usually evaluated separately, and partially matching sentences (e.g. a BIO-style
+        character labeling where <em>Click here</em> starts a sentence in both files) can be miscounted as true positives. The
+        <strong>jp-algorithm</strong> (a joint evaluation algorithm for preprocessing) instead counts true positives on aligned units, borrowing
+        sentence and word alignment from machine translation:
+      </p>
+      <ol>
+        <li><strong>Sentence alignment.</strong> The system output <em>L</em> and the gold file <em>R</em> contain the same characters, so each
+          sentence pair is compared with spaces removed. If they are equal, the sentence boundary is a true positive (TP<sub>sb</sub>). If not,
+          sentences on both sides are accumulated and merged until the following pair matches again; this handles 1:n, m:1 and m:n splits,
+          unlike length-based MT aligners that only consider ratios up to 2:2.</li>
+        <li><strong>Word alignment.</strong> Inside each aligned sentence pair, tokens are compared in order; equal tokens are true positives
+          (TP<sub>tk</sub>), and mismatching spans (e.g. <em>Isn 't</em> vs. <em>Is n't</em>) are merged until the next tokens agree.</li>
+        <li><strong>Joint scoring.</strong> Precision and recall are TP<sub>sb</sub>/C<sub>sb</sub>(L) and TP<sub>sb</sub>/C<sub>sb</sub>(R) for
+          sentence boundaries, and analogously for tokens. The joint version (Algorithm 3) obtains both counts in a single pass with time complexity
+          O(4NM), compared with O(2N + 4NM) for evaluating the two tasks separately (N sentences, M tokens per sentence). The paper also gives a
+          soundness and correctness argument.</li>
+      </ol>
+    </div>
+    <figure>
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2600" height="346" loading="lazy"
+           alt="Two rows of sentence-level examples. First row, L equals R after removing spaces: system &#x27;When No. 1 Isn &#x27;t the Best&#x27; and gold &#x27;When No. 1 Is n&#x27;t the Best&#x27; give a true positive sentence boundary. Second row, L differs from R: system has one sentence &#x27;Mike McConnell 07/06/2000 14:57 John , Hello from South America .&#x27; while gold has three sentences &#x27;Mike McConnell&#x27;, &#x27;07/06/2000 14:57&#x27;, &#x27;John , Hello from South America .&#x27;; after alignment the three gold sentences are merged with ~~~ and no true positive is counted.">
+      </picture>
+      <figcaption>
+        <strong>Figure 3.</strong> Sentence-level examples of the jp-algorithm. When the system and gold sentences are identical without spaces,
+        the sentence boundary is a true positive even though tokenization differs (<em>Isn 't</em> vs. <em>Is n't</em>); when they differ, sentences
+        are merged until they align (here one system sentence vs. three gold sentences), and no true positive is counted for the merged pair.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Agreement with the CoNLL 2018 evaluation script.</strong> On six English UD corpora (GUM, ParTUT, EWT, PUD, LinES, Pronouns),
+          the jp-algorithm gives exactly the same TP/FP/FN counts for stanza output as the CoNLL 2018 shared-task script, for both sentence
+          boundaries and tokens, while working on plain text rather than requiring CoNLL-U.</li>
+        <li><strong>Tool differences become visible.</strong> On EWT, nltk finds 1,084 true positive sentence boundaries (349 FP, 993 FN) versus
+          1,805 for stanza (160 FP, 272 FN); on GUM, 845 vs. 1,038. Tokenization conventions also differ, e.g. nltk keeps <em>search-engine</em>
+          as one token while stanza splits it into three, and EWT tokenizes <em>can't</em> as <em>ca n't</em> while ParTUT uses <em>can not</em>
+          (handled by an exception list).</li>
+        <li><strong>Multilingual GSD treebanks.</strong> On UD German, Spanish, French, Indonesian, Japanese, Korean, and Portuguese GSD, counts match
+          the CoNLL script except French tokens (TP 9,714 / FP 17 / FN 22 vs. 9,710 / 19 / 23), caused by multi-word tokens such as
+          <em>de 1 000 mètres</em> that plain text cannot represent.</li>
+        <li><strong>Morphological mismatches.</strong> For a Hebrew example with differing morphological segmentation, word alignment yields
+          precision 4/5 and recall 4/7, whereas the CoNLL evaluation script cannot evaluate it because the token concatenations differ.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table style="font-size:0.85rem" class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Numbers of true positives (TP), false positives (FP) and false negatives (FN) for sentence boundaries (sbd) and
+          tokens (tk) on English UD corpora, using nltk and stanza evaluated with the proposed jp-algorithm. The paper's additional rows for stanza
+          scored by the CoNLL-U (CoNLL 2018) evaluation script are identical to the stanza &amp; jp rows and are omitted here. (Table 1 in the paper, transposed.)
+        </caption>
+        <thead>
+          <tr><th rowspan="3">Corpus</th><th colspan="6">Sentence boundaries (sbd)</th><th colspan="6">Tokens (tk)</th></tr>
+          <tr><th colspan="3">nltk &amp; jp</th><th colspan="3">stanza &amp; jp</th><th colspan="3">nltk &amp; jp</th><th colspan="3">stanza &amp; jp</th></tr>
+          <tr><th>TP</th><th>FP</th><th>FN</th><th>TP</th><th>FP</th><th>FN</th><th>TP</th><th>FP</th><th>FN</th><th>TP</th><th>FP</th><th>FN</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>GUM</td><td>845</td><td>137</td><td>251</td><td>1038</td><td>38</td><td>58</td><td>19443</td><td>351</td><td>462</td><td>19791</td><td>118</td><td>114</td></tr>
+          <tr><td>ParTUT</td><td>149</td><td>2</td><td>4</td><td>144</td><td>6</td><td>9</td><td>3345</td><td>27</td><td>63</td><td>3381</td><td>20</td><td>27</td></tr>
+          <tr><td>EWT</td><td>1084</td><td>349</td><td>993</td><td>1805</td><td>160</td><td>272</td><td>24176</td><td>1109</td><td>918</td><td>24724</td><td>286</td><td>370</td></tr>
+          <tr><td>PUD</td><td>976</td><td>26</td><td>24</td><td>998</td><td>4</td><td>2</td><td>20733</td><td>251</td><td>443</td><td>21162</td><td>18</td><td>14</td></tr>
+          <tr><td>LinES</td><td>865</td><td>141</td><td>170</td><td>912</td><td>128</td><td>123</td><td>17571</td><td>56</td><td>104</td><td>17517</td><td>380</td><td>158</td></tr>
+          <tr><td>Pronouns</td><td>285</td><td>0</td><td>0</td><td>285</td><td>0</td><td>0</td><td>1673</td><td>16</td><td>32</td><td>1649</td><td>28</td><td>56</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{jo-etal-2024-untold,
+    title = "An Untold Story of Preprocessing Task Evaluation: An Alignment-based Joint Evaluation Approach",
+    author = "Jo, Eunkyul Leah  and
+      Park, Angela Yoonseo  and
+      Zhang, Grace Tianjiao  and
+      Wang, Izia Xiaoxiao  and
+      Wang, Junrui  and
+      Mao, MingJia  and
+      Park, Jungyeul",
+    editor = "Calzolari, Nicoletta  and
+      Kan, Min-Yen  and
+      Hoste, Veronique  and
+      Lenci, Alessandro  and
+      Sakti, Sakriani  and
+      Xue, Nianwen",
+    booktitle = "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation ({LREC}-{COLING} 2024)",
+    month = may,
+    year = "2024",
+    address = "Torino, Italia",
+    publisher = "ELRA and ICCL",
+    url = "https://aclanthology.org/2024.lrec-main.119/",
+    pages = "1327--1338"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>
