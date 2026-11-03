@@ -36,3 +36,11 @@ figcaption { margin-top: 0.75rem; color: #4a4a4a; font-size: 0.95rem; text-align
 .keywords .tag { background: #e6eef7; color: #004191; }
 .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.25rem 0; }
 .content li .katex-display { margin: 0.5rem 0; }
+/* Top lab bar (logo -> hub home) */
+.lab-nav { border-bottom: 1px solid #e3e8ee; background: #fff; }
+.lab-nav-inner { max-width: 960px; margin: 0 auto; padding: 0 16px; min-height: 52px; display: flex; align-items: center; justify-content: space-between; }
+.lab-nav-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.05rem; color: #004191; }
+.lab-nav-brand img { height: 24px; width: auto; display: block; }
+.lab-nav-brand:hover { color: #004191; opacity: .8; }
+.lab-nav-link { color: #59636e; font-size: .95rem; }
+.lab-nav-link:hover { color: #004191; text-decoration: underline; }
