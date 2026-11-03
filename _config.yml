@@ -30,6 +30,9 @@ lab:
   legacy_site: "https://sites.google.com/view/aailab"
 
 # jekyll-seo-tag 설정
+# 검색엔진 소유 확인 (jekyll-seo-tag가 홈 <head>에 meta 태그로 출력)
+webmaster_verifications:
+  google: q7jRmkLkG_1D1oz6QnPDKJIwmbWa66WBaiqhTFkvlu0
 # TODO: 로고가 생기면 `logo: /assets/img/logo.png`를 추가하고 defaults에 `image:`를 넣는다.
 social:
   name: "KAIST MLP Lab"
