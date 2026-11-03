@@ -6,6 +6,8 @@ It is adapted from [Nerfies](https://github.com/nerfies/nerfies.github.io) and l
 
 ## How to use
 
+If the paper has an official conference or journal page (e.g. ACL Anthology), use it as the main "Paper" link, in `citation_*` tags and in BibTeX. arXiv is a secondary link.
+
 1. Click **Use this template** at the top of the repo to create a new repo.
    - Owner: `kaist-mlplab`
    - Repository name: a short name with lowercase letters and hyphens, e.g. `fooformer`. This becomes the URL: `https://kaist-mlplab.github.io/fooformer/`.
@@ -17,9 +19,10 @@ It is adapted from [Nerfies](https://github.com/nerfies/nerfies.github.io) and l
    - Write tables as HTML `<table>`, not as images.
    - Remove buttons you don't need (Code, Demo, Dataset, Model).
    - Write equations as LaTeX: `[[i:...]]` for inline and `[[d:...]]` for display. Then run `node tools/render-math.js index.html` once and they are pre-rendered into static HTML with KaTeX (no JavaScript needed on the page).
-   - BibTeX: paste the official one verbatim (ACL Anthology `.bib`, journal DOI, or arxiv.org/bibtex/<id>), never hand-written. In the hub repo, `python3 _template/verify-bibtex.py` compares every page with the official source.
+   - BibTeX: paste the official one verbatim (ACL Anthology `.bib`, journal DOI, or arxiv.org/bibtex/<id>), never hand-written. The hub repo has `_template/verify-bibtex.py`, which checks every page against the official source.
    - Check that the JSON-LD is valid at https://validator.schema.org.
-   - For a finished example, see `_template/distribution-aware-language-neurons/` in the hub repo.
+   - Finished examples: [distribution-aware-language-neurons](https://github.com/kaist-mlplab/distribution-aware-language-neurons) (ACL Anthology paper with equations), [kfineval](https://github.com/kaist-mlplab/kfineval) (benchmark paper), [kormo](https://github.com/kaist-mlplab/kormo) (arXiv-only paper).
+   - Figures in high resolution: `pdftocairo -png -r 600 -f <page> -l <page> -x X -y Y -W W -H H -singlefile paper.pdf fig`, then trim margins and also save a WebP (`cwebp -q 90`).
 3. Go to **Settings > Pages**, set Source to `Deploy from a branch` and Branch to `main` / `(root)`, then save.
 4. **Register it in the hub.** Add one entry to `_data/projects.yml` in the `kaist-mlplab/kaist-mlplab.github.io` repo. It then appears in the project list and the sitemap automatically.
 
