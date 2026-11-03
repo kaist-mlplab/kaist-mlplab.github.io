@@ -7,7 +7,7 @@
   <!-- ===== 기본 SEO ===== -->
   <title>Distribution-aware Language Neuron Identification in Multilingual Large Language Models</title>
   <meta name="description" content="Distribution-aware Language Neuron (DLN) selection identifies language-specific neurons in multilingual LLMs by clustering languages with pairwise overlap coefficients between full activation distributions, giving up to 4.9x higher on-target language damage per neuron than entropy-based LAPE. EMNLP 2026, KAIST MLP Lab.">
-  <meta name="keywords" content="language-specific neurons, multilingual large language models, interpretability, LAPE, neuron identification, activation distribution, overlap coefficient, EMNLP 2026, KAIST">
+  <meta name="keywords" content="language-specific neurons, LSN, language neurons, multi-language neurons, multilingual large language models, multilingual LLM interpretability, mechanistic interpretability, neuron identification, neuron ablation, activation patching, LAPE, activation distribution, overlap coefficient, cross-lingual, EMNLP 2026, KAIST">
   <link rel="canonical" href="https://kaist-mlplab.github.io/distribution-aware-language-neurons/">
 
   <!-- ===== Open Graph / Twitter ===== -->
@@ -17,8 +17,8 @@
   <meta property="og:description" content="Identifying language-specific neurons by comparing full per-language activation distributions: up to 4.9x higher on-target damage per neuron than LAPE. EMNLP 2026.">
   <meta property="og:url" content="https://kaist-mlplab.github.io/distribution-aware-language-neurons/">
   <meta property="og:image" content="https://kaist-mlplab.github.io/distribution-aware-language-neurons/static/images/teaser.png">
-  <meta property="og:image:width" content="1000">
-  <meta property="og:image:height" content="500">
+  <meta property="og:image:width" content="1844">
+  <meta property="og:image:height" content="938">
   <meta property="og:image:alt" content="Activation-density plots of one neuron for French, Spanish, Chinese, and English, contrasting activation probability with distributional distinctiveness.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Distribution-aware Language Neuron Identification in Multilingual LLMs">
@@ -63,7 +63,12 @@
     "inLanguage": "en",
     "image": "https://kaist-mlplab.github.io/distribution-aware-language-neurons/static/images/teaser.png",
     "abstract": "Multilingual large language models (mLLMs) contain a small fraction of feed-forward neurons that are sensitive to particular languages, commonly termed language-specific neurons. Existing work measures language specificity using the entropy of each neuron's language-wise probabilities of being active, where a neuron is considered active when its activation value is positive. However, this approach may not fully capture the multilingual nature of mLLMs, where language representations are distributional and mutually related. We propose Distribution-aware Language Neuron selection, which leverages pairwise relationships between per-language activation distributions over the full activation range, including negative values. Specifically, we quantify each neuron's language specificity by clustering languages using pairwise overlap coefficients between their activation distributions. Across two mLLMs and two held-out corpora, our identifier more effectively isolates language-specific causal effects, yielding up to 4.9x higher on-target language damage per neuron while preserving off-target language performance.",
-    "keywords": ["language-specific neurons", "multilingual large language models", "interpretability", "neuron identification"],
+    "keywords": ["language-specific neurons", "LSN", "language neurons", "multi-language neurons", "multilingual large language models", "mechanistic interpretability", "neuron identification", "neuron ablation", "activation patching", "LAPE", "cross-lingual representations"],
+    "about": [
+      {"@type": "Thing", "name": "Language-specific neurons"},
+      {"@type": "Thing", "name": "Multilingual large language models"},
+      {"@type": "Thing", "name": "Mechanistic interpretability"}
+    ],
     "author": [
       {"@type": "Person", "name": "Minjun Kim", "affiliation": {"@type": "Organization", "name": "KAIST"}},
       {"@type": "Person", "name": "Inho Won", "affiliation": {"@type": "Organization", "name": "KAIST"}},
@@ -94,7 +99,7 @@
   <div class="hero-body">
     <div class="container is-max-desktop has-text-centered">
       <h1 class="title is-2 publication-title">Distribution-aware Language Neuron Identification in Multilingual Large Language Models</h1>
-      <p class="subtitle is-5 publication-subtitle">Which language makes a neuron distinctive, not just which language makes it fire</p>
+      <p class="subtitle is-5 publication-subtitle">Finding language-specific neurons by comparing full activation distributions</p>
       <p><span class="tag is-link is-medium venue-badge">EMNLP 2026</span></p>
 
       <p class="publication-authors">
@@ -123,8 +128,11 @@
 <section class="section pt-0">
   <div class="container is-max-desktop">
     <figure class="teaser">
-      <img src="static/images/teaser.png" width="1000" height="500"
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1844" height="938"
            alt="Two activation-density plots for a single neuron. Left: French, Spanish, Chinese, and English are all active with probability 1, yet Spanish has a clearly separate distribution. Right: English has activation probability 0 but is the only language whose distribution does not overlap with the others.">
+      </picture>
       <figcaption>
         <strong>Figure 1.</strong> Identifying structurally distinctive language distributions matters more than identifying the most
         frequently active language (<em>a</em> is the activation value). <em>Left:</em> all four languages have
@@ -153,6 +161,19 @@
         effects, yielding up to 4.9&times; higher on-target language damage per neuron while preserving off-target language performance.
       </p>
     </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Language-specific neurons (LSN)</span>
+      <span class="tag">Language neurons</span>
+      <span class="tag">Multi-language neurons</span>
+      <span class="tag">Multilingual LLMs</span>
+      <span class="tag">Mechanistic interpretability</span>
+      <span class="tag">Neuron identification</span>
+      <span class="tag">Neuron ablation</span>
+      <span class="tag">Activation patching</span>
+      <span class="tag">LAPE</span>
+      <span class="tag">Cross-lingual representations</span>
+    </div>
   </div>
 </section>
 
@@ -161,8 +182,11 @@
   <div class="container is-max-desktop">
     <h2 class="title is-3">Method</h2>
     <figure>
-      <img src="static/images/method.png" width="1300" height="595" loading="lazy"
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="2600" height="1160" loading="lazy"
            alt="Four-step pipeline shown for two example neurons: (a) per-language activation distributions, (b) pairwise overlap matrix, (c) single-linkage clustering into two groups, (d) selection by maximum overlap with the other group. The top example isolates French as a single-language neuron; the bottom isolates Chinese and Japanese together as a multi-language neuron.">
+      </picture>
       <figcaption>
         <strong>Figure 2.</strong> Overall framework of the proposed method. In the single-language neuron (SLN) example,
         French overlaps with every other language by only 0.04&ndash;0.07, so French alone is selected. In the multi-language

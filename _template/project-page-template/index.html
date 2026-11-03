@@ -129,8 +129,12 @@
   <div class="container is-max-desktop">
     <figure class="teaser">
       <!-- TODO: static/images/teaser.png (가로 1000~1600px, 압축). width/height는 실제 픽셀 크기. alt는 그림 내용을 문장으로 -->
-      <img src="static/images/teaser.png" width="1200" height="630"
+      <!-- 고화질 추출: pdftocairo -png -r 600 -f <page> -x -y -W -H paper.pdf / WebP 변환: cwebp -q 90 -->
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1200" height="630"
            alt="Describe what the figure shows, including the key comparison.">
+      </picture>
       <!-- TODO: 캡션. 그림 속 핵심 수치를 텍스트로도 적는다(AI는 그림 속 숫자를 못 읽는다) -->
       <figcaption>
         <strong>Figure 1.</strong> Caption with the key numbers written out, e.g. "Our method improves X from 41.2 to 47.9."
@@ -146,6 +150,12 @@
     <div class="content has-text-justified">
       <!-- TODO: 초록 전체를 텍스트로 -->
       <p>Full abstract text.</p>
+    </div>
+    <!-- TODO: 키워드. 논문 제목에는 없지만 연구자들이 검색할 용어(분야 통용어, 약어, 동의어)를 넣는다. meta keywords / JSON-LD keywords와 맞춘다 -->
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Keyword one (ABBR)</span>
+      <span class="tag">Keyword two</span>
     </div>
   </div>
 </section>
