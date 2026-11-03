@@ -34,3 +34,4 @@
     showing that activation probability alone cannot tell which language is most distinctive.
   paper: https://aclanthology.org/2026.emnlp-main.1150/
   pdf: https://aclanthology.org/2026.emnlp-main.1150.pdf
+  code: https://github.com/mjkmain/Distribution-aware-language-neurons
