@@ -17,6 +17,7 @@ It is adapted from [Nerfies](https://github.com/nerfies/nerfies.github.io) and l
    - Write tables as HTML `<table>`, not as images.
    - Remove buttons you don't need (Code, Demo, Dataset, Model).
    - Write equations as LaTeX: `[[i:...]]` for inline and `[[d:...]]` for display. Then run `node tools/render-math.js index.html` once and they are pre-rendered into static HTML with KaTeX (no JavaScript needed on the page).
+   - BibTeX: paste the official one verbatim (ACL Anthology `.bib`, journal DOI, or arxiv.org/bibtex/<id>), never hand-written. In the hub repo, `python3 _template/verify-bibtex.py` compares every page with the official source.
    - Check that the JSON-LD is valid at https://validator.schema.org.
    - For a finished example, see `_template/distribution-aware-language-neurons/` in the hub repo.
 3. Go to **Settings > Pages**, set Source to `Deploy from a branch` and Branch to `main` / `(root)`, then save.
