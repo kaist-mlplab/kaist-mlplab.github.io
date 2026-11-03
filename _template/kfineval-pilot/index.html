@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>KFinEval-Pilot: A Comprehensive Benchmark Suite for Korean Financial Language Understanding</title>
+  <meta name="description" content="KFinEval-Pilot is a Korean financial LLM benchmark of 1,145 questions on financial knowledge, legal reasoning, and financial toxicity; gpt-o1 reaches 71.35% knowledge accuracy and gpt-o3-mini the best reasoning (7.66) and safety (1.46) scores. arXiv 2025, KAIST MLP Lab.">
+  <meta name="keywords" content="KFinEval-Pilot, KFinEval, Korean financial benchmark, Korean LLM benchmark, financial LLM evaluation, financial NLP benchmark, Korean financial language understanding, legal reasoning, procedural reasoning, financial toxicity, red-teaming, LLM safety, LLM-as-a-judge, Korean financial regulation, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/kfineval-pilot/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="KFinEval-Pilot: A Comprehensive Benchmark Suite for Korean Financial Language Understanding">
+  <meta property="og:description" content="A Korean financial LLM benchmark of 1,145 questions on financial knowledge, legal reasoning, and financial toxicity, with results for GPT, Llama, Qwen, DeepSeek, and a finance-tuned 8B model. arXiv 2025.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/kfineval-pilot/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/kfineval-pilot/static/images/teaser.png">
+  <meta property="og:image:width" content="1633">
+  <meta property="og:image:height" content="1275">
+  <meta property="og:image:alt" content="Sunburst chart of the KFinEval-Pilot questions by domain (Financial Toxicity, Financial Knowledge, Financial Reasoning) and subcategory.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KFinEval-Pilot: A Benchmark Suite for Korean Financial Language Understanding">
+  <meta name="twitter:description" content="1,145 Korean financial questions on knowledge, legal reasoning, and financial toxicity for evaluating LLMs. arXiv 2025.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/kfineval-pilot/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="KFinEval-Pilot: A Comprehensive Benchmark Suite for Korean Financial Language Understanding">
+  <meta name="citation_author" content="Hwang, Bokwang">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Lim, Seonkyu">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Kim, Taewoong">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Geun, Yongjae">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Bang, Sunghyun">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Park, Sohyun">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Park, Jihyun">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Lee, Myeonggyu">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Lee, Jinwoo">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Kim, Yerin">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Yoo, Jinsun">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Hong, Jingyeong">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Park, Jina">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Kim, Yongchan">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Kim, Suhyun">
+  <meta name="citation_author_institution" content="Korea Financial Telecommunications and Clearings Institute">
+  <meta name="citation_author" content="Hahm, Younggyun">
+  <meta name="citation_author_institution" content="Teddysum Inc.">
+  <meta name="citation_author" content="Lee, Yiseul">
+  <meta name="citation_author_institution" content="Teddysum Inc.">
+  <meta name="citation_author" content="Kang, Yejee">
+  <meta name="citation_author_institution" content="Teddysum Inc.">
+  <meta name="citation_author" content="Yoon, Chanhyuk">
+  <meta name="citation_author_institution" content="Teddysum Inc.">
+  <meta name="citation_author" content="Lee, Chansu">
+  <meta name="citation_author_institution" content="SELECTSTAR Inc.">
+  <meta name="citation_author" content="Jeong, Heeyewon">
+  <meta name="citation_author_institution" content="SELECTSTAR Inc.">
+  <meta name="citation_author" content="Lee, Jiyeon">
+  <meta name="citation_author_institution" content="SELECTSTAR Inc.">
+  <meta name="citation_author" content="Gu, Seonhye">
+  <meta name="citation_author_institution" content="SELECTSTAR Inc.">
+  <meta name="citation_author" content="Kang, Hyebin">
+  <meta name="citation_author_institution" content="SELECTSTAR Inc.">
+  <meta name="citation_author" content="Cho, Yousang">
+  <meta name="citation_author_institution" content="Konyang University">
+  <meta name="citation_author" content="Yoo, Hangyeol">
+  <meta name="citation_author_institution" content="Seoultech">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2025/04/17">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2504.13216">
+  <meta name="citation_arxiv_id" content="2504.13216">
+  <meta name="citation_doi" content="10.48550/arXiv.2504.13216">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/kfineval-pilot/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/kfineval-pilot/#article",
+    "headline": "KFinEval-Pilot: A Comprehensive Benchmark Suite for Korean Financial Language Understanding",
+    "name": "KFinEval-Pilot: A Comprehensive Benchmark Suite for Korean Financial Language Understanding",
+    "url": "https://kaist-mlplab.github.io/kfineval-pilot/",
+    "datePublished": "2025-04-17",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/kfineval-pilot/static/images/teaser.png",
+    "abstract": "We introduce KFinEval-Pilot, a benchmark suite specifically designed to evaluate large language models (LLMs) in the Korean financial domain. Addressing the limitations of existing English-centric benchmarks, KFinEval-Pilot comprises over 1,000 curated questions across three critical areas: financial knowledge, legal reasoning, and financial toxicity. The benchmark is constructed through a semi-automated pipeline that combines GPT-4-generated prompts with expert validation to ensure domain relevance and factual accuracy. We evaluate a range of representative LLMs and observe notable performance differences across models, with trade-offs between task accuracy and output safety across different model families. These results highlight persistent challenges in applying LLMs to high-stakes financial applications, particularly in reasoning and safety. Grounded in real-world financial use cases and aligned with the Korean regulatory and linguistic context, KFinEval-Pilot serves as an early diagnostic tool for developing safer and more reliable financial AI systems.",
+    "keywords": ["Korean financial benchmark", "financial NLP benchmark", "financial LLM evaluation", "Korean financial language understanding", "legal reasoning", "procedural reasoning", "financial toxicity", "red-teaming", "LLM safety", "LLM-as-a-judge"],
+    "about": [
+      {"@type": "Thing", "name": "Benchmark datasets for large language models"},
+      {"@type": "Thing", "name": "Financial natural language processing"},
+      {"@type": "Thing", "name": "Korean language"},
+      {"@type": "Thing", "name": "AI safety"}
+    ],
+    "author": [
+      {"@type": "Person", "name": "Bokwang Hwang", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Seonkyu Lim", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Taewoong Kim", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Yongjae Geun", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Sunghyun Bang", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Sohyun Park", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Jihyun Park", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Myeonggyu Lee", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Jinwoo Lee", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Yerin Kim", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Jinsun Yoo", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Jingyeong Hong", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Jina Park", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Yongchan Kim", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Suhyun Kim", "affiliation": {"@type": "Organization", "name": "Korea Financial Telecommunications and Clearings Institute"}},
+      {"@type": "Person", "name": "Younggyun Hahm", "affiliation": {"@type": "Organization", "name": "Teddysum Inc."}},
+      {"@type": "Person", "name": "Yiseul Lee", "affiliation": {"@type": "Organization", "name": "Teddysum Inc."}},
+      {"@type": "Person", "name": "Yejee Kang", "affiliation": {"@type": "Organization", "name": "Teddysum Inc."}},
+      {"@type": "Person", "name": "Chanhyuk Yoon", "affiliation": {"@type": "Organization", "name": "Teddysum Inc."}},
+      {"@type": "Person", "name": "Chansu Lee", "affiliation": {"@type": "Organization", "name": "SELECTSTAR Inc."}},
+      {"@type": "Person", "name": "Heeyewon Jeong", "affiliation": {"@type": "Organization", "name": "SELECTSTAR Inc."}},
+      {"@type": "Person", "name": "Jiyeon Lee", "affiliation": {"@type": "Organization", "name": "SELECTSTAR Inc."}},
+      {"@type": "Person", "name": "Seonhye Gu", "affiliation": {"@type": "Organization", "name": "SELECTSTAR Inc."}},
+      {"@type": "Person", "name": "Hyebin Kang", "affiliation": {"@type": "Organization", "name": "SELECTSTAR Inc."}},
+      {"@type": "Person", "name": "Yousang Cho", "affiliation": {"@type": "Organization", "name": "Konyang University"}},
+      {"@type": "Person", "name": "Hangyeol Yoo", "affiliation": {"@type": "Organization", "name": "Seoultech"}},
+      {"@type": "Person", "name": "KyungTae Lim", "affiliation": {"@type": "Organization", "name": "KAIST"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "sameAs": ["https://arxiv.org/abs/2504.13216", "https://doi.org/10.48550/arXiv.2504.13216"],
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "arXiv", "value": "2504.13216"},
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.48550/arXiv.2504.13216"}
+    ],
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://arxiv.org/pdf/2504.13216"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">KFinEval-Pilot: A Comprehensive Benchmark Suite for Korean Financial Language Understanding</h1>
+      <p class="subtitle is-5 publication-subtitle">A Korean financial LLM benchmark of 1,145 questions on financial knowledge, legal reasoning, and financial toxicity</p>
+      <p><span class="tag is-link is-medium venue-badge">arXiv 2025</span></p>
+
+      <p class="publication-authors" style="font-size:0.95rem">
+        <span class="author-block">Bokwang Hwang<sup>1</sup>,</span>
+        <span class="author-block">Seonkyu Lim<sup>1</sup>,</span>
+        <span class="author-block">Taewoong Kim<sup>1</sup>,</span>
+        <span class="author-block">Yongjae Geun<sup>1</sup>,</span>
+        <span class="author-block">Sunghyun Bang<sup>1</sup>,</span>
+        <span class="author-block">Sohyun Park<sup>1</sup>,</span>
+        <span class="author-block">Jihyun Park<sup>1</sup>,</span>
+        <span class="author-block">Myeonggyu Lee<sup>1</sup>,</span>
+        <span class="author-block">Jinwoo Lee<sup>1</sup>,</span>
+        <span class="author-block">Yerin Kim<sup>1</sup>,</span>
+        <span class="author-block">Jinsun Yoo<sup>1</sup>,</span>
+        <span class="author-block">Jingyeong Hong<sup>1</sup>,</span>
+        <span class="author-block">Jina Park<sup>1</sup>,</span>
+        <span class="author-block">Yongchan Kim<sup>1</sup>,</span>
+        <span class="author-block">Suhyun Kim<sup>1</sup>,</span>
+        <span class="author-block">Younggyun Hahm<sup>2</sup>,</span>
+        <span class="author-block">Yiseul Lee<sup>2</sup>,</span>
+        <span class="author-block">Yejee Kang<sup>2</sup>,</span>
+        <span class="author-block">Chanhyuk Yoon<sup>2</sup>,</span>
+        <span class="author-block">Chansu Lee<sup>3</sup>,</span>
+        <span class="author-block">Heeyewon Jeong<sup>3</sup>,</span>
+        <span class="author-block">Jiyeon Lee<sup>3</sup>,</span>
+        <span class="author-block">Seonhye Gu<sup>3</sup>,</span>
+        <span class="author-block">Hyebin Kang<sup>3</sup>,</span>
+        <span class="author-block">Yousang Cho<sup>4</sup>,</span>
+        <span class="author-block">Hangyeol Yoo<sup>5</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>6</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>Korea Financial Telecommunications and Clearings Institute</span>
+        <span class="author-block"><sup>2</sup>Teddysum Inc.</span>
+        <span class="author-block"><sup>3</sup>SELECTSTAR Inc.</span>
+        <span class="author-block"><sup>4</sup>Konyang University</span>
+        <span class="author-block"><sup>5</sup>Seoultech</span>
+        <span class="author-block"><sup>6</sup>KAIST</span>
+      </p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2504.13216">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2504.13216">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1633" height="1275" style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto"
+           alt="Sunburst chart of the KFinEval-Pilot questions, colored by count. Inner ring: Financial Toxicity (largest), Financial Knowledge, and Financial Reasoning. Outer ring: toxicity subcategories Illicit Flows, Fraud, and Privacy; knowledge subcategories General Finance, Economics, Monetary Finance, Public Finance, Digital Finance, Knowledge Others, and International Finance; reasoning subcategories Reasoning Others, Licensing &amp; Registration, Financial Regulation, Public Utility Law, Lending &amp; Credit, Capital Market Regulation, Accounting &amp; Audit, Public Contracts, and Disclosure &amp; Transparency.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Question distribution across categories; segment size and color indicate the number of questions per subcategory.
+        By the paper&rsquo;s Table 5, the 1,145 questions comprise Financial Toxicity 484 (Privacy 165, Fraud 162, Illicit Flows 157),
+        Financial Knowledge 377 (General Finance 140, Economics 57, Monetary Finance 56, Public Finance 42, Others 28, Digital Finance 28,
+        International Finance 26), and Financial Reasoning 284 (Others 109, Licensing &amp; Registration 66, Financial Regulation 37,
+        Public Utility Law 26, Lending &amp; Credit 20, Capital Market Regulation 9, Accounting &amp; Audit 7, Public Contracts 7,
+        Disclosure &amp; Transparency 3).
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p class="notification is-light">
+        This is the pilot version. An extended version appears as
+        <a href="https://kaist-mlplab.github.io/kfineval/">KFinEval (Findings of EMNLP 2026)</a>.
+      </p>
+      <p>
+        We introduce KFinEval-Pilot, a benchmark suite specifically designed to evaluate large language models (LLMs) in the Korean
+        financial domain. Addressing the limitations of existing English-centric benchmarks, KFinEval-Pilot comprises over 1,000 curated
+        questions across three critical areas: financial knowledge, legal reasoning, and financial toxicity. The benchmark is constructed
+        through a semi-automated pipeline that combines GPT-4-generated prompts with expert validation to ensure domain relevance and
+        factual accuracy. We evaluate a range of representative LLMs and observe notable performance differences across models, with
+        trade-offs between task accuracy and output safety across different model families. These results highlight persistent challenges
+        in applying LLMs to high-stakes financial applications, particularly in reasoning and safety. Grounded in real-world financial use
+        cases and aligned with the Korean regulatory and linguistic context, KFinEval-Pilot serves as an early diagnostic tool for
+        developing safer and more reliable financial AI systems.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Korean financial benchmark</span>
+      <span class="tag">Financial NLP benchmark</span>
+      <span class="tag">Financial LLM evaluation</span>
+      <span class="tag">Korean financial language understanding</span>
+      <span class="tag">Legal / procedural reasoning</span>
+      <span class="tag">Financial toxicity</span>
+      <span class="tag">Red-teaming</span>
+      <span class="tag">LLM safety</span>
+      <span class="tag">LLM-as-a-judge</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Benchmark Construction</h2>
+    <div class="content has-text-justified">
+      <p>
+        KFinEval-Pilot targets three areas of the Korean financial domain: <strong>financial knowledge</strong> (basic financial concepts and
+        terminology), <strong>financial reasoning</strong> (rule-based legal reasoning in a financial context), and <strong>financial
+        toxicity</strong> (harmful requests such as fraud and privacy violations). Questions are drafted with GPT-4o and then checked by people
+        in four stages:
+      </p>
+      <ol>
+        <li><strong>Data preprocessing.</strong> Knowledge sources (glossaries and publications of the Bank of Korea, Statistics Korea, the
+          Financial Supervisory Service, and the Korea Federation of Banks) are chunked at the word level, one concept per chunk. Reasoning
+          sources (legal interpretations from the Financial Services Commission and the Ministry of Government Legislation) and toxicity
+          sources (fraud cases, dispute-mediation casebooks, and educational materials from supervisory and consumer-protection bodies) are
+          processed at the case level.</li>
+        <li><strong>Data generation.</strong> For knowledge, a three-step prompt builds a four-option multiple-choice question and its
+          term-based answer, generates plausible distractors from similar questions, and keeps only items judged &ldquo;Answerable&rdquo;.
+          For reasoning, GPT-4o writes a step-by-step chain-of-thought from the official answer and rationale, then checks the chain for the
+          first erroneous step; only error-free or corrected chains are kept. For toxicity, a red-teaming prompt produces adversarial questions
+          using prompt injection, role-play, and immersive scenarios.</li>
+        <li><strong>Human verification.</strong> A first pass fixes spelling, grammar, and style; financial domain experts then check factual
+          accuracy and domain alignment with a rubric per task (distractor plausibility and answer uniqueness for knowledge, logical validity
+          of intermediate steps for reasoning, naturalness and harmful intent for toxicity). Each item gets two rounds of review.</li>
+        <li><strong>Selection.</strong> Experts choose the final items to balance beginner, intermediate, and advanced difficulty and topic
+          coverage, with heuristic filters for overly obvious distractors, uneven option lengths, and irrelevant entities.</li>
+      </ol>
+      <p>
+        <strong>Evaluation.</strong> Knowledge questions are multiple-choice and scored by accuracy following KMMLU. Reasoning answers are
+        rated 1&ndash;10 by an LLM judge (GPT-o1-2025-04-04) against the expert reference reasoning on coherence, consistency, accuracy,
+        completeness, reasoning ability, and overall quality. Toxicity responses are rated 1&ndash;10 for harmfulness (1 = clear refusal
+        with a warning, 10 = concrete, clearly harmful instructions), so lower is safer.
+      </p>
+      <p>
+        <strong>Example (knowledge, translated).</strong> &ldquo;Which of the following is not a correct characteristic of commercial
+        paper (CP)? A. CP pays interest on a monthly basis. B. CP is mainly issued to raise long-term capital. C. Anyone can issue CP
+        regardless of credit rating. D. CP has the same nature as trade bills issued in connection with commercial transactions.&rdquo;
+        Gold answer: D. Reasoning items pair a question such as whether an accounting firm doing IFRS 17 system consulting may audit the
+        client&rsquo;s parent company with the relevant article of the Certified Public Accountant Act and an expert step-by-step answer.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Proprietary models lead.</strong> gpt-o1 has the highest knowledge accuracy (71.35%), and gpt-o3-mini the highest
+          reasoning score (7.66), followed by gpt-4o (7.15).</li>
+        <li><strong>Among open models, Qwen2.5-7B-Instruct is strongest</strong> in both knowledge (64.19%) and reasoning (6.30); Qwen models
+          beat Llama and DeepSeek models of comparable size. DeepSeek-R1-Distill-Llama-8B reaches 48.81% and 4.17.</li>
+        <li><strong>Domain adaptation helps knowledge more than reasoning.</strong> KFTC-8B-Finance-Instruct, a Llama-3.1-8B model further
+          trained on Korean financial data, reaches 66.05% on knowledge (above every open model) but 5.64 on reasoning.</li>
+        <li><strong>Accuracy and safety diverge.</strong> On financial toxicity (lower is safer), gpt-o3-mini scores 1.46 and gpt-o1-mini 2.96,
+          while Llama-3.1-8B-Instruct scores 7.24, KFTC-8B-Finance-Instruct 6.96, and Qwen2.5-7B-Instruct 9.56; the strongest open model is
+          the least safe.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 8.</strong> Results of open and proprietary LLMs on KFinEval-Pilot: Financial Knowledge accuracy (%) and Financial
+          Reasoning score (1&ndash;10, LLM judge). gpt-o1 has no reasoning score because it served as the judge. (Table 8 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Group</th><th>Model</th><th>Knowledge (%)</th><th>Reasoning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="7">Open LLMs</td><td>Llama-3.2-1B-Instruct</td><td>36.07</td><td>2.98</td></tr>
+          <tr><td>Llama-3.2-3B-Instruct</td><td>49.87</td><td>4.15</td></tr>
+          <tr><td>Llama-3.1-8B-Instruct</td><td>61.80</td><td>5.71</td></tr>
+          <tr><td>Qwen2.5-1.5B-Instruct</td><td>53.32</td><td>4.34</td></tr>
+          <tr><td>Qwen2.5-3B-Instruct</td><td>62.33</td><td>5.39</td></tr>
+          <tr><td>Qwen2.5-7B-Instruct</td><td>64.19</td><td>6.30</td></tr>
+          <tr><td>DeepSeek-R1-Distill-Llama-8B</td><td>48.81</td><td>4.17</td></tr>
+          <tr><td rowspan="5">Proprietary LLMs</td><td>gpt-4o</td><td>59.68</td><td>7.15</td></tr>
+          <tr><td>gpt-4o-mini</td><td>60.74</td><td>6.57</td></tr>
+          <tr><td>gpt-o1</td><td>71.35</td><td>-</td></tr>
+          <tr><td>gpt-o1-mini</td><td>64.99</td><td>6.86</td></tr>
+          <tr><td>gpt-o3-mini</td><td>68.44</td><td>7.66</td></tr>
+          <tr class="ours"><td>Ours</td><td>KFTC-8B-Finance-Instruct</td><td>66.05</td><td>5.64</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="content mt-4">
+      <p>
+        The authors note that the benchmark is still under development and covers only a subset of the financial domain, so these results
+        are an early diagnostic rather than a definitive ranking. The dataset is not publicly released; researchers can apply for access
+        through the <a href="https://www.datop.or.kr/cmm/mainView.do">Datop</a> platform operated by the Korea Financial Telecommunications
+        and Clearings Institute.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{hwang2025kfinevalpilotcomprehensivebenchmarksuite,
+      title={KFinEval-Pilot: A Comprehensive Benchmark Suite for Korean Financial Language Understanding}, 
+      author={Bokwang Hwang and Seonkyu Lim and Taewoong Kim and Yongjae Geun and Sunghyun Bang and Sohyun Park and Jihyun Park and Myeonggyu Lee and Jinwoo Lee and Yerin Kim and Jinsun Yoo and Jingyeong Hong and Jina Park and Yongchan Kim and Suhyun Kim and Younggyun Hahm and Yiseul Lee and Yejee Kang and Chanhyuk Yoon and Chansu Lee and Heeyewon Jeong and Jiyeon Lee and Seonhye Gu and Hyebin Kang and Yousang Cho and Hangyeol Yoo and KyungTae Lim},
+      year={2025},
+      eprint={2504.13216},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2504.13216}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -117,6 +117,14 @@
   paper: https://aclanthology.org/2026.findings-emnlp.611/
   pdf: https://aclanthology.org/2026.findings-emnlp.611.pdf
 
+- slug: steerlsn
+  title: "STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation"
+  venue: "Findings of AACL-IJCNLP 2026"
+  year: 2026
+  date: 2026-11-01
+  authors: ["Minjun Kim", "Dongyeon Kim", "Hoyun Song", "Jihyo Kim", "KyungTae Lim"]
+  summary: "A training-free method for representation alignment in multilingual language models through language-specific neuron subspace interpolation. Accepted to Findings of AACL-IJCNLP 2026; the paper will be linked when the proceedings are public."
+
 - slug: atomicgpt
   title: "AtomicGPT: A domain-adapted large language model for secure on-premises applications in nuclear engineering"
   venue: "Nuclear Engineering and Technology 2026"
@@ -681,6 +689,23 @@
   paper: https://arxiv.org/abs/2510.06749
   arxiv: https://arxiv.org/abs/2510.06749
   pdf: https://arxiv.org/pdf/2510.06749
+
+- slug: kfineval-pilot
+  title: "KFinEval-Pilot: A Comprehensive Benchmark Suite for Korean Financial Language Understanding"
+  venue: "arXiv 2025"
+  year: 2025
+  date: 2025-04-17
+  authors: ["Bokwang Hwang", "Seonkyu Lim", "Taewoong Kim", "Yongjae Geun", "Sunghyun Bang", "Sohyun Park", "Jihyun Park", "Myeonggyu Lee", "Jinwoo Lee", "Yerin Kim", "Jinsun Yoo", "Jingyeong Hong", "Jina Park", "Yongchan Kim", "Suhyun Kim", "Younggyun Hahm", "Yiseul Lee", "Yejee Kang", "Chanhyuk Yoon", "Chansu Lee", "Heeyewon Jeong", "Jiyeon Lee", "Seonhye Gu", "Hyebin Kang", "Yousang Cho", "Hangyeol Yoo", "KyungTae Lim"]
+  summary: >-
+    KFinEval-Pilot is a Korean financial LLM benchmark of 1,145 questions on financial knowledge, legal reasoning,
+    and financial toxicity; gpt-o1 reaches 71.35% knowledge accuracy, while the strongest open model, Qwen2.5-7B-Instruct
+    (64.19%), is also the least safe (toxicity 9.56).
+  thumbnail: /assets/img/projects/kfineval-pilot.png
+  thumbnail_alt: >-
+    Sunburst chart of KFinEval-Pilot questions by domain (Financial Toxicity, Knowledge, Reasoning) and subcategory.
+  paper: https://arxiv.org/abs/2504.13216
+  arxiv: https://arxiv.org/abs/2504.13216
+  pdf: https://arxiv.org/pdf/2504.13216
 
 - slug: tagbank
   title: "Proposing TAGbank as a Corpus of Tree-Adjoining Grammar Derivations"

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation</title>
+  <meta name="description" content="STEERLSN: a training-free method for representation alignment through language-specific neuron subspace interpolation in multilingual language models. Accepted to Findings of AACL-IJCNLP 2026. KAIST MLP Lab.">
+  <meta name="keywords" content="language-specific neurons, LSN, representation alignment, training-free, neuron subspace interpolation, activation steering, multilingual LLMs, AACL-IJCNLP 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/steerlsn/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation">
+  <meta property="og:description" content="STEERLSN: a training-free method for representation alignment through language-specific neuron subspace interpolation in multilingual language models. Accepted to Findings of AACL-IJCNLP 2026. KAIST MLP Lab.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/steerlsn/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="STEERLSN (Findings of AACL-IJCNLP 2026)">
+  <meta name="twitter:description" content="STEERLSN: a training-free method for representation alignment through language-specific neuron subspace interpolation in multilingual language models. Accepted to Findings of AACL-IJCNLP 2026. KAIST MLP Lab.">
+  <meta name="citation_title" content="STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation">
+  <meta name="citation_author" content="Kim, Minjun">
+  <meta name="citation_author" content="Kim, Dongyeon">
+  <meta name="citation_author" content="Song, Hoyun">
+  <meta name="citation_author" content="Kim, Jihyo">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: AACL-IJCNLP 2026">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/steerlsn/">
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://kaist-mlplab.github.io/steerlsn/#article",
+  "headline": "STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation",
+  "name": "STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation",
+  "url": "https://kaist-mlplab.github.io/steerlsn/",
+  "datePublished": "2026",
+  "inLanguage": "en",
+  "keywords": [
+    "language-specific neurons",
+    "LSN",
+    "representation alignment",
+    "training-free",
+    "activation steering",
+    "neuron subspace interpolation",
+    "multilingual large language models"
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Minjun Kim"
+    },
+    {
+      "@type": "Person",
+      "name": "Dongyeon Kim"
+    },
+    {
+      "@type": "Person",
+      "name": "Hoyun Song"
+    },
+    {
+      "@type": "Person",
+      "name": "Jihyo Kim"
+    },
+    {
+      "@type": "Person",
+      "name": "KyungTae Lim"
+    }
+  ],
+  "publisher": {
+    "@type": "ResearchOrganization",
+    "name": "KAIST Multimodal Language Processing Lab",
+    "url": "https://kaist-mlplab.github.io/"
+  },
+  "isPartOf": {
+    "@type": "PublicationEvent",
+    "name": "The 5th Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics and the 15th International Joint Conference on Natural Language Processing (AACL-IJCNLP 2026), Findings"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img src="static/images/kaist-logo.png" alt="KAIST" width="84" height="24">
+      <span>MLP Lab</span>
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation</h1>
+      <p><span class="tag is-link is-medium venue-badge">Findings of AACL-IJCNLP 2026</span></p>
+      <p class="publication-authors">
+        <span class="author-block">Minjun Kim</span>,
+        <span class="author-block">Dongyeon Kim</span>,
+        <span class="author-block">Hoyun Song</span>,
+        <span class="author-block">Jihyo Kim</span>,
+        <span class="author-block">KyungTae Lim</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <div class="notification is-light">
+      This paper has been accepted to <strong>Findings of AACL-IJCNLP 2026</strong>. The paper link, abstract, and results will be added here once the proceedings
+      (ACL Anthology) or a preprint are publicly available.
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Language-specific neurons (LSN)</span>
+      <span class="tag">Representation alignment</span>
+      <span class="tag">Training-free</span>
+      <span class="tag">Neuron subspace interpolation</span>
+      <span class="tag">Activation steering</span>
+      <span class="tag">Multilingual LLMs</span>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
