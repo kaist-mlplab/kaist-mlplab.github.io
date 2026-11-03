@@ -322,19 +322,6 @@
   arxiv: https://arxiv.org/abs/2608.27035
   pdf: https://arxiv.org/pdf/2608.27035
 
-- slug: solar-open-2
-  title: "Solar Open 2 Technical Report"
-  venue: "Technical Report 2026"
-  year: 2026
-  date: 2026-07-22
-  authors: ["Sungrae Park", "Sanghoon Kim", "Gyoungjin Gim", "Jungho Cho", "Hyunwoong Ko", "Minbyul Jeong", "Minjeong Kim", "Keunwoo Choi", "Chaehun Shin", "Chanwoong Yoon", "Dongjun Kim", "Eunwon Kim", "Gyungin Shin", "Hyeonju Lee", "Hyungkyu Kang", "Inseo Song", "Jisu Bae", "Jiyoon Han", "Jiyun Lee", "Joonkee Kim", "Junyeop Lee", "Mikyoung Cha", "Sangwon Yu", "Sehwan Joo", "Seokyoon Kang", "Seonghoon Yang", "Seung Shin", "Seunghyun Lee", "Seungseop Lim", "Seungyoun Shin", "Sukyung Lee", "Taegyeong Eo", "Taehwan Oh", "Taewhoo Lee", "Wonho Song", "Wonjun Oh", "Wonseok Hwang", "Yunsu Kim", "Yura Shim", "Hwalsuk Lee", "Sunghun Kim", "Du-Seong Chang", "Kyunghyun Cho", "Seungju Han", "Yejin Choi", "Junsuk Choe", "Hwaran Lee", "Minjeong Ban", "Yun Taewon", "Hwanjun Song", "Jae-Gil Lee", "KyungTae Lim", "Alice Oh"]
-  summary: "Solar Open 2 is Upstage's 250B-A15B Mixture-of-Experts LLM for long-horizon agents, with hybrid linear/softmax attention and a 1M-token context; it records the highest Korean benchmark average (85.4) among the models compared and 86.8 on the Ko-GDPval officework-agent benchmark."
-  thumbnail: /assets/img/projects/solar-open-2.png
-  thumbnail_alt: "Benchmark bar charts comparing Solar Open 2 with other models on knowledge, agentic, and Korean tasks."
-  paper: https://arxiv.org/abs/2607.20062
-  arxiv: https://arxiv.org/abs/2607.20062
-  pdf: https://arxiv.org/pdf/2607.20062
-
 - slug: korean-adnominal-endings
   title: "Annotating Korean adnominal ending constructions in corpus data: Beyond relative-clause identification"
   venue: "arXiv 2026"
@@ -454,19 +441,6 @@
   code: https://github.com/HoyunS/MentalBench
   dataset: https://huggingface.co/datasets/hysong/MentalBench
 
-- slug: solar-open
-  title: "Solar Open Technical Report"
-  venue: "Technical Report 2026"
-  year: 2026
-  date: 2026-01-11
-  authors: ["Sungrae Park", "Sanghoon Kim", "Jungho Cho", "Gyoungjin Gim", "Dawoon Jung", "Mikyoung Cha", "Eunhae Choo", "Taekgyu Hong", "Minbyul Jeong", "SeHwan Joo", "Minsoo Khang", "Eunwon Kim", "Minjeong Kim", "Sujeong Kim", "Yunsu Kim", "Hyeonju Lee", "Seunghyun Lee", "Sukyung Lee", "Siyoung Park", "Gyungin Shin", "Inseo Song", "Wonho Song", "Seonghoon Yang", "Seungyoun Yi", "Sanghoon Yoon", "Jeonghyun Ko", "Seyoung Song", "Keunwoo Choi", "Hwalsuk Lee", "Sunghun Kim", "Du-Seong Chang", "Kyunghyun Cho", "Junsuk Choe", "Hwaran Lee", "Jae-Gil Lee", "KyungTae Lim", "Alice Oh"]
-  summary: "Solar Open is Upstage's 102B-parameter bilingual Korean-English Mixture-of-Experts LLM, trained on 20T tokens (4.5T synthetic) with the SnapPO RL framework; it reaches 73.0 on KMMLU and 84.4 on KorMedMCQA."
-  thumbnail: /assets/img/projects/solar-open.png
-  thumbnail_alt: "Bar chart comparing Solar Open with gpt-oss-120b and GLM 4.5 Air on Korean and English category averages."
-  paper: https://arxiv.org/abs/2601.07022
-  arxiv: https://arxiv.org/abs/2601.07022
-  pdf: https://arxiv.org/pdf/2601.07022
-
 - slug: llm-planning-evaluation
   title: "Can LLMs Truly Plan? A Comprehensive Evaluation of Planning Capabilities"
   venue: "Findings of EMNLP 2025"
@@ -491,20 +465,6 @@
   arxiv: https://arxiv.org/abs/2505.16566
   pdf: https://aclanthology.org/2025.findings-emnlp.465.pdf
   code: https://github.com/hbnu-kilab/ScholarBench
-
-- slug: multilingual-error-annotation
-  title: "Multilingual Grammatical Error Annotation: Combining Language-Agnostic Framework with Language-Specific Flexibility"
-  venue: "BEA 2025"
-  year: 2025
-  date: 2025-07-31
-  authors: ["Mengyang Qiu", "Tran Minh Nguyen", "Zihao Huang", "Zelong Li", "Yang Gu", "Qingyu Gao", "Siliang Liu", "Jungyeul Park"]
-  summary: "A standardized, modular framework for multilingual grammatical error annotation that combines a language-agnostic Missing/Replacement/Unnecessary core with language-specific extensions. errant is reimplemented on stanza (English F0.5 0.5503 vs. 0.5501) and applied to German, Czech, Korean, and Chinese."
-  thumbnail: /assets/img/projects/multilingual-error-annotation.png
-  thumbnail_alt: "M2 annotation comparison: original errant labels M:OTHER and R:VERB:FORM, our implementation labels M:PRON and R:VERB -> AUX VERB."
-  paper: https://aclanthology.org/2025.bea-1.15/
-  arxiv: https://arxiv.org/abs/2506.07719
-  pdf: https://aclanthology.org/2025.bea-1.15.pdf
-  code: https://github.com/open-writing-evaluation/jp_errant_bea
 
 - slug: trade-nuclear-proliferation
   title: "Integrating Econometrics and Artificial Intelligence to Assess the Impact of Trade on Nuclear Proliferation"
@@ -544,30 +504,6 @@
   paper: https://aclanthology.org/2025.findings-naacl.250/
   pdf: https://aclanthology.org/2025.findings-naacl.250.pdf
 
-- slug: chinese-error-typology
-  title: "Improving Automatic Grammatical Error Annotation for Chinese Through Linguistically-Informed Error Typology"
-  venue: "COLING 2025"
-  year: 2025
-  date: 2025-01-19
-  authors: ["Yang Gu", "Zihao Huang", "Min Zeng", "Mengyang Qiu", "Jungyeul Park"]
-  summary: "Proposes a linguistically-informed error typology for automatic Chinese grammatical error annotation that separates pinyin, shape and multifaceted-similarity errors, de-particle errors and character/word-order errors. The new types give detailed feedback on 12.12% of errors in L1 and 16.78% in L2 Chinese writing."
-  thumbnail: /assets/img/projects/chinese-error-typology.png
-  thumbnail_alt: "Examples of Chinese spelling errors in learner sentences and their corrections."
-  paper: https://aclanthology.org/2025.coling-main.189/
-  pdf: https://aclanthology.org/2025.coling-main.189.pdf
-
-- slug: gec-alignment-evaluation
-  title: "Refined Evaluation for End-to-End Grammatical Error Correction Using an Alignment-Based Approach"
-  venue: "COLING 2025"
-  year: 2025
-  date: 2025-01-19
-  authors: ["Junrui Wang", "Mengyang Qiu", "Yang Gu", "Zihao Huang", "Jungyeul Park"]
-  summary: "jp-errant aligns gold and system sentences in linear time so that grammatical error correction can be evaluated end-to-end from raw text with mismatched sentence boundaries; it reproduces errant scores (F0.5 0.5582 for GECToR in both) and gives consistent error annotation for Chinese and Korean."
-  thumbnail: /assets/img/projects/gec-alignment-evaluation.png
-  thumbnail_alt: "Three-step jp-errant example with gold and stanza m2 files: preparation with different sentence boundaries, sentence alignment into one sentence, and re-indexing of the edit from positions 0-1 to 3-4."
-  paper: https://aclanthology.org/2025.coling-main.52/
-  pdf: https://aclanthology.org/2025.coling-main.52.pdf
-
 - slug: scv-multi-vector-retrieval
   title: "SCV: Light and Effective Multi-Vector Retrieval with Sequence Compressive Vectors"
   venue: "COLING 2025 Industry"
@@ -594,25 +530,6 @@
   pdf: https://aclanthology.org/2025.coling-main.411.pdf
   dataset: https://huggingface.co/datasets/MLP-KTLim/VLR-Bench
 
-- slug: korean-eojeol-constituency
-  title: "Constituency Structure over Eojeol in Korean Treebanks"
-  venue: "arXiv 2025"
-  year: 2025
-  date: 2025-12-27
-  authors: ["Jungyeul Park", "Chulwoo Park"]
-  summary: >-
-    An eojeol-based constituency representation for Korean treebanks, with morphology in a separate
-    non-constituent layer; normalizing the Sejong, Penn Korean, and KAIST treebanks to eojeol terminals
-    roughly halves their yields (e.g. 30.20 to 15.20 terminals per sentence for Penn Korean) and gives
-    them a shared, comparable constituency backbone.
-  thumbnail: /assets/img/projects/korean-eojeol-constituency.png
-  thumbnail_alt: >-
-    Eojeol-based constituency tree of a Korean sentence from the Sejong treebank, with UPOS
-    preterminals over whole-eojeol leaves.
-  paper: https://arxiv.org/abs/2512.22487
-  arxiv: https://arxiv.org/abs/2512.22487
-  pdf: https://arxiv.org/pdf/2512.22487
-
 - slug: double-perovskite-generation
   title: "Enhanced Conditional Generation of Double Perovskite by Knowledge-Guided Language Model Feedback"
   venue: "arXiv 2025"
@@ -630,25 +547,6 @@
   paper: https://arxiv.org/abs/2511.22307
   arxiv: https://arxiv.org/abs/2511.22307
   pdf: https://arxiv.org/pdf/2511.22307
-
-- slug: punctuation-aware-binarization
-  title: "Punctuation-aware treebank tree binarization"
-  venue: "arXiv 2025"
-  year: 2025
-  date: 2025-10-13
-  authors: ["Eitan Klinger", "Vivaan Wadhwa", "Jungyeul Park"]
-  summary: >-
-    A reversible pipeline and evaluation suite for punctuation-aware treebank binarization that
-    keeps punctuation as sibling nodes before binarization; on the Penn Treebank it raises
-    head-child prediction accuracy from 73.66% (Collins rules) and 86.66% (MLP) to 91.85%.
-  thumbnail: /assets/img/projects/punctuation-aware-binarization.png
-  thumbnail_alt: >-
-    Original tree, standard binarization that misattaches the period, and punctuation-aware
-    binarization that preserves the clause.
-  arxiv: https://arxiv.org/abs/2510.10951
-  pdf: https://arxiv.org/pdf/2510.10951
-  code: https://github.com/jungyeul/treebank-tree-binarization
-  dataset: https://doi.org/10.5281/zenodo.17336455
 
 - slug: kormo
   title: "KORMo: Korean Open Reasoning Model for Everyone"
@@ -670,108 +568,6 @@
   code: https://github.com/MLP-Lab/KORMo-tutorial
   model: https://huggingface.co/KORMo-Team/KORMo-10B-sft
   dataset: https://huggingface.co/KORMo-Team
-
-- slug: fluency-multi-reference-gec
-  title: "A Formal Framework for Fluency-based Multi-Reference Evaluation in Grammatical Error Correction"
-  venue: "arXiv 2025"
-  year: 2025
-  date: 2025-10-08
-  authors: ["Eitan Klinger", "Zihao Huang", "Tran Minh Nguyen", "Emma Jayeon Park", "Yige Chen", "Yang Gu", "Qingyu Gao", "Siliang Liu", "Mengyang Qiu", "Jungyeul Park"]
-  summary: >-
-    A formal framework for fluency-based multi-reference evaluation in grammatical error correction
-    (GEC) that treats multi-reference GLEU as an aggregation problem; the merged n-gram strategy
-    scores highest on all seven Czech, Estonian, and Ukrainian corpora, about +0.06 GLEU over
-    single-reference evaluation on average.
-  thumbnail: /assets/img/projects/fluency-multi-reference-gec.png
-  thumbnail_alt: >-
-    Line chart of corpus-level GLEU on MuCGEC for 1 to 7 references: merged GLEU rises highest,
-    select-best and weighted plateau below it, and simple average stays lowest.
-  paper: https://arxiv.org/abs/2510.06749
-  arxiv: https://arxiv.org/abs/2510.06749
-  pdf: https://arxiv.org/pdf/2510.06749
-
-- slug: kfineval-pilot
-  title: "KFinEval-Pilot: A Comprehensive Benchmark Suite for Korean Financial Language Understanding"
-  venue: "arXiv 2025"
-  year: 2025
-  date: 2025-04-17
-  authors: ["Bokwang Hwang", "Seonkyu Lim", "Taewoong Kim", "Yongjae Geun", "Sunghyun Bang", "Sohyun Park", "Jihyun Park", "Myeonggyu Lee", "Jinwoo Lee", "Yerin Kim", "Jinsun Yoo", "Jingyeong Hong", "Jina Park", "Yongchan Kim", "Suhyun Kim", "Younggyun Hahm", "Yiseul Lee", "Yejee Kang", "Chanhyuk Yoon", "Chansu Lee", "Heeyewon Jeong", "Jiyeon Lee", "Seonhye Gu", "Hyebin Kang", "Yousang Cho", "Hangyeol Yoo", "KyungTae Lim"]
-  summary: >-
-    KFinEval-Pilot is a Korean financial LLM benchmark of 1,145 questions on financial knowledge, legal reasoning,
-    and financial toxicity; gpt-o1 reaches 71.35% knowledge accuracy, while the strongest open model, Qwen2.5-7B-Instruct
-    (64.19%), is also the least safe (toxicity 9.56).
-  thumbnail: /assets/img/projects/kfineval-pilot.png
-  thumbnail_alt: >-
-    Sunburst chart of KFinEval-Pilot questions by domain (Financial Toxicity, Knowledge, Reasoning) and subcategory.
-  paper: https://arxiv.org/abs/2504.13216
-  arxiv: https://arxiv.org/abs/2504.13216
-  pdf: https://arxiv.org/pdf/2504.13216
-
-- slug: tagbank
-  title: "Proposing TAGbank as a Corpus of Tree-Adjoining Grammar Derivations"
-  venue: "arXiv 2025"
-  year: 2025
-  date: 2025-04-07
-  authors: ["Jungyeul Park"]
-  summary: >-
-    TAGbank is a proposed corpus of Tree-Adjoining Grammar (TAG) derivations automatically extracted
-    from phrase-structure treebanks such as the Penn Treebank, following CCGbank, with a token-level
-    format recording heads, initial/auxiliary elementary tree types, and bracketing.
-  thumbnail: /assets/img/projects/tagbank.png
-  thumbnail_alt: >-
-    TAG elementary trees, with substitution sites and adjunction foot nodes, extracted from a Penn
-    Treebank sentence.
-  paper: https://arxiv.org/abs/2504.05226
-  arxiv: https://arxiv.org/abs/2504.05226
-  pdf: https://arxiv.org/pdf/2504.05226
-
-- slug: foundations-evaluations-nlp
-  title: "Foundations and Evaluations in NLP"
-  venue: "HDR Thesis 2025"
-  year: 2025
-  date: 2025-04-02
-  authors: ["Jungyeul Park"]
-  summary: >-
-    Habilitation (HDR) thesis on two foundations of NLP: a morpheme-based annotation scheme for
-    Korean, from segmentation granularity to POS tagging, NER, dependency and FrameNet parsing, and
-    the jp-algorithm, an alignment-based framework for end-to-end evaluation of tokenization,
-    sentence boundaries, parsing (jp-evalb), and GEC (jp-errant).
-  paper: https://arxiv.org/abs/2504.01342
-  arxiv: https://arxiv.org/abs/2504.01342
-  pdf: https://arxiv.org/pdf/2504.01342
-
-- slug: chinese-gec-survey
-  title: "Chinese Grammatical Error Correction: A Survey"
-  venue: "arXiv 2025"
-  year: 2025
-  date: 2025-04-01
-  authors: ["Mengyang Qiu", "Qingyu Gao", "Linxuan Yang", "Yang Gu", "Tran Minh Nguyen", "Zihao Huang", "Jungyeul Park"]
-  summary: >-
-    A survey of Chinese grammatical error correction (CGEC) reviewing ten datasets (CGED to CEFE)
-    and their annotation schemes, unit-sensitive character- vs word-level and multi-reference
-    evaluation, and systems from SMT and NMT to pre-trained and large language models.
-  paper: https://arxiv.org/abs/2504.00977
-  arxiv: https://arxiv.org/abs/2504.00977
-  pdf: https://arxiv.org/pdf/2504.00977
-
-- slug: chinese-word-segmentation-parsing
-  title: "Parsing Through Boundaries in Chinese Word Segmentation"
-  venue: "arXiv 2025"
-  year: 2025
-  date: 2025-03-29
-  authors: ["Yige Chen", "Zelong Li", "Cindy Zhang", "Changbing Yang", "Zejiao Zeng", "Amandisa Cady", "Ai Ka Lee", "Eunkyul Leah Jo", "Haihua Pan", "Jungyeul Park"]
-  summary: >-
-    How Chinese word segmentation shapes dependency parsing: re-segmenting the Chinese GSD treebank
-    with LTP, CTB, and PKU schemes and training stanza parsers yields UAS from 80.05 (GSD) to 73.21
-    (PKU), with a web tool that visualizes the resulting dependency trees side by side.
-  thumbnail: /assets/img/projects/chinese-word-segmentation-parsing.png
-  thumbnail_alt: >-
-    Visualization tool showing dependency parses of one Chinese sentence under LTP, Penn, PKU, and
-    GSD word segmentation.
-  paper: https://arxiv.org/abs/2503.23091
-  arxiv: https://arxiv.org/abs/2503.23091
-  pdf: https://arxiv.org/pdf/2503.23091
-  code: https://github.com/XDDz123/Chinese_WB_Dependency_Visualization
 
 - slug: korean-dependency-morphosyntax
   title: "Enhancing Korean Dependency Parsing with Morphosyntactic Features"
@@ -797,33 +593,6 @@
   paper: https://aclanthology.org/2024.findings-emnlp.718/
   pdf: https://aclanthology.org/2024.findings-emnlp.718.pdf
   dataset: https://github.com/universalkorean/adverbial-phrase
-
-- slug: alignment-parseval
-  title: "A Novel Alignment-based Approach for PARSEVAL Measures"
-  venue: "Computational Linguistics 2024"
-  year: 2024
-  date: 2024-09-01
-  authors: ["Eunkyul Leah Jo", "Angela Yoonseo Park", "Jungyeul Park"]
-  summary: "A squib in Computational Linguistics proposing alignment-based PARSEVAL measures: gold and system sentences and words are aligned before constituents are matched, so constituency parses from raw text can be evaluated even when sentence boundaries and tokenization differ, with the same complexity as EVALB."
-  thumbnail: /assets/img/projects/alignment-parseval.png
-  thumbnail_alt: "Gold and system constituent span charts for 'Click here To view it .', where two system sentences are merged under a dummy root @S."
-  paper: https://aclanthology.org/2024.cl-3.10/
-  pdf: https://aclanthology.org/2024.cl-3.10.pdf
-  code: https://github.com/jungyeul/alignment-based-PARSEVAL
-
-- slug: jp-evalb
-  title: "jp-evalb: Robust Alignment-based PARSEVAL Measures"
-  venue: "NAACL 2024 Demo"
-  year: 2024
-  date: 2024-06-16
-  authors: ["Jungyeul Park", "Junrui Wang", "Eunkyul Leah Jo", "Angela Yoonseo Park"]
-  summary: "jp-evalb is an alignment-based alternative to evalb for constituency parsing evaluation: it aligns sentences and words before computing PARSEVAL scores, so parses with different tokenization or sentence boundaries can still be evaluated. A legacy option reproduces evalb exactly, and all five known evalb bug cases are scored."
-  thumbnail: /assets/img/projects/jp-evalb.png
-  thumbnail_alt: "Gold vs. system constituent span charts for word mismatches (ca n't vs. can not; Hebrew morphemes) and a sentence mismatch merged under a dummy root."
-  paper: https://aclanthology.org/2024.naacl-demo.7/
-  arxiv: https://arxiv.org/abs/2405.14150
-  pdf: https://aclanthology.org/2024.naacl-demo.7.pdf
-  code: https://github.com/jungyeul/alignment-based-PARSEVAL
 
 - slug: x-llava
   title: "X-LLaVA: Optimizing Bilingual Large Vision-Language Alignment"
@@ -853,17 +622,6 @@
   code: https://github.com/MLP-Lab/Bllossom
   model: https://huggingface.co/Bllossom
 
-- slug: gec-prompting-proficiency
-  title: "Evaluating Prompting Strategies for Grammatical Error Correction Based on Language Proficiency"
-  venue: "LREC-COLING 2024"
-  year: 2024
-  date: 2024-05-20
-  authors: ["Min Zeng", "Jiexin Kuang", "Mengyang Qiu", "Jayoung Song", "Jungyeul Park"]
-  summary: "An analysis of zero-shot, few-shot, and fine-tuned GPT models for grammatical error correction (GEC) across learner proficiency levels A, B, and C. Fine-tuned GPT-2 reaches F0.5 0.4029, and LLM overcorrection appears mainly in advanced (level C) writing."
-  paper: https://aclanthology.org/2024.lrec-main.569/
-  arxiv: https://arxiv.org/abs/2402.15930
-  pdf: https://aclanthology.org/2024.lrec-main.569.pdf
-
 - slug: korean-framenet
   title: "Towards Standardized Annotation and Parsing for Korean FrameNet"
   venue: "LREC-COLING 2024"
@@ -887,19 +645,6 @@
   thumbnail_alt: "A Korean sentence split into nominative, accusative, adjunct, and target-verb chunks for semantic role labeling."
   paper: https://aclanthology.org/2024.lrec-main.65/
   pdf: https://aclanthology.org/2024.lrec-main.65.pdf
-
-- slug: preprocessing-joint-evaluation
-  title: "An Untold Story of Preprocessing Task Evaluation: An Alignment-based Joint Evaluation Approach"
-  venue: "LREC-COLING 2024"
-  year: 2024
-  date: 2024-05-20
-  authors: ["Eunkyul Leah Jo", "Angela Yoonseo Park", "Grace Zhang", "Izia Xiaoxiao Wang", "Junrui Wang", "MingJia Mao", "Jungyeul Park"]
-  summary: "The jp-algorithm jointly evaluates tokenization and sentence boundary detection (SBD) by aligning system and gold sentences and tokens before counting true positives. On six English UD corpora its counts match the CoNLL 2018 evaluation script while working on plain text."
-  thumbnail: /assets/img/projects/preprocessing-joint-evaluation.png
-  thumbnail_alt: "Input, system, gold, and sentence-aligned results for 'Click here To view it.', where two system sentences are merged to align with one gold sentence."
-  paper: https://aclanthology.org/2024.lrec-main.119/
-  pdf: https://aclanthology.org/2024.lrec-main.119.pdf
-  code: https://github.com/jungyeul/jp-preprocessing
 
 - slug: bok-vqa
   title: "BOK-VQA: Bilingual outside Knowledge-Based Visual Question Answering via Graph Representation Pretraining"
@@ -931,17 +676,6 @@
     NLP-based system aimed at reducing control-room staffing.
   paper: https://doi.org/10.1080/00295450.2023.2295147
 
-- slug: prompting-text-denoising
-  title: "Frustratingly Simple Prompting-based Text Denoising"
-  venue: "ICLR 2024 Tiny Paper"
-  year: 2024
-  date: 2024-03-19
-  authors: ["Jungyeul Park", "Mengyang Qiu"]
-  summary: "Simple prompting with gpt-3.5-turbo-instruct repairs encoding errors and anonymization placeholders in the ASAP essay dataset, with ERRANT keeping only those edits. Training on the denoised text raises automated essay scoring QWK from 0.6047 to 0.6143."
-  paper: https://openreview.net/forum?id=XlJRjhIkNi
-  arxiv: https://arxiv.org/abs/2402.15931
-  pdf: https://openreview.net/pdf?id=XlJRjhIkNi
-
 - slug: sow-posture-estrus
   title: "Sow Posture Analysis and Estrus Prediction Using Closed-Circuit Television Cameras"
   venue: "IEEE Access 2024"
@@ -953,24 +687,6 @@
     posture and holding-time sequences predicts estrus with 86% accuracy.
   paper: https://ieeexplore.ieee.org/document/10411845
   pdf: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10411845
-
-- slug: empty-category-recovery
-  title: "Revisiting Absence with Symptoms that *T* Show up Decades Later to Recover Empty Categories"
-  venue: "arXiv 2024"
-  year: 2024
-  date: 2024-12-02
-  authors: ["Emily Chen", "Nicholas Huang", "Casey Robinson", "Kevin Xu", "Zihao Huang", "Jungyeul Park"]
-  summary: >-
-    Null element (empty category) recovery in the English, Chinese, and Korean Penn Treebanks: a
-    rule-based approach extended to Chinese reaches 80.00 average F1, and a language-agnostic T5
-    seq2seq model reaches up to 90.94 (English), 85.38 (Chinese), and 88.98 (Korean).
-  thumbnail: /assets/img/projects/empty-category-recovery.png
-  thumbnail_alt: >-
-    English Penn Treebank tree with a null subject trace next to the same tree parsed without
-    traces.
-  paper: https://arxiv.org/abs/2412.01109
-  arxiv: https://arxiv.org/abs/2412.01109
-  pdf: https://arxiv.org/pdf/2412.01109
 
 - slug: k-ud
   title: "K-UD: Revising Korean Universal Dependencies Guidelines"
@@ -984,37 +700,3 @@
   paper: https://arxiv.org/abs/2412.00856
   arxiv: https://arxiv.org/abs/2412.00856
   pdf: https://arxiv.org/pdf/2412.00856
-
-- slug: french-ner-extrinsic
-  title: "Comparative Analysis of Extrinsic Factors for NER in French"
-  venue: "arXiv 2024"
-  year: 2024
-  date: 2024-10-16
-  authors: ["Grace Yang", "Zhiyi Li", "Yadong Liu", "Jungyeul Park"]
-  summary: >-
-    French named entity recognition (NER) with limited data: moving from CRF to BiLSTM with FlauBERT
-    embeddings, using the BIOES annotation scheme, and adding data augmentation raises F1 from 62.41
-    to 79.39 on Europeana French newspaper NER.
-  paper: https://arxiv.org/abs/2410.12750
-  arxiv: https://arxiv.org/abs/2410.12750
-  pdf: https://arxiv.org/pdf/2410.12750
-
-- slug: neural-awe-feedback
-  title: "Neural Automated Writing Evaluation with Corrective Feedback"
-  venue: "arXiv 2024"
-  year: 2024
-  date: 2024-02-27
-  authors: ["Izia Xiaoxiao Wang", "Xihan Wu", "Edith Coates", "Min Zeng", "Jiexin Kuang", "Siliang Liu", "Mengyang Qiu", "Jungyeul Park"]
-  summary: >-
-    An integrated neural automated writing evaluation (AWE) and grammatical error correction (GEC)
-    system for second language learners: RoBERTa rubric scoring on denoised ASAP/ASAP++ (average
-    cross-prompt QWK 0.6143) plus a BERT-based seq2seq GEC model reaching 65.29 F0.5 on the BEA-2019
-    test set.
-  thumbnail: /assets/img/projects/neural-awe-feedback.png
-  thumbnail_alt: >-
-    Interface of the integrated AWE and GEC system: a learner essay with inline corrections and a
-    row of overall and rubric scores.
-  paper: https://arxiv.org/abs/2402.17613
-  arxiv: https://arxiv.org/abs/2402.17613
-  pdf: https://arxiv.org/pdf/2402.17613
-  demo: https://youtu.be/CoqmBqqcXio
