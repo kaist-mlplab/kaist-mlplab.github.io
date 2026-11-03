@@ -6,13 +6,6 @@ description: "All research projects and papers from the KAIST Multimodal Languag
 <section class="page-hero">
   <div class="container">
     <h1>Research projects</h1>
-    <div class="filters" role="group" aria-label="Filter by publication type" hidden>
-      <button type="button" class="chip is-active" data-filter="all">All</button>
-      <button type="button" class="chip" data-filter="conference">Conference</button>
-      <button type="button" class="chip" data-filter="findings">Findings</button>
-      <button type="button" class="chip" data-filter="journal">Journal</button>
-      <button type="button" class="chip" data-filter="preprint">Preprint</button>
-    </div>
   </div>
 </section>
 
@@ -30,26 +23,3 @@ description: "All research projects and papers from the KAIST Multimodal Languag
 {%- endfor %}
 </div>
 
-<script>
-  // 선택 기능: 유형 필터. JS가 없으면 필터 버튼이 숨겨지고 모든 카드가 보인다.
-  (function () {
-    var bar = document.querySelector('.filters');
-    if (!bar) return;
-    bar.hidden = false;
-    bar.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-filter]');
-      if (!b) return;
-      var f = b.getAttribute('data-filter');
-      bar.querySelectorAll('.chip').forEach(function (c) { c.classList.toggle('is-active', c === b); });
-      document.querySelectorAll('.year-group').forEach(function (g) {
-        var shown = 0;
-        g.querySelectorAll('.card').forEach(function (c) {
-          var ok = f === 'all' || c.getAttribute('data-type') === f;
-          c.hidden = !ok; if (ok) shown++;
-        });
-        g.hidden = shown === 0;
-        var cnt = g.querySelector('.count'); if (cnt) cnt.textContent = shown;
-      });
-    });
-  })();
-</script>
