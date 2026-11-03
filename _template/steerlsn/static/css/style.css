@@ -70,3 +70,7 @@ a { color: var(--mlp-blue); }
 .lab-link img:first-child { height: 30px !important; width: auto; }
 .lab-link img:last-child { height: 16px !important; width: auto; }
 @media (max-width: 420px) { .lab-nav-divider, .lab-nav-kaist { display: none; } }
+
+/* ===== Sharper corners ===== */
+.button, .button.is-rounded, .tag, .tag.is-link.venue-badge, .keywords .tag, .lab-nav-link, .notification, pre, #bibtex-code, .table-container, figure img { border-radius: 3px !important; }
+.button.is-rounded { padding-left: 1.1em; padding-right: 1.1em; }
