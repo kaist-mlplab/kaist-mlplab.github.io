@@ -55,16 +55,16 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -0.02em; }
     radial-gradient(900px 420px at 85% -10%, rgba(126, 100, 255, .14), transparent 60%),
     radial-gradient(700px 380px at 10% 110%, rgba(0, 104, 255, .10), transparent 60%),
     var(--bg); }
-.hero-inner { display: grid; grid-template-columns: 1.35fr .65fr; align-items: center; gap: 40px; padding-top: 72px; padding-bottom: 72px; }
+.hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding-top: 56px; padding-bottom: 56px; }
 .eyebrow { margin: 0 0 14px; font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); }
-.hero h1 { font-size: clamp(2.3rem, 5.2vw, 3.9rem); line-height: 1.06; font-weight: 800; margin: 0 0 28px; }
+.hero h1 { font-size: clamp(2.1rem, 4.6vw, 3.5rem); line-height: 1.08; font-weight: 800; margin: 0; max-width: 760px; }
 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero-mark {
-  justify-self: center; width: min(100%, 300px); aspect-ratio: 624 / 834;
+  flex: 0 0 auto; width: 120px; aspect-ratio: 624 / 834;
   background: var(--grad);
   -webkit-mask: url("../img/brand/mlp-mark.png") center / contain no-repeat;
           mask: url("../img/brand/mlp-mark.png") center / contain no-repeat;
-  filter: drop-shadow(0 24px 40px rgba(0, 104, 255, .25));
+  filter: drop-shadow(0 12px 24px rgba(0, 104, 255, .22));
 }
 .stats { list-style: none; display: flex; flex-wrap: wrap; gap: 12px 36px; padding: 0; margin: 0 0 32px; }
 .stats li { display: flex; flex-direction: column; }
@@ -156,8 +156,8 @@ h1, h2, h3 { color: var(--ink); letter-spacing: -0.02em; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 860px) {
-  .hero-inner { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 48px; }
-  .hero-mark { display: none; }
+  .hero-inner { padding-top: 40px; padding-bottom: 40px; }
+  .hero-mark { width: 72px; }
   .areas { grid-template-columns: 1fr; }
   .year-group { grid-template-columns: 1fr; gap: 12px; }
   .year-label { position: static; display: flex; align-items: baseline; gap: 10px; }

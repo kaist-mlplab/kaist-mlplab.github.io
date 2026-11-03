@@ -4,28 +4,9 @@ description: "KAIST Multimodal Language Processing (MLP) Lab, led by Prof. Kyung
 jsonld: jsonld-organization.html
 ---
 {%- assign total = site.data.projects | size -%}
-{%- assign years = site.data.projects | map: 'year' | uniq | sort -%}
-{%- assign n_pub = 0 -%}{%- assign n_code = 0 -%}
-{%- for p in site.data.projects -%}
-  {%- capture t -%}{% include venue-type.html project=p %}{%- endcapture -%}
-  {%- unless t == 'preprint' -%}{%- assign n_pub = n_pub | plus: 1 -%}{%- endunless -%}
-  {%- if p.code or p.dataset or p.model -%}{%- assign n_code = n_code | plus: 1 -%}{%- endif -%}
-{%- endfor -%}
 <section class="hero">
   <div class="container hero-inner">
-    <div class="hero-text">
-      <p class="eyebrow">KAIST · MLP Lab</p>
-      <h1>Multimodal Language Processing Lab <span class="grad">@ KAIST</span></h1>
-      <ul class="stats" aria-label="Lab at a glance">
-        <li><strong>{{ total }}</strong><span>papers with project pages</span></li>
-        <li><strong>{{ n_pub }}</strong><span>peer-reviewed publications</span></li>
-        <li><strong>{{ years.first }}–{{ years.last }}</strong><span>years covered</span></li>
-      </ul>
-      <p class="hero-cta">
-        <a class="btn btn-primary" href="{{ '/projects/' | relative_url }}">Explore projects</a>
-        <a class="btn btn-ghost" href="{{ site.lab.huggingface }}">Open models on Hugging Face</a>
-      </p>
-    </div>
+    <h1>Multimodal Language Processing Lab <span class="grad">@ KAIST</span></h1>
     <div class="hero-mark" aria-hidden="true"></div>
   </div>
 </section>
