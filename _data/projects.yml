@@ -13,7 +13,7 @@
 #   summary    (필수) 한두 문장 영어 요약 (수치 포함 권장)
 #   thumbnail  (선택) 허브 레포 안의 이미지 경로
 #   thumbnail_alt (선택) 이미지 설명
-#   arxiv, pdf, code, demo, dataset, model (선택) 링크
+#   paper(출판본, 예: ACL Anthology), arxiv, pdf, code, demo, dataset, model (선택) 링크
 #   url        (선택) 프로젝트 페이지가 이 사이트 밖에 있을 때만 사용
 # =============================================================
 
@@ -32,5 +32,5 @@
   thumbnail_alt: >-
     Two activation-density plots for one neuron across French, Spanish, Chinese, and English,
     showing that activation probability alone cannot tell which language is most distinctive.
-  arxiv: https://arxiv.org/abs/2609.10993
-  pdf: https://arxiv.org/pdf/2609.10993
+  paper: https://aclanthology.org/2026.emnlp-main.1150/
+  pdf: https://aclanthology.org/2026.emnlp-main.1150.pdf

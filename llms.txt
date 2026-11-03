@@ -10,7 +10,7 @@ The lab is part of the {{ site.lab.department }} at KAIST and is led by Prof. {{
 
 ## Projects
 {% for p in site.data.projects %}
-- [{{ p.title }}]({% include project-url.html project=p %}): {{ p.venue }}. {{ p.authors | join: ", " }}. {{ p.summary | strip }}{% if p.arxiv %} arXiv: {{ p.arxiv }}{% endif %}
+- [{{ p.title }}]({% include project-url.html project=p %}): {{ p.venue }}. {{ p.authors | join: ", " }}. {{ p.summary | strip }}{% if p.paper %} Paper: {{ p.paper }}{% endif %}{% if p.arxiv %} arXiv: {{ p.arxiv }}{% endif %}
 {%- endfor %}
 
 ## Pages

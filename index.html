@@ -4,12 +4,7 @@ description: "The Multimodal Language Processing (MLP) Lab at KAIST, led by Prof
 jsonld: jsonld-organization.html
 ---
 <section class="hero">
-  <h1>{{ site.lab.name }} <span class="muted">({{ site.lab.short_name }})</span></h1>
-  <p class="lead">
-    The Multimodal Language Processing Lab at KAIST ({{ site.lab.department }}) is led by
-    Prof. {{ site.lab.pi_name }}. We build and analyze large language models — from fully open
-    Korean–English foundation models to multimodal models that see, read, and act.
-  </p>
+  <h1>Multimodal Language Processing Lab <span class="at">@ KAIST</span></h1>
 </section>
 
 <section>
@@ -23,7 +18,7 @@ jsonld: jsonld-organization.html
 </section>
 
 <section>
-  <h2>Latest projects</h2>
+  <h2>Projects</h2>
   <div class="cards">
     {%- assign latest = site.data.projects | sort: 'date' | reverse -%}
     {%- for p in latest limit: 6 %}

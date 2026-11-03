@@ -24,3 +24,9 @@ figcaption { margin-top: 0.75rem; color: #4a4a4a; font-size: 0.95rem; text-align
 .lab-link { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: #004191; }
 .lab-link img { height: 20px; width: auto; }
 .tag.is-link.venue-badge { background-color: #004191; }
+/* Hover feedback */
+.publication-links .button { transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease; }
+.publication-links .button:hover { transform: translateY(-2px); background-color: #004191; box-shadow: 0 6px 14px rgba(0, 65, 145, .25); }
+.results-table tbody tr { transition: background-color .15s ease; }
+.lab-link:hover { text-decoration: underline; }
+@media (prefers-reduced-motion: reduce) { .publication-links .button { transition: none; } .publication-links .button:hover { transform: none; } }

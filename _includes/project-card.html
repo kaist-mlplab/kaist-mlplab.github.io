@@ -2,17 +2,18 @@
 {%- capture purl -%}{% include project-url.html project=p %}{%- endcapture -%}
 <article class="card">
   {%- if p.thumbnail %}
-  <a class="card-thumb" href="{{ purl }}" tabindex="-1" aria-hidden="true">
+  <div class="card-thumb">
     <img src="{{ p.thumbnail | relative_url }}" alt="{{ p.thumbnail_alt | default: p.title | escape }}" loading="lazy">
-  </a>
+  </div>
   {%- endif %}
   <div class="card-body">
     <p class="venue">{{ p.venue }}</p>
-    <h3 class="card-title"><a href="{{ purl }}">{{ p.title }}</a></h3>
+    <h3 class="card-title"><a class="card-link" href="{{ purl }}">{{ p.title }}</a></h3>
     <p class="authors">{{ p.authors | join: ", " }}</p>
     <p class="summary">{{ p.summary }}</p>
     <p class="links">
       <a href="{{ purl }}">Project page</a>
+      {%- if p.paper %} · <a href="{{ p.paper }}">Paper</a>{% endif %}
       {%- if p.arxiv %} · <a href="{{ p.arxiv }}">arXiv</a>{% endif %}
       {%- if p.pdf %} · <a href="{{ p.pdf }}">PDF</a>{% endif %}
       {%- if p.code %} · <a href="{{ p.code }}">Code</a>{% endif %}

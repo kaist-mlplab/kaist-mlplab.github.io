@@ -39,9 +39,14 @@
   <meta name="citation_author_institution" content="KAIST InnoCORE PRISM-AI Center">
   <meta name="citation_author" content="Lim, KyungTae">
   <meta name="citation_author_institution" content="KAIST">
-  <meta name="citation_publication_date" content="2026/09/10">
-  <meta name="citation_conference_title" content="Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP 2026)">
-  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2609.10993">
+  <meta name="citation_publication_date" content="2026/10">
+  <meta name="citation_conference_title" content="Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="26366">
+  <meta name="citation_lastpage" content="26393">
+  <meta name="citation_doi" content="10.18653/2026.emnlp-main.1150">
+  <meta name="citation_isbn" content="979-8-89176-459-0">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2026.emnlp-main.1150.pdf">
   <meta name="citation_arxiv_id" content="2609.10993">
   <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/distribution-aware-language-neurons/">
 
@@ -54,7 +59,7 @@
     "headline": "Distribution-aware Language Neuron Identification in Multilingual Large Language Models",
     "name": "Distribution-aware Language Neuron Identification in Multilingual Large Language Models",
     "url": "https://kaist-mlplab.github.io/distribution-aware-language-neurons/",
-    "datePublished": "2026-09-10",
+    "datePublished": "2026-10",
     "inLanguage": "en",
     "image": "https://kaist-mlplab.github.io/distribution-aware-language-neurons/static/images/teaser.png",
     "abstract": "Multilingual large language models (mLLMs) contain a small fraction of feed-forward neurons that are sensitive to particular languages, commonly termed language-specific neurons. Existing work measures language specificity using the entropy of each neuron's language-wise probabilities of being active, where a neuron is considered active when its activation value is positive. However, this approach may not fully capture the multilingual nature of mLLMs, where language representations are distributional and mutually related. We propose Distribution-aware Language Neuron selection, which leverages pairwise relationships between per-language activation distributions over the full activation range, including negative values. Specifically, we quantify each neuron's language specificity by clustering languages using pairwise overlap coefficients between their activation distributions. Across two mLLMs and two held-out corpora, our identifier more effectively isolates language-specific causal effects, yielding up to 4.9x higher on-target language damage per neuron while preserving off-target language performance.",
@@ -68,10 +73,14 @@
       {"@type": "Person", "name": "KyungTae Lim", "affiliation": {"@type": "Organization", "name": "KAIST"}}
     ],
     "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
-    "isPartOf": {"@type": "PublicationEvent", "name": "EMNLP 2026"},
-    "sameAs": ["https://arxiv.org/abs/2609.10993"],
-    "identifier": {"@type": "PropertyValue", "propertyID": "arXiv", "value": "2609.10993"},
-    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://arxiv.org/pdf/2609.10993"}
+    "isPartOf": {"@type": "Periodical", "name": "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing", "publisher": {"@type": "Organization", "name": "Association for Computational Linguistics"}},
+    "sameAs": ["https://aclanthology.org/2026.emnlp-main.1150/", "https://arxiv.org/abs/2609.10993", "https://doi.org/10.18653/2026.emnlp-main.1150"],
+    "pagination": "26366-26393",
+    "identifier": [
+      {"@type": "PropertyValue", "propertyID": "DOI", "value": "10.18653/2026.emnlp-main.1150"},
+      {"@type": "PropertyValue", "propertyID": "arXiv", "value": "2609.10993"}
+    ],
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://aclanthology.org/2026.emnlp-main.1150.pdf"}
   }
   </script>
 
@@ -103,8 +112,8 @@
       <p class="publication-notes"><sup>†</sup>Corresponding authors</p>
 
       <div class="publication-links">
-        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2609.10993">Paper (arXiv)</a>
-        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2609.10993">PDF</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.emnlp-main.1150/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.emnlp-main.1150.pdf">PDF</a>
       </div>
     </div>
   </div>
@@ -265,14 +274,27 @@
       <h2 class="title is-3 mb-0">BibTeX</h2>
       <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
     </div>
-    <pre id="bibtex-code"><code>@misc{kim2026distributionawarelanguageneuronidentification,
-  title={Distribution-aware Language Neuron Identification in Multilingual Large Language Models},
-  author={Minjun Kim and Inho Won and Junghun Yuk and Dongyeon Kim and Jihyo Kim and KyungTae Lim},
-  year={2026},
-  eprint={2609.10993},
-  archivePrefix={arXiv},
-  primaryClass={cs.CL},
-  url={https://arxiv.org/abs/2609.10993},
+    <pre id="bibtex-code"><code>@inproceedings{kim-etal-2026-distribution,
+    title = "Distribution-aware Language Neuron Identification in Multilingual Large Language Models",
+    author = "Kim, Minjun  and
+      Won, Inho  and
+      Yuk, Junghun  and
+      Kim, Dongyeon  and
+      Kim, Jihyo  and
+      Lim, KyungTae",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
+    booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.emnlp-main.1150/",
+    doi = "10.18653/2026.emnlp-main.1150",
+    pages = "26366--26393",
+    ISBN = "979-8-89176-459-0"
 }</code></pre>
   </div>
 </section>
