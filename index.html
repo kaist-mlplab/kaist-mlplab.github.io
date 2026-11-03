@@ -3,27 +3,70 @@ title: "Multimodal Language Processing Lab"
 description: "KAIST Multimodal Language Processing (MLP) Lab, led by Prof. KyungTae Lim: research on LLMs, Korean NLP, multilingual and vision-language models."
 jsonld: jsonld-organization.html
 ---
+{%- assign total = site.data.projects | size -%}
+{%- assign years = site.data.projects | map: 'year' | uniq | sort -%}
+{%- assign n_pub = 0 -%}{%- assign n_code = 0 -%}
+{%- for p in site.data.projects -%}
+  {%- capture t -%}{% include venue-type.html project=p %}{%- endcapture -%}
+  {%- unless t == 'preprint' -%}{%- assign n_pub = n_pub | plus: 1 -%}{%- endunless -%}
+  {%- if p.code or p.dataset or p.model -%}{%- assign n_code = n_code | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
 <section class="hero">
-  <h1>Multimodal Language Processing Lab <span class="at">@ KAIST</span></h1>
-</section>
-
-<section>
-  <h2>Research areas</h2>
-  <ul class="areas">
-    <li><strong>Large language models &amp; data.</strong> Building open Korean–English foundation models from scratch (KORMo, Bllossom): tokenizers, pre-training data composition, and knowledge transfer.</li>
-    <li><strong>Multilingual model interpretability.</strong> How multilingual LLMs represent and separate languages internally, down to individual neurons.</li>
-    <li><strong>Korean language resources &amp; NLP.</strong> Korean language resource design and evaluation, morphological analysis, and dependency parsing.</li>
-    <li><strong>Vision-language &amp; embodied AI.</strong> Vision-language models, visual question answering, and vision-language-action models for robots.</li>
-  </ul>
-</section>
-
-<section>
-  <h2>Projects</h2>
-  <div class="cards">
-    {%- comment -%} _data/projects.yml 순서대로(최신이 위) {%- endcomment -%}
-    {%- for p in site.data.projects limit: 6 %}
-    {% include project-card.html project=p %}
-    {%- endfor %}
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">KAIST · MLP Lab</p>
+      <h1>Multimodal Language Processing Lab <span class="grad">@ KAIST</span></h1>
+      <ul class="stats" aria-label="Lab at a glance">
+        <li><strong>{{ total }}</strong><span>papers with project pages</span></li>
+        <li><strong>{{ n_pub }}</strong><span>peer-reviewed publications</span></li>
+        <li><strong>{{ years.first }}–{{ years.last }}</strong><span>years covered</span></li>
+      </ul>
+      <p class="hero-cta">
+        <a class="btn btn-primary" href="{{ '/projects/' | relative_url }}">Explore projects</a>
+        <a class="btn btn-ghost" href="{{ site.lab.huggingface }}">Open models on Hugging Face</a>
+      </p>
+    </div>
+    <div class="hero-mark" aria-hidden="true"></div>
   </div>
-  <p><a href="{{ '/projects/' | relative_url }}">All projects →</a></p>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Research areas</h2>
+    </div>
+    <ol class="areas">
+      <li>
+        <h3>Large language models &amp; data</h3>
+        <p>Building open Korean–English foundation models from scratch (KORMo, Bllossom): tokenizers, pre-training data composition, and knowledge transfer.</p>
+      </li>
+      <li>
+        <h3>Multilingual interpretability</h3>
+        <p>How multilingual LLMs represent and separate languages internally, down to individual language-specific neurons.</p>
+      </li>
+      <li>
+        <h3>Korean language resources &amp; NLP</h3>
+        <p>Korean language resource design and evaluation, grammatical error correction, morphological analysis, and parsing.</p>
+      </li>
+      <li>
+        <h3>Vision-language &amp; embodied AI</h3>
+        <p>Vision-language models, document and visual question answering, and vision-language-action models for robots.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <a class="section-link" href="{{ '/projects/' | relative_url }}">All {{ total }} projects →</a>
+    </div>
+    <div class="cards">
+      {%- comment -%} _data/projects.yml 순서대로(최신이 위) {%- endcomment -%}
+      {%- for p in site.data.projects limit: 6 %}
+      {% include project-card.html project=p %}
+      {%- endfor %}
+    </div>
+  </div>
 </section>

@@ -2,13 +2,27 @@
 title: "Research Projects"
 description: "All research projects and papers from the KAIST Multimodal Language Processing (MLP) Lab, sorted by year with venue information."
 ---
-<h1>Research projects</h1>
-<p class="lead">Every paper from the KAIST MLP Lab with its own project page, newest first.</p>
+{%- assign total = site.data.projects | size -%}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">KAIST MLP Lab</p>
+    <h1>Research projects</h1>
+    <p class="lead">{{ total }} papers, each with its own project page: abstract, method, main results, and BibTeX. Newest first.</p>
+    <div class="filters" role="group" aria-label="Filter by publication type" hidden>
+      <button type="button" class="chip is-active" data-filter="all">All</button>
+      <button type="button" class="chip" data-filter="conference">Conference</button>
+      <button type="button" class="chip" data-filter="findings">Findings</button>
+      <button type="button" class="chip" data-filter="journal">Journal</button>
+      <button type="button" class="chip" data-filter="preprint">Preprint</button>
+    </div>
+  </div>
+</section>
 
+<div class="container">
 {%- assign by_year = site.data.projects | group_by: 'year' | sort: 'name' | reverse -%}
 {%- for group in by_year %}
-<section>
-  <h2 id="y{{ group.name }}">{{ group.name }}</h2>
+<section class="year-group" id="y{{ group.name }}">
+  <h2 class="year-label">{{ group.name }} <span class="count">{{ group.items | size }}</span></h2>
   <div class="cards">
     {%- for p in group.items %}
     {% include project-card.html project=p %}
@@ -16,3 +30,28 @@ description: "All research projects and papers from the KAIST Multimodal Languag
   </div>
 </section>
 {%- endfor %}
+</div>
+
+<script>
+  // 선택 기능: 유형 필터. JS가 없으면 필터 버튼이 숨겨지고 모든 카드가 보인다.
+  (function () {
+    var bar = document.querySelector('.filters');
+    if (!bar) return;
+    bar.hidden = false;
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-filter]');
+      if (!b) return;
+      var f = b.getAttribute('data-filter');
+      bar.querySelectorAll('.chip').forEach(function (c) { c.classList.toggle('is-active', c === b); });
+      document.querySelectorAll('.year-group').forEach(function (g) {
+        var shown = 0;
+        g.querySelectorAll('.card').forEach(function (c) {
+          var ok = f === 'all' || c.getAttribute('data-type') === f;
+          c.hidden = !ok; if (ok) shown++;
+        });
+        g.hidden = shown === 0;
+        var cnt = g.querySelector('.count'); if (cnt) cnt.textContent = shown;
+      });
+    });
+  })();
+</script>

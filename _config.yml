@@ -33,7 +33,7 @@ lab:
 # 검색엔진 소유 확인 (jekyll-seo-tag가 홈 <head>에 meta 태그로 출력)
 webmaster_verifications:
   google: q7jRmkLkG_1D1oz6QnPDKJIwmbWa66WBaiqhTFkvlu0
-# TODO: 로고가 생기면 `logo: /assets/img/logo.png`를 추가하고 defaults에 `image:`를 넣는다.
+logo: /assets/img/brand/icon-512.png
 social:
   name: "KAIST MLP Lab"
   links:
@@ -43,6 +43,7 @@ defaults:
       path: ""
     values:
       layout: default
+      image: /assets/img/brand/og-default.png
 
 # GitHub Pages 기본 허용 플러그인만 사용.
 # sitemap.xml은 다른 레포의 프로젝트 페이지까지 넣기 위해 직접 만든다(jekyll-sitemap 사용 안 함).

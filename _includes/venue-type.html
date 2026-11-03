@@ -1,0 +1,8 @@
+{%- comment -%} 출판 유형: findings / conference / journal / preprint (카드 배지 색과 필터에 사용) {%- endcomment -%}
+{%- assign v = include.project.venue -%}
+{%- assign paper = include.project.paper | default: '' -%}
+{%- if v contains 'Findings' -%}findings
+{%- elsif v contains 'arXiv' or v contains 'Technical Report' or v contains 'Thesis' -%}preprint
+{%- elsif paper contains 'aclanthology.org' or paper contains 'aaai.org' or paper contains 'openreview.net' -%}conference
+{%- else -%}journal
+{%- endif -%}

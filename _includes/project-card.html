@@ -1,25 +1,28 @@
 {%- assign p = include.project -%}
 {%- capture purl -%}{% include project-url.html project=p %}{%- endcapture -%}
-<article class="card">
+{%- capture vtype -%}{% include venue-type.html project=p %}{%- endcapture -%}
+<article class="card" data-type="{{ vtype }}">
   {%- if p.thumbnail %}
   <div class="card-thumb">
     <img src="{{ p.thumbnail | relative_url }}" alt="{{ p.thumbnail_alt | default: p.title | escape }}" loading="lazy">
   </div>
+  {%- else %}
+  <div class="card-thumb card-thumb-empty" aria-hidden="true"><span>{{ p.venue }}</span></div>
   {%- endif %}
   <div class="card-body">
-    <p class="venue">{{ p.venue }}</p>
+    <p class="venue venue-{{ vtype }}">{{ p.venue }}</p>
     <h3 class="card-title"><a class="card-link" href="{{ purl }}">{{ p.title }}</a></h3>
     <p class="authors">{{ p.authors | join: ", " }}</p>
     <p class="summary">{{ p.summary }}</p>
     <p class="links">
-      <a href="{{ purl }}">Project page</a>
-      {%- if p.paper %} · <a href="{{ p.paper }}">Paper</a>{% endif %}
-      {%- if p.arxiv %} · <a href="{{ p.arxiv }}">arXiv</a>{% endif %}
-      {%- if p.pdf %} · <a href="{{ p.pdf }}">PDF</a>{% endif %}
-      {%- if p.code %} · <a href="{{ p.code }}">Code</a>{% endif %}
-      {%- if p.demo %} · <a href="{{ p.demo }}">Demo</a>{% endif %}
-      {%- if p.dataset %} · <a href="{{ p.dataset }}">Dataset</a>{% endif %}
-      {%- if p.model %} · <a href="{{ p.model }}">Model</a>{% endif %}
+      <a class="pill pill-primary" href="{{ purl }}">Project page</a>
+      {%- if p.paper %}<a class="pill" href="{{ p.paper }}">Paper</a>{% endif %}
+      {%- if p.arxiv %}<a class="pill" href="{{ p.arxiv }}">arXiv</a>{% endif %}
+      {%- if p.pdf %}<a class="pill" href="{{ p.pdf }}">PDF</a>{% endif %}
+      {%- if p.code %}<a class="pill" href="{{ p.code }}">Code</a>{% endif %}
+      {%- if p.demo %}<a class="pill" href="{{ p.demo }}">Demo</a>{% endif %}
+      {%- if p.dataset %}<a class="pill" href="{{ p.dataset }}">Dataset</a>{% endif %}
+      {%- if p.model %}<a class="pill" href="{{ p.model }}">Model</a>{% endif %}
     </p>
   </div>
 </article>

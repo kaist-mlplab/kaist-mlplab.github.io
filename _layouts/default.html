@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {%- comment -%} title, description, canonical, Open Graph, Twitter card {%- endcomment -%}
   {% seo %}
+  <meta name="theme-color" content="#0068FF">
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/img/brand/icon-32.png' | relative_url }}">
+  <link rel="apple-touch-icon" href="{{ '/assets/img/brand/icon-180.png' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
   <link rel="sitemap" type="application/xml" href="{{ '/sitemap.xml' | relative_url }}">
   {%- if page.jsonld %}
@@ -14,23 +21,33 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="{{ '/' | relative_url }}"><img src="{{ '/assets/img/kaist-logo.png' | relative_url }}" alt="KAIST" width="84" height="24"><span>MLP Lab</span></a>
-      <nav aria-label="Main">
+      <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.lab.name }} home">
+        <img class="brand-mlp" src="{{ '/assets/img/brand/mlp-logo.png' | relative_url }}" alt="MLP Lab — Multimodal Language Processing Lab" width="239" height="48">
+        <span class="brand-divider" aria-hidden="true"></span>
+        <img class="brand-kaist" src="{{ '/assets/img/kaist-logo.png' | relative_url }}" alt="KAIST" width="84" height="24">
+      </a>
+      <nav class="site-nav" aria-label="Main">
         <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a>
         <a href="{{ '/projects/' | relative_url }}"{% if page.url == '/projects/' %} aria-current="page"{% endif %}>Projects</a>
       </nav>
     </div>
   </header>
 
-  <main class="container">
+  <main>
     {{ content }}
   </main>
 
   <footer class="site-footer">
-    <div class="container">
-      <p><strong>{{ site.lab.name }} ({{ site.lab.short_name }})</strong></p>
-      <p>Contact: {{ site.lab.pi_name }} &lt;<a href="mailto:{{ site.lab.email }}">{{ site.lab.email }}</a>&gt;
-        · <a href="{{ site.lab.legacy_site }}">Lab website (Google Sites)</a></p>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="{{ '/assets/img/brand/mlp-logo-white.png' | relative_url }}" alt="MLP Lab — Multimodal Language Processing Lab" width="199" height="40" loading="lazy">
+        <img src="{{ '/assets/img/brand/kaist-logo-white.png' | relative_url }}" alt="KAIST" width="70" height="20" loading="lazy">
+      </div>
+      <div class="footer-meta">
+        <p><strong>{{ site.lab.name }} ({{ site.lab.short_name }})</strong></p>
+        <p>Contact: {{ site.lab.pi_name }} · <a href="mailto:{{ site.lab.email }}">{{ site.lab.email }}</a></p>
+        <p><a href="{{ '/projects/' | relative_url }}">All projects</a> · <a href="{{ site.lab.legacy_site }}">Lab website (Google Sites)</a> · <a href="{{ '/sitemap.xml' | relative_url }}">Sitemap</a></p>
+      </div>
     </div>
   </footer>
 </body>
