@@ -1,0 +1,19 @@
+---
+title: "Research Projects"
+description: "All research projects and papers from the KAIST Multimodal Language Processing (MLP) Lab, sorted by year with venue information."
+---
+<h1>Research projects</h1>
+<p class="lead">Every paper from the KAIST MLP Lab with its own project page, newest first.</p>
+
+{%- assign sorted = site.data.projects | sort: 'date' | reverse -%}
+{%- assign by_year = sorted | group_by: 'year' | sort: 'name' | reverse -%}
+{%- for group in by_year %}
+<section>
+  <h2 id="y{{ group.name }}">{{ group.name }}</h2>
+  <div class="cards">
+    {%- for p in group.items %}
+    {% include project-card.html project=p %}
+    {%- endfor %}
+  </div>
+</section>
+{%- endfor %}

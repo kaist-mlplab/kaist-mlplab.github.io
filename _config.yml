@@ -1,0 +1,55 @@
+# =============================================================
+# KAIST MLP Lab hub site
+# 도메인을 바꿀 때는 아래 `url` 한 줄만 바꾸면 된다.
+#   예) url: "https://mlplab.kaist.ac.kr"
+# =============================================================
+url: "https://kaist-mlplab.github.io"
+baseurl: ""
+
+title: "KAIST MLP Lab"
+description: >-
+  The Multimodal Language Processing (MLP) Lab at KAIST studies large language
+  models, Korean language resources, natural language processing, and
+  multimodal (vision-language and vision-language-action) models.
+lang: en
+
+# 연구실 정보 (홈 화면, JSON-LD, 푸터에서 사용)
+lab:
+  name: "Multimodal Language Processing Lab"
+  short_name: "MLP Lab"
+  alternate_name: "KAIST 멀티모달 언어처리 연구실"
+  university: "KAIST (Korea Advanced Institute of Science and Technology)"
+  department: "Graduate School of Culture Technology"
+  pi_name: "KyungTae Lim"
+  pi_title: "Assistant Professor"
+  email: "ktlim@kaist.ac.kr"
+  address_locality: "Daejeon"
+  address_country: "KR"
+  github: "https://github.com/kaist-mlplab"
+  huggingface: "https://huggingface.co/KORMo-Team"
+  legacy_site: "https://sites.google.com/view/aailab"
+
+# jekyll-seo-tag 설정
+# TODO: 로고가 생기면 `logo: /assets/img/logo.png`를 추가하고 defaults에 `image:`를 넣는다.
+social:
+  name: "KAIST MLP Lab"
+  links:
+    - "https://github.com/kaist-mlplab"
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+# GitHub Pages 기본 허용 플러그인만 사용.
+# sitemap.xml은 다른 레포의 프로젝트 페이지까지 넣기 위해 직접 만든다(jekyll-sitemap 사용 안 함).
+plugins:
+  - jekyll-seo-tag
+
+exclude:
+  - README.md
+  - CLAUDE.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .bundle

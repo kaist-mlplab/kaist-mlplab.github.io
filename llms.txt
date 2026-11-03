@@ -1,0 +1,19 @@
+---
+layout: null
+sitemap: false
+---
+# {{ site.lab.name }} ({{ site.title }})
+
+> {{ site.description | strip }}
+
+The lab is part of the {{ site.lab.department }} at KAIST and is led by Prof. {{ site.lab.pi_name }} ({{ site.lab.email }}). Every project page is static HTML with the abstract, method, results tables, and BibTeX.
+
+## Projects
+{% for p in site.data.projects %}
+- [{{ p.title }}]({% include project-url.html project=p %}): {{ p.venue }}. {{ p.authors | join: ", " }}. {{ p.summary | strip }}{% if p.arxiv %} arXiv: {{ p.arxiv }}{% endif %}
+{%- endfor %}
+
+## Pages
+- [Home]({{ '/' | absolute_url }})
+- [All projects]({{ '/projects/' | absolute_url }})
+- [Sitemap]({{ '/sitemap.xml' | absolute_url }})

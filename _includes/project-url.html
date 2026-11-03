@@ -1,0 +1,5 @@
+{%- comment -%}
+  프로젝트 페이지의 절대 URL. 사용: {% include project-url.html project=p %}
+  같은 도메인 아래 /<slug>/에 있으므로 site.url + baseurl만 바꾸면 함께 바뀐다.
+{%- endcomment -%}
+{%- if include.project.url -%}{{ include.project.url }}{%- else -%}{{ '/' | append: include.project.slug | append: '/' | absolute_url }}{%- endif -%}

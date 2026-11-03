@@ -1,0 +1,29 @@
+---
+layout: null
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- comment -%} 1) 이 레포(허브)의 HTML 페이지 {%- endcomment -%}
+{%- for pg in site.html_pages %}
+  {%- unless pg.sitemap == false or pg.url contains '404' %}
+  <url>
+    <loc>{{ pg.url | absolute_url | xml_escape }}</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+  </url>
+  {%- endunless %}
+{%- endfor %}
+{%- comment -%} 2) 다른 레포에 있는 프로젝트 페이지 (_data/projects.yml) {%- endcomment -%}
+{%- for p in site.data.projects %}
+  {%- unless p.url %}
+  <url>
+    <loc>{% include project-url.html project=p %}</loc>
+    {%- if p.updated %}
+    <lastmod>{{ p.updated | date_to_xmlschema }}</lastmod>
+    {%- elsif p.date %}
+    <lastmod>{{ p.date | date_to_xmlschema }}</lastmod>
+    {%- endif %}
+  </url>
+  {%- endunless %}
+{%- endfor %}
+</urlset>

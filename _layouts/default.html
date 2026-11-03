@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- comment -%} title, description, canonical, Open Graph, Twitter card {%- endcomment -%}
+  {% seo %}
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="sitemap" type="application/xml" href="{{ '/sitemap.xml' | relative_url }}">
+  {%- if page.jsonld %}
+  {% include {{ page.jsonld }} %}
+  {%- endif %}
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ '/' | relative_url }}"><img src="{{ '/assets/img/kaist-logo.png' | relative_url }}" alt="KAIST" width="84" height="24"><span>MLP Lab</span></a>
+      <nav aria-label="Main">
+        <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a>
+        <a href="{{ '/projects/' | relative_url }}"{% if page.url == '/projects/' %} aria-current="page"{% endif %}>Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><strong>{{ site.lab.name }} ({{ site.lab.short_name }})</strong> · {{ site.lab.department }}, KAIST</p>
+      <p>Contact: {{ site.lab.pi_name }} &lt;<a href="mailto:{{ site.lab.email }}">{{ site.lab.email }}</a>&gt;
+        · <a href="{{ site.lab.github }}">GitHub</a>
+        · <a href="{{ site.lab.legacy_site }}">Lab website (Google Sites)</a></p>
+    </div>
+  </footer>
+</body>
+</html>

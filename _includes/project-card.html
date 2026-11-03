@@ -1,0 +1,24 @@
+{%- assign p = include.project -%}
+{%- capture purl -%}{% include project-url.html project=p %}{%- endcapture -%}
+<article class="card">
+  {%- if p.thumbnail %}
+  <a class="card-thumb" href="{{ purl }}" tabindex="-1" aria-hidden="true">
+    <img src="{{ p.thumbnail | relative_url }}" alt="{{ p.thumbnail_alt | default: p.title | escape }}" loading="lazy">
+  </a>
+  {%- endif %}
+  <div class="card-body">
+    <p class="venue">{{ p.venue }}</p>
+    <h3 class="card-title"><a href="{{ purl }}">{{ p.title }}</a></h3>
+    <p class="authors">{{ p.authors | join: ", " }}</p>
+    <p class="summary">{{ p.summary }}</p>
+    <p class="links">
+      <a href="{{ purl }}">Project page</a>
+      {%- if p.arxiv %} · <a href="{{ p.arxiv }}">arXiv</a>{% endif %}
+      {%- if p.pdf %} · <a href="{{ p.pdf }}">PDF</a>{% endif %}
+      {%- if p.code %} · <a href="{{ p.code }}">Code</a>{% endif %}
+      {%- if p.demo %} · <a href="{{ p.demo }}">Demo</a>{% endif %}
+      {%- if p.dataset %} · <a href="{{ p.dataset }}">Dataset</a>{% endif %}
+      {%- if p.model %} · <a href="{{ p.model }}">Model</a>{% endif %}
+    </p>
+  </div>
+</article>

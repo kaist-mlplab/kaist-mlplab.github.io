@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+    ================================================================
+    KAIST MLP Lab 프로젝트 페이지 템플릿
+    - "TODO" 주석으로 표시된 곳을 모두 바꾼다.
+    - PAGE_URL = https://kaist-mlplab.github.io/<repo-name>/  (끝에 / 포함)
+      도메인이 바뀌면 이 파일에서 "https://kaist-mlplab.github.io"를 일괄 치환한다.
+    - 모든 본문은 이 HTML 안에 텍스트로 넣는다(JS로 그리지 않는다).
+    - 실제 작성 예시: 허브 레포의 _template/distribution-aware-language-neurons/index.html
+    ================================================================
+  -->
+
+  <!-- ===== 기본 SEO ===== -->
+  <!-- TODO: 논문 제목 전체 -->
+  <title>PAPER TITLE: Full Title of the Paper</title>
+  <!-- TODO: 논문 핵심 1~2문장 (150~160자 내외, 핵심 수치 포함) -->
+  <meta name="description" content="One or two sentences describing the core idea and main quantitative result. VENUE YEAR, KAIST MLP Lab.">
+  <!-- TODO: 키워드 -->
+  <meta name="keywords" content="keyword1, keyword2, VENUE YEAR, KAIST">
+  <!-- TODO: PAGE_URL -->
+  <link rel="canonical" href="https://kaist-mlplab.github.io/REPO-NAME/">
+
+  <!-- ===== Open Graph / Twitter (teaser 이미지 사용, 절대 URL) ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="PAPER TITLE: Full Title of the Paper"><!-- TODO -->
+  <meta property="og:description" content="One-sentence summary."><!-- TODO -->
+  <meta property="og:url" content="https://kaist-mlplab.github.io/REPO-NAME/"><!-- TODO -->
+  <meta property="og:image" content="https://kaist-mlplab.github.io/REPO-NAME/static/images/teaser.png"><!-- TODO -->
+  <meta property="og:image:width" content="1200"><!-- TODO: 실제 이미지 크기 -->
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Description of the teaser figure."><!-- TODO -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PAPER TITLE"><!-- TODO -->
+  <meta name="twitter:description" content="One-sentence summary."><!-- TODO -->
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/REPO-NAME/static/images/teaser.png"><!-- TODO -->
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <!-- TODO: 저자마다 citation_author("성, 이름") + citation_author_institution 한 쌍씩, 논문 순서대로 -->
+  <meta name="citation_title" content="PAPER TITLE: Full Title of the Paper">
+  <meta name="citation_author" content="Lastname, Firstname">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <!-- TODO: 공개일 YYYY/MM/DD -->
+  <meta name="citation_publication_date" content="2026/01/01">
+  <!-- TODO: 학회면 citation_conference_title, 저널이면 citation_journal_title 로 바꾼다 -->
+  <meta name="citation_conference_title" content="Proceedings of CONFERENCE YEAR">
+  <!-- TODO: PDF / arXiv ID (없으면 줄 삭제) -->
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/XXXX.XXXXX">
+  <meta name="citation_arxiv_id" content="XXXX.XXXXX">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/REPO-NAME/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <!-- TODO: 모든 값 수정. JSON 문법(쉼표, 따옴표)에 주의하고 https://validator.schema.org 에서 확인 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/REPO-NAME/#article",
+    "headline": "PAPER TITLE: Full Title of the Paper",
+    "name": "PAPER TITLE: Full Title of the Paper",
+    "url": "https://kaist-mlplab.github.io/REPO-NAME/",
+    "datePublished": "2026-01-01",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/REPO-NAME/static/images/teaser.png",
+    "abstract": "Full abstract text.",
+    "keywords": ["keyword1", "keyword2"],
+    "author": [
+      {"@type": "Person", "name": "Firstname Lastname", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "KyungTae Lim", "affiliation": {"@type": "Organization", "name": "KAIST"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "isPartOf": {"@type": "PublicationEvent", "name": "CONFERENCE YEAR"},
+    "sameAs": ["https://arxiv.org/abs/XXXX.XXXXX", "https://github.com/kaist-mlplab/REPO-NAME-code"],
+    "identifier": {"@type": "PropertyValue", "propertyID": "arXiv", "value": "XXXX.XXXXX"},
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://arxiv.org/pdf/XXXX.XXXXX"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <!-- TODO: 제목 / 부제(없으면 p 삭제) -->
+      <h1 class="title is-2 publication-title">PAPER TITLE: Full Title of the Paper</h1>
+      <p class="subtitle is-5 publication-subtitle">Optional one-line subtitle</p>
+      <!-- TODO: 학회/연도 배지 -->
+      <p><span class="tag is-link is-medium venue-badge">CONFERENCE YEAR</span></p>
+
+      <!-- TODO: 저자. 개인 페이지가 있으면 <a>, 없으면 이름만. 공동 1저자는 <sup>*</sup>, 교신저자는 <sup>†</sup> -->
+      <p class="publication-authors">
+        <span class="author-block"><a href="https://example.com">First Author</a><sup>1,*</sup>,</span>
+        <span class="author-block">Second Author<sup>1,*</sup>,</span>
+        <span class="author-block"><a href="https://sites.google.com/view/aailab/about-us/professor">KyungTae Lim</a><sup>1,†</sup></span>
+      </p>
+      <!-- TODO: 소속 (KAIST 명시) -->
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>KAIST</span>
+      </p>
+      <!-- TODO: 해당 표시가 없으면 해당 부분 삭제 -->
+      <p class="publication-notes"><sup>*</sup>Equal contribution &nbsp; <sup>†</sup>Corresponding author</p>
+
+      <!-- TODO: 버튼. 없는 항목은 줄째로 삭제 -->
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/XXXX.XXXXX">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/XXXX.XXXXX">PDF</a>
+        <a class="button is-dark is-rounded" href="https://github.com/kaist-mlplab/REPO-NAME-code">Code</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/spaces/XXX">Demo</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/datasets/XXX">Dataset</a>
+        <a class="button is-dark is-rounded" href="https://huggingface.co/XXX">Model</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <!-- TODO: static/images/teaser.png (가로 1000~1600px, 압축). width/height는 실제 픽셀 크기. alt는 그림 내용을 문장으로 -->
+      <img src="static/images/teaser.png" width="1200" height="630"
+           alt="Describe what the figure shows, including the key comparison.">
+      <!-- TODO: 캡션. 그림 속 핵심 수치를 텍스트로도 적는다(AI는 그림 속 숫자를 못 읽는다) -->
+      <figcaption>
+        <strong>Figure 1.</strong> Caption with the key numbers written out, e.g. "Our method improves X from 41.2 to 47.9."
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <!-- TODO: 초록 전체를 텍스트로 -->
+      <p>Full abstract text.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <figure>
+      <!-- TODO: 방법 그림 + alt + 캡션 -->
+      <img src="static/images/method.png" width="1200" height="600" loading="lazy"
+           alt="Describe each stage of the method shown in the figure.">
+      <figcaption><strong>Figure 2.</strong> Overview of the method.</figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <!-- TODO: 방법 설명. 단계별 목록을 쓰면 AI가 요약하기 쉽다 -->
+      <p>Short explanation of the problem with prior work and the key idea.</p>
+      <ol>
+        <li><strong>Step 1.</strong> ...</li>
+        <li><strong>Step 2.</strong> ...</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Results</h2>
+    <div class="content">
+      <!-- TODO: 핵심 결과를 수치와 함께 문장으로 -->
+      <ul>
+        <li><strong>Main finding.</strong> Our method reaches 47.9 on Benchmark A, +6.7 over the strongest baseline (41.2).</li>
+      </ul>
+    </div>
+    <!-- TODO: 표는 이미지가 아니라 HTML <table>로. 우리 방법 행은 class="ours" -->
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption><strong>Table 1.</strong> Table caption explaining metrics and which direction is better.</caption>
+        <thead>
+          <tr><th>Method</th><th>Benchmark A &uarr;</th><th>Benchmark B &uarr;</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Baseline</td><td>41.2</td><td>63.0</td></tr>
+          <tr class="ours"><td>Ours</td><td><strong>47.9</strong></td><td><strong>66.4</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <!-- TODO: BibTeX -->
+    <pre id="bibtex-code"><code>@inproceedings{lastname2026keyword,
+  title={PAPER TITLE: Full Title of the Paper},
+  author={Lastname, Firstname and Lim, KyungTae},
+  booktitle={Proceedings of CONFERENCE YEAR},
+  year={2026}
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 (도메인이 바뀌면 함께 수정) -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer: 템플릿 출처 표기는 라이선스(CC BY-SA 4.0) 조건이므로 지우지 않는다 -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

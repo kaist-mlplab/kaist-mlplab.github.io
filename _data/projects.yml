@@ -1,0 +1,36 @@
+# =============================================================
+# 프로젝트 목록. 새 프로젝트는 여기에 항목 하나만 추가하면
+# 홈 카드, /projects/, sitemap.xml, llms.txt에 모두 반영된다.
+#
+# 필드 설명
+#   slug       (필수) 프로젝트 레포 이름 = URL 경로 (/<slug>/)
+#   title      (필수) 논문 제목 전체
+#   venue      (필수) 학회/저널 + 연도, 예: "EMNLP 2026"
+#   year       (필수) 정렬용 연도 (숫자)
+#   date       (필수) 공개일 YYYY-MM-DD (정렬, sitemap lastmod)
+#   updated    (선택) 프로젝트 페이지를 크게 고친 날짜 (sitemap lastmod)
+#   authors    (필수) 저자 목록(논문 순서)
+#   summary    (필수) 한두 문장 영어 요약 (수치 포함 권장)
+#   thumbnail  (선택) 허브 레포 안의 이미지 경로
+#   thumbnail_alt (선택) 이미지 설명
+#   arxiv, pdf, code, demo, dataset, model (선택) 링크
+#   url        (선택) 프로젝트 페이지가 이 사이트 밖에 있을 때만 사용
+# =============================================================
+
+- slug: distribution-aware-language-neurons
+  title: "Distribution-aware Language Neuron Identification in Multilingual Large Language Models"
+  venue: "EMNLP 2026"
+  year: 2026
+  date: 2026-09-10
+  authors: ["Minjun Kim", "Inho Won", "Junghun Yuk", "Dongyeon Kim", "Jihyo Kim", "KyungTae Lim"]
+  summary: >-
+    We identify language-specific neurons in multilingual LLMs by comparing full per-language
+    activation distributions (including negative values) with pairwise overlap coefficients,
+    yielding up to 4.9x higher on-target language damage per neuron than entropy-based selection
+    while preserving off-target languages.
+  thumbnail: /assets/img/projects/distribution-aware-language-neurons.png
+  thumbnail_alt: >-
+    Two activation-density plots for one neuron across French, Spanish, Chinese, and English,
+    showing that activation probability alone cannot tell which language is most distinctive.
+  arxiv: https://arxiv.org/abs/2609.10993
+  pdf: https://arxiv.org/pdf/2609.10993

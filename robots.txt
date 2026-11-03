@@ -1,0 +1,9 @@
+---
+layout: null
+sitemap: false
+---
+# 모든 크롤러 허용 (검색엔진과 AI 크롤러 포함)
+User-agent: *
+Allow: /
+
+Sitemap: {{ '/sitemap.xml' | absolute_url }}

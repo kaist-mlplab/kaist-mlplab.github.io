@@ -1,0 +1,48 @@
+{%- comment -%} 홈페이지용 schema.org ResearchOrganization JSON-LD {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ResearchOrganization",
+  "@id": {{ '/#organization' | absolute_url | jsonify }},
+  "name": {{ site.lab.name | jsonify }},
+  "alternateName": [{{ site.lab.short_name | jsonify }}, "KAIST MLP Lab", {{ site.lab.alternate_name | jsonify }}],
+  "url": {{ '/' | absolute_url | jsonify }},
+  "description": {{ site.description | strip | jsonify }},
+  "email": {{ site.lab.email | prepend: 'mailto:' | jsonify }},
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": {{ site.lab.address_locality | jsonify }},
+    "addressCountry": {{ site.lab.address_country | jsonify }}
+  },
+  "parentOrganization": {
+    "@type": "CollegeOrUniversity",
+    "name": "KAIST",
+    "alternateName": "Korea Advanced Institute of Science and Technology",
+    "url": "https://www.kaist.ac.kr"
+  },
+  "member": {
+    "@type": "Person",
+    "name": {{ site.lab.pi_name | jsonify }},
+    "jobTitle": {{ site.lab.pi_title | append: ', ' | append: site.lab.department | jsonify }},
+    "email": {{ site.lab.email | prepend: 'mailto:' | jsonify }}
+  },
+  "knowsAbout": [
+    "Large language models",
+    "Multilingual language models",
+    "Korean natural language processing",
+    "Korean language resources",
+    "Vision-language models",
+    "Vision-language-action models"
+  ],
+  "sameAs": [{{ site.lab.github | jsonify }}, {{ site.lab.legacy_site | jsonify }}],
+  "subjectOf": [
+    {%- for p in site.data.projects %}
+    {
+      "@type": "ScholarlyArticle",
+      "headline": {{ p.title | jsonify }},
+      "url": {% capture purl %}{% include project-url.html project=p %}{% endcapture %}{{ purl | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}
+</script>

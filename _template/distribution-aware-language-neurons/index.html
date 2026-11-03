@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===== 기본 SEO ===== -->
+  <title>Distribution-aware Language Neuron Identification in Multilingual Large Language Models</title>
+  <meta name="description" content="Distribution-aware Language Neuron (DLN) selection identifies language-specific neurons in multilingual LLMs by clustering languages with pairwise overlap coefficients between full activation distributions, giving up to 4.9x higher on-target language damage per neuron than entropy-based LAPE. EMNLP 2026, KAIST MLP Lab.">
+  <meta name="keywords" content="language-specific neurons, multilingual large language models, interpretability, LAPE, neuron identification, activation distribution, overlap coefficient, EMNLP 2026, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/distribution-aware-language-neurons/">
+
+  <!-- ===== Open Graph / Twitter ===== -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="Distribution-aware Language Neuron Identification in Multilingual Large Language Models">
+  <meta property="og:description" content="Identifying language-specific neurons by comparing full per-language activation distributions: up to 4.9x higher on-target damage per neuron than LAPE. EMNLP 2026.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/distribution-aware-language-neurons/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/distribution-aware-language-neurons/static/images/teaser.png">
+  <meta property="og:image:width" content="1000">
+  <meta property="og:image:height" content="500">
+  <meta property="og:image:alt" content="Activation-density plots of one neuron for French, Spanish, Chinese, and English, contrasting activation probability with distributional distinctiveness.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Distribution-aware Language Neuron Identification in Multilingual LLMs">
+  <meta name="twitter:description" content="Identifying language-specific neurons by comparing full per-language activation distributions. EMNLP 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/distribution-aware-language-neurons/static/images/teaser.png">
+
+  <!-- ===== Google Scholar (Highwire Press) ===== -->
+  <meta name="citation_title" content="Distribution-aware Language Neuron Identification in Multilingual Large Language Models">
+  <meta name="citation_author" content="Kim, Minjun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Won, Inho">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Yuk, Junghun">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Kim, Dongyeon">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Kim, Jihyo">
+  <meta name="citation_author_institution" content="KAIST InnoCORE PRISM-AI Center">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/09/10">
+  <meta name="citation_conference_title" content="Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP 2026)">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2609.10993">
+  <meta name="citation_arxiv_id" content="2609.10993">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/distribution-aware-language-neurons/">
+
+  <!-- ===== schema.org ScholarlyArticle ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "@id": "https://kaist-mlplab.github.io/distribution-aware-language-neurons/#article",
+    "headline": "Distribution-aware Language Neuron Identification in Multilingual Large Language Models",
+    "name": "Distribution-aware Language Neuron Identification in Multilingual Large Language Models",
+    "url": "https://kaist-mlplab.github.io/distribution-aware-language-neurons/",
+    "datePublished": "2026-09-10",
+    "inLanguage": "en",
+    "image": "https://kaist-mlplab.github.io/distribution-aware-language-neurons/static/images/teaser.png",
+    "abstract": "Multilingual large language models (mLLMs) contain a small fraction of feed-forward neurons that are sensitive to particular languages, commonly termed language-specific neurons. Existing work measures language specificity using the entropy of each neuron's language-wise probabilities of being active, where a neuron is considered active when its activation value is positive. However, this approach may not fully capture the multilingual nature of mLLMs, where language representations are distributional and mutually related. We propose Distribution-aware Language Neuron selection, which leverages pairwise relationships between per-language activation distributions over the full activation range, including negative values. Specifically, we quantify each neuron's language specificity by clustering languages using pairwise overlap coefficients between their activation distributions. Across two mLLMs and two held-out corpora, our identifier more effectively isolates language-specific causal effects, yielding up to 4.9x higher on-target language damage per neuron while preserving off-target language performance.",
+    "keywords": ["language-specific neurons", "multilingual large language models", "interpretability", "neuron identification"],
+    "author": [
+      {"@type": "Person", "name": "Minjun Kim", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Inho Won", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Junghun Yuk", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Dongyeon Kim", "affiliation": {"@type": "Organization", "name": "KAIST"}},
+      {"@type": "Person", "name": "Jihyo Kim", "affiliation": {"@type": "Organization", "name": "KAIST InnoCORE PRISM-AI Center"}},
+      {"@type": "Person", "name": "KyungTae Lim", "affiliation": {"@type": "Organization", "name": "KAIST"}}
+    ],
+    "publisher": {"@type": "ResearchOrganization", "name": "KAIST Multimodal Language Processing Lab", "url": "https://kaist-mlplab.github.io/"},
+    "isPartOf": {"@type": "PublicationEvent", "name": "EMNLP 2026"},
+    "sameAs": ["https://arxiv.org/abs/2609.10993"],
+    "identifier": {"@type": "PropertyValue", "propertyID": "arXiv", "value": "2609.10993"},
+    "encoding": {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": "https://arxiv.org/pdf/2609.10993"}
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">Distribution-aware Language Neuron Identification in Multilingual Large Language Models</h1>
+      <p class="subtitle is-5 publication-subtitle">Which language makes a neuron distinctive, not just which language makes it fire</p>
+      <p><span class="tag is-link is-medium venue-badge">EMNLP 2026</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Minjun Kim<sup>1</sup>,</span>
+        <span class="author-block">Inho Won<sup>1</sup>,</span>
+        <span class="author-block">Junghun Yuk<sup>1</sup>,</span>
+        <span class="author-block">Dongyeon Kim<sup>1</sup>,</span>
+        <span class="author-block">Jihyo Kim<sup>2,†</sup>,</span>
+        <span class="author-block"><a href="https://sites.google.com/view/aailab/about-us/professor">KyungTae Lim</a><sup>1,†</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>KAIST</span>
+        <span class="author-block"><sup>2</sup>KAIST InnoCORE PRISM-AI Center</span>
+      </p>
+      <p class="publication-notes"><sup>†</sup>Corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2609.10993">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2609.10993">PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <img src="static/images/teaser.png" width="1000" height="500"
+           alt="Two activation-density plots for a single neuron. Left: French, Spanish, Chinese, and English are all active with probability 1, yet Spanish has a clearly separate distribution. Right: English has activation probability 0 but is the only language whose distribution does not overlap with the others.">
+      <figcaption>
+        <strong>Figure 1.</strong> Identifying structurally distinctive language distributions matters more than identifying the most
+        frequently active language (<em>a</em> is the activation value). <em>Left:</em> all four languages have
+        P(<em>a</em>&gt;0) = 1, so activation probability cannot tell them apart, but the Spanish distribution is clearly separated.
+        <em>Right:</em> by activation probability Spanish looks most specific (P(<em>a</em>&gt;0) = 0.99 vs. 0.7 French, 0.6 Chinese),
+        yet English (P(<em>a</em>&gt;0) = 0) is the language whose distribution is most distinctive.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Multilingual large language models (mLLMs) contain a small fraction of feed-forward neurons that are sensitive to particular
+        languages, commonly termed language-specific neurons. Existing work measures language specificity using the entropy of each
+        neuron's language-wise probabilities of being active, where a neuron is considered active when its activation value is positive.
+        However, this approach may not fully capture the multilingual nature of mLLMs, where language representations are distributional
+        and mutually related. We propose <em>Distribution-aware Language Neuron</em> selection, which leverages pairwise relationships
+        between per-language activation distributions over the full activation range, including negative values. Specifically, we quantify
+        each neuron's language specificity by clustering languages using pairwise overlap coefficients between their activation
+        distributions. Across two mLLMs and two held-out corpora, our identifier more effectively isolates language-specific causal
+        effects, yielding up to 4.9&times; higher on-target language damage per neuron while preserving off-target language performance.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <figure>
+      <img src="static/images/method.png" width="1300" height="595" loading="lazy"
+           alt="Four-step pipeline shown for two example neurons: (a) per-language activation distributions, (b) pairwise overlap matrix, (c) single-linkage clustering into two groups, (d) selection by maximum overlap with the other group. The top example isolates French as a single-language neuron; the bottom isolates Chinese and Japanese together as a multi-language neuron.">
+      <figcaption>
+        <strong>Figure 2.</strong> Overall framework of the proposed method. In the single-language neuron (SLN) example,
+        French overlaps with every other language by only 0.04&ndash;0.07, so French alone is selected. In the multi-language
+        neuron (MLN) example, Chinese and Japanese overlap with each other by 0.90 but with the other languages by at most 0.22,
+        so {zh, ja} is selected as a group.
+      </figcaption>
+    </figure>
+    <div class="content has-text-justified mt-5">
+      <p>
+        Prior methods such as LAPE binarize each feed-forward neuron's activation (active if positive) and score a neuron by the entropy
+        of its per-language activation probabilities. This discards negative activations and treats each language independently.
+        Distribution-aware Language Neuron (DLN) selection instead works with the whole activation distribution:
+      </p>
+      <ol>
+        <li><strong>Activation distributions.</strong> For each MLP neuron in a gated (GLU) model, estimate the activation density of
+          every language over the full range, including negative values (a 400-bin histogram over &mu; &plusmn; 3&sigma;).</li>
+        <li><strong>Overlap matrix.</strong> For every pair of languages, compute the overlap coefficient
+          &int; min(p<sup>k</sup>(v), p<sup>k&prime;</sup>(v)) dv, a value in [0, 1].</li>
+        <li><strong>Clustering.</strong> Split the languages into two groups so that the largest overlap between the groups is as small
+          as possible (equivalent to single-linkage clustering with K = 2). The smaller group is the candidate language set.</li>
+        <li><strong>Selection.</strong> Keep the neuron only if that maximum between-group overlap is below a threshold set at the
+          bottom P-th percentile of all neurons. A one-language set gives a <em>single-language neuron</em> (SLN); a larger set gives a
+          <em>multi-language neuron</em> (MLN).</li>
+      </ol>
+      <p>
+        To test the causal effect of the selected neurons, we <em>mean-patch</em> them (replace each activation with its mean over the
+        non-target languages) and measure the change in negative log-likelihood (&Delta;NLL) and downstream accuracy on the target
+        language versus the other languages. Experiments use Llama-3.1-8B and SmolLM3-3B-Base, seven languages (en, zh, fr, es, vi, id, ja),
+        and two held-out corpora (FLORES+ devtest and a held-out Wikipedia split).
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Up to 4.9&times; more damage per neuron.</strong> On Llama-3.1-8B, ablating SLNs causes 4.9&times; (WIKI) and 5.4&times; (FLORES)
+          higher on-target &Delta;NLL per neuron than LAPE neurons, and 3.1&times; / 3.2&times; higher than LSN.</li>
+        <li><strong>Language-specific downstream drops.</strong> Mean-patching SLNs reduces target-language Belebele accuracy by 4.94 points on
+          Llama-3.1-8B (LAPE: 2.75, LSN: 1.22) and 5.56 points on SmolLM3-3B-Base (LAPE: 2.46, LSN: 1.25), with off-target changes of at most 0.15 points.</li>
+        <li><strong>Higher selectivity.</strong> On WIKI, SLN reaches a mean selectivity of 273.7 on Llama-3.1-8B (LSN: 126.0, LAPE: 22.8) and
+          296.5 on SmolLM3-3B-Base (LSN: 89.5, LAPE: 28.2).</li>
+        <li><strong>Compact multi-language groups.</strong> MLNs cause 6.85&times; (WIKI) and 7.12&times; (FLORES) the per-neuron damage of
+          language-related neurons (LRN) while using 465 instead of 1,329 neurons on Llama-3.1-8B.</li>
+        <li><strong>Not a side effect of perturbation size.</strong> A displacement-matched random control changes on-target &Delta;NLL by only
+          0.013 on Llama-3.1-8B, versus 1.198 for SLN (SmolLM3-3B-Base: 0.010 vs. 1.395).</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Accuracy drop (points) under mean-patch intervention, averaged over target languages.
+          k&prime;=k is the on-target drop and k&prime;&ne;k the mean off-target drop; |N| is the number of patched neurons.
+          Belebele covers all seven languages, MGSM five (en, zh, fr, es, ja). Bold marks the largest on-target drop.
+          (Table 2 in the paper.)
+        </caption>
+        <thead>
+          <tr>
+            <th rowspan="2">Model</th><th rowspan="2">Method</th>
+            <th colspan="3">Belebele</th><th colspan="3">MGSM</th>
+          </tr>
+          <tr>
+            <th>|N|</th><th>k&prime;=k &uarr;</th><th>k&prime;&ne;k</th>
+            <th>|N|</th><th>k&prime;=k &uarr;</th><th>k&prime;&ne;k</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="3">Llama-3.1-8B</td><td>LAPE</td><td>4,587</td><td>2.75</td><td>0.07</td><td>3,088</td><td>6.96</td><td>0.88</td></tr>
+          <tr><td>LSN</td><td>1,814</td><td>1.22</td><td>&minus;0.02</td><td>1,169</td><td>4.40</td><td>0.30</td></tr>
+          <tr class="ours"><td>SLN (ours)</td><td>2,972</td><td><strong>4.94</strong></td><td>&minus;0.02</td><td>1,858</td><td><strong>9.44</strong></td><td>0.18</td></tr>
+          <tr><td rowspan="3">SmolLM3-3B-Base</td><td>LAPE</td><td>3,962</td><td>2.46</td><td>0.14</td><td>2,499</td><td>3.60</td><td>0.06</td></tr>
+          <tr><td>LSN</td><td>1,443</td><td>1.25</td><td>0.01</td><td>867</td><td>0.72</td><td>&minus;0.64</td></tr>
+          <tr class="ours"><td>SLN (ours)</td><td>2,254</td><td><strong>5.56</strong></td><td>0.15</td><td>1,331</td><td><strong>7.76</strong></td><td>&minus;0.40</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 2.</strong> Mean selectivity across the seven languages on WIKI (higher is better). Each row varies where neurons are
+          selected and where they are patched. (Table 5 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Model</th><th>(selection, patch) site</th><th>LAPE</th><th>LSN</th><th>SLN (ours)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="3">Llama-3.1-8B</td><td>(a-site, a-site)</td><td>22.8</td><td>126.0</td><td><strong>273.7</strong></td></tr>
+          <tr><td>(z-site, a-site)</td><td>4.5</td><td>13.3</td><td><strong>193.9</strong></td></tr>
+          <tr><td>(z-site, z-site)</td><td>3.9</td><td>9.9</td><td><strong>97.2</strong></td></tr>
+          <tr><td rowspan="3">SmolLM3-3B-Base</td><td>(a-site, a-site)</td><td>28.2</td><td>89.5</td><td><strong>296.5</strong></td></tr>
+          <tr><td>(z-site, a-site)</td><td>7.4</td><td>8.8</td><td><strong>187.3</strong></td></tr>
+          <tr><td>(z-site, z-site)</td><td>5.3</td><td>9.2</td><td><strong>57.4</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{kim2026distributionawarelanguageneuronidentification,
+  title={Distribution-aware Language Neuron Identification in Multilingual Large Language Models},
+  author={Minjun Kim and Inho Won and Junghun Yuk and Dongyeon Kim and Jihyo Kim and KyungTae Lim},
+  year={2026},
+  eprint={2609.10993},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2609.10993},
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="70" height="20">
+          <span>Multimodal Language Processing Lab (MLP Lab)</span>
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>

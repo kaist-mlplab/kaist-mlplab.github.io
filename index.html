@@ -1,0 +1,34 @@
+---
+title: "Multimodal Language Processing Lab"
+description: "The Multimodal Language Processing (MLP) Lab at KAIST, led by Prof. KyungTae Lim, studies large language models, Korean language resources, NLP, and vision-language models. Browse our research projects."
+jsonld: jsonld-organization.html
+---
+<section class="hero">
+  <h1>{{ site.lab.name }} <span class="muted">({{ site.lab.short_name }})</span></h1>
+  <p class="lead">
+    The Multimodal Language Processing Lab at KAIST ({{ site.lab.department }}) is led by
+    Prof. {{ site.lab.pi_name }}. We build and analyze large language models — from fully open
+    Korean–English foundation models to multimodal models that see, read, and act.
+  </p>
+</section>
+
+<section>
+  <h2>Research areas</h2>
+  <ul class="areas">
+    <li><strong>Large language models &amp; data.</strong> Building open Korean–English foundation models from scratch (KORMo, Bllossom): tokenizers, pre-training data composition, and knowledge transfer.</li>
+    <li><strong>Multilingual model interpretability.</strong> How multilingual LLMs represent and separate languages internally, down to individual neurons.</li>
+    <li><strong>Korean language resources &amp; NLP.</strong> Korean language resource design and evaluation, morphological analysis, and dependency parsing.</li>
+    <li><strong>Vision-language &amp; embodied AI.</strong> Vision-language models, visual question answering, and vision-language-action models for robots.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Latest projects</h2>
+  <div class="cards">
+    {%- assign latest = site.data.projects | sort: 'date' | reverse -%}
+    {%- for p in latest limit: 6 %}
+    {% include project-card.html project=p %}
+    {%- endfor %}
+  </div>
+  <p><a href="{{ '/projects/' | relative_url }}">All projects →</a></p>
+</section>
