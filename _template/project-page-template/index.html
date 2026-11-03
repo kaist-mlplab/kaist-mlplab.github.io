@@ -84,6 +84,8 @@
   </script>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <!-- 수식이 있으면 KaTeX CSS 유지 (tools/render-math.js 참고), 없으면 삭제 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
@@ -172,6 +174,7 @@
     </figure>
     <div class="content has-text-justified mt-5">
       <!-- TODO: 방법 설명. 단계별 목록을 쓰면 AI가 요약하기 쉽다 -->
+      <!-- 수식: 이중 대괄호 마커(인라인 i, 블록 d; 형식은 tools/render-math.js 상단 참고)로 적고 `node tools/render-math.js index.html` 실행. 유니코드로 흉내 내지 않는다 -->
       <p>Short explanation of the problem with prior work and the key idea.</p>
       <ol>
         <li><strong>Step 1.</strong> ...</li>

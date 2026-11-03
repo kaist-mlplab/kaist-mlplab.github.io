@@ -16,6 +16,7 @@ It is adapted from [Nerfies](https://github.com/nerfies/nerfies.github.io) and l
    - Also state the key numbers from the figures in the captions or body text. AI tools cannot read numbers inside images.
    - Write tables as HTML `<table>`, not as images.
    - Remove buttons you don't need (Code, Demo, Dataset, Model).
+   - Write equations as LaTeX: `[[i:...]]` for inline and `[[d:...]]` for display. Then run `node tools/render-math.js index.html` once and they are pre-rendered into static HTML with KaTeX (no JavaScript needed on the page).
    - Check that the JSON-LD is valid at https://validator.schema.org.
    - For a finished example, see `_template/distribution-aware-language-neurons/` in the hub repo.
 3. Go to **Settings > Pages**, set Source to `Deploy from a branch` and Branch to `main` / `(root)`, then save.
