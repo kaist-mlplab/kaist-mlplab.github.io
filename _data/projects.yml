@@ -44,25 +44,6 @@
   authors: ["Chan Hur", "Minkyung Cho", "Jun Seo Kim", "Won Jun Oh", "Hyung Wook Noh", "KyungTae Lim"]
   summary: "Executable intent trajectories for stateful language grounding in multi-turn image retrieval. Accepted to Findings of EACL 2027; the paper will be linked when the proceedings or a preprint are public."
 
-- slug: pseudragon
-  title: "PseuDRAGON: Knowledge-Guided Local LLMs for Financial-Data Pseudonymization in Closed Networks"
-  venue: "SAC 2027"
-  year: 2027
-  date: 2026-11-23
-  authors: ["Gwangui Hong", "Seonho An", "Seonkyu Lim", "KyungTae Lim", "Min-Soo Kim"]
-  summary: >-
-    PseuDRAGON is a closed-network workflow that stores reviewed expert judgments outside a fixed local
-    LLM and reuses them through exact-name lookup and learned rules; across 92 financial columns, rules
-    raise reuse from 75 to 83 labels with no reuse errors and identification time falls by 83.0%.
-  thumbnail: /assets/img/projects/pseudragon.png
-  thumbnail_alt: >-
-    PseuDRAGON workflow inside a closed institutional network: PII identification with label reuse,
-    policy guidance, expert review, and program generation, backed by an institutional knowledge store.
-  paper: https://arxiv.org/abs/2611.30353
-  arxiv: https://arxiv.org/abs/2611.30353
-  pdf: https://arxiv.org/pdf/2611.30353
-  code: https://github.com/recordame/PseuDRAGON
-
 - slug: distribution-aware-language-neurons
   title: "Distribution-aware Language Neuron Identification in Multilingual Large Language Models"
   venue: "EMNLP 2026"
