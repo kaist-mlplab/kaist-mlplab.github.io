@@ -3,6 +3,6 @@
 {%- assign paper = include.project.paper | default: '' -%}
 {%- if v contains 'Findings' -%}findings
 {%- elsif v contains 'arXiv' or v contains 'Technical Report' or v contains 'Thesis' -%}preprint
-{%- elsif paper contains 'aclanthology.org' or paper contains 'aaai.org' or paper contains 'openreview.net' -%}conference
+{%- elsif paper contains 'aclanthology.org' or paper contains 'aaai.org' or paper contains 'openreview.net' or v contains 'SAC 20' -%}conference
 {%- else -%}journal
 {%- endif -%}

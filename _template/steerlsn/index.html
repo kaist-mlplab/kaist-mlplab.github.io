@@ -4,65 +4,121 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation</title>
-  <meta name="description" content="STEERLSN: training-free representation alignment via language-specific neuron subspace interpolation in multilingual LLMs. Findings of AACL-IJCNLP 2026.">
-  <meta name="keywords" content="language-specific neurons, LSN, representation alignment, training-free, neuron subspace interpolation, activation steering, multilingual LLMs, AACL-IJCNLP 2026, KAIST">
+  <meta name="description" content="STEERLSN aligns non-English representations with English by interpolating language-specific neuron activations, without training. Findings of IJCNLP-AACL 2026.">
+  <meta name="keywords" content="language-specific neurons, LSN, representation alignment, training-free, activation steering, inference-time intervention, neuron subspace interpolation, LAPE, low-resource languages, cross-lingual transfer, multilingual large language models, IJCNLP-AACL 2026, KAIST">
   <link rel="canonical" href="https://kaist-mlplab.github.io/steerlsn/">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="KAIST MLP Lab">
   <meta property="og:title" content="STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation">
-  <meta property="og:description" content="STEERLSN: a training-free method for representation alignment through language-specific neuron subspace interpolation in multilingual language models. Accepted to Findings of AACL-IJCNLP 2026. KAIST MLP Lab.">
+  <meta property="og:description" content="STEERLSN aligns non-English representations with English by interpolating language-specific neuron activations, without training. Findings of IJCNLP-AACL 2026.">
   <meta property="og:url" content="https://kaist-mlplab.github.io/steerlsn/">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="STEERLSN (Findings of AACL-IJCNLP 2026)">
-  <meta name="twitter:description" content="STEERLSN: a training-free method for representation alignment through language-specific neuron subspace interpolation in multilingual language models. Accepted to Findings of AACL-IJCNLP 2026. KAIST MLP Lab.">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/steerlsn/static/images/teaser.png">
+  <meta property="og:image:width" content="1805">
+  <meta property="og:image:height" content="1659">
+  <meta property="og:image:alt" content="t-SNE of layer-wise language representations in Qwen3-4B-Instruct at layers 1, 12, 24, and 36.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="STEERLSN (Findings of IJCNLP-AACL 2026)">
+  <meta name="twitter:description" content="STEERLSN aligns non-English representations with English by interpolating language-specific neuron activations, without training. Findings of IJCNLP-AACL 2026.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/steerlsn/static/images/teaser.png">
   <meta name="citation_title" content="STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation">
   <meta name="citation_author" content="Kim, Minjun">
+  <meta name="citation_author_institution" content="KAIST">
   <meta name="citation_author" content="Kim, Dongyeon">
+  <meta name="citation_author_institution" content="KAIST">
   <meta name="citation_author" content="Song, Hoyun">
+  <meta name="citation_author_institution" content="Dankook University">
   <meta name="citation_author" content="Kim, Jihyo">
+  <meta name="citation_author_institution" content="KAIST InnoCORE PRISM-AI Center">
   <meta name="citation_author" content="Lim, KyungTae">
-  <meta name="citation_publication_date" content="2026">
-  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: AACL-IJCNLP 2026">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/11">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: IJCNLP-AACL 2026">
+  <meta name="citation_publisher" content="Association for Computational Linguistics">
+  <meta name="citation_firstpage" content="1005">
+  <meta name="citation_lastpage" content="1018">
+  <meta name="citation_doi" content="10.18653/2026.findings-aacl.51">
+  <meta name="citation_isbn" content="979-8-89176-444-6">
+  <meta name="citation_pdf_url" content="https://aclanthology.org/2026.findings-aacl.51.pdf">
   <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/steerlsn/">
   <script type="application/ld+json">
-  {
+{
   "@context": "https://schema.org",
   "@type": "ScholarlyArticle",
   "@id": "https://kaist-mlplab.github.io/steerlsn/#article",
   "headline": "STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation",
   "name": "STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation",
   "url": "https://kaist-mlplab.github.io/steerlsn/",
-  "datePublished": "2026",
+  "datePublished": "2026-11",
   "inLanguage": "en",
+  "image": "https://kaist-mlplab.github.io/steerlsn/static/images/teaser.png",
+  "abstract": "Recent advancements in Large Language Models (LLMs) have shown remarkable capabilities in multilingual contexts. However, previous studies suggest that multilingual LLMs primarily rely on the rich semantic knowledge of high-resource (i.e., English) representations to conduct tasks across languages. To mitigate the performance gap arising from resource imbalances, we propose Steering via Language-Specific Neurons, a training-free method that aligns non-English representations with the English manifold intervening on language-specific neuron activations via linear interpolation toward English activation prototypes. Experimental results show that the proposed method generally improves downstream task performance with minimal computational cost, yielding performance gains for low-resource scenarios where limited data often constrains knowledge coverage. Our findings suggest that the fundamental limitations of low-resource languages can be effectively alleviated by leveraging the robust representation space of high-resource languages, offering a promising direction for more balanced multilingual LLMs.",
   "keywords": [
     "language-specific neurons",
     "LSN",
     "representation alignment",
     "training-free",
     "activation steering",
+    "inference-time intervention",
     "neuron subspace interpolation",
+    "LAPE",
+    "low-resource languages",
+    "cross-lingual transfer",
     "multilingual large language models"
+  ],
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Language-specific neurons"
+    },
+    {
+      "@type": "Thing",
+      "name": "Multilingual large language models"
+    },
+    {
+      "@type": "Thing",
+      "name": "Activation steering"
+    }
   ],
   "author": [
     {
       "@type": "Person",
-      "name": "Minjun Kim"
+      "name": "Minjun Kim",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "KAIST"
+      }
     },
     {
       "@type": "Person",
-      "name": "Dongyeon Kim"
+      "name": "Dongyeon Kim",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "KAIST"
+      }
     },
     {
       "@type": "Person",
-      "name": "Hoyun Song"
+      "name": "Hoyun Song",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Dankook University"
+      }
     },
     {
       "@type": "Person",
-      "name": "Jihyo Kim"
+      "name": "Jihyo Kim",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "KAIST InnoCORE PRISM-AI Center"
+      }
     },
     {
       "@type": "Person",
-      "name": "KyungTae Lim"
+      "name": "KyungTae Lim",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "KAIST"
+      }
     }
   ],
   "publisher": {
@@ -71,8 +127,29 @@
     "url": "https://kaist-mlplab.github.io/"
   },
   "isPartOf": {
-    "@type": "PublicationEvent",
-    "name": "The 5th Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics and the 15th International Joint Conference on Natural Language Processing (AACL-IJCNLP 2026), Findings"
+    "@type": "Periodical",
+    "name": "Findings of the Association for Computational Linguistics: IJCNLP-AACL 2026",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Association for Computational Linguistics"
+    }
+  },
+  "sameAs": [
+    "https://aclanthology.org/2026.findings-aacl.51/",
+    "https://doi.org/10.18653/2026.findings-aacl.51"
+  ],
+  "pagination": "1005-1018",
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "DOI",
+      "value": "10.18653/2026.findings-aacl.51"
+    }
+  ],
+  "encoding": {
+    "@type": "MediaObject",
+    "encodingFormat": "application/pdf",
+    "contentUrl": "https://aclanthology.org/2026.findings-aacl.51.pdf"
   }
 }
   </script>
@@ -83,6 +160,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
@@ -99,40 +177,209 @@
   </div>
 </nav>
 
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop has-text-centered">
       <h1 class="title is-2 publication-title">STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation</h1>
-      <p><span class="tag is-link is-medium venue-badge">Findings of AACL-IJCNLP 2026</span></p>
+      <p class="subtitle is-5 publication-subtitle">Steering language-specific neurons toward English prototypes at inference time</p>
+      <p><span class="tag is-link is-medium venue-badge">Findings of IJCNLP-AACL 2026</span></p>
+
       <p class="publication-authors">
-        <span class="author-block">Minjun Kim</span>,
-        <span class="author-block">Dongyeon Kim</span>,
-        <span class="author-block">Hoyun Song</span>,
-        <span class="author-block">Jihyo Kim</span>,
-        <span class="author-block">KyungTae Lim</span>
+        <span class="author-block">Minjun Kim<sup>1</sup>,</span>
+        <span class="author-block">Dongyeon Kim<sup>1</sup>,</span>
+        <span class="author-block">Hoyun Song<sup>2</sup>,</span>
+        <span class="author-block">Jihyo Kim<sup>3,†</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>1,†</sup></span>
       </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>KAIST</span>
+        <span class="author-block"><sup>2</sup>Dankook University</span>
+        <span class="author-block"><sup>3</sup>KAIST InnoCORE PRISM-AI Center</span>
+      </p>
+      <p class="publication-notes"><sup>†</sup>Equal corresponding authors</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-aacl.51/">Paper (ACL Anthology)</a>
+        <a class="button is-dark is-rounded" href="https://aclanthology.org/2026.findings-aacl.51.pdf">PDF</a>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- 5. Teaser -->
 <section class="section pt-0">
   <div class="container is-max-desktop">
-    <div class="notification is-light">
-      This paper has been accepted to <strong>Findings of AACL-IJCNLP 2026</strong>. The paper link, abstract, and results will be added here once the proceedings
-      (ACL Anthology) or a preprint are publicly available.
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="1805" height="1659"
+           alt="Four t-SNE panels of Qwen3-4B-Instruct hidden states for 13 languages at layers 1, 12, 24, and 36. Languages form separate clusters at layer 1, move close together and intermix at layers 12 and 24, and separate into distinct clusters again at layer 36.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> t-SNE of layer-wise representations from Qwen3-4B-Instruct, computed on parallel sentences.
+        Languages form distinct clusters in the lower layers (layer 1), move closer to one another toward the middle layers
+        (layers 12 and 24), and diverge again in the top layers (layer 36). STEERLSN therefore steers toward English in the
+        middle of the model (25&ndash;75% of the depth) and restores the source language in the top layers (75&ndash;100%).
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Recent advancements in Large Language Models (LLMs) have shown remarkable capabilities in multilingual contexts. However, previous studies suggest that multilingual LLMs primarily rely on the rich semantic knowledge of high-resource (i.e., English) representations to conduct tasks across languages. To mitigate the performance gap arising from resource imbalances, we propose <em>Steering via Language-Specific Neurons</em>, a training-free method that aligns non-English representations with the English manifold intervening on language-specific neuron activations via linear interpolation toward English activation prototypes. Experimental results show that the proposed method generally improves downstream task performance with minimal computational cost, yielding performance gains for low-resource scenarios where limited data often constrains knowledge coverage. Our findings suggest that the fundamental limitations of low-resource languages can be effectively alleviated by leveraging the robust representation space of high-resource languages, offering a promising direction for more balanced multilingual LLMs.
+      </p>
     </div>
     <div class="keywords">
       <span class="keywords-label">Keywords</span>
       <span class="tag">Language-specific neurons (LSN)</span>
       <span class="tag">Representation alignment</span>
       <span class="tag">Training-free</span>
-      <span class="tag">Neuron subspace interpolation</span>
       <span class="tag">Activation steering</span>
+      <span class="tag">Inference-time intervention</span>
+      <span class="tag">Neuron subspace interpolation</span>
+      <span class="tag">LAPE</span>
+      <span class="tag">Low-resource languages</span>
+      <span class="tag">Cross-lingual transfer</span>
       <span class="tag">Multilingual LLMs</span>
     </div>
   </div>
 </section>
 
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        STEERLSN (Steering via Language-Specific Neurons) rests on the <em>Conceptual Access Hypothesis</em>: low-resource
+        performance is limited not only by missing knowledge but also by limited access to the English-centric conceptual space
+        where that knowledge is more effectively used. The method changes only feed-forward neuron activations at inference time;
+        no weights are updated and no extra low-resource data is needed.
+      </p>
+      <ol>
+        <li><strong>Find language-specific neurons.</strong> Language-conditioned activations <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>a</mi><mi>j</mi><mi>i</mi></msubsup></mrow><annotation encoding="application/x-tex">a^i_j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2194em;vertical-align:-0.3948em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8247em;"><span style="top:-2.4413em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span> (neuron <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.854em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span></span></span></span> at layer <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span>)
+          are collected on FLORES+ parallel sentences. LSNs are selected with LAPE: neurons whose activation probability is above the
+          95th percentile are kept, and the bottom 1% by LAPE score are taken as LSNs. This gives a source-language set
+          <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">c</mi></mrow></msub></mrow><annotation encoding="application/x-tex">S_{\mathrm{src}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">src</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and a target-language (English) set <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mrow><mi mathvariant="normal">t</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">S_{\mathrm{tgt}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">tgt</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>.</li>
+        <li><strong>Stage 1: steer toward the target language</strong> (25&ndash;75% of the model depth). Source-language LSNs are
+          linearly interpolated toward the mean target-language activation <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><msubsup><mi>a</mi><msub><mi>S</mi><mrow><mi mathvariant="normal">t</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">t</mi></mrow></msub><mi>i</mi></msubsup></msub></mrow><annotation encoding="application/x-tex">\mu_{a^i_{S_{\mathrm{tgt}}}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1267em;vertical-align:-0.6962em;"></span><span class="mord"><span class="mord mathnormal">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.4737em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8159em;"><span style="top:-2.1607em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3448em;margin-left:-0.0576em;margin-right:0.1em;"><span class="pstrut" style="height:2.6151em;"></span><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">tgt</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4647em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-2.8448em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.6712em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.6962em;"><span></span></span></span></span></span></span></span></span></span>, and target-language LSNs
+          are set to that mean, with steering strength <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>∈</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\alpha \in (0, 1\rbrack</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>.
+          <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mover accent="true"><mi>a</mi><mo>~</mo></mover><mi>j</mi><mi>i</mi></msubsup><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.36em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false">)</mo><mtext> </mtext><msubsup><mi>a</mi><mi>j</mi><mi>i</mi></msubsup><mo>+</mo><mi>α</mi><mtext> </mtext><msub><mi>μ</mi><msubsup><mi>a</mi><msub><mi>S</mi><mrow><mi mathvariant="normal">t</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">t</mi></mrow></msub><mi>i</mi></msubsup></msub></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>if </mtext><mi>j</mi><mo>∈</mo><msub><mi>S</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">c</mi></mrow></msub><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>μ</mi><msubsup><mi>a</mi><msub><mi>S</mi><mrow><mi mathvariant="normal">t</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">t</mi></mrow></msub><mi>i</mi></msubsup></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>if </mtext><mi>j</mi><mo>∈</mo><msub><mi>S</mi><mrow><mi mathvariant="normal">t</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">t</mi></mrow></msub><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msubsup><mi>a</mi><mi>j</mi><mi>i</mi></msubsup></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>otherwise.</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\tilde{a}^i_j = \begin{cases} (1-\alpha)\,a^i_j + \alpha\,\mu_{a^i_{S_{\mathrm{tgt}}}} &amp; \text{if } j \in S_{\mathrm{src}}, \\ \mu_{a^i_{S_{\mathrm{tgt}}}} &amp; \text{if } j \in S_{\mathrm{tgt}}, \\ a^i_j &amp; \text{otherwise.} \end{cases}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2578em;vertical-align:-0.3831em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">a</span></span><span style="top:-3.35em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">~</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3831em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:4.8484em;vertical-align:-2.1742em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.65em;"><span style="top:-1.9em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-1.892em;"><span class="pstrut" style="height:3.15em;"></span><span style="height:0.616em;width:0.8889em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.8889em" height="0.616em" style="width:0.8889em" viewBox="0 0 888.89 616" preserveAspectRatio="xMinYMin"><path d="M384 0 H504 V616 H384z M384 0 H504 V616 H384z"/></svg></span></span><span style="top:-3.15em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.292em;"><span class="pstrut" style="height:3.15em;"></span><span style="height:0.616em;width:0.8889em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.8889em" height="0.616em" style="width:0.8889em" viewBox="0 0 888.89 616" preserveAspectRatio="xMinYMin"><path d="M384 0 H504 V616 H384z M384 0 H504 V616 H384z"/></svg></span></span><span style="top:-4.9em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6742em;"><span style="top:-4.6742em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8247em;"><span style="top:-2.4413em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.4737em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8159em;"><span style="top:-2.1607em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3448em;margin-left:-0.0576em;margin-right:0.1em;"><span class="pstrut" style="height:2.6151em;"></span><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">tgt</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4647em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-2.8448em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.6712em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.6962em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.4737em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8159em;"><span style="top:-2.1607em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3448em;margin-left:-0.0576em;margin-right:0.1em;"><span class="pstrut" style="height:2.6151em;"></span><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">tgt</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4647em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-2.8448em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.6712em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.6962em;"><span></span></span></span></span></span></span></span></span><span style="top:-1.2658em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8247em;"><span style="top:-2.4413em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.1742em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.6742em;"><span style="top:-4.6742em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">if </span></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">src</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">if </span></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">tgt</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mpunct">,</span></span></span><span style="top:-1.2658em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">otherwise.</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.1742em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
+          Source LSNs are not zeroed out: because neurons are polysemantic, zeroing can suppress task-relevant signals.</li>
+        <li><strong>Stage 2: restore the source language</strong> (75&ndash;100% of the depth). The roles are swapped so that the
+          model answers in the input language again:
+          <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mover accent="true"><mi>a</mi><mo>~</mo></mover><mi>j</mi><mi>i</mi></msubsup><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.36em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msub><mi>μ</mi><msubsup><mi>a</mi><msub><mi>S</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">c</mi></mrow></msub><mi>i</mi></msubsup></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>for </mtext><mi>j</mi><mo>∈</mo><msub><mi>S</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">c</mi></mrow></msub><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false">)</mo><mtext> </mtext><msubsup><mi>a</mi><mi>j</mi><mi>i</mi></msubsup><mo>+</mo><mi>α</mi><mtext> </mtext><msub><mi>μ</mi><msubsup><mi>a</mi><msub><mi>S</mi><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">c</mi></mrow></msub><mi>i</mi></msubsup></msub></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>for </mtext><mi>j</mi><mo>∈</mo><msub><mi>S</mi><mrow><mi mathvariant="normal">t</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">t</mi></mrow></msub><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><msubsup><mi>a</mi><mi>j</mi><mi>i</mi></msubsup></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>otherwise.</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\tilde{a}^i_j = \begin{cases} \mu_{a^i_{S_{\mathrm{src}}}} &amp; \text{for } j \in S_{\mathrm{src}}, \\ (1-\alpha)\,a^i_j + \alpha\,\mu_{a^i_{S_{\mathrm{src}}}} &amp; \text{for } j \in S_{\mathrm{tgt}}, \\ a^i_j &amp; \text{otherwise.} \end{cases}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2578em;vertical-align:-0.3831em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">a</span></span><span style="top:-3.35em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">~</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8747em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3831em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:4.5837em;vertical-align:-2.0418em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.35em;"><span style="top:-2.2em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-2.192em;"><span class="pstrut" style="height:3.15em;"></span><span style="height:0.316em;width:0.8889em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.8889em" height="0.316em" style="width:0.8889em" viewBox="0 0 888.89 316" preserveAspectRatio="xMinYMin"><path d="M384 0 H504 V316 H384z M384 0 H504 V316 H384z"/></svg></span></span><span style="top:-3.15em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.292em;"><span class="pstrut" style="height:3.15em;"></span><span style="height:0.316em;width:0.8889em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.8889em" height="0.316em" style="width:0.8889em" viewBox="0 0 888.89 316" preserveAspectRatio="xMinYMin"><path d="M384 0 H504 V316 H384z M384 0 H504 V316 H384z"/></svg></span></span><span style="top:-4.6em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.85em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.5418em;"><span style="top:-4.5418em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.4737em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8159em;"><span style="top:-2.1607em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2306em;"><span style="top:-2.3em;margin-left:-0.0576em;margin-right:0.1em;"><span class="pstrut" style="height:2.5em;"></span><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">src</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-2.8448em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4822em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5638em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8247em;"><span style="top:-2.4413em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.4737em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8159em;"><span style="top:-2.1607em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2306em;"><span style="top:-2.3em;margin-left:-0.0576em;margin-right:0.1em;"><span class="pstrut" style="height:2.5em;"></span><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">src</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-2.8448em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4822em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5638em;"><span></span></span></span></span></span></span></span></span><span style="top:-1.3982em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8247em;"><span style="top:-2.4413em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3948em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.0418em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.5418em;"><span style="top:-4.5418em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">for </span></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">src</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">for </span></span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">tgt</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mpunct">,</span></span></span><span style="top:-1.3982em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">otherwise.</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.0418em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></li>
+      </ol>
+      <p>
+        Because only LSN activations change, the shift of the residual stream
+        <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msup><mi>h</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>=</mo><mo stretchy="false">(</mo><msubsup><mi>W</mi><mi>i</mi><mrow><mi mathvariant="normal">d</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">w</mi><mi mathvariant="normal">n</mi></mrow></msubsup><msup><mo stretchy="false">)</mo><mi mathvariant="normal">⊤</mi></msup><mi mathvariant="normal">Δ</mi><msubsup><mi>a</mi><mi>S</mi><mi>i</mi></msubsup></mrow><annotation encoding="application/x-tex">\Delta h^{i+1} = (W^{\mathrm{down}}_i)^{\top} \Delta a^i_S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8247em;"></span><span class="mord">Δ</span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8247em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1244em;vertical-align:-0.2753em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-2.4413em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">down</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2587em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">⊤</span></span></span></span></span></span></span></span></span><span class="mord">Δ</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8247em;"><span style="top:-2.4247em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2753em;"><span></span></span></span></span></span></span></span></span></span> stays inside a low-dimensional subspace spanned by the output
+        directions of those neurons, instead of perturbing the representation arbitrarily. The strength <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span> is chosen by
+        grid search over <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">(0, 1\rbrack</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span> in steps of 0.1 on a 20% validation split, and the same value is used for all steered layers.
+      </p>
+    </div>
+    <figure class="mt-5">
+      <picture>
+        <source srcset="static/images/method.webp" type="image/webp">
+        <img src="static/images/method.png" width="1795" height="754" loading="lazy"
+           alt="Line plot of cosine distance between Turkish and English representations at each of the 36 layers of Qwen3-4B-Instruct, for the baseline and for STEERLSN. The STEERLSN curve lies below the baseline from about layer 9 to layer 33 and meets it again at the last layers.">
+      </picture>
+      <figcaption>
+        <strong>Figure 2.</strong> Layer-wise cosine distance between Turkish and English representations in Qwen3-4B-Instruct
+        when the input is Turkish. In Stage 1 (25&ndash;75% of the depth) STEERLSN moves the Turkish representation closer to
+        English than the baseline; in Stage 2 the distance returns toward the baseline trajectory as the source language is restored.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Largest gains for medium-resource languages.</strong> On Global MMLU with Qwen3-4B-Instruct, STEERLSN raises
+          accuracy from 37.50 to 45.75 for Turkish (+8.25 points) and from 23.56 to 30.94 for Hindi (+7.38 points).</li>
+        <li><strong>High-resource languages also benefit.</strong> Five of the six non-English high-resource languages improve on
+          Global MMLU with Qwen3-4B-Instruct (e.g. Japanese 55.94 &rarr; 58.81, German 58.88 &rarr; 60.94).</li>
+        <li><strong>Modest gains for the lowest-resource language.</strong> Swahili improves from 29.13 to 29.81 (Qwen3-4B) and from
+          41.12 to 41.31 (Llama3.1-8B) on Global MMLU.</li>
+        <li><strong>Culture-linked knowledge transfers too.</strong> For Qwen3-4B-Instruct, accuracy on culturally sensitive questions
+          about English-speaking countries rises by 3.33 points on average (to 45.29), and on culturally agnostic questions by
+          2.26 points (to 52.89). With Chinese instead of English as the target for Hindi, the culturally sensitive gain is smaller
+          (+1.96 vs. +3.92).</li>
+        <li><strong>Little change on MGSM.</strong> Math word problems depend on procedural multi-step reasoning rather than
+          language-attributed knowledge, so improved conceptual access alone gives little to no improvement there.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Accuracy (%) on Global MMLU and MGSM for Qwen3-4B-Instruct and Llama3.1-8B-Instruct, without and
+          with STEERLSN (English is the target language). Bold marks the better of the two. Resource level: en highest; zh, ru, de,
+          ja, fr, es high; tr, hi, bn medium; sw low.
+        </caption>
+        <thead>
+          <tr><th>Benchmark</th><th>Model</th><th>en</th><th>zh</th><th>ru</th><th>de</th><th>ja</th><th>fr</th><th>es</th><th>tr</th><th>hi</th><th>bn</th><th>sw</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="4">Global MMLU</td><td>Qwen3-4B</td><td>67.88</td><td><strong>62.68</strong></td><td>59.44</td><td>58.88</td><td>55.94</td><td>61.31</td><td>60.38</td><td>37.50</td><td>23.56</td><td><strong>45.50</strong></td><td>29.13</td></tr>
+          <tr class="ours"><td>+ STEERLSN</td><td>&ndash;</td><td>62.31</td><td><strong>59.94</strong></td><td><strong>60.94</strong></td><td><strong>58.81</strong></td><td><strong>61.75</strong></td><td><strong>61.75</strong></td><td><strong>45.75</strong></td><td><strong>30.94</strong></td><td>45.38</td><td><strong>29.81</strong></td></tr>
+          <tr><td>Llama3.1-8B</td><td>67.19</td><td>55.19</td><td>54.50</td><td><strong>56.50</strong></td><td>50.81</td><td><strong>57.12</strong></td><td>56.88</td><td>45.75</td><td>44.06</td><td>41.56</td><td>41.12</td></tr>
+          <tr class="ours"><td>+ STEERLSN</td><td>&ndash;</td><td>55.19</td><td><strong>55.50</strong></td><td>56.44</td><td><strong>51.31</strong></td><td>56.44</td><td><strong>58.25</strong></td><td><strong>46.25</strong></td><td><strong>44.31</strong></td><td><strong>42.75</strong></td><td><strong>41.31</strong></td></tr>
+          <tr><td rowspan="4">MGSM</td><td>Qwen3-4B</td><td>32.80</td><td><strong>27.60</strong></td><td><strong>34.80</strong></td><td>30.40</td><td>23.60</td><td><strong>28.80</strong></td><td><strong>33.60</strong></td><td>&ndash;</td><td>&ndash;</td><td><strong>26.80</strong></td><td>8.40</td></tr>
+          <tr class="ours"><td>+ STEERLSN</td><td>&ndash;</td><td>24.80</td><td>34.00</td><td><strong>31.20</strong></td><td><strong>24.40</strong></td><td>28.40</td><td>33.20</td><td>&ndash;</td><td>&ndash;</td><td>26.40</td><td><strong>10.00</strong></td></tr>
+          <tr><td>Llama3.1-8B</td><td>9.60</td><td>1.20</td><td><strong>14.00</strong></td><td><strong>14.40</strong></td><td>5.60</td><td><strong>13.60</strong></td><td>11.60</td><td>&ndash;</td><td>&ndash;</td><td><strong>11.60</strong></td><td>10.80</td></tr>
+          <tr class="ours"><td>+ STEERLSN</td><td>&ndash;</td><td><strong>11.20</strong></td><td>13.20</td><td>14.00</td><td><strong>8.00</strong></td><td>12.80</td><td><strong>12.40</strong></td><td>&ndash;</td><td>&ndash;</td><td>11.20</td><td><strong>11.20</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{kim-etal-2026-steerlsn,
+    title = "{STEERLSN}: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation",
+    author = "Kim, Minjun  and
+      Kim, Dongyeon  and
+      Song, Hoyun  and
+      Kim, Jihyo  and
+      Lim, KyungTae",
+    editor = "Zhang, Yue  and
+      Xu, Ruifeng  and
+      Purwarianti, Ayu  and
+      Rong, Tong  and
+      Suzuki, Jun",
+    booktitle = "Findings of the {A}ssociation for {C}omputational {L}inguistics: {IJCNLP}-{AACL} 2026",
+    month = nov,
+    year = "2026",
+    address = "Hengqin, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.findings-aacl.51/",
+    doi = "10.18653/2026.findings-aacl.51",
+    pages = "1005--1018",
+    ISBN = "979-8-89176-444-6"
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
 <section class="section pt-0">
   <div class="container is-max-desktop has-text-centered">
     <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
@@ -157,5 +404,17 @@
   </div>
 </footer>
 
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
 </body>
 </html>

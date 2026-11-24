@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TraceCIR: Executable Intent Trajectories for Stateful Language Grounding in Multi-Turn Image Retrieval</title>
+  <meta name="description" content="TraceCIR: executable intent trajectories for stateful language grounding in multi-turn image retrieval. Accepted to Findings of EACL 2027 (KAIST MLP Lab).">
+  <meta name="keywords" content="multi-turn image retrieval, stateful language grounding, executable intent trajectories, vision-language models, EACL 2027, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/tracecir/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="TraceCIR: Executable Intent Trajectories for Stateful Language Grounding in Multi-Turn Image Retrieval">
+  <meta property="og:description" content="TraceCIR: executable intent trajectories for stateful language grounding in multi-turn image retrieval. Accepted to Findings of EACL 2027 (KAIST MLP Lab).">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/tracecir/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="TraceCIR (Findings of EACL 2027)">
+  <meta name="twitter:description" content="TraceCIR: executable intent trajectories for stateful language grounding in multi-turn image retrieval. Accepted to Findings of EACL 2027 (KAIST MLP Lab).">
+  <meta name="citation_title" content="TraceCIR: Executable Intent Trajectories for Stateful Language Grounding in Multi-Turn Image Retrieval">
+  <meta name="citation_author" content="Hur, Chan">
+  <meta name="citation_author" content="Cho, Minkyung">
+  <meta name="citation_author" content="Kim, Jun Seo">
+  <meta name="citation_author" content="Oh, Won Jun">
+  <meta name="citation_author" content="Noh, Hyung Wook">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_publication_date" content="2027">
+  <meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: EACL 2027">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/tracecir/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://kaist-mlplab.github.io/tracecir/#article",
+  "headline": "TraceCIR: Executable Intent Trajectories for Stateful Language Grounding in Multi-Turn Image Retrieval",
+  "name": "TraceCIR: Executable Intent Trajectories for Stateful Language Grounding in Multi-Turn Image Retrieval",
+  "url": "https://kaist-mlplab.github.io/tracecir/",
+  "datePublished": "2027",
+  "inLanguage": "en",
+  "keywords": [
+    "multi-turn image retrieval",
+    "stateful language grounding",
+    "executable intent trajectories",
+    "vision-language models"
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Chan Hur"
+    },
+    {
+      "@type": "Person",
+      "name": "Minkyung Cho"
+    },
+    {
+      "@type": "Person",
+      "name": "Jun Seo Kim"
+    },
+    {
+      "@type": "Person",
+      "name": "Won Jun Oh"
+    },
+    {
+      "@type": "Person",
+      "name": "Hyung Wook Noh"
+    },
+    {
+      "@type": "Person",
+      "name": "KyungTae Lim"
+    }
+  ],
+  "publisher": {
+    "@type": "ResearchOrganization",
+    "name": "KAIST Multimodal Language Processing Lab",
+    "url": "https://kaist-mlplab.github.io/"
+  },
+  "isPartOf": {
+    "@type": "PublicationEvent",
+    "name": "The 20th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2027), Findings"
+  }
+}
+  </script>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://kaist-mlplab.github.io/assets/img/brand/icon-32.png">
+  <link rel="apple-touch-icon" href="https://kaist-mlplab.github.io/assets/img/brand/icon-180.png">
+  <meta name="theme-color" content="#0068FF">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img class="lab-nav-mlp" src="static/images/mlp-logo.png" alt="MLP Lab — Multimodal Language Processing Lab" width="179" height="36">
+      <span class="lab-nav-divider" aria-hidden="true"></span>
+      <img class="lab-nav-kaist" src="static/images/kaist-logo.png" alt="KAIST" width="91" height="26">
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">TraceCIR: Executable Intent Trajectories for Stateful Language Grounding in Multi-Turn Image Retrieval</h1>
+      <p><span class="tag is-link is-medium venue-badge">Findings of EACL 2027</span></p>
+      <p class="publication-authors">
+        <span class="author-block">Chan Hur</span>,
+        <span class="author-block">Minkyung Cho</span>,
+        <span class="author-block">Jun Seo Kim</span>,
+        <span class="author-block">Won Jun Oh</span>,
+        <span class="author-block">Hyung Wook Noh</span>,
+        <span class="author-block">KyungTae Lim</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <div class="notification is-light">
+      This paper has been accepted to <strong>Findings of EACL 2027</strong>. The paper link, abstract, and results will be added here once the proceedings
+      (ACL Anthology) or a preprint are publicly available.
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Multi-turn image retrieval</span>
+      <span class="tag">Stateful language grounding</span>
+      <span class="tag">Executable intent trajectories</span>
+      <span class="tag">Vision-language models</span>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/mlp-logo.png" alt="MLP Lab — Multimodal Language Processing Lab" width="139" height="28">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="56" height="16">
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

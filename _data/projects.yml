@@ -17,6 +17,52 @@
 #   url        (선택) 프로젝트 페이지가 이 사이트 밖에 있을 때만 사용
 # =============================================================
 
+- slug: evident-gui-agents
+  title: "EVIDENT: Evaluating Evidence Grounding in GUI Agents"
+  venue: "Findings of EACL 2027"
+  year: 2027
+  date: 2026-11-16
+  authors: ["Yerin Nam", "Minkyung Cho", "MinKyu Kim", "SeungWoo Song", "Hangyeol Yoo", "Jihyo Kim", "KyungTae Lim"]
+  summary: >-
+    EVIDENT is a benchmark of 220 real-world English and Korean web tasks with human-curated evidence
+    metadata that separates surface task success (TSR) from evidence-grounded success (GSR); the best
+    agent, Gemini CUA, drops from 87.14% TSR to 55.71% GSR in English.
+  thumbnail: /assets/img/projects/evident-gui-agents.png
+  thumbnail_alt: >-
+    Overview of EVIDENT: benchmark construction, the three-step evidence-aware evaluation pipeline,
+    and the nested TSR, ESR, GSR metrics.
+  paper: https://arxiv.org/abs/2611.20488
+  arxiv: https://arxiv.org/abs/2611.20488
+  pdf: https://arxiv.org/pdf/2611.20488
+  code: https://github.com/yerinNam/EVIDENT
+
+- slug: tracecir
+  title: "TraceCIR: Executable Intent Trajectories for Stateful Language Grounding in Multi-Turn Image Retrieval"
+  venue: "Findings of EACL 2027"
+  year: 2027
+  date: 2026-11-24
+  authors: ["Chan Hur", "Minkyung Cho", "Jun Seo Kim", "Won Jun Oh", "Hyung Wook Noh", "KyungTae Lim"]
+  summary: "Executable intent trajectories for stateful language grounding in multi-turn image retrieval. Accepted to Findings of EACL 2027; the paper will be linked when the proceedings or a preprint are public."
+
+- slug: pseudragon
+  title: "PseuDRAGON: Knowledge-Guided Local LLMs for Financial-Data Pseudonymization in Closed Networks"
+  venue: "SAC 2027"
+  year: 2027
+  date: 2026-11-23
+  authors: ["Gwangui Hong", "Seonho An", "Seonkyu Lim", "KyungTae Lim", "Min-Soo Kim"]
+  summary: >-
+    PseuDRAGON is a closed-network workflow that stores reviewed expert judgments outside a fixed local
+    LLM and reuses them through exact-name lookup and learned rules; across 92 financial columns, rules
+    raise reuse from 75 to 83 labels with no reuse errors and identification time falls by 83.0%.
+  thumbnail: /assets/img/projects/pseudragon.png
+  thumbnail_alt: >-
+    PseuDRAGON workflow inside a closed institutional network: PII identification with label reuse,
+    policy guidance, expert review, and program generation, backed by an institutional knowledge store.
+  paper: https://arxiv.org/abs/2611.30353
+  arxiv: https://arxiv.org/abs/2611.30353
+  pdf: https://arxiv.org/pdf/2611.30353
+  code: https://github.com/recordame/PseuDRAGON
+
 - slug: distribution-aware-language-neurons
   title: "Distribution-aware Language Neuron Identification in Multilingual Large Language Models"
   venue: "EMNLP 2026"
@@ -119,11 +165,20 @@
 
 - slug: steerlsn
   title: "STEERLSN: Training-Free Representation Alignment through Language-Specific Neuron Subspace Interpolation"
-  venue: "Findings of AACL-IJCNLP 2026"
+  venue: "Findings of IJCNLP-AACL 2026"
   year: 2026
-  date: 2026-11-01
+  date: 2026-11-06
   authors: ["Minjun Kim", "Dongyeon Kim", "Hoyun Song", "Jihyo Kim", "KyungTae Lim"]
-  summary: "A training-free method for representation alignment in multilingual language models through language-specific neuron subspace interpolation. Accepted to Findings of AACL-IJCNLP 2026; the paper will be linked when the proceedings are public."
+  summary: >-
+    STEERLSN is a training-free method that aligns non-English representations with English by linearly
+    interpolating language-specific neuron activations toward English prototypes; on Global MMLU with
+    Qwen3-4B-Instruct it raises accuracy by 8.25 points for Turkish and 7.38 points for Hindi.
+  thumbnail: /assets/img/projects/steerlsn.png
+  thumbnail_alt: >-
+    t-SNE of Qwen3-4B-Instruct representations for 13 languages at layers 1, 12, 24, and 36: separate
+    clusters in the bottom and top layers, intermixed in the middle layers.
+  paper: https://aclanthology.org/2026.findings-aacl.51/
+  pdf: https://aclanthology.org/2026.findings-aacl.51.pdf
 
 - slug: atomicgpt
   title: "AtomicGPT: A domain-adapted large language model for secure on-premises applications in nuclear engineering"

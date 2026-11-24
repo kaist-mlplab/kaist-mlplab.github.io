@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PseuDRAGON: Knowledge-Guided Local LLMs for Financial-Data Pseudonymization in Closed Networks</title>
+  <meta name="description" content="PseuDRAGON reuses confirmed expert judgments and learned rules outside a fixed local LLM to pseudonymize financial data in closed networks. SAC 2027.">
+  <meta name="keywords" content="financial-data pseudonymization, RegTech, expert knowledge reuse, auditability, closed networks, local LLM, PII identification, retrieval-augmented generation, SAC 2027, KAIST">
+  <link rel="canonical" href="https://kaist-mlplab.github.io/pseudragon/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="KAIST MLP Lab">
+  <meta property="og:title" content="PseuDRAGON: Knowledge-Guided Local LLMs for Financial-Data Pseudonymization in Closed Networks">
+  <meta property="og:description" content="PseuDRAGON reuses confirmed expert judgments and learned rules outside a fixed local LLM to pseudonymize financial data in closed networks. SAC 2027.">
+  <meta property="og:url" content="https://kaist-mlplab.github.io/pseudragon/">
+  <meta property="og:image" content="https://kaist-mlplab.github.io/pseudragon/static/images/teaser.png">
+  <meta property="og:image:width" content="2600">
+  <meta property="og:image:height" content="1264">
+  <meta property="og:image:alt" content="PseuDRAGON workflow: PII identification with label reuse, policy guidance, expert review, and program generation inside a closed institutional network.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PseuDRAGON (SAC 2027)">
+  <meta name="twitter:description" content="PseuDRAGON reuses confirmed expert judgments and learned rules outside a fixed local LLM to pseudonymize financial data in closed networks. SAC 2027.">
+  <meta name="twitter:image" content="https://kaist-mlplab.github.io/pseudragon/static/images/teaser.png">
+  <meta name="citation_title" content="PseuDRAGON: Knowledge-Guided Local LLMs for Financial-Data Pseudonymization in Closed Networks">
+  <meta name="citation_author" content="Hong, Gwangui">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author_institution" content="KFTC">
+  <meta name="citation_author" content="An, Seonho">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Lim, Seonkyu">
+  <meta name="citation_author_institution" content="KFTC">
+  <meta name="citation_author" content="Lim, KyungTae">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_author" content="Kim, Min-Soo">
+  <meta name="citation_author_institution" content="KAIST">
+  <meta name="citation_publication_date" content="2026/11/23">
+  <meta name="citation_technical_report_institution" content="arXiv">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2611.30353">
+  <meta name="citation_arxiv_id" content="2611.30353">
+  <meta name="citation_doi" content="10.48550/arXiv.2611.30353">
+  <meta name="citation_abstract_html_url" content="https://kaist-mlplab.github.io/pseudragon/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://kaist-mlplab.github.io/pseudragon/#article",
+  "headline": "PseuDRAGON: Knowledge-Guided Local LLMs for Financial-Data Pseudonymization in Closed Networks",
+  "name": "PseuDRAGON: Knowledge-Guided Local LLMs for Financial-Data Pseudonymization in Closed Networks",
+  "url": "https://kaist-mlplab.github.io/pseudragon/",
+  "datePublished": "2026-11-23",
+  "inLanguage": "en",
+  "image": "https://kaist-mlplab.github.io/pseudragon/static/images/teaser.png",
+  "abstract": "Staff pseudonymizing financial data in closed networks must interpret abbreviated column names, identify personal information, and choose processing methods. Local language models can assist, but may give different labels for the same input. PseuDRAGON keeps confirmed judgments and corrections outside a fixed model and reuses them through exact-name lookup and learned rules. For expert review, the workflow searches institutional policy, national privacy law, then international sources. Across 92 columns from one institution, rules increase reuse under the same approval checks from 75 to 83 labels without reuse errors when all training judgments are available. With 25% of the training judgments, withholding non-PII rules for unseen names eliminated the extra PII misses in replay at the cost of lower reuse. Revising or withdrawing approvals rebuilds derived rules, and tests on synthetic records verify that selected methods produce the specified outputs. In three paired runs, the history-first baseline cut automated identification time by 83.0% on average versus no reuse.",
+  "keywords": [
+    "financial-data pseudonymization",
+    "RegTech",
+    "expert knowledge reuse",
+    "auditability",
+    "closed networks",
+    "local LLM",
+    "PII identification",
+    "retrieval-augmented generation"
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Gwangui Hong",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "name": "KAIST"
+        },
+        {
+          "@type": "Organization",
+          "name": "KFTC"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "Seonho An",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "Seonkyu Lim",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "name": "KFTC"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "KyungTae Lim",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "Min-Soo Kim",
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "name": "KAIST"
+        }
+      ]
+    }
+  ],
+  "publisher": {
+    "@type": "ResearchOrganization",
+    "name": "KAIST Multimodal Language Processing Lab",
+    "url": "https://kaist-mlplab.github.io/"
+  },
+  "isPartOf": {
+    "@type": "PublicationEvent",
+    "name": "The 42nd ACM/SIGAPP Symposium on Applied Computing (SAC 2027), AI for Intelligent Financial Technologies (AIFT) track"
+  },
+  "sameAs": [
+    "https://arxiv.org/abs/2611.30353",
+    "https://doi.org/10.48550/arXiv.2611.30353",
+    "https://github.com/recordame/PseuDRAGON"
+  ],
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "arXiv",
+      "value": "2611.30353"
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "DOI",
+      "value": "10.48550/arXiv.2611.30353"
+    }
+  ],
+  "encoding": {
+    "@type": "MediaObject",
+    "encodingFormat": "application/pdf",
+    "contentUrl": "https://arxiv.org/pdf/2611.30353"
+  },
+  "workExample": {
+    "@type": "SoftwareSourceCode",
+    "name": "PseuDRAGON (code)",
+    "codeRepository": "https://github.com/recordame/PseuDRAGON"
+  }
+}
+  </script>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://kaist-mlplab.github.io/assets/img/brand/icon-32.png">
+  <link rel="apple-touch-icon" href="https://kaist-mlplab.github.io/assets/img/brand/icon-180.png">
+  <meta name="theme-color" content="#0068FF">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- 상단 바: KAIST 로고 + MLP Lab → 허브 홈 (도메인이 바뀌면 함께 수정) -->
+<nav class="lab-nav" aria-label="Lab">
+  <div class="lab-nav-inner">
+    <a class="lab-nav-brand" href="https://kaist-mlplab.github.io/">
+      <img class="lab-nav-mlp" src="static/images/mlp-logo.png" alt="MLP Lab — Multimodal Language Processing Lab" width="179" height="36">
+      <span class="lab-nav-divider" aria-hidden="true"></span>
+      <img class="lab-nav-kaist" src="static/images/kaist-logo.png" alt="KAIST" width="91" height="26">
+    </a>
+    <a class="lab-nav-link" href="https://kaist-mlplab.github.io/projects/">All projects</a>
+  </div>
+</nav>
+
+<!-- 1~4. 제목, 배지, 저자, 버튼 -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">PseuDRAGON: Knowledge-Guided Local LLMs for Financial-Data Pseudonymization in Closed Networks</h1>
+      <p class="subtitle is-5 publication-subtitle">Reusing reviewed expert judgments outside a fixed local model</p>
+      <p><span class="tag is-link is-medium venue-badge">SAC 2027</span></p>
+
+      <p class="publication-authors">
+        <span class="author-block">Gwangui Hong<sup>1,2,*</sup>,</span>
+        <span class="author-block">Seonho An<sup>1,*</sup>,</span>
+        <span class="author-block">Seonkyu Lim<sup>2,†</sup>,</span>
+        <span class="author-block">KyungTae Lim<sup>1,†</sup>,</span>
+        <span class="author-block">Min-Soo Kim<sup>1,†</sup></span>
+      </p>
+      <p class="publication-affiliations">
+        <span class="author-block"><sup>1</sup>KAIST</span>
+        <span class="author-block"><sup>2</sup>KFTC</span>
+      </p>
+      <p class="publication-notes"><sup>*</sup>Equal contribution &nbsp; <sup>†</sup>Corresponding authors &nbsp;&middot;&nbsp; To appear at SAC 2027 (AIFT track), April 5&ndash;9, 2027, Gwangju, South Korea</p>
+
+      <div class="publication-links">
+        <a class="button is-dark is-rounded" href="https://arxiv.org/abs/2611.30353">Paper (arXiv)</a>
+        <a class="button is-dark is-rounded" href="https://arxiv.org/pdf/2611.30353">PDF</a>
+        <a class="button is-dark is-rounded" href="https://github.com/recordame/PseuDRAGON">Code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Teaser -->
+<section class="section pt-0">
+  <div class="container is-max-desktop">
+    <figure class="teaser">
+      <picture>
+        <source srcset="static/images/teaser.webp" type="image/webp">
+        <img src="static/images/teaser.png" width="2600" height="1264"
+           alt="Workflow diagram inside a closed institutional network. A financial schema column such as CMS_NO first goes to a check for a reusable label; if found the stored label is reused, otherwise a local gpt-oss:120b model labels it as PII or non-PII. Then come policy guidance (hash or mask, with evidence), expert review, and program generation with output checks. Reviewed judgments return to an institutional knowledge store of labels, learned rules, and optional feedback embeddings. A policy RAG box searches institutional policy, then national privacy law, then international sources, and an audit trail links decision, evidence, review, code, and output.">
+      </picture>
+      <figcaption>
+        <strong>Figure 1.</strong> Closed-network RegTech workflow: source-ordered policy RAG and knowledge reuse with a fixed model. The four stages are (1) PII identification, (2) policy guidance, (3) expert review, and (4) program generation and execution. Audit records link column decisions, policy evidence, expert review, selected code, and checked outputs.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6. Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Staff pseudonymizing financial data in closed networks must interpret abbreviated column names, identify personal information, and choose processing methods. Local language models can assist, but may give different labels for the same input. PseuDRAGON keeps confirmed judgments and corrections outside a fixed model and reuses them through exact-name lookup and learned rules. For expert review, the workflow searches institutional policy, national privacy law, then international sources. Across 92 columns from one institution, rules increase reuse under the same approval checks from 75 to 83 labels without reuse errors when all training judgments are available. With 25% of the training judgments, withholding non-PII rules for unseen names eliminated the extra PII misses in replay at the cost of lower reuse. Revising or withdrawing approvals rebuilds derived rules, and tests on synthetic records verify that selected methods produce the specified outputs. In three paired runs, the history-first baseline cut automated identification time by 83.0% on average versus no reuse.
+      </p>
+    </div>
+    <div class="keywords">
+      <span class="keywords-label">Keywords</span>
+      <span class="tag">Financial-data pseudonymization</span>
+      <span class="tag">RegTech</span>
+      <span class="tag">Expert knowledge reuse</span>
+      <span class="tag">Auditability</span>
+      <span class="tag">Closed networks</span>
+      <span class="tag">Local LLMs</span>
+      <span class="tag">PII identification</span>
+      <span class="tag">Policy RAG</span>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        Staff who pseudonymize financial data inside a network isolated from the Internet must interpret abbreviated column names,
+        decide whether each column holds personal information (PII), and choose a processing method such as hashing, encryption, or
+        masking. A local LLM can help, but repeated calls may return different labels for the same input. PseuDRAGON keeps the
+        reviewed decisions outside the fixed model and reuses them.
+      </p>
+      <ol>
+        <li><strong>Label with reuse first.</strong> For a column <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">c</span></span></span></span> with name <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ν</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\nu(c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.06366em;">ν</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mclose">)</span></span></span></span>, active approvals <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">A</mi></mrow><annotation encoding="application/x-tex">\mathcal{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal">A</span></span></span></span>,
+          rules <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">R</mi></mrow><annotation encoding="application/x-tex">\mathcal{R}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathcal">R</span></span></span></span> learned from them, the fixed local model <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span>, and retrieved evidence <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E(c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mclose">)</span></span></span></span>, the label is
+          <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.36em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>M</mi><mo stretchy="false">(</mo><mi>c</mi><mo separator="true">,</mo><mi>E</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>if same-name approvals in </mtext><mi mathvariant="script">A</mi><mtext> disagree,</mtext></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>y</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>else if some </mtext><mi>a</mi><mo>∈</mo><mi mathvariant="script">A</mi><mtext> has </mtext><mi>ν</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><mo>=</mo><mi>ν</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>y</mi><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>else if </mtext><mi>r</mi><mtext> is the first rule in </mtext><mi mathvariant="script">R</mi><mtext> matching </mtext><mi>ν</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo><mo separator="true">,</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>M</mi><mo stretchy="false">(</mo><mi>c</mi><mo separator="true">,</mo><mi>E</mi><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>otherwise.</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\hat{y}(c) = \begin{cases} M(c, E(c)) &amp; \text{if same-name approvals in } \mathcal{A} \text{ disagree,} \\ y(a) &amp; \text{else if some } a \in \mathcal{A} \text{ has } \nu(a) = \nu(c), \\ y(r) &amp; \text{else if } r \text{ is the first rule in } \mathcal{R} \text{ matching } \nu(c), \\ M(c, E(c)) &amp; \text{otherwise.} \end{cases}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:5.76em;vertical-align:-2.63em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.95em;"><span style="top:-1.6em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-1.592em;"><span class="pstrut" style="height:3.15em;"></span><span style="height:0.916em;width:0.8889em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.8889em" height="0.916em" style="width:0.8889em" viewBox="0 0 888.89 916" preserveAspectRatio="xMinYMin"><path d="M384 0 H504 V916 H384z M384 0 H504 V916 H384z"/></svg></span></span><span style="top:-3.15em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.292em;"><span class="pstrut" style="height:3.15em;"></span><span style="height:0.916em;width:0.8889em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.8889em" height="0.916em" style="width:0.8889em" viewBox="0 0 888.89 916" preserveAspectRatio="xMinYMin"><path d="M384 0 H504 V916 H384z M384 0 H504 V916 H384z"/></svg></span></span><span style="top:-5.2em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.45em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.13em;"><span style="top:-5.13em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mclose">))</span></span></span><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">)</span></span></span><span style="top:-0.81em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mclose">))</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.63em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.13em;"><span style="top:-5.13em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">if same-name approvals in </span></span><span class="mord mathcal">A</span><span class="mord text"><span class="mord"> disagree,</span></span></span></span><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">else if some </span></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathcal">A</span><span class="mord text"><span class="mord"> has </span></span><span class="mord mathnormal" style="margin-right:0.06366em;">ν</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal" style="margin-right:0.06366em;">ν</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mclose">)</span><span class="mpunct">,</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">else if </span></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord text"><span class="mord"> is the first rule in </span></span><span class="mord mathcal">R</span><span class="mord text"><span class="mord"> matching </span></span><span class="mord mathnormal" style="margin-right:0.06366em;">ν</span><span class="mopen">(</span><span class="mord mathnormal">c</span><span class="mclose">)</span><span class="mpunct">,</span></span></span><span style="top:-0.81em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">otherwise.</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.63em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
+          Columns covered by an approval or a rule therefore get the same label every time.</li>
+        <li><strong>Source-ordered policy RAG.</strong> Evidence is searched in a fixed order: institutional policy, then national
+          privacy law, then international sources (BM25 with a relevance check). The first tier with relevant passages is used.</li>
+        <li><strong>Expert review.</strong> A reviewer confirms or corrects each proposed label and method. Both confirmed answers and
+          corrections are stored as approvals; revising or withdrawing an approval rebuilds the automatic rules.</li>
+        <li><strong>Checked programs.</strong> The selected methods are turned into code, and tests on synthetic records verify that
+          the outputs match the specified operations.</li>
+      </ol>
+      <p>
+        The evaluation uses 92 columns (32 PII, 60 non-PII) from nine reconstructed financial tables of one institution with
+        synthetic records, and gpt-oss:120b at temperature 0 as the local model.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Main Results</h2>
+    <div class="content">
+      <ul>
+        <li><strong>Rules extend reuse without reuse errors.</strong> With each schema family withheld and all training judgments
+          available, the exact-name cache reuses 75 of 92 labels and adding learned rules raises this to 83, with 0 reuse errors.
+          Fresh model labels fall from 92 to 17 to 9.</li>
+        <li><strong>Rules still help when no name matches.</strong> When same-name records are also removed, the name cache reuses
+          nothing, while rules correctly label 39 of 92 columns (8 PII, 31 non-PII).</li>
+        <li><strong>Confirmed answers matter, not only corrections.</strong> Keeping corrections alone reuses 4 labels; keeping all
+          reviewed decisions reuses 75.</li>
+        <li><strong>83.0% less identification time.</strong> In three paired runs, label calls fall from 92 to 17 and mean automated
+          identification time from 361.7 &plusmn; 57.2 s to 61.7 &plusmn; 11.2 s.</li>
+        <li><strong>Incomplete knowledge needs care.</strong> With 25% of the training judgments, withholding non-PII rules for unseen
+          names lowers mean additional PII misses from 0.20 to 0, while mean reuse falls from 62.20 to 51.35 columns.</li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth results-table">
+        <caption>
+          <strong>Table 1.</strong> Reuse over 92 columns with all training judgments and identical approval checks, across three
+          fixed prediction sets. "Exact" and "Rules" count labels reused through exact-name lookup and learned rules; "Fresh labels"
+          come from the model. (Table 5 in the paper.)
+        </caption>
+        <thead>
+          <tr><th>Setting</th><th>Method</th><th>Exact</th><th>Rules</th><th>Fresh labels</th><th>Reuse errors</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="3">Schema family withheld</td><td>No reuse</td><td>0</td><td>0</td><td>92</td><td>0</td></tr>
+          <tr><td>Name cache</td><td>75</td><td>0</td><td>17</td><td>0</td></tr>
+          <tr class="ours"><td>Cache + rules</td><td>75</td><td>8</td><td><strong>9</strong></td><td>0</td></tr>
+          <tr><td rowspan="2">Family withheld; same-name records also removed</td><td>Name cache</td><td>0</td><td>0</td><td>92</td><td>0</td></tr>
+          <tr class="ours"><td>Cache + rules</td><td>0</td><td>39</td><td><strong>53</strong></td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 9. BibTeX -->
+<section class="section" id="bibtex">
+  <div class="container is-max-desktop">
+    <div class="bibtex-header">
+      <h2 class="title is-3 mb-0">BibTeX</h2>
+      <button class="button is-small copy-btn" type="button" data-target="bibtex-code">Copy</button>
+    </div>
+    <pre id="bibtex-code"><code>@misc{hong2026pseudragonknowledgeguidedlocalllms,
+      title={PseuDRAGON: Knowledge-Guided Local LLMs for Financial-Data Pseudonymization in Closed Networks}, 
+      author={Gwangui Hong and Seonho An and Seonkyu Lim and KyungTae Lim and Min-Soo Kim},
+      year={2026},
+      eprint={2611.30353},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2611.30353}, 
+}</code></pre>
+  </div>
+</section>
+
+<!-- 10. 허브 링크 -->
+<section class="section pt-0">
+  <div class="container is-max-desktop has-text-centered">
+    <a class="button is-link is-light" href="https://kaist-mlplab.github.io/projects/">More projects from KAIST MLP Lab &rarr;</a>
+  </div>
+</section>
+
+<!-- 11. Footer -->
+<footer class="footer">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered is-size-7">
+      <p>
+        <a href="https://kaist-mlplab.github.io/" class="lab-link">
+          <img src="static/images/mlp-logo.png" alt="MLP Lab — Multimodal Language Processing Lab" width="139" height="28">
+          <img src="static/images/kaist-logo.png" alt="KAIST" width="56" height="16">
+        </a>
+      </p>
+      <p>
+        This page is adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page template,
+        licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // BibTeX 복사 버튼 (본문은 정적 HTML이며, 이 스크립트는 복사 기능에만 쓰인다)
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.dataset.target).innerText;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+  });
+</script>
+</body>
+</html>
